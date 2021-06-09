@@ -3,15 +3,22 @@ import {
   Modal,
   ModalOverlay,
   ModalContent,
-  ModalHeader,
-  ModalFooter,
   ModalBody,
   ModalCloseButton,
   useDisclosure,
   Button,
   Flex,
   Box,
+  Heading,
+  FormControl,
+  FormLabel,
+  FormErrorMessage,
+  FormHelperText,
+  Input,
+  InputGroup,
+  InputRightElement,
 } from "@chakra-ui/react";
+import { AiOutlineUser } from "react-icons/ai";
 import Image from "next/image";
 
 const SignUp = () => {
@@ -32,14 +39,75 @@ const SignUp = () => {
             bgGradient="linear(to-r, rgb(40, 92, 163), rgb(229, 1, 105))"
             h="400px"
           >
-            <Flex alignItems="center" pt="15%" justifyContent="space-between">
+            <Flex alignItems="center" pt="10%" justifyContent="space-between">
               <Image
                 src="https://www.creativeplatform.io/img/Creative_logo.png"
                 alt="Creative Logo"
                 width={200}
                 height={200}
               />
-              <Box >Register / Sign Up</Box>
+              <Box w="50%">
+                <Heading fontSize="1.3rem">Register / Sign Up</Heading>
+                <Box />
+                {/* name */}
+                <FormControl id="first-name" isRequired>
+                  <InputGroup>
+                    <InputRightElement
+                      pointerEvents="none"
+                      pt="2rem"
+                      children={<AiOutlineUser color="#000" opacity="0.7" />}
+                    />
+                    <Input
+                      mt="1rem"
+                      placeholder="Enter Your Name"
+                      _placeholder={{ color: "#ccc" }}
+                      bgColor="#fff"
+                    />
+                  </InputGroup>
+                  <InputGroup>
+                    <InputRightElement
+                      pointerEvents="none"
+                      pt="2rem"
+                      children={<AiOutlineUser color="#000" opacity="0.7" />}
+                    />
+                    <Input
+                      mt="1rem"
+                      placeholder="Enter Your Name"
+                      _placeholder={{ color: "#ccc" }}
+                      bgColor="#fff"
+                    />
+                  </InputGroup>
+                  <InputGroup>
+                    <InputRightElement
+                      pointerEvents="none"
+                      pt="2rem"
+                      children={<AiOutlineUser color="#000" opacity="0.7" />}
+                    />
+                    <Input
+                      mt="1rem"
+                      placeholder="Enter Your Name"
+                      _placeholder={{ color: "#ccc" }}
+                      bgColor="#fff"
+                    />
+                  </InputGroup>
+                  <InputGroup>
+                    <InputRightElement
+                      pointerEvents="none"
+                      pt="2rem"
+                      children={<AiOutlineUser color="#000" opacity="0.7" />}
+                    />
+                    <Input
+                      mt="1rem"
+                      placeholder="Enter Your Name"
+                      _placeholder={{ color: "#ccc" }}
+                      bgColor="#fff"
+                    />
+                  </InputGroup>
+                </FormControl>
+
+                <Box as="button">Register Now</Box>
+                <Box>Already Have An Account? Login Here</Box>
+              </Box>
             </Flex>
           </ModalBody>
         </ModalContent>
