@@ -47,12 +47,15 @@ const SignUp = () => {
             h="800px"
           >
             <Flex alignItems="center" pt="2%" justifyContent="space-between">
+              <Stack spacing={1}>
               <Image
-                src="https://www.creativeplatform.io/img/CRTV-og.png"
+                src="https://www.creativeplatform.io/img/Creative_logo.png"
                 alt="Creative Logo"
-                width={230}
-                height={200}
+                width={100}
+                height={100}
               />
+              <Heading fontSize="2rem">CREATIVE</Heading>
+              </Stack>
               <Container>
                 <Heading as="h6" size="md">Register / Sign Up</Heading>
                 {/* name */}
