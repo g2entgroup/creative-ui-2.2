@@ -8,33 +8,42 @@
   getDefaultProvider function is used to create a provider pointing to the same network using an Infura node.
 */
 import { ethers } from 'ethers'
+import { NETWORK, NETWORKS } from "../constants";
 
-const providerCache = {}
+const providerCache = {NETWORK}
 
-export const readProvider = async function (networkName) {
+export const readProvider = async function (NETWORK) {
   let provider
 
   try {
-    if (networkName) {
+    if (NETWORK) {
       // TODO: Update this to use the rpc values in networks.js
-      if (/local/.test(networkName)) {
+      if (/local/.test(NETWORK)) {
         provider = new ethers.providers.JsonRpcProvider()
-      } else if (/sokol/.test(networkName)) {
-        provider = new ethers.providers.JsonRpcProvider('https://sokol.poa.network')
-      } else if (/poa/.test(networkName)) {
-        provider = new ethers.providers.JsonRpcProvider('https://core.poanetwork.dev')
-      } else if (/xdai/.test(networkName)) {
-        provider = new ethers.providers.JsonRpcProvider('https://rpc.xdaichain.com')
-      } else if (/matic/.test(networkName)) {
-        provider = new ethers.providers.JsonRpcProvider('https://rpc-mainnet.maticvigil.com')
-      } else if (/bsc/.test(networkName)) {
-        provider = new ethers.providers.JsonRpcProvider('https://bsc-dataseed1.binance.org')
-      } else if (/Binance Smart Chain Testnet/.test(networkName)) {
-        provider = new ethers.providers.JsonRpcProvider(
-          'https://data-seed-prebsc-1-s1.binance.org:8545'
-        )
-      } else if (/mumbai/.test(networkName)) {
-        provider = new ethers.providers.JsonRpcProvider('https://rpc-mumbai.maticvigil.com')
+      } else if (/kovan/.test(NETWORK)) {
+        provider = new ethers.providers.JsonRpcProvider(NETWORKS.kovan.rpcUrl)
+      } else if (/goerli/.test(NETWORK)) {
+        provider = new ethers.providers.JsonRpcProvider(NETWORKS.goerli.rpcUrl)
+      } else if (/rinkeby/.test(NETWORK)) {
+        provider = new ethers.providers.JsonRpcProvider(NETWORKS.rinkeby.rpcUrl)
+      } else if (/optimism/.test(NETWORK)) {
+        provider = new ethers.providers.JsonRpcProvider(NETWORKS.optimism.rpcUrl)
+      } else if (/kovanOptimism/.test(NETWORK)) {
+        provider = new ethers.providers.JsonRpcProvider(NETWORKS.kovanOptimism.rpcUrl)
+      } else if (/localOptimism/.test(NETWORK)) {
+        provider = new ethers.providers.JsonRpcProvider(NETWORKS.localOptimism.rpcUrl)
+      } else if (/localOptimismL1/.test(NETWORK)) {
+        provider = new ethers.providers.JsonRpcProvider(NETWORKS.localOptimismL1.rpcUrl) 
+      } else if (/xdai/.test(NETWORK)) {
+        provider = new ethers.providers.JsonRpcProvider(NETWORKS.xdai.rpcUrl)
+      } else if (/matic/.test(NETWORK)) {
+        provider = new ethers.providers.JsonRpcProvider(NETWORKS.matic.rpcUrl)
+      } else if (/mumbai/.test(NETWORK)) {
+        provider = new ethers.providers.JsonRpcProvider(NETWORKS.mumbai.rpcUrl)
+      } else if (/bsc/.test(NETWORK)) {
+        provider = new ethers.providers.JsonRpcProvider(NETWORKS.bsc.rpcUrl)
+      } else if (/bsc_Testnet/.test(NETWORK)) {
+        provider = new ethers.providers.JsonRpcProvider(NETWORKS.bsc_Testnet.rpcUrl)
       } else {
         provider = ethers.getDefaultProvider(networkName === 'mainnet' ? 'homestead' : networkName)
       }
