@@ -6,7 +6,7 @@ const heroLoader = ({ src, width, quality }) => {
   return `https://www.creativeplatform.io/${src}?w=${width}&q=${quality || 75}`
 }
 
-const BrandHero = () => {
+const BrandHero = (props) => {
   const bg = useColorModeValue("white", "gray.800");
   return (
     <Box pos="relative" overflow="hidden" bg={bg} mt={10}>

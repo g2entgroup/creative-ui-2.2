@@ -13,6 +13,7 @@ module.exports = {
       return config;
     },
     images: {
+      loader: 'cloudinary',
       domains: ['www.creativeplatform.io'],
     },
 };

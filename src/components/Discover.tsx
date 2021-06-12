@@ -10,7 +10,7 @@ const discoverLoader = ({ src, width, quality }) => {
 
 const StarIcon = ({ color }) => <Icon name="star" color={color} />
 
-export default function Discover() {
+export default function Discover(props) {
   const property = {
     imageUrl: "img/purple-emoji.gif",
     imageAlt: "Purple Emoji Campaign",

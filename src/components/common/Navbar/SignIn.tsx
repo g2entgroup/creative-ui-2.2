@@ -29,7 +29,9 @@ import {
 import Link from "next/link";
 import Image from "next/image";
 
-
+const myLoader = ({ src, width, quality }) => {
+  return `https://example.com/${src}?w=${width}&q=${quality || 75}`
+}
 
 type WindowInstanceWithEthereum = Window & typeof globalThis & { ethereum?: providers.ExternalProvider };
 class StrongType<Definition, Type> {
@@ -39,7 +41,7 @@ class StrongType<Definition, Type> {
 }
 export class EthereumAddress extends StrongType<'ethereum_address', string> {}
 
-const SignIn = () => {
+const SignIn = (props) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const [secret, setSecret] = useState({});
@@ -172,7 +174,8 @@ const SignIn = () => {
             <Flex alignItems="center" pt="2%" justifyContent="space-between">
               <Stack spacing={1}>
               <Image
-                src="https://www.creativeplatform.io/img/Creative_logo.png"
+                loader={myLoader}
+                src="/img/Creative_logo.png"
                 alt="Creative Logo"
                 width={100}
                 height={100}
