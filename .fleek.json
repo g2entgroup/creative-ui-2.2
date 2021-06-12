@@ -1,0 +1,15 @@
+{
+  "site": {
+    "id": "6a1fc633-3fc5-45d4-a6bf-42e674198628",
+    "team": "gawainb-team",
+    "platform": "ipfs",
+    "source": "github",
+    "name": "silent-resonance-9521"
+  },
+  "build": {
+    "baseDir": "",
+    "publicDir": "out",
+    "command": "yarn install && yarn run export",
+    "rootDir": ""
+  }
+}
