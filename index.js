@@ -1,0 +1,1 @@
+;global.WebSocket = require('isomorphic-ws')
