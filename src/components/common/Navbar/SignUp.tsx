@@ -49,7 +49,7 @@ const SignUp = () => {
             <Flex alignItems="center" pt="2%" justifyContent="space-between">
               <Stack spacing={1}>
               <Image
-                src="https://www.creativeplatform.io/img/Creative_logo.png"
+                src="https://res.cloudinary.com/dyangxc7h/image/upload/v1623552244/creative/Creative_logo.png"
                 alt="Creative Logo"
                 width={100}
                 height={100}

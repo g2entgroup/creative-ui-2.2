@@ -12,18 +12,13 @@ import { FiTwitter, FiInstagram } from "react-icons/fi";
 import { SiDiscord } from "react-icons/si";
 import Image from "next/image";
 
-const myLoader = ({ src, width, quality }) => {
-  return `https://www.creativeplatform.io/${src}?w=${width}&q=${quality || 75}`
-}
-
-const Footer = (props) => {
+const Footer = () => {
   return (
     <Box mx="4rem" bgColor="#161d2f">
       {/* logo  */}
       <Box textAlign="center" mb="3rem">
         <Image
-          loader={myLoader}
-          src="/img/Creative_logo.png"
+          src="https://res.cloudinary.com/dyangxc7h/image/upload/v1623552244/creative/Creative_logo.png"
           alt="Creative logo"
           width={90}
           height={80}

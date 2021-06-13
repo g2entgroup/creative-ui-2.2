@@ -129,7 +129,7 @@ const BrandHero = () => {
         w={{ lg: "50%" }}
       >
         <Image
-          src="https://www.creativeplatform.io/img/brands.jpg"
+          src="https://res.cloudinary.com/dyangxc7h/image/upload/v1623552689/creative/brands.jpg"
           alt="Time Square Brands"
           loading="eager"
           layout="responsive"
