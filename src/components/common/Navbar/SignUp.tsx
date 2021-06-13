@@ -108,7 +108,7 @@ const SignUp = () => {
                       <option value="fan">Fan</option>
                     </Select>
                   </FormControl>
-                  <Button>Register Now</Button>
+                  <Button type="submit">Register Now</Button>
                 </Stack>
                 <Box>Already Have An Account?
                   <Link href="#"> Login Here</Link>

@@ -4,13 +4,9 @@ import { Box, Badge, useToken } from "@chakra-ui/react";
 import Icon from "@chakra-ui/icon";
 import Image from 'next/image';
 
-const discoverLoader = ({ src, width, quality }) => {
-  return `https://www.creativeplatform.io/${src}?w=${width}&q=${quality || 75}`
-}
-
 const StarIcon = ({ color }) => <Icon name="star" color={color} />
 
-export default function Discover(props) {
+export default function Discover() {
   const property = {
     imageUrl: "img/purple-emoji.gif",
     imageAlt: "Purple Emoji Campaign",
