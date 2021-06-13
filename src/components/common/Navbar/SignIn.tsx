@@ -37,7 +37,7 @@ class StrongType<Definition, Type> {
 }
 export class EthereumAddress extends StrongType<'ethereum_address', string> {}
 
-const SignIn = (props) => {
+const SignIn = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const [secret, setSecret] = useState({});
@@ -131,7 +131,7 @@ const SignIn = (props) => {
       throw new Error('Hash of signature is not the correct size! Something went wrong!');
     }
     const identity = PrivateKey.fromRawEd25519Seed(Uint8Array.from(array))
-    console.log(identity.toString())
+    console.log(`Your VIP Key: ${identity.toString()}`)
 
     createNotification(identity)
 
@@ -143,7 +143,7 @@ const SignIn = (props) => {
     const dispatchCustomEvent = createStandaloneToast();
     dispatchCustomEvent({ title: "Secret Key",
       status: "success",
-      description: `PubKey: ${identity.public.toString()}. Your app can now generate and reuse this users PrivateKey for creating user Mailboxes, Threads, and Buckets.`,
+      description: `VIP Key: ${identity.public.toString()}. Your app can now generate and reuse this users PrivateKey for creating user Mailboxes, Threads, and Buckets.`,
       duration: 9000,
       isClosable: true,
     });
@@ -178,11 +178,12 @@ const SignIn = (props) => {
               <Heading fontSize="2rem">CREATIVE</Heading>
               </Stack>
               <Container>
+              <Stack spacing={6}>
                 <Heading as="h6" size="md">Sign In</Heading>
                 {/* name */}
-                <Stack spacing={6}>
+                <Button onClick={generatePrivateKey}>Login with Metamask</Button>
                   <FormControl id="login" isRequired>
-                  <FormLabel>Password</FormLabel>
+                  <FormLabel>VIP Key</FormLabel>
                     <InputGroup>
                       <Input
                         name="password"
@@ -196,10 +197,10 @@ const SignIn = (props) => {
                       </Button>
                     </InputRightElement>
                     </InputGroup>
-                    <FormHelperText>Enter a secret. View console.</FormHelperText>
+                    <FormHelperText>Enter a VIP key. View console.</FormHelperText>
+                    <Button type="submit">Login</Button>
                   </FormControl>
                 </Stack>
-                <Button onClick={generatePrivateKey}>Login with Metamask</Button>
                 <Box>Don't Have An Account?
                   <Link href="#"> Sign Up Here</Link>
                 </Box>
