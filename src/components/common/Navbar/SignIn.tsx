@@ -29,10 +29,6 @@ import {
 import Link from "next/link";
 import Image from "next/image";
 
-const myLoader = ({ src, width, quality }) => {
-  return `https://example.com/${src}?w=${width}&q=${quality || 75}`
-}
-
 type WindowInstanceWithEthereum = Window & typeof globalThis & { ethereum?: providers.ExternalProvider };
 class StrongType<Definition, Type> {
   // @ts-ignore
@@ -174,8 +170,7 @@ const SignIn = (props) => {
             <Flex alignItems="center" pt="2%" justifyContent="space-between">
               <Stack spacing={1}>
               <Image
-                loader={myLoader}
-                src="/img/Creative_logo.png"
+                src="https://www.creativeplatform.io/img/Creative_logo.png"
                 alt="Creative Logo"
                 width={100}
                 height={100}

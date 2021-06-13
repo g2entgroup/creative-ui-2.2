@@ -2,11 +2,7 @@ import React from "react";
 import { chakra, Box, useColorModeValue, Icon } from "@chakra-ui/react";
 import Image from "next/image";
 
-const heroLoader = ({ src, width, quality }) => {
-  return `https://www.creativeplatform.io/${src}?w=${width}&q=${quality || 75}`
-}
-
-const BrandHero = (props) => {
+const BrandHero = () => {
   const bg = useColorModeValue("white", "gray.800");
   return (
     <Box pos="relative" overflow="hidden" bg={bg} mt={10}>
@@ -133,8 +129,7 @@ const BrandHero = (props) => {
         w={{ lg: "50%" }}
       >
         <Image
-          loader={heroLoader}
-          src="img/brands.jpg"
+          src="https://www.creativeplatform.io/img/brands.jpg"
           alt="Time Square Brands"
           loading="eager"
           layout="responsive"
