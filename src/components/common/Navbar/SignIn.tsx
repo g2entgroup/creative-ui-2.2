@@ -143,7 +143,7 @@ const SignIn = () => {
     const dispatchCustomEvent = createStandaloneToast();
     dispatchCustomEvent({ title: "Secret Key",
       status: "success",
-      description: `VIP Key: ${identity.public.toString()}. Your app can now generate and reuse this users PrivateKey for creating user Mailboxes, Threads, and Buckets.`,
+      description: `VIP Key: ${identity.public.toString()} Your app can now generate and reuse this users PrivateKey for creating user Mailboxes, Threads, and Buckets.`,
       duration: 9000,
       isClosable: true,
     });
@@ -189,6 +189,7 @@ const SignIn = () => {
                         name="password"
                         placeholder="Password"
                         type={show ? "text" : "password"}
+                        
                         onChange={handleChange}
                       />
                       <InputRightElement width="4.5rem">
