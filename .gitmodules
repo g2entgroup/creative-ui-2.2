@@ -1,0 +1,6 @@
+[submodule "hardhat"]
+	path = hardhat
+	url = https://github.com/g2entgroup/creative-contracts.git
+[submodule "subgraph"]
+	path = subgraph
+	url = https://github.com/g2entgroup/creative-subgraph.git

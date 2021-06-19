@@ -12,6 +12,8 @@ logs
 node_modules
 bower_components
 
+.next
+
 *.sublime*
 
 psd

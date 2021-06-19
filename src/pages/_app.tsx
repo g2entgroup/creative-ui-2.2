@@ -9,6 +9,7 @@ import Header from "../components/common/Navbar/header";
 import Footer from "../components/common/Footer/footer";
 import { BannerLink } from '../components/common/BannerLink';
 import { BellIcon } from '@chakra-ui/icons';
+import { StoreContainer } from "../utils/store";
 
 // Extend the theme to include custom colors, fonts, etc
 const colors = {
@@ -28,6 +29,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
   return (
     <ChakraProvider resetCSS theme={theme}>
       <Web3ReactProvider getLibrary={getLibrary}>
+      <StoreContainer.Provider>
         <Container minH="100vh" minW="1080px">
         <Header />
           <Box as="section" pt="8" pb="12">
@@ -54,6 +56,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
           <Component {...pageProps} />
           <Footer />
         </Container>
+        </StoreContainer.Provider>
       </Web3ReactProvider>
     </ChakraProvider>
   );

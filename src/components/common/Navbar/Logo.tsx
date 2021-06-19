@@ -6,7 +6,7 @@ export default class Logo extends Component {
     render() {
         return (
             <Image 
-                src="https://www.creativeplatform.io/img/Creative_logo.png"
+                src="https://res.cloudinary.com/dyangxc7h/image/upload/v1623552244/creative/Creative_logo.png"
                 alt="Creative Logo"
                 width={50}
                 height={40} 
