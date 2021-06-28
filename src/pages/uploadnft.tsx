@@ -5,15 +5,15 @@ export default function UploadNFT () {
 
     return(
         <>
-        <Center py={6}>
+        <Center py={4}>
       <Box
-        maxW={'445px'}
+        maxW={'545px'}
         w={'full'}
-        bg={useColorModeValue('gray.800', 'gray.900')}
+        bg={useColorModeValue('white', 'gray.700')}
         boxShadow={'2xl'}
         rounded={'md'}
         alignContent={"center"}
-        p={6}
+        p={100}
         overflow={'hidden'}>
 
         <Stack spacing={1} textAlign="center">
@@ -40,6 +40,7 @@ export default function UploadNFT () {
                       >
                         <chakra.label
                           for="file-upload"
+                          textAlign="center"
                           cursor="pointer"
                           rounded="md"
                           fontSize="md"
@@ -69,7 +70,7 @@ export default function UploadNFT () {
                     </Stack>
         </Box>
        </Center>
-        <Uploadnftinfo/>
+       <Uploadnftinfo/>
     </>
     )
 }

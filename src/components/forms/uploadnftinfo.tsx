@@ -7,6 +7,7 @@ import {
     Checkbox,
     Stack,
     Link,
+    Center,
     Button,
     Heading,
     Text,
@@ -19,35 +20,36 @@ import {
   export default function SimpleCard() {
     return (
       <Flex
-        minH={'100vh'}
+        minH={'80vh'}
         align={'center'}
         justify={'center'}
-        bg={useColorModeValue('gray.900', 'gray.800')}>
-     
+        >
+        <Center>
         <Stack spacing={8} mx={'auto'} maxW={'lg'} py={12} px={6}>
           <Stack align={'center'}>
             <Heading fontSize={'4xl'} color={useColorModeValue('gray.50' , 'gray.100')}>Upload your NFT Info</Heading>
             
           </Stack>
           <Box
-            width="800px"
+          width={"800px"}
             rounded={'lg'}
+            alignSelf={"center"}
             bg={useColorModeValue('white', 'gray.700')}
             boxShadow={'lg'}
             textColor={useColorModeValue('black', 'white')}
             p={8}>
-            <Stack spacing={4}>
-                <HStack>
+            <Stack spacing={10} >
+                <HStack spacing={8}>
                 <FormControl id="nfttitle">
                 <FormLabel>NFT Title</FormLabel>
                 <Input type="test" />
               </FormControl>
-              <FormControl id="creatorname">
+              <FormControl id="creatorname" >
                 <FormLabel>Creator name</FormLabel>
                 <Input type="test" />
               </FormControl>
                 </HStack>
-                <HStack>
+                <HStack spacing={8}>
                 <FormControl id="album">
                 <FormLabel>Select Album</FormLabel>
                 <Select placeholder="Select Album">
@@ -64,20 +66,25 @@ import {
 
                 </Select>
                 </FormControl>
-                </HStack>
               
-              <HStack spacing={5} align="center">
+                </HStack>
+                <Center>
+
+              <HStack  spacing={10}>
                 
-                <Button colorScheme="pink" size="sm">
+              <Button colorScheme="pink" size="sm" width={125}>
                     Upload now
                 </Button>
-                <Button colorScheme="pink" size="sm">
+                <Button colorScheme="pink" size="sm" width={125} >
                     Cancel
                 </Button>
+              
               </HStack>
+              </Center>
             </Stack>
           </Box>
         </Stack>
+        </Center>
       </Flex>
     );
   }
