@@ -14,10 +14,18 @@ import {
     useColorModeValue,
     HStack,
     VStack,
-    Select
+    Select,
+    useToken
   } from '@chakra-ui/react';
   
   export default function SimpleCard() {
+    const [brand400, brand200] = useToken(
+      // the key within the theme, in this case `theme.colors`
+      "colors",
+      // the subkey(s), resolving to `theme.colors.red.100`
+      ["brand.400", "brand.200"],
+      // a single fallback or fallback array matching the length of the previous arg
+    )
     return (
       <Flex
         minH={'80vh'}
@@ -72,10 +80,10 @@ import {
 
               <HStack  spacing={10}>
                 
-              <Button colorScheme="pink" size="sm" width={125}>
+              <Button colorScheme='pink' variant="solid" size="sm" width={125}>
                     Upload now
                 </Button>
-                <Button colorScheme="pink" size="sm" width={125} >
+                <Button colorScheme='pink' variant="solid" size="sm" width={125} >
                     Cancel
                 </Button>
               
