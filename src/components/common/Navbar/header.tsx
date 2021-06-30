@@ -39,7 +39,7 @@ import SignUp from "./SignUp";
 const Header = () => {
   const { activate, chainId, active } = useWeb3React<Web3Provider>();
 
-  // click to conncet wallet
+  // click to connect wallet
   const onClick = () => {
     activate(injectedConnector);
     console.log(chainId);
