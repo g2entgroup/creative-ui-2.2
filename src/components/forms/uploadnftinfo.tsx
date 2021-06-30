@@ -32,14 +32,18 @@ import {
       ["brand.400", "brand.200"],
       // a single fallback or fallback array matching the length of the previous arg
     )
-    const { activate, chainId, account } = useWeb3React<Web3Provider>();
+    const { activate, chainId, account, library } = useWeb3React<Web3Provider>();
 
     //const useGenerateTokenId = generateTokenId();
 
-    const submitHandler = () => {
-      activate(injectedConnector);
+    const submitHandler = async () => {
+      const contract = "0xB0EA149212Eb707a1E5FC1D2d3fD318a8d94cf05"
+      const minter = account;
+      await activate(injectedConnector);
+      const tokenId = await generateTokenId(contract, minter)
       console.log("Chain ID", chainId);
-      const useCreateLazyMint = createLazyMint(new Web3Provider(currentProvider), "0xB0EA149212Eb707a1E5FC1D2d3fD318a8d94cf05", account, "QmW5kGG6JPDv7oSVEfP8KTY9rsfQXCHpYJxvdRJrkkzbge");
+      const useCreateLazyMint = createLazyMint(tokenId, library.provider, contract, account, "QmW5kGG6JPDv7oSVEfP8KTY9rsfQXCHpYJxvdRJrkkzbge");
+      console.log(await useCreateLazyMint);
     }
     return (
       <Flex
@@ -110,7 +114,3 @@ import {
       </Flex>
     );
   }
-
-function currentProvider(currentProvider: any): any {
-  throw new Error("Function not implemented.");
-}
