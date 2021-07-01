@@ -25,8 +25,9 @@ export default function UploadNFT() {
 
     const textileInstance = await TextileInstance.getInstance();
     const nftMetadata = await textileInstance.uploadNFT(this.selectedFile);
+    await textileInstance.uploadTokenMetadata(nftMetadata);
     // TODO: add the above nft metadata to a database to manage the NFTs uploaded for this user in case we need to delete this later.
-    // TODO: pass the cid in the nftMetadata to the minting function in uploadnftinfo.
+    // TODO: pass the tokenMetadataURL in the nftMetadata to the minting function in uploadnftinfo.
   }
 
   return (

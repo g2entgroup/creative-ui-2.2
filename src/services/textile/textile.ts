@@ -64,7 +64,7 @@ export class TextileInstance {
 
     return {
       cid: raw.path.cid.toString(),
-      name: name,
+      name: name != "" ? name : uploadName,
       description: description,
       path: location,
       date: now.toString()
@@ -84,7 +84,7 @@ export class TextileInstance {
   }
 
   public async uploadTokenMetadata(nft: NFTMetadata) {
-    if (!this.bucketInfo.bucket || !this.bucketInfo.bucketKey || !nft.tokenID || !nft.cid) {
+    if (!this.bucketInfo.bucket || !this.bucketInfo.bucketKey || !nft.cid) {
       throw new Error('No bucket client or root key or tokenID');
     }
 
@@ -94,13 +94,13 @@ export class TextileInstance {
       image: `${this.ipfsGateway}/ipfs/${nft.cid}`
     };
 
-    const uploadName = `${nft.tokenID}.json`;
+    const uploadName = `${nft.name}.json`;
     const location = `tokenmetadata/${uploadName}`;
 
     const buf = Buffer.from(JSON.stringify(tokenMeta, null, 2))
     const raw = await this.bucketInfo.bucket.pushPath(this.bucketInfo.bucketKey, location, buf);
 
     nft.tokenMetadataPath = location;
-    nft.tokenMetadataURL = `${this.ipfsGateway}/ipfs/${raw.path.cid.toString()}`;
+    nft.tokenMetadataURL = `/ipfs/${raw.path.cid.toString()}`;
   }
 }
