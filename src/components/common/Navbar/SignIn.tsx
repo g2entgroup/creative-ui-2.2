@@ -135,11 +135,11 @@ const SignIn = () => {
     const identity = PrivateKey.fromRawEd25519Seed(Uint8Array.from(array))
     console.log(`Your VIP Key: ${identity.toString()}`)
 
-    createNotification(identity)
+    createNotification(identity);
 
     // Create a textile instance which will create or get the bucket assoicated with this user.
     // TODO: Store this instance in the global app state which will be used while minting NFTs.
-    const textileInstance = TextileInstance.getInstance(identity);
+    TextileInstance.setPrivateKey(identity);
 
     // Your app can now use this identity for generating a user Mailbox, Threads, Buckets, etc
     return identity

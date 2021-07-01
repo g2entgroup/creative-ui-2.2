@@ -2,7 +2,6 @@ import { Buckets, PrivateKey, KeyInfo } from '@textile/hub'
 import { NFTMetadata, TokenMetadata } from './types'
 
 export class TextileInstance {
-  private identity: PrivateKey;
   private keyInfo: KeyInfo;
   private bucketInfo: {
     bucket?: Buckets,
@@ -12,25 +11,31 @@ export class TextileInstance {
   private ipfsGateway = 'https://hub.textile.io';
 
   private static singletonInstace: TextileInstance;
+  private static identity: PrivateKey;
 
-  public static async getInstance(key: PrivateKey): Promise<TextileInstance> {
+  public static async getInstance(): Promise<TextileInstance> {
     if (!TextileInstance.singletonInstace) {
       TextileInstance.singletonInstace = new TextileInstance();
-      await TextileInstance.singletonInstace.init(key);
+      await TextileInstance.singletonInstace.init();
     }
 
     return TextileInstance.singletonInstace;
   }
 
-  private async init(key: PrivateKey) {
+  public static setPrivateKey(key: PrivateKey) {
+    TextileInstance.identity = key;
+  }
+
+  private async init() {
+    console.log(process.env.TEXTILE_API_KEY);
+
     this.keyInfo = {
-      key: process.env.REACT_APP_TEXTILE_HUB_KEY as string
+      key: process.env.TEXTILE_API_KEY as string
     };
 
-    this.identity = key;
     let buckets = await Buckets.withKeyInfo(this.keyInfo);
 
-    await buckets.getToken(this.identity);
+    await buckets.getToken(TextileInstance.identity);
     const buck = await buckets.getOrCreate('creativebucket');
 
     if (!buck.root) {
