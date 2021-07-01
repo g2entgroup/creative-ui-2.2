@@ -1,4 +1,4 @@
-export interface MemeMetadata {
+export interface NFTMetadata {
   _id?: string;
   _mod?: number;
   tokenID?: string; // NFT tokenID

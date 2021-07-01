@@ -1,5 +1,5 @@
 import { Buckets, PrivateKey, KeyInfo } from '@textile/hub'
-import { MemeMetadata, TokenMetadata } from './types'
+import { NFTMetadata, TokenMetadata } from './types'
 
 export class TextileInstance {
   private identity: PrivateKey;
@@ -44,7 +44,7 @@ export class TextileInstance {
 
   }
 
-  public async uploadMeme(file: File, memeName: string = "", description: string = ""): Promise<MemeMetadata> {
+  public async uploadNFT(file: File, name: string = "", description: string = ""): Promise<NFTMetadata> {
     if (!this.bucketInfo.bucket || !this.bucketInfo.bucketKey) {
       throw new Error('No bucket client or root key');
     }
@@ -59,43 +59,43 @@ export class TextileInstance {
 
     return {
       cid: raw.path.cid.toString(),
-      name: memeName,
+      name: name,
       description: description,
       path: location,
       date: now.toString()
     };
   }
 
-  public async deleteMemeFromBucket(meme: MemeMetadata) {
+  public async deleteNFTFromBucket(nft: NFTMetadata) {
     if (!this.bucketInfo.bucket || !this.bucketInfo.bucketKey) {
       throw new Error('No bucket client or root key');
     }
 
-    await this.bucketInfo.bucket.removePath(this.bucketInfo.bucketKey, meme.path);
+    await this.bucketInfo.bucket.removePath(this.bucketInfo.bucketKey, nft.path);
 
-    if (meme.tokenMetadataPath) {
-      await this.bucketInfo.bucket.removePath(this.bucketInfo.bucketKey, meme.tokenMetadataPath);
+    if (nft.tokenMetadataPath) {
+      await this.bucketInfo.bucket.removePath(this.bucketInfo.bucketKey, nft.tokenMetadataPath);
     }
   }
 
-  public async uploadTokenMetadata(meme: MemeMetadata) {
-    if (!this.bucketInfo.bucket || !this.bucketInfo.bucketKey || !meme.tokenID || !meme.cid) {
+  public async uploadTokenMetadata(nft: NFTMetadata) {
+    if (!this.bucketInfo.bucket || !this.bucketInfo.bucketKey || !nft.tokenID || !nft.cid) {
       throw new Error('No bucket client or root key or tokenID');
     }
 
     const tokenMeta: TokenMetadata = {
-      name: meme.name,
-      description: meme.description,
-      image: `${this.ipfsGateway}/ipfs/${meme.cid}`
+      name: nft.name,
+      description: nft.description,
+      image: `${this.ipfsGateway}/ipfs/${nft.cid}`
     };
 
-    const uploadName = `${meme.tokenID}.json`;
+    const uploadName = `${nft.tokenID}.json`;
     const location = `tokenmetadata/${uploadName}`;
 
     const buf = Buffer.from(JSON.stringify(tokenMeta, null, 2))
     const raw = await this.bucketInfo.bucket.pushPath(this.bucketInfo.bucketKey, location, buf);
 
-    meme.tokenMetadataPath = location;
-    meme.tokenMetadataURL = `${this.ipfsGateway}/ipfs/${raw.path.cid.toString()}`;
+    nft.tokenMetadataPath = location;
+    nft.tokenMetadataURL = `${this.ipfsGateway}/ipfs/${raw.path.cid.toString()}`;
   }
 }
