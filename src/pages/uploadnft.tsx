@@ -15,7 +15,7 @@ export default function UploadNFT() {
       return;
     }
 
-    this.setSelectedFile(file);
+    setSelectedFile(file);
     setSubmitEnabled(true);
   };
 
@@ -24,7 +24,7 @@ export default function UploadNFT() {
     setSubmitEnabled(false);
 
     const textileInstance = await TextileInstance.getInstance();
-    const nftMetadata = await textileInstance.uploadNFT(this.selectedFile);
+    const nftMetadata = await textileInstance.uploadNFT(selectedFile);
     await textileInstance.uploadTokenMetadata(nftMetadata);
     // TODO: add the above nft metadata to a database to manage the NFTs uploaded for this user in case we need to delete this later.
     // TODO: pass the tokenMetadataURL in the nftMetadata to the minting function in uploadnftinfo.
