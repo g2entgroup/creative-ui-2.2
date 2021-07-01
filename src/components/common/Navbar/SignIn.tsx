@@ -28,6 +28,7 @@ import {
 } from "@chakra-ui/react";
 import Link from "next/link";
 import Image from "next/image";
+import { TextileInstance } from "../../../services/textile/textile";
 
 type WindowInstanceWithEthereum = Window & typeof globalThis & { ethereum?: providers.ExternalProvider };
 class StrongType<Definition, Type> {
@@ -74,8 +75,9 @@ const SignIn = () => {
       '\n' +
       '\n' +
       '******************************************************************************** \n' +
-      'ONLY SIGN THIS MESSAGE IF YOU CONSENT TO THE CURRENT PAGE ACCESSING THE KEYS \n' +
+      'ONLY SIGN THIS MESSAGE IF YOU CONSENT TO THE CURRENT PAGE ACCESSING THE TEXTILE KEYS \n' +
       'ASSOCIATED WITH THE ABOVE ADDRESS AND APPLICATION. \n' +
+      'NOTE THIS DOES NOT ALLOW ACCESS TO YOUR WALLET FOR BLOCKCHAIN TX. \n' +
       'AGAIN, DO NOT SHARE THIS SIGNED MESSAGE WITH ANYONE OR THEY WILL HAVE READ AND \n' +
       'WRITE ACCESS TO THIS APPLICATION. \n' +
       '******************************************************************************** \n'
@@ -111,8 +113,8 @@ const SignIn = () => {
   const generatePrivateKey = async (): Promise<PrivateKey> => {
     const metamask = await getAddressAndSigner()
     // avoid sending the raw secret by hashing it first
-    const hashSecret = hashSync('secret', 10)
-    const message = generateMessageForEntropy(metamask.address, 'Creative-demo', hashSecret)
+    const hashSecret = hashSync(secret, 10)
+    const message = generateMessageForEntropy(metamask.address, 'Creative', hashSecret)
     const signedText = await metamask.signer.signMessage(message);
     const hash = utils.keccak256(signedText);
     if (hash === null) {
@@ -135,6 +137,10 @@ const SignIn = () => {
 
     createNotification(identity)
 
+    // Create a textile instance which will create or get the bucket assoicated with this user.
+    // TODO: Store this instance in the global app state which will be used while minting NFTs.
+    const textileInstance = TextileInstance.getInstance(identity);
+
     // Your app can now use this identity for generating a user Mailbox, Threads, Buckets, etc
     return identity
   }
@@ -143,7 +149,7 @@ const SignIn = () => {
     const dispatchCustomEvent = createStandaloneToast();
     dispatchCustomEvent({ title: "Secret Key",
       status: "success",
-      description: `VIP Key: ${identity.public.toString()} Your app can now generate and reuse this users PrivateKey for creating user Mailboxes, Threads, and Buckets.`,
+      description: `Public Key: ${identity.public.toString()} Your app can now generate and reuse this users PrivateKey for creating user Mailboxes, Threads, and Buckets.`,
       duration: 9000,
       isClosable: true,
     });
@@ -183,7 +189,7 @@ const SignIn = () => {
                 {/* name */}
                 <Button onClick={generatePrivateKey}>Login with Metamask</Button>
                   <FormControl id="login" isRequired>
-                  <FormLabel>VIP Key</FormLabel>
+                  <FormLabel>Secret</FormLabel>
                     <InputGroup>
                       <Input
                         name="password"
