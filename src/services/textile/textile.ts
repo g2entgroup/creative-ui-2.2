@@ -27,10 +27,10 @@ export class TextileInstance {
   }
 
   private async init() {
-    console.log(process.env.TEXTILE_API_KEY);
+    console.log(process.env.NEXT_PUBLIC_TEXTILE_API_KEY);
 
     this.keyInfo = {
-      key: process.env.TEXTILE_API_KEY as string
+      key: process.env.NEXT_PUBLIC_TEXTILE_API_KEY as string
     };
 
     let buckets = await Buckets.withKeyInfo(this.keyInfo);
@@ -62,6 +62,7 @@ export class TextileInstance {
     const buf = await file.arrayBuffer();
     const raw = await this.bucketInfo.bucket.pushPath(this.bucketInfo.bucketKey, location, buf);
 
+    console.log(raw);
     return {
       cid: raw.path.cid.toString(),
       name: name != "" ? name : uploadName,
@@ -102,5 +103,7 @@ export class TextileInstance {
 
     nft.tokenMetadataPath = location;
     nft.tokenMetadataURL = `/ipfs/${raw.path.cid.toString()}`;
+
+    console.log(raw);
   }
 }

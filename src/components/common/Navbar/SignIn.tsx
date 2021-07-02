@@ -41,9 +41,9 @@ export class EthereumAddress extends StrongType<'ethereum_address', string> {}
 const SignIn = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
-  const [secret, setSecret] = useState({});
+  const [secret, setSecret] = useState<String>();
 
-  const handleChange = (e: any) => setSecret({[e.target.name]: e.target.value});
+  const handleChange = (e: any) => setSecret(e.target.value);
 
   const generateMessageForEntropy = (ethereum_address: EthereumAddress, application_name: string, secret: string): string => {
     return (

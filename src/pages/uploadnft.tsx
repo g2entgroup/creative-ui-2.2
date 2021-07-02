@@ -85,9 +85,6 @@ export default function UploadNFT() {
                     type="file"
                     onChange={onFileChange}
                   />
-                  <Button colorScheme='pink' variant="solid" size="sm" width={125} disabled={!submitEnabled} onClick={onFileUpload}>
-                    Submit File
-                  </Button>
                 </VisuallyHidden>
               </chakra.label>
               <Text pl={1}>or drag and drop</Text>
@@ -100,6 +97,9 @@ export default function UploadNFT() {
             </Text>
           </Stack>
         </Box>
+        <Button colorScheme='pink' variant="solid" size="sm" width={125} disabled={!submitEnabled} onClick={onFileUpload}>
+                    Submit File
+                  </Button>
       </Center>
       <Uploadnftinfo />
     </>
