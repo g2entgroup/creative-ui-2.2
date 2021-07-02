@@ -58,12 +58,12 @@ import {
       }
 
     const address = new EthereumAddress(accounts[0]);
-      const contract = "0xB0EA149212Eb707a1E5FC1D2d3fD318a8d94cf05"
+      const contract = "0xB0EA149212Eb707a1E5FC1D2d3fD318a8d94cf05";
       const minter = address;
-
+      const ipfsHash = "QmW5kGG6JPDv7oSVEfP8KTY9rsfQXCHpYJxvdRJrkkzbge";
       const tokenId = await generateTokenId(contract, minter)
       //console.log("Chain ID", chainId);
-      const useCreateLazyMint = createLazyMint(tokenId, provider, contract, address.value, "QmW5kGG6JPDv7oSVEfP8KTY9rsfQXCHpYJxvdRJrkkzbge");
+      const useCreateLazyMint = createLazyMint(tokenId, provider, contract, address.value, ipfsHash );
       console.log(await useCreateLazyMint);
     }
     return (

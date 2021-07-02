@@ -112,8 +112,9 @@ const SignIn = () => {
   }
   const generatePrivateKey = async (): Promise<PrivateKey> => {
     const metamask = await getAddressAndSigner()
+    const salt = "$2a$10$3vx4QH1vSj9.URynBqkbae";
     // avoid sending the raw secret by hashing it first
-    const hashSecret = hashSync(secret, 10)
+    const hashSecret = hashSync(secret, salt);
     const message = generateMessageForEntropy(metamask.address, 'Creative', hashSecret)
     const signedText = await metamask.signer.signMessage(message);
     const hash = utils.keccak256(signedText);
