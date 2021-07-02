@@ -1,5 +1,5 @@
 import React from "react";
-import { useWeb3React } from "@web3-react/core";
+import { providers } from 'ethers'
 import {
     Flex,
     Box,
@@ -20,10 +20,15 @@ import {
     useToken
   } from '@chakra-ui/react';
   import { createLazyMint, generateTokenId } from "../../rarible/createLazyMint";
-  import { Web3Provider } from "@ethersproject/providers";
-  import { injectedConnector } from "../../utils/injectedConnector";
 
-  
+  type WindowInstanceWithEthereum = Window & typeof globalThis & { ethereum?: providers.ExternalProvider };
+  class StrongType<Definition, Type> {
+    // @ts-ignore
+    private _type: Definition;
+    constructor(public value?: Type) {}
+  }
+  export class EthereumAddress extends StrongType<'ethereum_address', string> {}
+
   export default function SimpleCard() {
     const [brand400, brand200] = useToken(
       // the key within the theme, in this case `theme.colors`
@@ -32,17 +37,31 @@ import {
       ["brand.400", "brand.200"],
       // a single fallback or fallback array matching the length of the previous arg
     )
-    const { activate, chainId, account, library } = useWeb3React<Web3Provider>();
-
     //const useGenerateTokenId = generateTokenId();
 
     const submitHandler = async () => {
+      if (!(window as WindowInstanceWithEthereum).ethereum) {
+        throw new Error(
+          'Ethereum is not connected. Please download Metamask from https://metamask.io/download.html'
+        );
+      }
+  
+      console.debug('Initializing web3 provider...');
+      // @ts-ignore
+      const provider = new providers.Web3Provider((window as WindowInstanceWithEthereum).ethereum);
+
+      const accounts = await (window as WindowInstanceWithEthereum).ethereum.request({ method: 'eth_requestAccounts' });
+      if (accounts.length === 0) {
+        throw new Error('No account is provided. Please provide an account to this application.');
+      }
+
+    const address = new EthereumAddress(accounts[0]);
       const contract = "0xB0EA149212Eb707a1E5FC1D2d3fD318a8d94cf05"
-      const minter = account;
-      await activate(injectedConnector);
+      const minter = address;
+
       const tokenId = await generateTokenId(contract, minter)
-      console.log("Chain ID", chainId);
-      const useCreateLazyMint = createLazyMint(tokenId, library.provider, contract, account, "QmW5kGG6JPDv7oSVEfP8KTY9rsfQXCHpYJxvdRJrkkzbge");
+      //console.log("Chain ID", chainId);
+      const useCreateLazyMint = createLazyMint(tokenId, provider, contract, address.value, "QmW5kGG6JPDv7oSVEfP8KTY9rsfQXCHpYJxvdRJrkkzbge");
       console.log(await useCreateLazyMint);
     }
     return (
