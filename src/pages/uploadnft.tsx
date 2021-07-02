@@ -4,28 +4,31 @@ import React, { useState } from "react"
 import { TextileInstance } from "../services/textile/textile"
 
 export default function UploadNFT() {
-
+  const [nftUploaded , setNftUploaded] = useState(false)
   const [submitEnabled, setSubmitEnabled] = useState(false);
   const [selectedFile, setSelectedFile] = useState<File>();
 
   const onFileChange = async event => {
     const file = ((event.target as HTMLInputElement).files as FileList)[0];
-    if (file.size > 10240000) {
-      alert("Please upload an image that has a max size of 10 MB");
+    if (file.size > 20460000) {
+      alert("Please upload an image that has a max size of 20 MB");
       return;
     }
 
     setSelectedFile(file);
     setSubmitEnabled(true);
   };
-
+  let nftMetadata
   const onFileUpload = async event => {
     event.preventDefault();
     setSubmitEnabled(false);
 
     const textileInstance = await TextileInstance.getInstance();
-    const nftMetadata = await textileInstance.uploadNFT(selectedFile);
+     nftMetadata = await textileInstance.uploadNFT(selectedFile);
     await textileInstance.uploadTokenMetadata(nftMetadata);
+    if(nftMetadata != undefined)
+    { setNftUploaded(true)}
+    console.log(nftMetadata)
     // TODO: add the above nft metadata to a database to manage the NFTs uploaded for this user in case we need to delete this later.
     // TODO: pass the tokenMetadataURL in the nftMetadata to the minting function in uploadnftinfo.
   }
@@ -97,11 +100,25 @@ export default function UploadNFT() {
             </Text>
           </Stack>
         </Box>
+        {
+        //   submitEnabled ? 
+          
+        //   <Button
+        //   isLoading
+        //   loadingText="Submitting"
+        //   colorScheme="teal"
+        //   variant="outline"
+        // >
+        //   Submit
+        // </Button> :
         <Button colorScheme='pink' variant="solid" size="sm" width={125} disabled={!submitEnabled} onClick={onFileUpload}>
-                    Submit File
-                  </Button>
+        Submit File
+        </Button>
+        }
+        
       </Center>
-      <Uploadnftinfo />
+      {nftUploaded ? <Uploadnftinfo nftinfo={nftMetadata} /> : <div></div> }
+      
     </>
   )
 }

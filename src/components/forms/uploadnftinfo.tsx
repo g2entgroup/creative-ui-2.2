@@ -29,7 +29,9 @@ import {
   }
   export class EthereumAddress extends StrongType<'ethereum_address', string> {}
 
-  export default function SimpleCard() {
+  export default function SimpleCard(props) {
+
+    console.log(props.nftinfo)
     const [brand400, brand200] = useToken(
       // the key within the theme, in this case `theme.colors`
       "colors",
