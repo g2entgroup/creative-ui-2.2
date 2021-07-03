@@ -117,7 +117,7 @@ const Header = () => {
           py={6}
           p={{ sm: 8 }}
         >
-          <Link>
+          <Link isExternal>
           <Section
             title="How It Works"
           >
@@ -137,7 +137,7 @@ const Header = () => {
             We think that the best way to align platform development with customers' interests is to empower the ones who actively interact with the protocol: creators, fans, and brands. 
           </Section>
             
-          <Link href="https://www.creativeplatform.io/forum/" target="_blank">
+          <Link href="https://www.creativeplatform.io/forum/" isExternal target="_blank">
           <Section
             title="Discussion"
             icon={
@@ -152,7 +152,7 @@ const Header = () => {
             The place to discuss all things related to the Creative platform.
           </Section>
           </Link>
-            <Link href="https://community.xyz/#YN7VDKn_JjziC4tTL92K9pO_iMcnMSjk6kgSBr1EPjI/votes">
+            <Link href="https://app.daohaus.club/dao/0x89/0xc48996a569911fd6eba1b97b6419731eed32041e/proposals" isExternal target="_blank">
           <Section
             title="DAO Proposals"
             icon={
@@ -167,7 +167,7 @@ const Header = () => {
           </Section>
           </Link>
 
-          <Link href="https://creative.nolt.io/"> 
+          <Link href="https://creative.nolt.io/" isExternal target="_blank"> 
           <Section
             title="Feature Suggestions"
             description={
@@ -335,17 +335,11 @@ const Header = () => {
             </Flex>
             <Flex>
               <HStack spacing="5" display={{ base: "none", md: "flex" }}>
-              <Button
-                  bg={bg}
-                  color="gray.500"
-                  display="inline-flex"
-                  alignItems="center"
-                  fontSize="md"
-                  _hover={{ color: cl }}
-                  _focus={{ boxShadow: "none" }}
+              <Link
+                  href="/discover"
                 >
                   Explore
-              </Button>
+              </Link>
               <Button
                   bg={bg}
                   color="gray.500"

@@ -32,7 +32,7 @@ export default function Component() {
   return (
 
     <Box bg={useColorModeValue("gray.50", "inherit")} p={10} >
-      <Text as="h1" fontSize="4xl" fontStyle="bold" mb={10} >Create Campaign</Text>
+      <Text as="h1" fontSize="4xl" fontStyle="bold" mb={10} color={useColorModeValue("gray.600", "gray.400")} >Create Campaign</Text>
 
       <Box>
         <SimpleGrid
@@ -42,7 +42,7 @@ export default function Component() {
         >
           <GridItem colSpan={{ md: 1 }}>
             <Box px={[4, 0]}>
-              <Heading fontSize="lg" fontWeight="md" lineHeight="6">
+              <Heading fontSize="lg" fontWeight="md" lineHeight="6" color={useColorModeValue("gray.600", "gray.400")}>
                 Create A New Campaign
               </Heading>
               <Text
@@ -291,7 +291,7 @@ export default function Component() {
         >
           <GridItem colSpan={{ md: 1 }}>
             <Box px={[4, 0]}>
-              <Heading fontSize="lg" fontWeight="medium" lineHeight="6">
+              <Heading fontSize="lg" fontWeight="medium" lineHeight="6" color={useColorModeValue("gray.600", "gray.400")}>
                 Pool Information
               </Heading>
               <Text
@@ -576,7 +576,7 @@ export default function Component() {
         >
           <GridItem colSpan={{ md: 1 }}>
             <Box px={[4, 0]}>
-              <Heading fontSize="lg" fontWeight="medium" lineHeight="6">
+              <Heading fontSize="lg" fontWeight="medium" lineHeight="6" color={useColorModeValue("gray.600", "gray.400")}>
                 Notifications
               </Heading>
               <Text
@@ -721,7 +721,7 @@ export default function Component() {
               >
                 <Button
                   type="submit"
-                  colorScheme="brand"
+                  colorScheme={useColorModeValue("brand", "brand")}
                   _focus={{ shadow: "" }}
                   fontWeight="md"
                 >
