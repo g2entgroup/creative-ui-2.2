@@ -29,7 +29,10 @@ import { FaUser } from "react-icons/fa";
 
 export default function Component() {
   return (
-    <Box bg={useColorModeValue("gray.50", "inherit")} p={10}>
+
+    <Box bg={useColorModeValue("gray.50", "inherit")} p={10} >
+      <Text as="h1" fontSize="4xl" fontStyle="bold" mb={10} >Create Campaign</Text>
+
       <Box>
         <SimpleGrid
           display={{ base: "initial", md: "grid" }}
@@ -183,7 +186,6 @@ export default function Component() {
                         <path
                           d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02"
                           strokeWidth="2"
-                          strokLinecap="round"
                           strokeLinejoin="round"
                         />
                       </Icon>
@@ -261,14 +263,15 @@ export default function Component() {
           <GridItem colSpan={{ md: 1 }}>
             <Box px={[4, 0]}>
               <Heading fontSize="lg" fontWeight="medium" lineHeight="6">
-                Personal Information
+                Pool Information
               </Heading>
               <Text
                 mt={1}
                 fontSize="sm"
                 color={useColorModeValue("gray.600", "gray.400")}
               >
-                Use a permanent address where you can receive mail.
+                
+                Details and Contact info for the pool.
               </Text>
             </Box>
           </GridItem>
@@ -294,12 +297,54 @@ export default function Component() {
                       fontWeight="md"
                       color={useColorModeValue("gray.700", "gray.50")}
                     >
-                      First name
+                      Pool name
                     </FormLabel>
                     <Input
                       type="text"
-                      name="first_name"
-                      id="first_name"
+                      name="pool_name"
+                      id="pool_name"
+                      autoComplete="given-name"
+                      mt={1}
+                      focusBorderColor="brand.400"
+                      shadow="sm"
+                      size="sm"
+                      w="full"
+                      rounded="md"
+                    />
+                  </FormControl>
+                  <FormControl as={GridItem} colSpan={[6, 3]}>
+                    <FormLabel
+                      fontSize="sm"
+                      fontWeight="md"
+                      color={useColorModeValue("gray.700", "gray.50")}
+                    >
+                      Capital Name
+                    </FormLabel>
+                    <Input
+                      type="text"
+                      name="capital"
+                      id="capital"
+                      autoComplete="given-name"
+                      mt={1}
+                      focusBorderColor="brand.400"
+                      shadow="sm"
+                      size="sm"
+                      w="full"
+                      rounded="md"
+                    />
+                  </FormControl>
+                  <FormControl as={GridItem} colSpan={[6, 4]}>
+                    <FormLabel
+                      fontSize="sm"
+                      fontWeight="md"
+                      color={useColorModeValue("gray.700", "gray.50")}
+                    >
+                      Capital Address
+                    </FormLabel>
+                    <Input
+                      type="text"
+                      name="capital_address"
+                      id="capital_address"
                       autoComplete="given-name"
                       mt={1}
                       focusBorderColor="brand.400"
@@ -310,27 +355,7 @@ export default function Component() {
                     />
                   </FormControl>
 
-                  <FormControl as={GridItem} colSpan={[6, 3]}>
-                    <FormLabel
-                      fontSize="sm"
-                      fontWeight="md"
-                      color={useColorModeValue("gray.700", "gray.50")}
-                    >
-                      Last name
-                    </FormLabel>
-                    <Input
-                      type="text"
-                      name="last_name"
-                      id="last_name"
-                      autoComplete="family-name"
-                      mt={1}
-                      focusBorderColor="brand.400"
-                      shadow="sm"
-                      size="sm"
-                      w="full"
-                      rounded="md"
-                    />
-                  </FormControl>
+                  
 
                   <FormControl as={GridItem} colSpan={[6, 4]}>
                     <FormLabel
@@ -379,23 +404,25 @@ export default function Component() {
                       <option>United States</option>
                       <option>Canada</option>
                       <option>Mexico</option>
+                      <option>India</option>
+
                     </Select>
                   </FormControl>
 
                   <FormControl as={GridItem} colSpan={6}>
                     <FormLabel
-                      for="street_address"
+                      for="nft_address"
                       fontSize="sm"
                       fontWeight="md"
                       color={useColorModeValue("gray.700", "gray.50")}
                     >
-                      Street address
+                      NFT address
                     </FormLabel>
                     <Input
                       type="text"
-                      name="street_address"
-                      id="street_address"
-                      autoComplete="street-address"
+                      name="nft_address"
+                      id="nft_address"
+                      autoComplete="nft-address"
                       mt={1}
                       focusBorderColor="brand.400"
                       shadow="sm"
@@ -407,18 +434,18 @@ export default function Component() {
 
                   <FormControl as={GridItem} colSpan={[6, 6, null, 2]}>
                     <FormLabel
-                      for="city"
+                      for="voting_length"
                       fontSize="sm"
                       fontWeight="md"
                       color={useColorModeValue("gray.700", "gray.50")}
                     >
-                      City
+                      Voting Length
                     </FormLabel>
                     <Input
                       type="text"
-                      name="city"
-                      id="city"
-                      autoComplete="city"
+                      name="voting_length"
+                      id="voting_length"
+                      autoComplete="number"
                       mt={1}
                       focusBorderColor="brand.400"
                       shadow="sm"
@@ -430,18 +457,18 @@ export default function Component() {
 
                   <FormControl as={GridItem} colSpan={[6, 3, null, 2]}>
                     <FormLabel
-                      for="state"
+                      for="decision_length"
                       fontSize="sm"
                       fontWeight="md"
                       color={useColorModeValue("gray.700", "gray.50")}
                     >
-                      State / Province
+                      Decision Length
                     </FormLabel>
                     <Input
                       type="text"
-                      name="state"
-                      id="state"
-                      autoComplete="state"
+                      name="decision_length"
+                      id="decision_length"
+                      autoComplete="decision_length"
                       mt={1}
                       focusBorderColor="brand.400"
                       shadow="sm"
@@ -453,18 +480,18 @@ export default function Component() {
 
                   <FormControl as={GridItem} colSpan={[6, 3, null, 2]}>
                     <FormLabel
-                      for="postal_code"
+                      for="submission_length"
                       fontSize="sm"
                       fontWeight="md"
                       color={useColorModeValue("gray.700", "gray.50")}
                     >
-                      ZIP / Postal
+                      Submission Length
                     </FormLabel>
                     <Input
                       type="text"
-                      name="postal_code"
-                      id="postal_code"
-                      autoComplete="postal-code"
+                      name="submission_length"
+                      id="submission_length"
+                      autoComplete="submission_length"
                       mt={1}
                       focusBorderColor="brand.400"
                       shadow="sm"
@@ -504,171 +531,7 @@ export default function Component() {
         </Box>
       </Box>
 
-      <Box mt={[10, 0]}>
-        <SimpleGrid
-          display={{ base: "initial", md: "grid" }}
-          columns={{ md: 3 }}
-          spacing={{ md: 6 }}
-        >
-          <GridItem colSpan={{ md: 1 }}>
-            <Box px={[4, 0]}>
-              <Heading fontSize="lg" fontWeight="medium" lineHeight="6">
-                Notifications
-              </Heading>
-              <Text
-                mt={1}
-                fontSize="sm"
-                color={useColorModeValue("gray.600", "gray.400")}
-              >
-                Decide which communications you'd like to receive and how.
-              </Text>
-            </Box>
-          </GridItem>
-          <GridItem mt={[5, null, 0]} colSpan={{ md: 2 }}>
-            <chakra.form
-             
-              method="POST"
-              shadow="base"
-              rounded={[null, "md"]}
-              overflow={{ sm: "hidden" }}
-            >
-              <Stack
-                px={4}
-                py={5}
-                p={[null, 6]}
-                bg={useColorModeValue("white",'gray.700')}
-                spacing={6}
-              >
-                <chakra.fieldset>
-                  <Box
-                    as="legend"
-                    fontSize="md"
-                    color={useColorModeValue("gray.900", "gray.50")}
-                  >
-                    By Email
-                  </Box>
-                  <Stack mt={4} spacing={4}>
-                    <Flex alignItems="start">
-                      <Flex alignItems="center" h={5}>
-                        <Checkbox
-                          colorScheme="brand"
-                          id="comments"
-                          rounded="md"
-                        />
-                      </Flex>
-                      <Box ml={3} fontSize="sm">
-                        <chakra.label
-                          for="comments"
-                          fontWeight="md"
-                          color={useColorModeValue("gray.700", "gray.50")}
-                        >
-                          Comments
-                        </chakra.label>
-                        <Text color={useColorModeValue("gray.500", "gray.400")}>
-                          Get notified when someones posts a comment on a
-                          posting.
-                        </Text>
-                      </Box>
-                    </Flex>
-                    <Flex alignItems="start">
-                      <Flex alignItems="center" h={5}>
-                        <Checkbox
-                          colorScheme="brand"
-                          id="candidates"
-                          rounded="md"
-                        />
-                      </Flex>
-                      <Box ml={3} fontSize="sm">
-                        <chakra.label
-                          for="candidates"
-                          fontWeight="md"
-                          color={useColorModeValue("gray.700", "gray.50")}
-                        >
-                          Candidates
-                        </chakra.label>
-                        <Text color={useColorModeValue("gray.500", "gray.400")}>
-                          Get notified when a candidate applies for a job.
-                        </Text>
-                      </Box>
-                    </Flex>
-                    <Flex alignItems="start">
-                      <Flex alignItems="center" h={5}>
-                        <Checkbox
-                          colorScheme="brand"
-                          id="offers"
-                          rounded="md"
-                        />
-                      </Flex>
-                      <Box ml={3} fontSize="sm">
-                        <chakra.label
-                          for="offers"
-                          fontWeight="md"
-                          color={useColorModeValue("gray.700", "gray.50")}
-                        >
-                          Offers
-                        </chakra.label>
-                        <Text color={useColorModeValue("gray.500", "gray.400")}>
-                          Get notified when a candidate accepts or rejects an
-                          offer.
-                        </Text>
-                      </Box>
-                    </Flex>
-                  </Stack>
-                </chakra.fieldset>
-                <chakra.fieldset>
-                  <Box
-                    as="legend"
-                    fontSize="md"
-                    color={useColorModeValue("gray.900", "gray.50")}
-                  >
-                    Push Notifications
-                    <Text
-                      fontSize="sm"
-                      color={useColorModeValue("gray.500", "gray.400")}
-                    >
-                      These are delivered via SMS to your mobile phone.
-                    </Text>
-                  </Box>
-                  <RadioGroup
-                    fontSize="sm"
-                    color={useColorModeValue("gray.700", "gray.50")}
-                    colorScheme="brand"
-                    mt={4}
-                    defaultValue="1"
-                  >
-                    <Stack spacing={4}>
-                      <Radio spacing={3} value="1">
-                        Everything
-                      </Radio>
-                      <Radio spacing={3} value="2">
-                        Same as email
-                      </Radio>
-                      <Radio spacing={3} value="3">
-                        No push notifications
-                      </Radio>
-                    </Stack>
-                  </RadioGroup>
-                </chakra.fieldset>
-              </Stack>
-              <Box
-                px={{ base: 4, sm: 6 }}
-                py={3}
-                bg={useColorModeValue("gray.50", "gray.900")}
-                textAlign="right"
-              >
-                <Button
-                  type="submit"
-                  colorScheme="brand"
-                  _focus={{ shadow: "" }}
-                  fontWeight="md"
-                >
-                  Save
-                </Button>
-              </Box>
-            </chakra.form>
-          </GridItem>
-        </SimpleGrid>
-      </Box>
+      
     </Box>
   );
 }
