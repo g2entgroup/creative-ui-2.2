@@ -90,11 +90,11 @@ import {
                 <HStack spacing={8}>
                 <FormControl id="nfttitle">
                 <FormLabel>NFT Title</FormLabel>
-                <Input type="test" />
+                <Input type="text" />
               </FormControl>
               <FormControl id="creatorname" >
                 <FormLabel>Creator name</FormLabel>
-                <Input type="test" />
+                <Input type="text" />
               </FormControl>
                 </HStack>
                 <HStack spacing={8}>
