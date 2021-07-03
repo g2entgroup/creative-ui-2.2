@@ -188,7 +188,6 @@ const SignIn = () => {
               <Stack spacing={6}>
                 <Heading as="h6" size="md">Sign In</Heading>
                 {/* name */}
-                <Button onClick={generatePrivateKey}>Login with Metamask</Button>
                   <FormControl id="login" isRequired>
                   <FormLabel>Secret</FormLabel>
                     <InputGroup>
@@ -206,7 +205,7 @@ const SignIn = () => {
                     </InputRightElement>
                     </InputGroup>
                     <FormHelperText>Enter a VIP key. View console.</FormHelperText>
-                    <Button type="submit">Login</Button>
+                    <Button onClick={generatePrivateKey}>Login with Metamask</Button>
                   </FormControl>
                 </Stack>
                 <Box>Don't Have An Account?

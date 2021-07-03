@@ -14,6 +14,7 @@ import {
   Input,
   InputGroup,
   InputLeftAddon,
+  InputLeftElement,
   FormHelperText,
   Textarea,
   Avatar,
@@ -31,7 +32,7 @@ export default function Component() {
   return (
 
     <Box bg={useColorModeValue("gray.50", "inherit")} p={10} >
-      <Text as="h1" fontSize="4xl" fontStyle="bold" mb={10} >Create Campaign</Text>
+      <Text as="h1" fontSize="4xl" fontStyle="bold" mb={10} color={useColorModeValue("gray.600", "gray.400")} >Create Campaign</Text>
 
       <Box>
         <SimpleGrid
@@ -41,8 +42,8 @@ export default function Component() {
         >
           <GridItem colSpan={{ md: 1 }}>
             <Box px={[4, 0]}>
-              <Heading fontSize="lg" fontWeight="md" lineHeight="6">
-                Campign
+              <Heading fontSize="lg" fontWeight="md" lineHeight="6" color={useColorModeValue("gray.600", "gray.400")}>
+                Create A New Campaign
               </Heading>
               <Text
                 mt={1}
@@ -87,12 +88,40 @@ export default function Component() {
                         rounded="md"
                       />
                       <Input
-                        type="tel"
+                        type="text"
                         placeholder="www.example.com"
                         focusBorderColor="brand.400"
                         rounded="md"
                       />
                     </InputGroup>
+                  </FormControl>
+                </SimpleGrid>
+
+                <SimpleGrid columns={3} spacing={6}>
+                  <FormControl as={GridItem} colSpan={[3, 2]}>
+                    <FormLabel
+                      fontSize="sm"
+                      fontWeight="md"
+                      color={useColorModeValue("gray.700", "gray.50")}
+                    >
+                       Twitter Username 
+                    </FormLabel>
+                    <InputGroup size="sm">
+                      <InputLeftAddon
+                        children="@"
+                        bg={useColorModeValue("gray.50", "gray.800")}
+                        color={useColorModeValue("gray.500", "gay.50")}
+                        rounded="md"
+                      />
+                      <Input
+                        placeholder="creativecrtv"
+                        focusBorderColor="brand.400"
+                        rounded="md"
+                      />
+                    </InputGroup>
+                    <FormHelperText>
+                      Verify your account via Twitter (0.1 LINK).
+                    </FormHelperText>
                   </FormControl>
                 </SimpleGrid>
 
@@ -103,10 +132,10 @@ export default function Component() {
                       fontWeight="md"
                       color={useColorModeValue("gray.700", "gray.50")}
                     >
-                      Campaign Breif
+                      Campaign Brief
                     </FormLabel>
                     <Textarea
-                      placeholder="you@example.com"
+                      placeholder="Additional information about your campaign"
                       mt={1}
                       rows={3}
                       shadow="sm"
@@ -160,7 +189,7 @@ export default function Component() {
                     fontWeight="md"
                     color={useColorModeValue("gray.700", "gray.50")}
                   >
-                    Photo/video
+                    Campaign Photo/Video Upload
                   </FormLabel>
                   <Flex
                     mt={1}
@@ -262,7 +291,7 @@ export default function Component() {
         >
           <GridItem colSpan={{ md: 1 }}>
             <Box px={[4, 0]}>
-              <Heading fontSize="lg" fontWeight="medium" lineHeight="6">
+              <Heading fontSize="lg" fontWeight="medium" lineHeight="6" color={useColorModeValue("gray.600", "gray.400")}>
                 Pool Information
               </Heading>
               <Text
@@ -318,8 +347,15 @@ export default function Component() {
                       fontWeight="md"
                       color={useColorModeValue("gray.700", "gray.50")}
                     >
-                      Capital Name
+                      Capital
                     </FormLabel>
+                    <InputGroup>
+                      <InputLeftElement
+                        pointerEvents="none"
+                        color="gray.300"
+                        fontSize="1.2em"
+                        children="$"
+                      />
                     <Input
                       type="text"
                       name="capital"
@@ -332,6 +368,7 @@ export default function Component() {
                       w="full"
                       rounded="md"
                     />
+                    </InputGroup>
                   </FormControl>
                   <FormControl as={GridItem} colSpan={[6, 4]}>
                     <FormLabel
@@ -531,6 +568,170 @@ export default function Component() {
         </Box>
       </Box>
 
+      <Box mt={[10, 0]}>
+        <SimpleGrid
+          display={{ base: "initial", md: "grid" }}
+          columns={{ md: 3 }}
+          spacing={{ md: 6 }}
+        >
+          <GridItem colSpan={{ md: 1 }}>
+            <Box px={[4, 0]}>
+              <Heading fontSize="lg" fontWeight="medium" lineHeight="6" color={useColorModeValue("gray.600", "gray.400")}>
+                Notifications
+              </Heading>
+              <Text
+                mt={1}
+                fontSize="sm"
+                color={useColorModeValue("gray.600", "gray.400")}
+              >
+                Decide which communications you'd like to receive and how.
+              </Text>
+            </Box>
+          </GridItem>
+          <GridItem mt={[5, null, 0]} colSpan={{ md: 2 }}>
+            <chakra.form
+             
+              method="POST"
+              shadow="base"
+              rounded={[null, "md"]}
+              overflow={{ sm: "hidden" }}
+            >
+              <Stack
+                px={4}
+                py={5}
+                p={[null, 6]}
+                bg={useColorModeValue("white",'gray.700')}
+                spacing={6}
+              >
+                <chakra.fieldset>
+                  <Box
+                    as="legend"
+                    fontSize="md"
+                    color={useColorModeValue("gray.900", "gray.50")}
+                  >
+                    By Email
+                  </Box>
+                  <Stack mt={4} spacing={4}>
+                    <Flex alignItems="start">
+                      <Flex alignItems="center" h={5}>
+                        <Checkbox
+                          colorScheme="brand"
+                          id="comments"
+                          rounded="md"
+                        />
+                      </Flex>
+                      <Box ml={3} fontSize="sm">
+                        <chakra.label
+                          for="comments"
+                          fontWeight="md"
+                          color={useColorModeValue("gray.700", "gray.50")}
+                        >
+                          Comments
+                        </chakra.label>
+                        <Text color={useColorModeValue("gray.500", "gray.400")}>
+                          Get notified when someones posts a comment on a
+                          posting.
+                        </Text>
+                      </Box>
+                    </Flex>
+                    <Flex alignItems="start">
+                      <Flex alignItems="center" h={5}>
+                        <Checkbox
+                          colorScheme="brand"
+                          id="candidates"
+                          rounded="md"
+                        />
+                      </Flex>
+                      <Box ml={3} fontSize="sm">
+                        <chakra.label
+                          for="candidates"
+                          fontWeight="md"
+                          color={useColorModeValue("gray.700", "gray.50")}
+                        >
+                          Creatives
+                        </chakra.label>
+                        <Text color={useColorModeValue("gray.500", "gray.400")}>
+                        Get notified when a creative applies for your campaign.
+                        </Text>
+                      </Box>
+                    </Flex>
+                    <Flex alignItems="start">
+                      <Flex alignItems="center" h={5}>
+                        <Checkbox
+                          colorScheme="brand"
+                          id="offers"
+                          rounded="md"
+                        />
+                      </Flex>
+                      <Box ml={3} fontSize="sm">
+                        <chakra.label
+                          for="offers"
+                          fontWeight="md"
+                          color={useColorModeValue("gray.700", "gray.50")}
+                        >
+                          Votes
+                        </chakra.label>
+                        <Text color={useColorModeValue("gray.500", "gray.400")}>
+                          Get notified when a creative recieves a vote.
+                        </Text>
+                      </Box>
+                    </Flex>
+                  </Stack>
+                </chakra.fieldset>
+                <chakra.fieldset>
+                  <Box
+                    as="legend"
+                    fontSize="md"
+                    color={useColorModeValue("gray.900", "gray.50")}
+                  >
+                    Push Notifications
+                    <Text
+                      fontSize="sm"
+                      color={useColorModeValue("gray.500", "gray.400")}
+                    >
+                      These are delivered via SMS to your mobile phone.
+                    </Text>
+                    </Box>
+                  <RadioGroup
+                    fontSize="sm"
+                    color={useColorModeValue("gray.700", "gray.50")}
+                    colorScheme="brand"
+                    mt={4}
+                    defaultValue="1"
+                  >
+                    <Stack spacing={4}>
+                      <Radio spacing={3} value="1">
+                        Everything
+                      </Radio>
+                      <Radio spacing={3} value="2">
+                        Same as email
+                      </Radio>
+                      <Radio spacing={3} value="3">
+                        No push notifications
+                      </Radio>
+                    </Stack>
+                  </RadioGroup>
+                </chakra.fieldset>
+              </Stack>
+              <Box
+                px={{ base: 4, sm: 6 }}
+                py={3}
+                bg={useColorModeValue("gray.50", "gray.900")}
+                textAlign="right"
+              >
+                <Button
+                  type="submit"
+                  colorScheme={useColorModeValue("brand", "brand")}
+                  _focus={{ shadow: "" }}
+                  fontWeight="md"
+                >
+                  Save
+                </Button>
+              </Box>
+            </chakra.form>
+          </GridItem>
+        </SimpleGrid>
+      </Box>
       
     </Box>
   );

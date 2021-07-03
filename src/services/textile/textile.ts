@@ -8,6 +8,8 @@ export class TextileInstance {
     bucketKey?: string
   };
 
+  private apiKey = "bu5jbif4lu5tn4xmilwaxen3zjm";
+
   private ipfsGateway = 'https://hub.textile.io';
 
   private static singletonInstace: TextileInstance;
@@ -27,10 +29,10 @@ export class TextileInstance {
   }
 
   private async init() {
-    console.log(process.env.NEXT_PUBLIC_TEXTILE_API_KEY);
+    console.log(this.apiKey);
 
     this.keyInfo = {
-      key: process.env.NEXT_PUBLIC_TEXTILE_API_KEY as string
+      key: this.apiKey
     };
 
     let buckets = await Buckets.withKeyInfo(this.keyInfo);
