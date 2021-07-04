@@ -1,4 +1,4 @@
-import { Buckets, PrivateKey, KeyInfo } from '@textile/hub'
+import { Buckets, PrivateKey, KeyInfo, Client, ThreadID, GetThreadResponse } from '@textile/hub'
 import { NFTMetadata, TokenMetadata } from './types'
 
 export class TextileInstance {
@@ -7,13 +7,18 @@ export class TextileInstance {
     bucket?: Buckets,
     bucketKey?: string
   };
+  private client: Client;
+  private threadID: ThreadID;
 
-  private apiKey = "bu5jbif4lu5tn4xmilwaxen3zjm";
+  private readonly apiKey = "bu5jbif4lu5tn4xmilwaxen3zjm";
 
   private ipfsGateway = 'https://hub.textile.io';
 
   private static singletonInstace: TextileInstance;
   private static identity: PrivateKey;
+
+  private readonly threadName = "UserNFTThread";
+  private readonly collectionName = "UserNFTList"
 
   public static async getInstance(): Promise<TextileInstance> {
     if (!TextileInstance.singletonInstace) {
@@ -49,6 +54,21 @@ export class TextileInstance {
       bucketKey: buck.root.key
     };
 
+    await this.initializeCollection();
+  }
+
+  private async initializeCollection(): Promise<void> {
+    this.client = await Client.withKeyInfo(this.keyInfo);
+    await this.client.getToken(TextileInstance.identity);
+
+    const threadList: Array<GetThreadResponse> = await this.client.listThreads();
+    const thread = threadList.find((obj) => obj.name === this.threadName);
+    if (!thread) {
+      this.threadID = await this.client.newDB(undefined, this.threadName);
+      await this.client.newCollection(this.threadID, { name: this.collectionName });
+    } else {
+      this.threadID = ThreadID.fromString(thread.id);
+    }
   }
 
   public async uploadNFT(file: File, name: string = "", description: string = ""): Promise<NFTMetadata> {
@@ -107,5 +127,24 @@ export class TextileInstance {
     nft.tokenMetadataURL = `/ipfs/${raw.path.cid.toString()}`;
 
     console.log(raw);
+  }
+
+  public async addNFTToUserCollection(nft: NFTMetadata) {
+    if (!this.client) {
+      throw new Error('No client');
+    }
+
+    await this.client.create(this.threadID, this.collectionName, [nft]);
+  }
+
+  public async getAllUserNFTs(): Promise<Array<NFTMetadata>> {
+    if (!this.client) {
+      throw new Error('No client');
+    }
+
+    // TODO: Implement a pagination logic to query only limited data.
+    const memeList = await this.client.find<NFTMetadata>(this.threadID, this.collectionName, {});
+    console.log("All user memes:", memeList)
+    return memeList;
   }
 }

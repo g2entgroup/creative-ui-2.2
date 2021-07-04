@@ -69,9 +69,10 @@ export default function Component() {
         const textileInstance = await TextileInstance.getInstance();
         nftMetadata = await textileInstance.uploadNFT(selectedFile);
         await textileInstance.uploadTokenMetadata(nftMetadata);
-        if(nftMetadata != undefined)
-        { setNftUploaded(true)}
-        console.log(nftMetadata)
+        await textileInstance.addNFTToUserCollection(nftMetadata);
+
+      if (nftMetadata != undefined) { setNftUploaded(true) }
+      console.log(nftMetadata);
     }
 
     const onFileChange = async event => {
