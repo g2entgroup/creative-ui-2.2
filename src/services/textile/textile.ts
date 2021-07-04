@@ -83,7 +83,7 @@ export class TextileInstance {
 
     const buf = await file.arrayBuffer();
     const raw = await this.bucketInfo.bucket.pushPath(this.bucketInfo.bucketKey, location, buf);
-
+    console.log("uploadnft func ")
     console.log(raw);
     return {
       cid: raw.path.cid.toString(),
@@ -93,6 +93,7 @@ export class TextileInstance {
       date: now.toString()
     };
   }
+
 
   public async deleteNFTFromBucket(nft: NFTMetadata) {
     if (!this.bucketInfo.bucket || !this.bucketInfo.bucketKey) {
@@ -125,7 +126,7 @@ export class TextileInstance {
 
     nft.tokenMetadataPath = location;
     nft.tokenMetadataURL = `/ipfs/${raw.path.cid.toString()}`;
-
+    console.log("uploadnftmetadata func ")
     console.log(raw);
   }
 
@@ -133,7 +134,7 @@ export class TextileInstance {
     if (!this.client) {
       throw new Error('No client');
     }
-
+    console.log("adding nft to user collection...")
     await this.client.create(this.threadID, this.collectionName, [nft]);
   }
 

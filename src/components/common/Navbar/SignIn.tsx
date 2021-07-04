@@ -135,6 +135,9 @@ const SignIn = () => {
     }
     const identity = PrivateKey.fromRawEd25519Seed(Uint8Array.from(array))
     console.log(`Your VIP Key: ${identity.toString()}`)
+    
+    const identityString = identity.toString()
+    localStorage.setItem("user-private-identity" , identityString)
 
     createNotification(identity);
 

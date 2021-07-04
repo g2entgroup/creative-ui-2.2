@@ -34,9 +34,8 @@ type WindowInstanceWithEthereum = Window & typeof globalThis & { ethereum?: prov
     private _type: Definition;
     constructor(public value?: Type) {}
   }
-  export class EthereumAddress extends StrongType<'ethereum_address', string> {}
+export class EthereumAddress extends StrongType<'ethereum_address', string> {}
 export default function Component() {
-    
 
     const [nftUploaded , setNftUploaded] = useState(false)
     const [submitEnabled, setSubmitEnabled] = useState(false);
@@ -70,9 +69,11 @@ export default function Component() {
         nftMetadata = await textileInstance.uploadNFT(selectedFile);
         await textileInstance.uploadTokenMetadata(nftMetadata);
         await textileInstance.addNFTToUserCollection(nftMetadata);
+        const all = await textileInstance.getAllUserNFTs();
 
       if (nftMetadata != undefined) { setNftUploaded(true) }
-      console.log(nftMetadata);
+      console.log("nftmetadat : " +nftMetadata);
+      
     }
 
     const onFileChange = async event => {
