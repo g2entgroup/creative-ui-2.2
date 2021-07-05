@@ -1,6 +1,6 @@
-import { providers } from 'ethers'
 import { useState } from 'react';
 import { list, SimpleGrid, Text } from "@chakra-ui/react"
+import { Flex, Spacer , Center} from "@chakra-ui/react"
 import BrandDiscovery from '../components/common/Cards/branddiscovery'
 import { Button, ButtonGroup } from "@chakra-ui/react"
 import { TextileInstance } from "../services/textile/textile";
@@ -30,7 +30,10 @@ export default function All () {
 
     return(
     <>
-    <Button colorScheme="blue" onClick={fetchGallery}> Fetch my photos </Button>
+    <Flex alignContent="center">
+        <Center>    
+                <Button colorScheme="blue" onClick={fetchGallery} hidden={displayPix}> Fetch my photos </Button>
+        </Center>
     <SimpleGrid columns={{sm: 1, md: 4}} marginBottom={"10"} hidden={!displayPix}>
 
     {   
@@ -40,6 +43,7 @@ export default function All () {
     }
  
     </SimpleGrid>
+    </Flex>
         
     </>)
 }

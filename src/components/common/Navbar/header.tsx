@@ -340,7 +340,22 @@ const Header = () => {
                 >
                   Explore
               </Link>
-              <Button
+              <Link
+                  href="/upload"
+                >
+                  Upload
+              </Link>
+              <Link
+                  href="/createcampaign"
+                >
+                  Create Campaign
+              </Link>
+              <Link
+                  href="/all"
+                >
+                  View my bucket
+              </Link>
+              {/* <Button
                   bg={bg}
                   color="gray.500"
                   display="inline-flex"
@@ -361,7 +376,7 @@ const Header = () => {
                   _focus={{ boxShadow: "none" }}
                 >
                   Vote
-                </Button>
+                </Button> */}
                   <Center height="50px">
                     <Divider orientation="vertical" />
                   </Center>
