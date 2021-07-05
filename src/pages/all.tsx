@@ -1,15 +1,17 @@
 import { providers } from 'ethers'
 import { useState } from 'react';
-import { SimpleGrid, Text } from "@chakra-ui/react"
+import { list, SimpleGrid, Text } from "@chakra-ui/react"
 import BrandDiscovery from '../components/common/Cards/branddiscovery'
 import { Button, ButtonGroup } from "@chakra-ui/react"
 import { TextileInstance } from "../services/textile/textile";
 import { getIdentity } from "../utils/fetchTextileIdentity"
-import { canBeRendered } from 'react-toastify/dist/utils';
+import Image from 'next/image';
+import { object } from 'prop-types';
 export default function All () {
-    const [displayPix , setDisplayPix ] = useState(false)
+    const [displayPix , setDisplayPix ] = useState(false);
+    const [cids ,setCids] = useState([]);
     let photos ;
-    let cid = [];
+    let cid = [] ;
 
     const fetchGallery = async ()=> {
     
@@ -17,11 +19,12 @@ export default function All () {
      photos = await textileInstance.getAllUserNFTs();
      setDisplayPix(true)
      console.log(photos)
-    photos = photos.map((element) => {
-            cid.push("https://ipfs.io/ipfs/"+element.cid)
+    photos.map((element) => {
+            cid.push(element.cid)
     });
    console.log(photos)
-   console.log(typeof(cid[0]))
+   console.log(cid)
+   setCids(cid)
     }
   
 
@@ -29,15 +32,12 @@ export default function All () {
     <>
     <Button colorScheme="blue" onClick={fetchGallery}> Fetch my photos </Button>
     <SimpleGrid columns={{sm: 1, md: 4}} marginBottom={"10"} hidden={!displayPix}>
-    <BrandDiscovery imagelink= "https://picsum.photos/200/300.webp?random=1" name="@creator" bio="awesome creative NFT"/>
-    <BrandDiscovery imagelink={cid[1]} bio="user item" name="your name"></BrandDiscovery>
-    <BrandDiscovery imagelink={cid[0]} bio="user item" name="your name"></BrandDiscovery>
 
     {   
-         cid.map((e) => (
-            <BrandDiscovery imagelink={e} bio="user item" name="your name"></BrandDiscovery>
+         cids.map((e) => (
+            <BrandDiscovery imagelink={"https://hub.textile.io/ipfs/"+e} bio="user item" name="your name"></BrandDiscovery>
             )) 
-     }
+    }
  
     </SimpleGrid>
         
