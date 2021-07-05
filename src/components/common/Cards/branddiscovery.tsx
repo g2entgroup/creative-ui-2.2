@@ -1,3 +1,4 @@
+import { providers } from 'ethers';
 import {
     Box,
     Center,
@@ -50,7 +51,6 @@ type WindowInstanceWithEthereum = Window & typeof globalThis & { ethereum?: prov
   }
 
   export default function ProductSimple({imagelink ,bio, name} ) {
-    const useCreateLazyMint = createLazyMint();
     return (
       <Center py={12}>
         <Box
