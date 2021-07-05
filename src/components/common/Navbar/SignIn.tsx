@@ -38,12 +38,16 @@ class StrongType<Definition, Type> {
 }
 export class EthereumAddress extends StrongType<'ethereum_address', string> {}
 
-const SignIn = () => {
+const SignIn = (props) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-
+  const [closeButtons , setCloseButtons] = useState(false)
   const [secret, setSecret] = useState<String>();
 
   const handleChange = (e: any) => setSecret(e.target.value);
+
+  const handleSuccessSignin = () => {
+    localStorage.setItem('closeButtons', 'true');
+  }
 
   const generateMessageForEntropy = (ethereum_address: EthereumAddress, application_name: string, secret: string): string => {
     return (
@@ -140,6 +144,10 @@ const SignIn = () => {
     localStorage.setItem("user-private-identity" , identityString)
 
     createNotification(identity);
+    setCloseButtons(true)
+    onClose();
+    // Close the modal function and set local storage variable 
+    //handleSuccessSignin(); // set close buttons to true 
 
     // Create a textile instance which will create or get the bucket assoicated with this user.
     TextileInstance.setPrivateKey(identity);
@@ -155,7 +163,7 @@ const SignIn = () => {
     const dispatchCustomEvent = createStandaloneToast();
     dispatchCustomEvent({ title: "Secret Key",
       status: "success",
-      description: `Public Key: ${identity.public.toString()} Your app can now generate and reuse this users PrivateKey for creating user Mailboxes, Threads, and Buckets.`,
+      description: ` SIGNED INPublic Key: ${identity.public.toString()} Your app can now generate and reuse this users PrivateKey for creating user Mailboxes, Threads, and Buckets.`,
       duration: 9000,
       isClosable: true,
     });
@@ -166,7 +174,7 @@ const SignIn = () => {
 
   return (
     <>
-      <Button colorScheme="brand" variant="ghost" size="sm" onClick={onOpen}>
+      <Button colorScheme="brand" variant="ghost" size="sm" onClick={onOpen} >
         Sign In
       </Button>
 

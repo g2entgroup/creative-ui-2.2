@@ -244,6 +244,7 @@ export default function Component() {
             </chakra.form>
           </GridItem>
         </SimpleGrid>
+        {nftUploaded ? (<Text as="h3" size="3xl" color="hotpink"> Success !</Text>) : ""}
       </Box>
 
     </Box>

@@ -36,6 +36,14 @@ import Balance from "../Balance/Balance";
 import SignIn from "./SignIn";
 import SignUp from "./SignUp";
 
+const check = () => {
+  if(localStorage.getItem('closeButtons') == 'true') {
+    return true
+  } else {
+    return false
+  }
+}
+
 const Header = () => {
   const { activate, chainId, active } = useWeb3React<Web3Provider>();
 
@@ -425,12 +433,12 @@ const Header = () => {
                 )}
 
                 {/* if wallet  connect let the user sign in or sign up (modal)  */}
-                {active === true ? (
+                {  active === true  ? (
                   <>
                     {/* sign in  */}
-                    <SignIn />
+                    <SignIn closeButton={check()}/>
                     {/* sign up  */}
-                    <SignUp />
+                    <SignUp closeButton={check()}/>
                   </>
                 ) : (
                   ""
