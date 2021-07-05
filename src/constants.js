@@ -10,6 +10,8 @@ export const ETHERSCAN_KEY = "PSW8C433Q667DVEX5BCRMGNAH9FSGFZ7Q8";
 // BLOCKNATIVE ID FOR Notify.js:
 export const BLOCKNATIVE_DAPPID = "0b58206a-f3c0-4701-a62f-73c7243e8c77";
 
+export const RARIBLE_EXCHANGE_RINKEBY = "0x33Aef288C093Bf7b36fBe15c3190e616a993b0AD";
+
 export const NETWORKS = {
   localhost: {
     name: "localhost",
