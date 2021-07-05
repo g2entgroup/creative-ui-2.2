@@ -14,6 +14,8 @@ import {
   createLazyMint, 
   generateTokenId
 } from '../../../rarible/createLazyMint';
+import Buy from "../Buy/buy";
+import Sell from "../Sell/sell";
   
 type WindowInstanceWithEthereum = Window & typeof globalThis & { ethereum?: providers.ExternalProvider };
   class StrongType<Definition, Type> {
@@ -153,6 +155,9 @@ type WindowInstanceWithEthereum = Window & typeof globalThis & { ethereum?: prov
             >
             Mint to Rarible
           </Button>
+
+          <Buy />
+          <Sell />
         </Stack>
         </Box>
       </Center>
