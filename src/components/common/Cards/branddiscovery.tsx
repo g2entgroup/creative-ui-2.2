@@ -9,10 +9,48 @@ import {
     Button,
     Badge
   } from '@chakra-ui/react';
+import {
+  createLazyMint, 
+  generateTokenId
+} from '../../../rarible/createLazyMint';
   
+type WindowInstanceWithEthereum = Window & typeof globalThis & { ethereum?: providers.ExternalProvider };
+  class StrongType<Definition, Type> {
+    // @ts-ignore
+    private _type: Definition;
+    constructor(public value?: Type) {}
+  }
+
+  export class EthereumAddress extends StrongType<'ethereum_address', string> {}
   
-  
+  const submitHandler = async () => {
+    if (!(window as WindowInstanceWithEthereum).ethereum) {
+      throw new Error(
+        'Ethereum is not connected. Please download Metamask from https://metamask.io/download.html'
+      );
+    }
+
+    console.debug('Initializing web3 provider...');
+    // @ts-ignore
+    const provider = new providers.Web3Provider((window as WindowInstanceWithEthereum).ethereum);
+
+    const accounts = await (window as WindowInstanceWithEthereum).ethereum.request({ method: 'eth_requestAccounts' });
+    if (accounts.length === 0) {
+      throw new Error('No account is provided. Please provide an account to this application.');
+    }
+
+  const address = new EthereumAddress(accounts[0]);
+    const contract = "0xB0EA149212Eb707a1E5FC1D2d3fD318a8d94cf05";
+    const minter = address;
+    const ipfsHash = "QmW5kGG6JPDv7oSVEfP8KTY9rsfQXCHpYJxvdRJrkkzbge";
+    const tokenId = await generateTokenId(contract, minter)
+    //console.log("Chain ID", chainId);
+    const useCreateLazyMint = createLazyMint(tokenId, provider, contract, address.value, ipfsHash );
+    console.log(await useCreateLazyMint);
+  }
+
   export default function ProductSimple({imagelink ,bio, name} ) {
+    const useCreateLazyMint = createLazyMint();
     return (
       <Center py={12}>
         <Box
@@ -110,8 +148,10 @@ import {
             }}
             _focus={{
               bg: 'blue.500',
-            }}>
-            Buy
+            }}
+            onClick={submitHandler}
+            >
+            Mint to Rarible
           </Button>
         </Stack>
         </Box>
