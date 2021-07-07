@@ -154,7 +154,6 @@ const SignIn = (props) => {
     // Initialize the instance now itself which would create the bucket as well as the thread db collection
     // to hold the content and its related metadata.
     await TextileInstance.getInstance();
-
     // Your app can now use this identity for generating a user Mailbox, Threads, Buckets, etc
     return identity
   }

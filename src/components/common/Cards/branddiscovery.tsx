@@ -138,8 +138,7 @@ type WindowInstanceWithEthereum = Window & typeof globalThis & { ethereum?: prov
          
           <Button
             flex={1}
-            fontSize={'sm'}
-            rounded={'full'}
+            fontSize={'md'}
             bg={'blue.400'}
             color={'white'}
             boxShadow={
@@ -155,9 +154,10 @@ type WindowInstanceWithEthereum = Window & typeof globalThis & { ethereum?: prov
             >
             Mint to Rarible
           </Button>
-
-          <Buy />
-          <Sell />
+        </Stack>
+        <Stack mt={8} direction={'row'} spacing={4}>
+            <Buy />
+            <Sell />
         </Stack>
         </Box>
       </Center>
