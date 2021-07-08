@@ -1,4 +1,5 @@
 module.exports = {
+ 
     trailingSlash: true,
     exportPathMap: function() {
       return {
@@ -13,6 +14,6 @@ module.exports = {
       return config;
     },
     images: {
-      domains: ["res.cloudinary.com", "www.creativeplatform.io"],
+      domains: ["res.cloudinary.com", "www.creativeplatform.io" , 'picsum.photos' , 'hub.textile.io' , 'ipfs.io'],
     }
 };

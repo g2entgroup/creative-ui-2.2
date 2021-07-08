@@ -25,7 +25,7 @@ import Link from "next/link";
 import Image from "next/image";
   
 
-const SignUp = () => {
+const SignUp = (props) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const [show, setShow] = useState(false);
@@ -33,7 +33,7 @@ const SignUp = () => {
 
   return (
     <>
-      <Button colorScheme="brand" variant="ghost" size="sm" onClick={onOpen}>
+      <Button colorScheme="brand" variant="ghost" size="sm" onClick={onOpen} >
         Sign Up
       </Button>
 

@@ -10,14 +10,16 @@ export const ETHERSCAN_KEY = "PSW8C433Q667DVEX5BCRMGNAH9FSGFZ7Q8";
 // BLOCKNATIVE ID FOR Notify.js:
 export const BLOCKNATIVE_DAPPID = "0b58206a-f3c0-4701-a62f-73c7243e8c77";
 
+export const RARIBLE_EXCHANGE_RINKEBY = "0x33Aef288C093Bf7b36fBe15c3190e616a993b0AD";
+
 export const NETWORKS = {
-  localhost: {
-    name: "localhost",
-    color: "#666666",
-    chainId: 31337,
-    blockExplorer: "",
-    rpcUrl: "http://" + window.location.hostname + ":8545",
-  },
+  // localhost: {
+  //   name: "localhost",
+  //   color: "#666666",
+  //   chainId: 31337,
+  //   blockExplorer: "",
+  //   rpcUrl: "http://localhost" + ":8545",
+  // },
   mainnet: {
     name: "mainnet",
     color: "#ff8b9e",
@@ -138,14 +140,14 @@ export const NETWORKS = {
     color: "#f01a37",
     chainId: 31337,
     blockExplorer: "",
-    rpcUrl: "http://" + window.location.hostname + ":9545",
+    rpcUrl: "http://localhost" + ":9545",
   },
   localOptimism: {
     name: "localOptimism",
     color: "#f01a37",
     chainId: 420,
     blockExplorer: "",
-    rpcUrl: "http://" + window.location.hostname + ":8545",
+    rpcUrl: "http://localhost" + ":8545",
   },
   kovanOptimism: {
     name: "kovanOptimism",
