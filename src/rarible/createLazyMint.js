@@ -2,6 +2,7 @@ import { utils } from "ethers";
 import { sign } from "./lazyMint";
 
 export async function generateTokenId(contract, minter) {
+  // const tokenId = await generateTokenId(contract, minter)
 	console.log("generating tokenId for", contract, minter)
   const raribleTokenIdUrl = `https://api-dev.rarible.com/protocol/v0.1/ethereum/nft/collections/${contract}/generate_token_id?minter=${minter}`;
   const res = await fetch(raribleTokenIdUrl, {
@@ -12,11 +13,10 @@ export async function generateTokenId(contract, minter) {
   });
   const resJson = await res.json();
   console.log({resJson})
-	return resJson.tokenId
+	return resJson.tokenId // New Token ID
 }
 
 async function createLazyMintForm(tokenId, contract, minter, ipfsHash) {
-  // const tokenId = await generateTokenId(contract, minter)
 	console.log("generated tokenId", tokenId)
 	return {
 		"@type": "ERC721",
@@ -29,8 +29,9 @@ async function createLazyMintForm(tokenId, contract, minter, ipfsHash) {
 }
 
 export async function createLazyMint(tokenId, provider, contract, minter, ipfsHash) {
+  console.log("Test", tokenId);
   const form = await createLazyMintForm(tokenId, contract, minter, ipfsHash)
-  const signature = await sign(provider, 3, contract, form, minter)
+  const signature = await sign(provider, 1, contract, form, minter)
 	return { ...form, signatures: [signature] }
 }
 

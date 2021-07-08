@@ -28,6 +28,7 @@ import {
 } from "@chakra-ui/react";
 import Link from "next/link";
 import Image from "next/image";
+import { TextileInstance } from "../../../services/textile/textile";
 
 type WindowInstanceWithEthereum = Window & typeof globalThis & { ethereum?: providers.ExternalProvider };
 class StrongType<Definition, Type> {
@@ -37,12 +38,16 @@ class StrongType<Definition, Type> {
 }
 export class EthereumAddress extends StrongType<'ethereum_address', string> {}
 
-const SignIn = () => {
+const SignIn = (props) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const [closeButtons , setCloseButtons] = useState(false)
+  const [secret, setSecret] = useState<String>();
 
-  const [secret, setSecret] = useState({});
+  const handleChange = (e: any) => setSecret(e.target.value);
 
-  const handleChange = (e: any) => setSecret({[e.target.name]: e.target.value});
+  const handleSuccessSignin = () => {
+    localStorage.setItem('closeButtons', 'true');
+  }
 
   const generateMessageForEntropy = (ethereum_address: EthereumAddress, application_name: string, secret: string): string => {
     return (
@@ -74,8 +79,9 @@ const SignIn = () => {
       '\n' +
       '\n' +
       '******************************************************************************** \n' +
-      'ONLY SIGN THIS MESSAGE IF YOU CONSENT TO THE CURRENT PAGE ACCESSING THE KEYS \n' +
+      'ONLY SIGN THIS MESSAGE IF YOU CONSENT TO THE CURRENT PAGE ACCESSING THE TEXTILE KEYS \n' +
       'ASSOCIATED WITH THE ABOVE ADDRESS AND APPLICATION. \n' +
+      'NOTE THIS DOES NOT ALLOW ACCESS TO YOUR WALLET FOR BLOCKCHAIN TX. \n' +
       'AGAIN, DO NOT SHARE THIS SIGNED MESSAGE WITH ANYONE OR THEY WILL HAVE READ AND \n' +
       'WRITE ACCESS TO THIS APPLICATION. \n' +
       '******************************************************************************** \n'
@@ -110,9 +116,10 @@ const SignIn = () => {
   }
   const generatePrivateKey = async (): Promise<PrivateKey> => {
     const metamask = await getAddressAndSigner()
+    const salt = "$2a$10$3vx4QH1vSj9.URynBqkbae";
     // avoid sending the raw secret by hashing it first
-    const hashSecret = hashSync('secret', 10)
-    const message = generateMessageForEntropy(metamask.address, 'Creative-demo', hashSecret)
+    const hashSecret = hashSync(secret, salt);
+    const message = generateMessageForEntropy(metamask.address, 'Creative', hashSecret)
     const signedText = await metamask.signer.signMessage(message);
     const hash = utils.keccak256(signedText);
     if (hash === null) {
@@ -132,9 +139,21 @@ const SignIn = () => {
     }
     const identity = PrivateKey.fromRawEd25519Seed(Uint8Array.from(array))
     console.log(`Your VIP Key: ${identity.toString()}`)
+    
+    const identityString = identity.toString()
+    localStorage.setItem("user-private-identity" , identityString)
 
-    createNotification(identity)
+    createNotification(identity);
+    setCloseButtons(true)
+    onClose();
+    // Close the modal function and set local storage variable 
+    //handleSuccessSignin(); // set close buttons to true 
 
+    // Create a textile instance which will create or get the bucket assoicated with this user.
+    TextileInstance.setPrivateKey(identity);
+    // Initialize the instance now itself which would create the bucket as well as the thread db collection
+    // to hold the content and its related metadata.
+    await TextileInstance.getInstance();
     // Your app can now use this identity for generating a user Mailbox, Threads, Buckets, etc
     return identity
   }
@@ -143,7 +162,7 @@ const SignIn = () => {
     const dispatchCustomEvent = createStandaloneToast();
     dispatchCustomEvent({ title: "Secret Key",
       status: "success",
-      description: `VIP Key: ${identity.public.toString()} Your app can now generate and reuse this users PrivateKey for creating user Mailboxes, Threads, and Buckets.`,
+      description: ` SIGNED INPublic Key: ${identity.public.toString()} Your app can now generate and reuse this users PrivateKey for creating user Mailboxes, Threads, and Buckets.`,
       duration: 9000,
       isClosable: true,
     });
@@ -154,7 +173,7 @@ const SignIn = () => {
 
   return (
     <>
-      <Button colorScheme="brand" variant="ghost" size="sm" onClick={onOpen}>
+      <Button colorScheme="brand" variant="ghost" size="sm" onClick={onOpen} >
         Sign In
       </Button>
 
@@ -181,9 +200,8 @@ const SignIn = () => {
               <Stack spacing={6}>
                 <Heading as="h6" size="md">Sign In</Heading>
                 {/* name */}
-                <Button onClick={generatePrivateKey}>Login with Metamask</Button>
                   <FormControl id="login" isRequired>
-                  <FormLabel>VIP Key</FormLabel>
+                  <FormLabel>Secret</FormLabel>
                     <InputGroup>
                       <Input
                         name="password"
@@ -199,7 +217,7 @@ const SignIn = () => {
                     </InputRightElement>
                     </InputGroup>
                     <FormHelperText>Enter a VIP key. View console.</FormHelperText>
-                    <Button type="submit">Login</Button>
+                    <Button onClick={generatePrivateKey}>Login with Metamask</Button>
                   </FormControl>
                 </Stack>
                 <Box>Don't Have An Account?

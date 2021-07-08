@@ -1,0 +1,2 @@
+- name: Textile Buckets
+  uses: textileio/github-action-buckets@v25

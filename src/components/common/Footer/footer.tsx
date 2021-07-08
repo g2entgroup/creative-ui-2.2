@@ -6,6 +6,7 @@ import {
   Heading,
   Text,
   Input,
+  Link
 } from "@chakra-ui/react";
 import { AiOutlineMail } from "react-icons/ai";
 import { FiTwitter, FiInstagram } from "react-icons/fi";
@@ -71,7 +72,7 @@ const Footer = () => {
             mt="1rem"
             cursor="pointer"
           >
-            <a href="https://community.xyz/#YN7VDKn_JjziC4tTL92K9pO_iMcnMSjk6kgSBr1EPjI" target="_blank">Creative Organization</a>
+            <Link href="https://app.daohaus.club/dao/0x89/0xc48996a569911fd6eba1b97b6419731eed32041e/" isExternal target="_blank">Creative Organization</Link>
           </Box>
         </Box>
         <Box w="90%">
@@ -137,7 +138,7 @@ const Footer = () => {
             <Box>
               <Box>Discord with us:</Box>
               <Box>
-                <a href="https://discord.gg/8B4p7ztWTp">Creative</a>
+                <Link href="https://discord.gg/8B4p7ztWTp" isExternal>Creative</Link>
               </Box>
             </Box>
           </Flex>
@@ -156,9 +157,9 @@ const Footer = () => {
             <Box>
               <Box>Email us:</Box>
               <Box>
-                <a href="mailto:creatives@creativeplatform.io">
+                <Link href="mailto:creatives@creativeplatform.io">
                   creatives@creativeplatform.io
-                </a>
+                </Link>
                 </Box>
             </Box>
           </Flex>
@@ -215,9 +216,9 @@ const Footer = () => {
               borderRadius="0.4rem"
               cursor="pointer"
             >
-              <a href="https://www.twitter.com/creativecrtv" target="_blank">
+              <Link href="https://www.twitter.com/creativecrtv" isExternal target="_blank">
                 <FiTwitter />
-              </a>
+              </Link>
             </Box>
             <Box
               mr="1rem"
@@ -228,9 +229,9 @@ const Footer = () => {
               borderRadius="0.4rem"
               cursor="pointer"
             >
-              <a href="https://www.instagram.com/creativecrtv" target="_blank">
+              <Link href="https://www.instagram.com/creativecrtv" isExternal target="_blank">
                 <FiInstagram />
-              </a>
+              </Link>
             </Box>
           </Flex>
         </Box>
@@ -250,9 +251,9 @@ const Footer = () => {
         <Box textAlign="center">
           Copyright © 2021{" "}
           <Box as="text" color="#e50168">
-            <a href="https://community.xyz/#YN7VDKn_JjziC4tTL92K9pO_iMcnMSjk6kgSBr1EPjI">
+            <Link href="https://app.daohaus.club/dao/0x89/0xc48996a569911fd6eba1b97b6419731eed32041e/">
             Creative Organization, LLC
-            </a>
+            </Link>
           </Box>
           . All Rights Reserved.
         </Box>
