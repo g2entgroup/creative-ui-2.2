@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "export": "npm run build && next export -o _static"
+    "export": "npm run build && next export -o _static",
+    "test": "jest --passWithNoTests"
   },
   "dependencies": {
     "@ant-design/icons": "^4.6.2",
@@ -49,12 +50,14 @@
     "react-toastify": "^7.0.3",
     "readline": "^1.3.0",
     "swr": "^0.5.5",
+    "ts-node": "^10.1.0",
     "tslib": "^2.3.0",
     "unstated-next": "^1.1.0",
     "ws": "^7.4.6"
   },
   "devDependencies": {
     "@types/react": "^17.0.3",
+    "jest": "^27.0.6",
     "typescript": "^4.2.4"
   },
   "resolutions": {
