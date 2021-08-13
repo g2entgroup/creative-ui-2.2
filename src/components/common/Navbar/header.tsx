@@ -1,8 +1,14 @@
 import React, { useEffect, useState, useLayoutEffect, useRef } from "react";
 import { useWeb3React } from "@web3-react/core";
 import { Web3Provider } from "@ethersproject/providers";
-import { injectedConnector } from "../../../utils/injectedConnector";
+import { useEthers, useNotifications } from '@usedapp/core';
+import blockies from 'blockies-ts';
+import ConnectWallet from "../Navbar/ConnectWallet";
 import {
+  Alert,
+  AlertIcon,
+  AlertTitle,
+  AlertDescription,
   chakra,
   HStack,
   Link,
@@ -11,6 +17,11 @@ import {
   PopoverContent,
   Box,
   Flex,
+  Image,
+  Menu,
+  MenuButton,
+  MenuList,
+  MenuItem,
   IconButton,
   useColorModeValue,
   useDisclosure,
@@ -26,13 +37,13 @@ import {
 } from "@chakra-ui/react";
 import NotificationDrawer from "../Notification/NotificationDrawer";
 import { useViewportScroll } from "framer-motion";
-
+import Head, { MetaProps } from '../layout/Head';
 import { IoIosArrowDown } from "react-icons/io";
 import { AiFillHome, AiOutlineInbox, AiOutlineMenu } from "react-icons/ai";
 import { BsFillCameraVideoFill } from "react-icons/bs";
 import { FaMoon, FaSun } from "react-icons/fa";
 import Logo from "../Navbar/Logo";
-import Balance from "../Balance/Balance";
+import Balance from "../../Balance";
 import SignIn from "./SignIn";
 import SignUp from "./SignUp";
 
@@ -44,14 +55,43 @@ const check = () => {
   }
 }
 
-const Header = () => {
-  const { activate, chainId, active } = useWeb3React<Web3Provider>();
+/**
+ * Constants & Helpers
+ */
+
+// Title text for the various transaction notifications.
+const TRANSACTION_TITLES = {
+  transactionStarted: 'Local Transaction Started',
+  transactionSucceed: 'Local Transaction Completed',
+}
+
+// Takes a long hash string and truncates it.
+function truncateHash(hash: string, length = 38): string {
+  return hash.replace(hash.substring(6, length), '...')
+}
+
+/**
+ * Prop Types
+ */
+ interface HeaderProps {
+  children: React.ReactNode
+}
+
+const Header = ({ children }: HeaderProps): JSX.Element => {
+
+  const { account, deactivate } = useEthers()
+  const { notifications } = useNotifications()
+
+  let blockieImageSrc
+  if (typeof window !== 'undefined') {
+    blockieImageSrc = blockies.create({ seed: account }).toDataURL()
+  }
 
   // click to connect wallet
-  const onClick = () => {
-    activate(injectedConnector);
-    console.log(chainId);
-  };
+  // const onClick = () => {
+  //   activate(injectedConnector);
+  //   console.log(chainId);
+  // };
 
   //const [showPass, setShowPass] = useState(false);
 
@@ -413,37 +453,66 @@ const Header = () => {
                 </Popover>
               </HStack>
             </Flex>
-            <Flex justify="flex-end" align="center" color="gray.400">
-              <HStack spacing="5" display={{ base: "none", md: "flex" }}>
+            {account ? (
+              <Flex justify="flex-end" align="center" color="gray.400">
+                <HStack spacing="5" display={{ base: "none", md: "flex" }}>
                 <Balance />
-
-                {active === true ? (
-                  ""
-                ) : (
-                  <Button
-                    colorScheme="brand"
-                    variant="ghost"
-                    size="sm"
-                    onClick={() => {
-                      onClick();
-                    }}
-                  >
-                    Wallet Connect
-                  </Button>
-                )}
-
-                {/* if wallet  connect let the user sign in or sign up (modal)  */}
-                {  active === true  ? (
-                  <>
-                    {/* sign in  */}
-                    <SignIn closeButton={check()}/>
-                    {/* sign up  */}
-                    <SignUp closeButton={check()}/>
-                  </>
-                ) : (
-                  ""
-                )}
-              </HStack>
+                <Image ml="4" src={blockieImageSrc} alt="blockie" />
+                <Menu placement="bottom-end">
+                  <MenuButton as={Button} ml="4">
+                    {truncateHash(account)}
+                  </MenuButton>
+                  <MenuList>
+                    <MenuItem
+                      onClick={() => {
+                        deactivate()
+                      }}
+                    >
+                      Disconnect
+                    </MenuItem>
+                    <MenuItem>
+                      {/* sign in  */}
+                      <SignIn closeButton={check()}/>
+                    </MenuItem>
+                    <MenuItem>
+                      {/* sign up  */}
+                      <SignUp closeButton={check()}/>
+                    </MenuItem>
+                  </MenuList>
+                </Menu>
+                </HStack>
+              </Flex>
+            ) : (
+              <ConnectWallet />
+            )}
+            {children}
+          {notifications.map((notification) => {
+            if (notification.type === 'walletConnected') {
+              return null
+            }
+            return (
+              <Alert
+                key={notification.id}
+                status="success"
+                position="fixed"
+                bottom="8"
+                right="8"
+                width="400px"
+              >
+                <AlertIcon />
+                <Box>
+                  <AlertTitle>
+                    {TRANSACTION_TITLES[notification.type]}
+                  </AlertTitle>
+                  <AlertDescription overflow="hidden">
+                    Transaction Hash:{' '}
+                    {truncateHash(notification.transaction.hash, 61)}
+                  </AlertDescription>
+                </Box>
+              </Alert>
+            )
+          })}
+          <HStack spacing="5" display={{ base: "none", md: "flex" }}>
               <NotificationDrawer />
               <IconButton
                 size="md"
@@ -464,8 +533,8 @@ const Header = () => {
                 icon={<AiOutlineMenu />}
                 onClick={mobileNav.onOpen}
               />
+              </HStack>
             </Flex>
-          </Flex>
           {MobileNavContent}
         </chakra.div>
       </chakra.header>

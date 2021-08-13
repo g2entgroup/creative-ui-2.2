@@ -162,7 +162,7 @@ const SignIn = (props) => {
     const dispatchCustomEvent = createStandaloneToast();
     dispatchCustomEvent({ title: "Secret Key",
       status: "success",
-      description: ` SIGNED INPublic Key: ${identity.public.toString()} Your app can now generate and reuse this users PrivateKey for creating user Mailboxes, Threads, and Buckets.`,
+      description: ` SIGNED IN! Public Key: ${identity.public.toString()} Your app can now generate and reuse this users PrivateKey for creating user Mailboxes, Threads, and Buckets.`,
       duration: 9000,
       isClosable: true,
     });
