@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import { AppProps } from "next/app";
+import { ChainId, DAppProvider } from "@usedapp/core";
 import { ChakraProvider, extendTheme, Box, HStack, Icon, Stack, Text, useColorModeValue } from "@chakra-ui/react";
 // import theme from "../styles/theme";
+import theme from "../utils/theme";
 import { Web3ReactProvider } from "@web3-react/core";
 import { getLibrary } from "../utils/utils";
 import { Container } from "../components/common/container";
@@ -10,28 +12,37 @@ import Footer from "../components/common/Footer/footer";
 import { BannerLink } from '../components/common/BannerLink';
 import { BellIcon } from '@chakra-ui/icons';
 import { StoreContainer } from "../utils/store";
+const config = {
+  readOnlyChainId: ChainId.Mumbai,
+  readOnlyUrls: {
+    [ChainId.Mumbai]: process.env.NEXT_PUBLIC_MUMBAI
+  }
+};
 
 // Extend the theme to include custom colors, fonts, etc
-const colors = {
-  brand: {
-    200: "#FFCC80",
-    300: "#FF8A65",
-    400: "#EC407A",
-    500: "#E5395",
-    600: "#D32F2F",
-    700: "#FBC02D",
-   },
- }
+// const colors = {
+//   brand: {
+//     200: "#FFCC80",
+//     300: "#FF8A65",
+//     400: "#EC407A",
+//     500: "#E5395",
+//     600: "#D32F2F",
+//     700: "#FBC02D",
+//    },
+//  }
 
- const theme = extendTheme({ colors })
+//  const theme = extendTheme({ colors })
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
   return (
+    <DAppProvider config={config}>
     <ChakraProvider resetCSS theme={theme}>
       <Web3ReactProvider getLibrary={getLibrary}>
       <StoreContainer.Provider>
         <Container minH="100vh" minW="1080px">
-        <Header />
+        <Header
+          children
+         />
           <Box as="section" pt="8" pb="12">
             <Stack
               direction={{ base: 'column', sm: 'row' }}
@@ -59,6 +70,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
         </StoreContainer.Provider>
       </Web3ReactProvider>
     </ChakraProvider>
+    </DAppProvider>
   );
 };
 
