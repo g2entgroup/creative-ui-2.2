@@ -63,17 +63,10 @@ export default function RaribleItemIndexer(props) {
                   return (
                     <List key={id}>
                       <BrandDiscovery
-                        name={
-                          item.name
-                        }
-                      >
-                        <div>
-                          imagelink={item.image}
-                        </div>
-                        <div>
-                          bio={item.description}
-                        </div>
-                      </BrandDiscovery>
+                        name={item.name}
+                        imagelink={item.image}
+                        bio={item.description}
+                      />
                       <div>
                         <AddressInput
                           ensProvider={props.ensProvider}
