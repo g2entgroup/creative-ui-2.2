@@ -6,13 +6,7 @@ module.exports = {
         '/': { page: '/' }
       };
     },
-    
-      webpack5: true,
- 
-    webpack: function (config, options) {
-      config.experiments = {};
-      return config;
-    },
+    webpack5: true,
     images: {
       domains: ["res.cloudinary.com", "www.creativeplatform.io" , 'picsum.photos' , 'hub.textile.io' , 'ipfs.io'],
     }
