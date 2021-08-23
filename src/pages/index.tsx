@@ -1,6 +1,8 @@
 import { Heading, SimpleGrid, Box, OrderedList, ListItem, Avatar, AvatarBadge, Link, Image } from "@chakra-ui/react";
 import CreativeCard from '../components/CreativeCard';
 import BrandHero from '../components/BrandHero';
+import Hero from '../components/Hero';
+
 import { Content } from "../components/common/Content/Content";
 import { Main } from "../components/common/Main/Main";
 import LiveCampaigns from "../components/LiveCampaigns";
@@ -11,7 +13,7 @@ import TopCreatives from "../components/TopCreatives";
 export default function Home() {
   return (
     <Content>
-      <BrandHero />
+      <Hero />
       <Main>
         {/* LATEST BRAND CAMPAIGNS */}
         <Heading as="h2" size="lg" color="white" my={4}>🆕 Latest Brand Campaigns</Heading>
@@ -19,7 +21,7 @@ export default function Home() {
           <CreativeCard />
           <CreativeCard />
           <CreativeCard />
-          <CreativeCard />
+         
         </SimpleGrid>
         {/* LATEST BRAND CAMPAIGNS END */}
       </Main>

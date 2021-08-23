@@ -11,10 +11,12 @@ const Balance = () => {
     fetcher: fetcher(library),
   });
 
+
   if (!balance) {
     return <div></div>;
   }
-  return <div>Ξ {parseFloat(formatEther(balance)).toPrecision(4)}</div>;
+  return <div> { balance && parseFloat(formatEther(balance)).toFixed(3) }</div>;
 };
-
+// need help , the fix decimal points dont seem to have an effect. It should display 2 decimal points but displays all
+//balance && parseFloat(formatEther(balance)).toFixed(3)
 export default Balance;
