@@ -182,9 +182,9 @@ const Header = ({ children }: HeaderProps): JSX.Element => {
               />
             }
           >
-            We think that the best way to align platform development with customers' interests is to empower the ones who actively interact with the protocol: creators, fans, and brands. 
+            We think that the best way to align platform development with customers' interests is to empower the ones who actively interact with the protocol: creators, fans, and brands.
           </Section>
-            
+
           <Link href="https://www.creativeplatform.io/forum/" isExternal target="_blank">
           <Section
             title="Discussion"
@@ -215,7 +215,7 @@ const Header = ({ children }: HeaderProps): JSX.Element => {
           </Section>
           </Link>
 
-          <Link href="https://creative.nolt.io/" isExternal target="_blank"> 
+          <Link href="https://creative.nolt.io/" isExternal target="_blank">
           <Section
             title="Feature Suggestions"
             description={
@@ -229,7 +229,7 @@ const Header = ({ children }: HeaderProps): JSX.Element => {
           >
             Suggest a feature to the Creative community for the good of the platform.
           </Section>
-          </Link>  
+          </Link>
         </SimpleGrid>
         <Box px={{ base: 5, sm: 8 }} py={5} bg={hbg} display={{ sm: "flex" }}>
           <Stack direction={{ base: "row" }} spacing={{ base: 6, sm: 10 }}>
@@ -454,34 +454,73 @@ const Header = ({ children }: HeaderProps): JSX.Element => {
               </HStack>
             </Flex>
             {account ? (
-              <Flex justify="flex-end" align="center" color="gray.400">
-                <HStack spacing="5" display={{ base: "none", md: "flex" }}>
-                <Balance />
-                <Image ml="4" src={blockieImageSrc} alt="blockie" />
-                <Menu placement="bottom-end">
-                  <MenuButton as={Button} ml="4">
-                    {truncateHash(account)}
-                  </MenuButton>
-                  <MenuList>
-                    <MenuItem
-                      onClick={() => {
-                        deactivate()
-                      }}
-                    >
-                      Disconnect
-                    </MenuItem>
-                    <MenuItem>
-                      {/* sign in  */}
-                      <SignIn closeButton={check()}/>
-                    </MenuItem>
-                    <MenuItem>
-                      {/* sign up  */}
-                      <SignUp closeButton={check()}/>
-                    </MenuItem>
-                  </MenuList>
-                </Menu>
-                </HStack>
-              </Flex>
+              // <Flex justify="flex-end" align="center" color="gray.400">
+              //   <HStack spacing="5" display={{ base: "none", md: "flex" }}>
+              //   <Balance />
+              //   <Image ml="4" src={blockieImageSrc} alt="blockie" />
+              //   <Menu placement="bottom-end">
+              //     <MenuButton as={Button} ml="4">
+              //       {truncateHash(account)}
+              //     </MenuButton>
+              //     <MenuList>
+              //       <MenuItem
+              //         onClick={() => {
+              //           deactivate()
+              //         }}
+              //       >
+              //         Disconnect
+              //       </MenuItem>
+              //       <MenuItem>
+              //         {/* sign in  */}
+              //         <SignIn closeButton={check()}/>
+              //       </MenuItem>
+              //       <MenuItem>
+              //         {/* sign up  */}
+              //         <SignUp closeButton={check()}/>
+              //       </MenuItem>
+              //     </MenuList>
+              //   </Menu>
+              //   </HStack>
+              // </Flex>
+
+
+<Box
+      display="flex"
+      alignItems="center"
+      background="gray.700"
+      borderRadius="xl"
+      py="0"
+    >
+      <Box px="3">
+        <chakra.h1 color="white" fontSize="md">
+          <Balance/>
+          {/* 15.02&nbsp;ETH */}
+        </chakra.h1>
+      </Box>
+      <Button
+        bg="gray.800"
+        border="1px solid transparent"
+        _hover={{
+          border: "1px",
+          borderStyle: "solid",
+          borderColor: "blue.400",
+          backgroundColor: "gray.700",
+        }}
+        borderRadius="xl"
+        m="1px"
+        px={3}
+        height="38px"
+      >
+        <chakra.h2 color="white"  fontSize="md" fontWeight='medium'>
+          {account &&
+            `${account.slice(0, 6)}...${account.slice(
+              account.length - 4,
+              account.length
+            )}`}
+        </chakra.h2>
+
+      </Button>
+    </Box>
             ) : (
               <ConnectWallet />
             )}
