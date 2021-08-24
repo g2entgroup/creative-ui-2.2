@@ -482,26 +482,14 @@ const Header = ({ children }: HeaderProps): JSX.Element => {
                       {/* sign up  */}
                       <SignUp closeButton={check()}/>
                     </MenuItem>
-                    <MenuItem color="red">
-                      <Link
-                          href="/upload"
-                        >
+                    <MenuItem as={Link} color="red" onClick={() => router.push('/upload')}>
                           Upload
-                      </Link>
                     </MenuItem>
-                    <MenuItem color="red">
-                      <Link
-                          href="/createcampaign"
-                        >
+                    <MenuItem as={Link} onClick={() => router.push('/createcampaign')} color="red">
                           Create Campaign
-                      </Link>
                     </MenuItem>
-                    <MenuItem color="red">
-                      <Link
-                          href="/all"
-                        >
+                    <MenuItem as={Link} onClick={() => router.push('/all')} color="red">
                           View my bucket
-                      </Link>
                     </MenuItem>
                   </MenuList>
                 </Menu>
