@@ -3,7 +3,11 @@ module.exports = {
     trailingSlash: true,
     exportPathMap: function() {
       return {
-        '/': { page: '/' }
+        '/': { page: '/' },
+        '/all': { page: '/all' },
+        '/create-campaign': { page: '/createcampaign' },
+        '/discover': { page: '/discover'},
+        '/upload': { page: '/upload'}
       };
     },
     webpack5: true,
