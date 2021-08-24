@@ -23,7 +23,7 @@ import {
             fontSize="lg"
             aria-label="Notifications"
             variant="ghost"
-            color="current"
+            color="brand.400"
             ml={{ base: "0", md: "3" }}
             ref={btnRef}
             onClick={onOpen}

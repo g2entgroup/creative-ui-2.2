@@ -12,7 +12,7 @@ import {
 } from '@chakra-ui/react'
 import { useEthers } from '@usedapp/core'
 import React from 'react'
-import { walletconnect } from '../../../utils/connectors'
+import { walletconnect, arkaneConnect } from '../../../utils/connectors'
 
 function ConnectWallet(): JSX.Element {
   const { activate, activateBrowserWallet } = useEthers()
@@ -74,6 +74,26 @@ function ConnectWallet(): JSX.Element {
               }}
             >
               WalletConnect
+            </Button>
+            <Button
+              justifyContent="space-between"
+              width="100%"
+              mb="4"
+              size="lg"
+              colorScheme= "pink"
+              variant="solid"
+              rightIcon={
+                <Image
+                  maxWidth="20px"
+                  src="/images/logo-walletconnect.svg"
+                  alt="WalletConnect"
+                />
+              }
+              onClick={() => {
+                arkaneConnect
+              }}
+            >
+              Arkane
             </Button>
           </ModalBody>
         </ModalContent>

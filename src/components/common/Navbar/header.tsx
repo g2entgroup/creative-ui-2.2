@@ -98,7 +98,7 @@ const Header = ({ children }: HeaderProps): JSX.Element => {
   const { toggleColorMode: toggleMode } = useColorMode();
   const text = useColorModeValue("dark", "light");
   const SwitchIcon = useColorModeValue(FaMoon, FaSun);
-  const bg = useColorModeValue("white", "gray.800");
+  const bg = useColorModeValue("white", "gray.900");
   const ref = useRef(null);
   const [y, setY] = useState(0);
   const { height } = ref.current
@@ -113,10 +113,10 @@ const Header = ({ children }: HeaderProps): JSX.Element => {
   const mobileNav = useDisclosure();
 
   const Section = (props) => {
-    const ic = useColorModeValue("brand.600", "brand.50");
+    const ic = useColorModeValue("brand.600", "brand.200");
     const hbg = useColorModeValue("gray.50", "brand.400");
-    const tcl = useColorModeValue("gray.900", "gray.50");
-    const dcl = useColorModeValue("gray.500", "gray.50");
+    const tcl = useColorModeValue("gray.900", "black");
+    const dcl = useColorModeValue("gray.500", "gray.900");
     return (
       <Link
         m={-3}
@@ -182,9 +182,9 @@ const Header = ({ children }: HeaderProps): JSX.Element => {
               />
             }
           >
-            We think that the best way to align platform development with customers' interests is to empower the ones who actively interact with the protocol: creators, fans, and brands. 
+            We think that the best way to align platform development with customers' interests is to empower the ones who actively interact with the protocol: creators, fans, and brands.
           </Section>
-            
+
           <Link href="https://www.creativeplatform.io/forum/" isExternal target="_blank">
           <Section
             title="Discussion"
@@ -215,7 +215,7 @@ const Header = ({ children }: HeaderProps): JSX.Element => {
           </Section>
           </Link>
 
-          <Link href="https://creative.nolt.io/" isExternal target="_blank"> 
+          <Link href="https://creative.nolt.io/" isExternal target="_blank">
           <Section
             title="Feature Suggestions"
             description={
@@ -229,7 +229,7 @@ const Header = ({ children }: HeaderProps): JSX.Element => {
           >
             Suggest a feature to the Creative community for the good of the platform.
           </Section>
-          </Link>  
+          </Link>
         </SimpleGrid>
         <Box px={{ base: 5, sm: 8 }} py={5} bg={hbg} display={{ sm: "flex" }}>
           <Stack direction={{ base: "row" }} spacing={{ base: 6, sm: 10 }}>
@@ -248,7 +248,7 @@ const Header = ({ children }: HeaderProps): JSX.Element => {
                   flexShrink={0}
                   h={6}
                   w={6}
-                  color="gray.400"
+                  color="gray.200"
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
                   viewBox="0 0 24 24"
@@ -287,7 +287,7 @@ const Header = ({ children }: HeaderProps): JSX.Element => {
                   flexShrink={0}
                   h={6}
                   w={6}
-                  color="gray.400"
+                  color="gray.200"
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
                   viewBox="0 0 24 24"
@@ -383,27 +383,7 @@ const Header = ({ children }: HeaderProps): JSX.Element => {
             </Flex>
             <Flex>
               <HStack spacing="5" display={{ base: "none", md: "flex" }}>
-              <Link
-                  href="/discover"
-                >
-                  Explore
-              </Link>
-              <Link
-                  href="/upload"
-                >
-                  Upload
-              </Link>
-              <Link
-                  href="/createcampaign"
-                >
-                  Create Campaign
-              </Link>
-              <Link
-                  href="/all"
-                >
-                  View my bucket
-              </Link>
-              {/* <Button
+              <Button
                   bg={bg}
                   color="gray.500"
                   display="inline-flex"
@@ -424,7 +404,7 @@ const Header = ({ children }: HeaderProps): JSX.Element => {
                   _focus={{ boxShadow: "none" }}
                 >
                   Vote
-                </Button> */}
+                </Button>
                   <Center height="50px">
                     <Divider orientation="vertical" />
                   </Center>
@@ -454,16 +434,41 @@ const Header = ({ children }: HeaderProps): JSX.Element => {
               </HStack>
             </Flex>
             {account ? (
-              <Flex justify="flex-end" align="center" color="gray.400">
-                <HStack spacing="5" display={{ base: "none", md: "flex" }}>
-                <Balance />
-                <Image ml="4" src={blockieImageSrc} alt="blockie" />
-                <Menu placement="bottom-end">
-                  <MenuButton as={Button} ml="4">
-                    {truncateHash(account)}
+              <Box
+                display="flex"
+                alignItems="center"
+                background="gray.700"
+                borderRadius="xl"
+                py="0"
+              >
+                <Box px="3">
+                  <chakra.h1 color="white" fontSize="md">
+                    <Balance/>
+                    {/* 15.02&nbsp;ETH */}
+                  </chakra.h1>
+                </Box>
+                <Menu>
+                  <MenuButton as={Button}
+                    bg="gray.800"
+                    border="1px solid transparent"
+                    _hover={{
+                      border: "1px",
+                      borderStyle: "solid",
+                      borderColor: "blue.400",
+                      backgroundColor: "gray.700",
+                    }}
+                    borderRadius="xl"
+                    m="1px"
+                    ml="4px"
+                    px={3}
+                    height="38px"
+                  >
+                    <chakra.h2 color="white"  fontSize="md" fontWeight='medium'>
+                      {truncateHash(account)}
+                    </chakra.h2>
                   </MenuButton>
                   <MenuList>
-                    <MenuItem
+                    <MenuItem color="red"
                       onClick={() => {
                         deactivate()
                       }}
@@ -478,10 +483,37 @@ const Header = ({ children }: HeaderProps): JSX.Element => {
                       {/* sign up  */}
                       <SignUp closeButton={check()}/>
                     </MenuItem>
+                    <MenuItem color="red">
+                      <Link
+                          href="/discover"
+                        >
+                          Explore
+                      </Link>
+                    </MenuItem>
+                    <MenuItem color="red">
+                      <Link
+                          href="/upload"
+                        >
+                          Upload
+                      </Link>
+                    </MenuItem>
+                    <MenuItem color="red">
+                      <Link
+                          href="/createcampaign"
+                        >
+                          Create Campaign
+                      </Link>
+                    </MenuItem>
+                    <MenuItem color="red">
+                      <Link
+                          href="/all"
+                        >
+                          View my bucket
+                      </Link>
+                    </MenuItem>
                   </MenuList>
                 </Menu>
-                </HStack>
-              </Flex>
+              </Box>
             ) : (
               <ConnectWallet />
             )}
@@ -513,13 +545,13 @@ const Header = ({ children }: HeaderProps): JSX.Element => {
             )
           })}
           <HStack spacing="5" display={{ base: "none", md: "flex" }}>
-              <NotificationDrawer />
+              <NotificationDrawer/>
               <IconButton
                 size="md"
                 fontSize="lg"
                 aria-label={`Switch to ${text} mode`}
                 variant="ghost"
-                color="current"
+                color="brand.700"
                 ml={{ base: "0", md: "3" }}
                 onClick={toggleMode}
                 icon={<SwitchIcon />}
