@@ -454,73 +454,58 @@ const Header = ({ children }: HeaderProps): JSX.Element => {
               </HStack>
             </Flex>
             {account ? (
-              // <Flex justify="flex-end" align="center" color="gray.400">
-              //   <HStack spacing="5" display={{ base: "none", md: "flex" }}>
-              //   <Balance />
-              //   <Image ml="4" src={blockieImageSrc} alt="blockie" />
-              //   <Menu placement="bottom-end">
-              //     <MenuButton as={Button} ml="4">
-              //       {truncateHash(account)}
-              //     </MenuButton>
-              //     <MenuList>
-              //       <MenuItem
-              //         onClick={() => {
-              //           deactivate()
-              //         }}
-              //       >
-              //         Disconnect
-              //       </MenuItem>
-              //       <MenuItem>
-              //         {/* sign in  */}
-              //         <SignIn closeButton={check()}/>
-              //       </MenuItem>
-              //       <MenuItem>
-              //         {/* sign up  */}
-              //         <SignUp closeButton={check()}/>
-              //       </MenuItem>
-              //     </MenuList>
-              //   </Menu>
-              //   </HStack>
-              // </Flex>
-
-
-<Box
-      display="flex"
-      alignItems="center"
-      background="gray.700"
-      borderRadius="xl"
-      py="0"
-    >
-      <Box px="3">
-        <chakra.h1 color="white" fontSize="md">
-          <Balance/>
-          {/* 15.02&nbsp;ETH */}
-        </chakra.h1>
-      </Box>
-      <Button
-        bg="gray.800"
-        border="1px solid transparent"
-        _hover={{
-          border: "1px",
-          borderStyle: "solid",
-          borderColor: "blue.400",
-          backgroundColor: "gray.700",
-        }}
-        borderRadius="xl"
-        m="1px"
-        px={3}
-        height="38px"
-      >
-        <chakra.h2 color="white"  fontSize="md" fontWeight='medium'>
-          {account &&
-            `${account.slice(0, 6)}...${account.slice(
-              account.length - 4,
-              account.length
-            )}`}
-        </chakra.h2>
-
-      </Button>
-    </Box>
+              <Box
+                display="flex"
+                alignItems="center"
+                background="gray.700"
+                borderRadius="xl"
+                py="0"
+              >
+                <Box px="3">
+                  <chakra.h1 color="white" fontSize="md">
+                    <Balance/>
+                    {/* 15.02&nbsp;ETH */}
+                  </chakra.h1>
+                </Box>
+                <Menu>
+                  <MenuButton as={Button}
+                    bg="gray.800"
+                    border="1px solid transparent"
+                    _hover={{
+                      border: "1px",
+                      borderStyle: "solid",
+                      borderColor: "blue.400",
+                      backgroundColor: "gray.700",
+                    }}
+                    borderRadius="xl"
+                    m="1px"
+                    ml="4px"
+                    px={3}
+                    height="38px"
+                  >
+                    <chakra.h2 color="white"  fontSize="md" fontWeight='medium'>
+                      {truncateHash(account)}
+                    </chakra.h2>
+                  </MenuButton>
+                  <MenuList>
+                    <MenuItem color="red"
+                      onClick={() => {
+                        deactivate()
+                      }}
+                    >
+                      Disconnect
+                    </MenuItem>
+                    <MenuItem>
+                      {/* sign in  */}
+                      <SignIn closeButton={check()}/>
+                    </MenuItem>
+                    <MenuItem>
+                      {/* sign up  */}
+                      <SignUp closeButton={check()}/>
+                    </MenuItem>
+                  </MenuList>
+                </Menu>
+              </Box>
             ) : (
               <ConnectWallet />
             )}
