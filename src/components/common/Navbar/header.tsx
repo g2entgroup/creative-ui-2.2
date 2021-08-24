@@ -98,7 +98,7 @@ const Header = ({ children }: HeaderProps): JSX.Element => {
   const { toggleColorMode: toggleMode } = useColorMode();
   const text = useColorModeValue("dark", "light");
   const SwitchIcon = useColorModeValue(FaMoon, FaSun);
-  const bg = useColorModeValue("white", "gray.800");
+  const bg = useColorModeValue("white", "gray.900");
   const ref = useRef(null);
   const [y, setY] = useState(0);
   const { height } = ref.current
@@ -113,10 +113,10 @@ const Header = ({ children }: HeaderProps): JSX.Element => {
   const mobileNav = useDisclosure();
 
   const Section = (props) => {
-    const ic = useColorModeValue("brand.600", "brand.50");
+    const ic = useColorModeValue("brand.600", "brand.200");
     const hbg = useColorModeValue("gray.50", "brand.400");
-    const tcl = useColorModeValue("gray.900", "gray.50");
-    const dcl = useColorModeValue("gray.500", "gray.50");
+    const tcl = useColorModeValue("gray.900", "black");
+    const dcl = useColorModeValue("gray.500", "gray.900");
     return (
       <Link
         m={-3}
@@ -248,7 +248,7 @@ const Header = ({ children }: HeaderProps): JSX.Element => {
                   flexShrink={0}
                   h={6}
                   w={6}
-                  color="gray.400"
+                  color="gray.200"
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
                   viewBox="0 0 24 24"
@@ -287,7 +287,7 @@ const Header = ({ children }: HeaderProps): JSX.Element => {
                   flexShrink={0}
                   h={6}
                   w={6}
-                  color="gray.400"
+                  color="gray.200"
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
                   viewBox="0 0 24 24"
@@ -383,27 +383,7 @@ const Header = ({ children }: HeaderProps): JSX.Element => {
             </Flex>
             <Flex>
               <HStack spacing="5" display={{ base: "none", md: "flex" }}>
-              <Link
-                  href="/discover"
-                >
-                  Explore
-              </Link>
-              <Link
-                  href="/upload"
-                >
-                  Upload
-              </Link>
-              <Link
-                  href="/createcampaign"
-                >
-                  Create Campaign
-              </Link>
-              <Link
-                  href="/all"
-                >
-                  View my bucket
-              </Link>
-              {/* <Button
+              <Button
                   bg={bg}
                   color="gray.500"
                   display="inline-flex"
@@ -424,7 +404,7 @@ const Header = ({ children }: HeaderProps): JSX.Element => {
                   _focus={{ boxShadow: "none" }}
                 >
                   Vote
-                </Button> */}
+                </Button>
                   <Center height="50px">
                     <Divider orientation="vertical" />
                   </Center>
@@ -503,6 +483,34 @@ const Header = ({ children }: HeaderProps): JSX.Element => {
                       {/* sign up  */}
                       <SignUp closeButton={check()}/>
                     </MenuItem>
+                    <MenuItem color="red">
+                      <Link
+                          href="/discover"
+                        >
+                          Explore
+                      </Link>
+                    </MenuItem>
+                    <MenuItem color="red">
+                      <Link
+                          href="/upload"
+                        >
+                          Upload
+                      </Link>
+                    </MenuItem>
+                    <MenuItem color="red">
+                      <Link
+                          href="/createcampaign"
+                        >
+                          Create Campaign
+                      </Link>
+                    </MenuItem>
+                    <MenuItem color="red">
+                      <Link
+                          href="/all"
+                        >
+                          View my bucket
+                      </Link>
+                    </MenuItem>
                   </MenuList>
                 </Menu>
               </Box>
@@ -537,13 +545,13 @@ const Header = ({ children }: HeaderProps): JSX.Element => {
             )
           })}
           <HStack spacing="5" display={{ base: "none", md: "flex" }}>
-              <NotificationDrawer />
+              <NotificationDrawer/>
               <IconButton
                 size="md"
                 fontSize="lg"
                 aria-label={`Switch to ${text} mode`}
                 variant="ghost"
-                color="current"
+                color="brand.700"
                 ml={{ base: "0", md: "3" }}
                 onClick={toggleMode}
                 icon={<SwitchIcon />}

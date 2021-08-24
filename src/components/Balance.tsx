@@ -8,7 +8,7 @@ import { utils } from 'ethers'
 function Balance(): JSX.Element {
 
   const { account } = useEthers()
-  const etherBalance = useEtherBalance(account).toString();
+  const etherBalance = useEtherBalance(account);
   const finalBalance = etherBalance ? utils.formatEther(etherBalance) : ''
 
   return <Text>{finalBalance.slice(0,5)} ETH</Text>
