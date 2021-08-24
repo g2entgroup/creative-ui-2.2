@@ -6,10 +6,9 @@ import { utils } from 'ethers'
  * Component
  */
 function Balance(): JSX.Element {
-  let floatBalance = parseFloat("0.00");
 
   const { account } = useEthers()
-  const etherBalance = useEtherBalance(account);
+  const etherBalance = useEtherBalance(account).toString();
   const finalBalance = etherBalance ? utils.formatEther(etherBalance) : ''
 
   return <Text>{finalBalance.slice(0,5)} ETH</Text>
