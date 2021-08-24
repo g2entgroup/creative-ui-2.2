@@ -29,7 +29,7 @@ import { FaUser } from "react-icons/fa";
 
 export default function BrandPrizePool() {
   return (
-    <Box bg={useColorModeValue("gray.50", "inherit")} p={10}>
+    <Box bg={useColorModeValue("gray.100", "inherit")} p={10}>
       <Box>
         <SimpleGrid
           display={{ base: "initial", md: "grid" }}
@@ -62,7 +62,7 @@ export default function BrandPrizePool() {
               <Stack
                 px={4}
                 py={5}
-                bg={useColorModeValue("white", "gray.700")}
+                bg={useColorModeValue("gray.100", "gray.700")}
                 spacing={6}
                 p={{ sm: 6 }}
               >
@@ -78,15 +78,16 @@ export default function BrandPrizePool() {
                     <InputGroup size="sm">
                       <InputLeftAddon
                         children="http://"
-                        bg={useColorModeValue("gray.50", "gray.800")}
+                        bg={useColorModeValue("gray.500", "gray.800")}
                         color={useColorModeValue("gray.500", "gay.50")}
                         rounded="md"
                       />
                       <Input
-                        type="tel"
+                        type="text"
                         placeholder="www.example.com"
                         focusBorderColor="brand.400"
                         rounded="md"
+                        color="gray.700"
                       />
                     </InputGroup>
                   </FormControl>
@@ -138,7 +139,7 @@ export default function BrandPrizePool() {
                       }
                     />
                     <Button
-                      type="button"
+                    colorScheme="blue"
                       ml={5}
                       variant="outline"
                       size="sm"
@@ -226,7 +227,7 @@ export default function BrandPrizePool() {
               <Box
                 px={{ base: 4, sm: 6 }}
                 py={3}
-                bg={useColorModeValue("gray.50", "gray.900")}
+                bg={useColorModeValue("gray.200", "gray.900")}
                 textAlign="right"
               >
                 <Button
