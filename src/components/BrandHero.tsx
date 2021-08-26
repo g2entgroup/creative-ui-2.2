@@ -2,6 +2,10 @@ import React from "react";
 import { chakra, Box, useColorModeValue, Icon } from "@chakra-ui/react";
 import Image from "next/image";
 
+const myLoader = ({ src, width, quality }) => {
+  return `https://res.cloudinary.com/${src}?w=${width}&q=${quality || 75}`
+}
+
 const BrandHero = () => {
   const bg = useColorModeValue("white", "gray.800");
   return (
@@ -129,7 +133,8 @@ const BrandHero = () => {
         w={{ lg: "50%" }}
       >
         <Image
-          src="https://res.cloudinary.com/dyangxc7h/image/upload/v1623552689/creative/brands.jpg"
+          loader={myLoader}
+          src="dyangxc7h/image/upload/v1623552689/creative/brands.jpg"
           alt="Time Square Brands"
           loading="eager"
           layout="responsive"
