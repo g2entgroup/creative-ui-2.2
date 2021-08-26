@@ -6,7 +6,6 @@ import {
     Heading,
     Text,
     Stack,
-    Image,
     Button,
     Badge
   } from '@chakra-ui/react';
@@ -16,6 +15,7 @@ import {
 } from '../../../rarible/createLazyMint';
 import Buy from "../Buy/buy";
 import Sell from "../Sell/sell";
+import Image from 'next/image';
   
 type WindowInstanceWithEthereum = Window & typeof globalThis & { ethereum?: providers.ExternalProvider };
   class StrongType<Definition, Type> {
@@ -88,7 +88,6 @@ type WindowInstanceWithEthereum = Window & typeof globalThis & { ethereum?: prov
               },
             }}>
             <Image
-              rounded={'lg'}
               height={230}
               width={282}
               objectFit={'cover'}

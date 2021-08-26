@@ -23,7 +23,15 @@ import {
 } from "@chakra-ui/react";
 import Link from "next/link";
 import Image from "next/image";
+import SignIn from './SignIn';
   
+const check = () => {
+  if(localStorage.getItem('closeButtons') == 'true') {
+    return true
+  } else {
+    return false
+  }
+}
 
 const SignUp = (props) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -33,7 +41,7 @@ const SignUp = (props) => {
 
   return (
     <>
-      <Button colorScheme="brand" variant="ghost" size="sm" onClick={onOpen} >
+      <Button colorScheme="blue" variant="ghost" size="sm" onClick={onOpen} >
         Sign Up
       </Button>
 
@@ -85,7 +93,7 @@ const SignUp = (props) => {
                       placeholder="Enter password"
                     />
                     <InputRightElement width="4.5rem">
-                      <Button h="1.75rem" size="sm" onClick={handleClick}>
+                      <Button h="1.75rem" size="sm" onClick={handleClick} color="red">
                         {show ? "Hide" : "Show"}
                       </Button>
                     </InputRightElement>
@@ -108,10 +116,10 @@ const SignUp = (props) => {
                       <option value="fan">Fan</option>
                     </Select>
                   </FormControl>
-                  <Button type="submit">Register Now</Button>
+                  <Button type="submit" color="red">Register Now</Button>
                 </Stack>
                 <Box>Already Have An Account?
-                  <Link href="#"> Login Here</Link>
+                  <SignIn onClose={onClose}/>
                 </Box>
               </Container>
             </Flex>

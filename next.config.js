@@ -12,6 +12,6 @@ module.exports = {
     },
     webpack5: true,
     images: {
-      domains: ["res.cloudinary.com", "www.creativeplatform.io" , 'picsum.photos' , 'hub.textile.io' , 'ipfs.io'],
+      domains: ["res.cloudinary.com", "www.creativeplatform.io" , 'picsum.photos' , 'hub.textile.io' , 'ipfs.io', 'images.unsplash.com'],
     }
 };
