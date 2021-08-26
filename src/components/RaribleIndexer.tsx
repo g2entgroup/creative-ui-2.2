@@ -1,6 +1,5 @@
 import React from "react";
 import { Button, Input, List } from "@chakra-ui/react";
-import BrandDiscovery from '../components/common/Cards/branddiscovery';
 import  Sell from '../components/common/Sell/sell';
 import AddressInput from "../components/AddressInput";
 
@@ -62,18 +61,6 @@ export default function RaribleItemIndexer(props) {
                   const id = item.id;
                   return (
                     <List key={id}>
-                      <BrandDiscovery
-                        name={
-                          item.name
-                        }
-                      >
-                        <div>
-                          imagelink={item.image}
-                        </div>
-                        <div>
-                          bio={item.description}
-                        </div>
-                      </BrandDiscovery>
                       <div>
                         <AddressInput
                           ensProvider={props.ensProvider}
