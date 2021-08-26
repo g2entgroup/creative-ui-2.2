@@ -17,6 +17,10 @@ import Buy from "../Buy/buy";
 import Sell from "../Sell/sell";
 import Image from 'next/image';
   
+const myLoader = ({ src, width, quality }) => {
+  return `${src}?w=${width}&q=${quality || 75}`
+}
+
 type WindowInstanceWithEthereum = Window & typeof globalThis & { ethereum?: providers.ExternalProvider };
   class StrongType<Definition, Type> {
     // @ts-ignore
@@ -88,6 +92,7 @@ type WindowInstanceWithEthereum = Window & typeof globalThis & { ethereum?: prov
               },
             }}>
             <Image
+              loader={myLoader}
               height={230}
               width={282}
               objectFit={'cover'}
