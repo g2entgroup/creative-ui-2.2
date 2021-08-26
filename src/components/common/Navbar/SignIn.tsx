@@ -26,9 +26,10 @@ import {
   Stack,
   createStandaloneToast
 } from "@chakra-ui/react";
-import Link from "next/link";
 import Image from "next/image";
 import { TextileInstance } from "../../../services/textile/textile";
+import SignUp from './SignUp';
+import CreativeLogo from '../../../../public/images/Creative_logo.png';
 
 type WindowInstanceWithEthereum = Window & typeof globalThis & { ethereum?: providers.ExternalProvider };
 class StrongType<Definition, Type> {
@@ -37,6 +38,14 @@ class StrongType<Definition, Type> {
   constructor(public value?: Type) {}
 }
 export class EthereumAddress extends StrongType<'ethereum_address', string> {}
+
+const check = () => {
+  if(localStorage.getItem('closeButtons') == 'true') {
+    return true
+  } else {
+    return false
+  }
+}
 
 const SignIn = (props) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -173,7 +182,7 @@ const SignIn = (props) => {
 
   return (
     <>
-      <Button colorScheme="brand" variant="ghost" size="sm" onClick={onOpen} >
+      <Button colorScheme="blue" variant="ghost" size="sm" onClick={onOpen} >
         Sign In
       </Button>
 
@@ -189,7 +198,7 @@ const SignIn = (props) => {
             <Flex alignItems="center" pt="2%" justifyContent="space-between">
               <Stack spacing={1}>
               <Image
-                src="https://res.cloudinary.com/dyangxc7h/image/upload/v1623552244/creative/Creative_logo.png"
+                src={CreativeLogo}
                 alt="Creative Logo"
                 width={100}
                 height={100}
@@ -201,7 +210,7 @@ const SignIn = (props) => {
                 <Heading as="h6" size="md">Sign In</Heading>
                 {/* name */}
                   <FormControl id="login" isRequired>
-                  <FormLabel>Secret</FormLabel>
+                  <FormLabel>Password</FormLabel>
                     <InputGroup>
                       <Input
                         name="password"
@@ -211,17 +220,17 @@ const SignIn = (props) => {
                         onChange={handleChange}
                       />
                       <InputRightElement width="4.5rem">
-                      <Button h="1.75rem" size="sm" onClick={handleClick}>
+                      <Button h="1.75rem" size="sm" onClick={handleClick} color="red">
                         {show ? "Hide" : "Show"}
                       </Button>
                     </InputRightElement>
                     </InputGroup>
-                    <FormHelperText>Enter a VIP key. View console.</FormHelperText>
-                    <Button onClick={generatePrivateKey}>Login with Metamask</Button>
+                    <FormHelperText>enter account password</FormHelperText>
+                    <Button onClick={generatePrivateKey} color="red">Login with Metamask</Button>
                   </FormControl>
                 </Stack>
                 <Box>Don't Have An Account?
-                  <Link href="#"> Sign Up Here</Link>
+                  <SignUp closeButton={check()} />
                 </Box>
               </Container>
             </Flex>
