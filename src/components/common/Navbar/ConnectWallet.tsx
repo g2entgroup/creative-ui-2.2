@@ -1,7 +1,6 @@
 import {
   Box,
   Button,
-  Image,
   Modal,
   ModalBody,
   ModalCloseButton,
@@ -13,6 +12,7 @@ import {
 import { useEthers } from '@usedapp/core'
 import React from 'react'
 import { walletconnect, arkaneConnect } from '../../../utils/connectors'
+import Image from 'next/image'
 
 function ConnectWallet(): JSX.Element {
   const { activate, activateBrowserWallet } = useEthers()
@@ -44,7 +44,8 @@ function ConnectWallet(): JSX.Element {
               variant="solid"
               rightIcon={
                 <Image
-                  maxWidth="20px"
+                  height={20}
+                  width={20}
                   src="/images/logo-metamask.png"
                   alt="MetaMask"
                 />
@@ -64,7 +65,8 @@ function ConnectWallet(): JSX.Element {
               variant="solid"
               rightIcon={
                 <Image
-                  maxWidth="20px"
+                  height={20}
+                  width={20}
                   src="/images/logo-walletconnect.svg"
                   alt="WalletConnect"
                 />
@@ -84,7 +86,8 @@ function ConnectWallet(): JSX.Element {
               variant="solid"
               rightIcon={
                 <Image
-                  maxWidth="20px"
+                  height={20}
+                  width={20}
                   src="/images/logo-walletconnect.svg"
                   alt="WalletConnect"
                 />

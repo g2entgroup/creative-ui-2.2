@@ -8,12 +8,15 @@ import {
     DrawerContent,
     DrawerCloseButton,
     useDisclosure,
-    Button
+    Button,
+    useColorModeValue
   } from "@chakra-ui/react";
   import { BellIcon } from '@chakra-ui/icons';
   import SingleAlert from '../Notification/SingleAlert';
   
   const NotificationDrawer = () => {
+    const tcl = useColorModeValue("gray.900", "gray.50");
+    const tcs = useColorModeValue("gray.900", "black");
     const { isOpen, onOpen, onClose } = useDisclosure();
     const btnRef = useRef();
       return (
@@ -23,7 +26,7 @@ import {
             fontSize="lg"
             aria-label="Notifications"
             variant="ghost"
-            color="brand.400"
+            color={tcl}
             ml={{ base: "0", md: "3" }}
             ref={btnRef}
             onClick={onOpen}
@@ -34,6 +37,7 @@ import {
           placement="right"
           onClose={onClose}
           finalFocusRef={btnRef}
+          variant={tcs}
         >
           <DrawerOverlay>
             <DrawerContent>

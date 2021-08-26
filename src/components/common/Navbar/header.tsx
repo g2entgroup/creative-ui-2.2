@@ -1,8 +1,6 @@
-import React, { useEffect, useState, useLayoutEffect, useRef } from "react";
-import { useWeb3React } from "@web3-react/core";
-import { Web3Provider } from "@ethersproject/providers";
+import React, { useState, useRef } from "react";
+import { useRouter } from 'next/router';
 import { useEthers, useNotifications } from '@usedapp/core';
-import blockies from 'blockies-ts';
 import ConnectWallet from "../Navbar/ConnectWallet";
 import {
   Alert,
@@ -12,12 +10,13 @@ import {
   chakra,
   HStack,
   Link,
+  LinkBox,
+  LinkOverlay,
   Popover,
   PopoverTrigger,
   PopoverContent,
   Box,
   Flex,
-  Image,
   Menu,
   MenuButton,
   MenuList,
@@ -37,7 +36,7 @@ import {
 } from "@chakra-ui/react";
 import NotificationDrawer from "../Notification/NotificationDrawer";
 import { useViewportScroll } from "framer-motion";
-import Head, { MetaProps } from '../layout/Head';
+//import Head, { MetaProps } from '../layout/Head';
 import { IoIosArrowDown } from "react-icons/io";
 import { AiFillHome, AiOutlineInbox, AiOutlineMenu } from "react-icons/ai";
 import { BsFillCameraVideoFill } from "react-icons/bs";
@@ -78,22 +77,10 @@ function truncateHash(hash: string, length = 38): string {
 }
 
 const Header = ({ children }: HeaderProps): JSX.Element => {
+  const router = useRouter()
 
   const { account, deactivate } = useEthers()
   const { notifications } = useNotifications()
-
-  let blockieImageSrc
-  if (typeof window !== 'undefined') {
-    blockieImageSrc = blockies.create({ seed: account }).toDataURL()
-  }
-
-  // click to connect wallet
-  // const onClick = () => {
-  //   activate(injectedConnector);
-  //   console.log(chainId);
-  // };
-
-  //const [showPass, setShowPass] = useState(false);
 
   const { toggleColorMode: toggleMode } = useColorMode();
   const text = useColorModeValue("dark", "light");
@@ -383,7 +370,19 @@ const Header = ({ children }: HeaderProps): JSX.Element => {
             </Flex>
             <Flex>
               <HStack spacing="5" display={{ base: "none", md: "flex" }}>
-              <Button
+                <Button
+                  bg={bg}
+                  color="gray.500"
+                  display="inline-flex"
+                  alignItems="center"
+                  fontSize="md"
+                  _hover={{ color: cl }}
+                  _focus={{ boxShadow: "none" }}
+                  onClick={() => router.push('/discover')}
+                >
+                  Discover
+                </Button>
+                <Button
                   bg={bg}
                   color="gray.500"
                   display="inline-flex"
@@ -483,33 +482,14 @@ const Header = ({ children }: HeaderProps): JSX.Element => {
                       {/* sign up  */}
                       <SignUp closeButton={check()}/>
                     </MenuItem>
-                    <MenuItem color="red">
-                      <Link
-                          href="/discover"
-                        >
-                          Explore
-                      </Link>
-                    </MenuItem>
-                    <MenuItem color="red">
-                      <Link
-                          href="/upload"
-                        >
+                    <MenuItem as={Link} color="red" onClick={() => router.push('/upload')}>
                           Upload
-                      </Link>
                     </MenuItem>
-                    <MenuItem color="red">
-                      <Link
-                          href="/createcampaign"
-                        >
+                    <MenuItem as={Link} onClick={() => router.push('/createcampaign')} color="red">
                           Create Campaign
-                      </Link>
                     </MenuItem>
-                    <MenuItem color="red">
-                      <Link
-                          href="/all"
-                        >
+                    <MenuItem as={Link} onClick={() => router.push('/all')} color="red">
                           View my bucket
-                      </Link>
                     </MenuItem>
                   </MenuList>
                 </Menu>

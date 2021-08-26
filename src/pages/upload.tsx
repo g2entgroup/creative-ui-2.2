@@ -72,7 +72,7 @@ export default function Component() {
         const all = await textileInstance.getAllUserNFTs();
 
       if (nftMetadata != undefined) { setNftUploaded(true) }
-      console.log("nftmetadat : " +nftMetadata);
+      console.log("nftmetadat : " + nftMetadata);
       
     }
 
