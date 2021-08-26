@@ -14,6 +14,10 @@ import React from 'react'
 import { walletconnect, arkaneConnect } from '../../../utils/connectors'
 import Image from 'next/image'
 
+const myLoader = ({ src, width, quality }) => {
+  return `${src}?w=${width}&q=${quality || 75}`
+}
+
 function ConnectWallet(): JSX.Element {
   const { activate, activateBrowserWallet } = useEthers()
 
@@ -44,6 +48,7 @@ function ConnectWallet(): JSX.Element {
               variant="solid"
               rightIcon={
                 <Image
+                  loader={myLoader}
                   height={20}
                   width={20}
                   src="/images/logo-metamask.png"
@@ -65,6 +70,7 @@ function ConnectWallet(): JSX.Element {
               variant="solid"
               rightIcon={
                 <Image
+                  loader={myLoader}
                   height={20}
                   width={20}
                   src="/images/logo-walletconnect.svg"
@@ -86,6 +92,7 @@ function ConnectWallet(): JSX.Element {
               variant="solid"
               rightIcon={
                 <Image
+                  loader={myLoader}
                   height={20}
                   width={20}
                   src="/images/logo-walletconnect.svg"

@@ -2,6 +2,10 @@ import React from "react";
 import { chakra, Box, Flex, useColorModeValue } from "@chakra-ui/react";
 import Image from 'next/image';
 
+const myLoader = ({ src, width, quality }) => {
+  return `https://images.unsplash.com/${src}?w=${width}&q=${quality || 75}`
+}
+
 const TrendingCollections = () => {
   return (
     <Flex
@@ -38,9 +42,10 @@ const TrendingCollections = () => {
         </Box>
 
         <Image
+          loader={myLoader}
           height={300}
           width={320}
-          src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=320&q=80"
+          src="photo-1542291026-7eec264c27ff?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=320&q=80"
           alt="NIKE AIR"
         />
 

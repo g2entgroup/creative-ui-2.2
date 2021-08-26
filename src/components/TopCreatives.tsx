@@ -10,6 +10,10 @@ import {
 } from "@chakra-ui/react";
 import Image from 'next/image';
 
+const myLoader = ({ src, width, quality }) => {
+  return `${src}?w=${width}&q=${quality || 75}`
+}
+
 export default function TopCreatives() {
     return (
         <SimpleGrid columns={5} spacing="2rem">
@@ -19,7 +23,11 @@ export default function TopCreatives() {
                 <Link>
                 <Avatar size="xs" name="plantarcowboy" src="https://bit.ly/dan-abramov">
                   <AvatarBadge boxSize="1.25em" borderColor="transparent">
-                    <Image src="/verifyAsset.svg" width={32} height={32}/>
+                    <Image
+                    loader={myLoader} 
+                    src="/verifyAsset.svg" 
+                    width={32} 
+                    height={32}/>
                   </AvatarBadge>
                 </Avatar>
                 &nbsp;plantarcowboy
@@ -29,7 +37,7 @@ export default function TopCreatives() {
               <Link>
                 <Avatar size="xs" name="maliciousnorth" src="https://bit.ly/tioluwani-kolawole">
                   <AvatarBadge boxSize="1.25em" borderColor="transparent">
-                    <Image src="/verifyAsset.svg" width={32} height={32}/>
+                    <Image loader={myLoader} src="/verifyAsset.svg" width={32} height={32}/>
                   </AvatarBadge>
                 </Avatar>
                 &nbsp;maliciousnorth
@@ -39,7 +47,7 @@ export default function TopCreatives() {
               <Link>
                 <Avatar size="xs" name="thingmanager" src="https://bit.ly/kent-c-dodds">
                   <AvatarBadge boxSize="1.25em" borderColor="transparent">
-                    <Image src="/verifyAsset.svg" width={32} height={32}/>
+                    <Image loader={myLoader} src="/verifyAsset.svg" width={32} height={32}/>
                   </AvatarBadge>
                 </Avatar>
                 &nbsp;thingmanager
@@ -53,7 +61,7 @@ export default function TopCreatives() {
                 <Link>
                 <Avatar size="xs" name="feastpizza" src="https://bit.ly/ryan-florence">
                   <AvatarBadge boxSize="1.25em" borderColor="transparent">
-                    <Image src="/verifyAsset.svg" width={32} height={32}/>
+                    <Image loader={myLoader} src="/verifyAsset.svg" width={32} height={32}/>
                   </AvatarBadge>
                 </Avatar>
                 &nbsp;feastpizza
@@ -63,7 +71,7 @@ export default function TopCreatives() {
               <Link>
                 <Avatar size="xs" name="fennelidentical" src="https://bit.ly/prosper-baba">
                   <AvatarBadge boxSize="1.25em" borderColor="transparent">
-                    <Image src="/verifyAsset.svg" width={32} height={32}/>
+                    <Image loader={myLoader} src="/verifyAsset.svg" width={32} height={32}/>
                   </AvatarBadge>
                 </Avatar>
                 &nbsp;fennelidentical
@@ -73,7 +81,7 @@ export default function TopCreatives() {
               <Link>
                 <Avatar size="xs" name="hutdaily" src="https://bit.ly/code-beast">
                   <AvatarBadge boxSize="1.25em" borderColor="transparent">
-                    <Image src="/verifyAsset.svg" width={32} height={32}/>
+                    <Image loader={myLoader} src="/verifyAsset.svg" width={32} height={32}/>
                   </AvatarBadge>
                 </Avatar>
                 &nbsp;hutdaily
@@ -87,7 +95,7 @@ export default function TopCreatives() {
                 <Link>
                 <Avatar size="xs" name="lanyardfink" src="https://bit.ly/sage-adebayo">
                   <AvatarBadge boxSize="1.25em" borderColor="transparent">
-                    <Image src="/verifyAsset.svg" width={32} height={32}/>
+                    <Image loader={myLoader} src="/verifyAsset.svg" width={32} height={32}/>
                   </AvatarBadge>
                 </Avatar>
                 &nbsp;lanyardfink
@@ -97,7 +105,7 @@ export default function TopCreatives() {
               <Link>
                 <Avatar size="xs" name="decimalgingery" src="https://avataaars.io/?avatarStyle=Circle&topType=LongHairBigHair&accessoriesType=Prescription02&hairColor=Black&facialHairType=MoustacheFancy&facialHairColor=BrownDark&clotheType=Hoodie&clotheColor=Gray01&eyeType=Dizzy&eyebrowType=Angry&mouthType=Grimace&skinColor=Black">
                   <AvatarBadge boxSize="1.25em" borderColor="transparent">
-                    <Image src="/verifyAsset.svg" width={32} height={32}/>
+                    <Image loader={myLoader} src="/verifyAsset.svg" width={32} height={32}/>
                   </AvatarBadge>
                 </Avatar>
                 &nbsp;decimalgingery
@@ -107,7 +115,7 @@ export default function TopCreatives() {
               <Link>
                 <Avatar size="xs" name="notionmoan" src="https://avataaars.io/?avatarStyle=Circle&topType=LongHairNotTooLong&accessoriesType=Kurt&hairColor=BrownDark&facialHairType=BeardLight&facialHairColor=Blonde&clotheType=CollarSweater&clotheColor=PastelBlue&eyeType=WinkWacky&eyebrowType=SadConcernedNatural&mouthType=Default&skinColor=DarkBrown">
                   <AvatarBadge boxSize="1.25em" borderColor="transparent">
-                    <Image src="/verifyAsset.svg" width={32} height={32}/>
+                    <Image loader={myLoader} src="/verifyAsset.svg" width={32} height={32}/>
                   </AvatarBadge>
                 </Avatar>
                 &nbsp;notionmoan
@@ -121,7 +129,7 @@ export default function TopCreatives() {
                 <Link>
                 <Avatar size="xs" name="tatteredvast" src="https://avataaars.io/?avatarStyle=Circle&topType=ShortHairFrizzle&accessoriesType=Sunglasses&hairColor=Blonde&facialHairType=BeardMajestic&facialHairColor=Black&clotheType=GraphicShirt&clotheColor=Red&graphicType=Skull&eyeType=WinkWacky&eyebrowType=SadConcernedNatural&mouthType=Sad&skinColor=DarkBrown">
                   <AvatarBadge boxSize="1.25em" borderColor="transparent">
-                    <Image src="/verifyAsset.svg" width={32} height={32}/>
+                    <Image loader={myLoader} src="/verifyAsset.svg" width={32} height={32}/>
                   </AvatarBadge>
                 </Avatar>
                 &nbsp;tatteredvast
@@ -131,7 +139,7 @@ export default function TopCreatives() {
               <Link>
                 <Avatar size="xs" name="spanbesides" src="https://avataaars.io/?avatarStyle=Circle&topType=ShortHairDreads02&accessoriesType=Prescription01&hairColor=Black&facialHairType=Blank&facialHairColor=BlondeGolden&clotheType=Hoodie&clotheColor=PastelOrange&graphicType=Diamond&eyeType=Surprised&eyebrowType=AngryNatural&mouthType=Twinkle&skinColor=DarkBrown">
                   <AvatarBadge boxSize="1.25em" borderColor="transparent">
-                    <Image src="/verifyAsset.svg" width={32} height={32}/>
+                    <Image loader={myLoader} src="/verifyAsset.svg" width={32} height={32}/>
                   </AvatarBadge>
                 </Avatar>
                 &nbsp;spanbesides
@@ -141,7 +149,7 @@ export default function TopCreatives() {
               <Link>
                 <Avatar size="xs" name="userkooky" src="https://avataaars.io/?avatarStyle=Circle&topType=LongHairBob&accessoriesType=Prescription01&hairColor=Black&facialHairType=MoustacheMagnum&facialHairColor=Brown&clotheType=ShirtCrewNeck&clotheColor=PastelGreen&eyeType=Default&eyebrowType=SadConcerned&mouthType=Concerned&skinColor=Black">
                   <AvatarBadge boxSize="1.25em" borderColor="transparent">
-                    <Image src="/verifyAsset.svg" width={32} height={32}/>
+                    <Image loader={myLoader} src="/verifyAsset.svg" width={32} height={32}/>
                   </AvatarBadge>
                 </Avatar>
                 &nbsp;userkooky
@@ -155,7 +163,7 @@ export default function TopCreatives() {
               <Link>
                 <Avatar size="xs" name="arrangesquawk" src="https://avataaars.io/?avatarStyle=Circle&topType=ShortHairFrizzle&accessoriesType=Round&hairColor=Brown&facialHairType=MoustacheMagnum&facialHairColor=Red&clotheType=ShirtScoopNeck&clotheColor=Gray02&eyeType=Cry&eyebrowType=UpDown&mouthType=Eating&skinColor=Tanned">
                   <AvatarBadge boxSize="1.25em" borderColor="transparent">
-                    <Image src="/verifyAsset.svg" width={32} height={32}/>
+                    <Image loader={myLoader} src="/verifyAsset.svg" width={32} height={32}/>
                   </AvatarBadge>
                 </Avatar>
                 &nbsp;arrangesquawk
@@ -165,7 +173,7 @@ export default function TopCreatives() {
               <Link>
                 <Avatar size="xs" name="beaverumpire" src="https://avataaars.io/?avatarStyle=Circle&topType=LongHairStraight&accessoriesType=Kurt&hairColor=BlondeGolden&facialHairType=BeardMedium&facialHairColor=Auburn&clotheType=BlazerShirt&clotheColor=White&eyeType=Squint&eyebrowType=RaisedExcitedNatural&mouthType=Disbelief&skinColor=DarkBrown">
                   <AvatarBadge boxSize="1.25em" borderColor="transparent">
-                    <Image src="/verifyAsset.svg" width={32} height={32}/>
+                    <Image loader={myLoader} src="/verifyAsset.svg" width={32} height={32}/>
                   </AvatarBadge>
                 </Avatar>
                 &nbsp;beaverumpire
@@ -175,7 +183,7 @@ export default function TopCreatives() {
               <Link>
                 <Avatar size="xs" name="fifthmainstay" src="https://avataaars.io/?avatarStyle=Circle&topType=ShortHairShaggyMullet&accessoriesType=Kurt&hairColor=PastelPink&facialHairType=MoustacheFancy&facialHairColor=BlondeGolden&clotheType=Hoodie&clotheColor=PastelOrange&eyeType=WinkWacky&eyebrowType=Default&mouthType=Twinkle&skinColor=DarkBrown">
                   <AvatarBadge boxSize="1.25em" borderColor="transparent">
-                    <Image src="/verifyAsset.svg" width={32} height={32}/>
+                    <Image loader={myLoader} src="/verifyAsset.svg" width={32} height={32}/>
                   </AvatarBadge>
                 </Avatar>
                 &nbsp;fifthmainstay

@@ -31,6 +31,10 @@ import { TextileInstance } from "../../../services/textile/textile";
 import SignUp from './SignUp';
 import CreativeLogo from '../../../../public/images/Creative_logo.png';
 
+const myLoader = ({ src, width, quality }) => {
+  return `https://res.cloudinary.com/${src}?w=${width}&q=${quality || 75}`
+}
+
 type WindowInstanceWithEthereum = Window & typeof globalThis & { ethereum?: providers.ExternalProvider };
 class StrongType<Definition, Type> {
   // @ts-ignore
@@ -198,6 +202,7 @@ const SignIn = (props) => {
             <Flex alignItems="center" pt="2%" justifyContent="space-between">
               <Stack spacing={1}>
               <Image
+                loader={myLoader}
                 src={CreativeLogo}
                 alt="Creative Logo"
                 width={100}

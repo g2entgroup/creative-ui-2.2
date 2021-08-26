@@ -7,6 +7,7 @@ import { TextileInstance } from "../services/textile/textile";
 import { getIdentity } from "../utils/fetchTextileIdentity"
 import Image from 'next/image';
 import { object } from 'prop-types';
+
 export default function All () {
     const [displayPix , setDisplayPix ] = useState(false);
     const [cids ,setCids] = useState([]);
