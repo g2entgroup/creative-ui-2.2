@@ -39,7 +39,7 @@ export default function All () {
 
     {   
          cids.map((e) => (
-            <BrandDiscovery imagelink={"https://hub.textile.io/ipfs/"+e} bio="user item" name="your name"></BrandDiscovery>
+            <BrandDiscovery imagelink={"https://hub.textile.io/ipfs/"+ e } key={e} bio="user item" name="your name"></BrandDiscovery>
             )) 
     }
  
