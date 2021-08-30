@@ -1,6 +1,6 @@
 import React, { useState, useRef } from "react";
 import { useRouter } from 'next/router';
-import { useEthers, useNotifications } from '@usedapp/core';
+import { useEthers, shortenAddress, useNotifications, useLookupAddress } from '@usedapp/core';
 import ConnectWallet from "../Navbar/ConnectWallet";
 import {
   Alert,
@@ -81,6 +81,7 @@ const Header = ({ children }: HeaderProps): JSX.Element => {
 
   const { account, deactivate } = useEthers()
   const { notifications } = useNotifications()
+  const ens = useLookupAddress()
 
   const { toggleColorMode: toggleMode } = useColorMode();
   const text = useColorModeValue("dark", "light");
@@ -463,7 +464,7 @@ const Header = ({ children }: HeaderProps): JSX.Element => {
                     height="38px"
                   >
                     <chakra.h2 color="white"  fontSize="md" fontWeight='medium'>
-                      {truncateHash(account)}
+                      { ens ?? shortenAddress(account)}
                     </chakra.h2>
                   </MenuButton>
                   <MenuList>
