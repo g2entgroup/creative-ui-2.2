@@ -6,6 +6,8 @@ import {
     Heading,
     Text,
     Stack,
+    VStack,
+    HStack,
     Button,
     Badge
   } from '@chakra-ui/react';
@@ -56,7 +58,7 @@ type WindowInstanceWithEthereum = Window & typeof globalThis & { ethereum?: prov
     console.log(await useCreateLazyMint);
   }
 
-  export default function ProductSimple({imagelink ,bio, name} ) {
+  export default function ProductSimple({imagelink , bio, name, creator, deleteMedia} ) {
     return (
       <Center py={12}>
         <Box
@@ -101,7 +103,7 @@ type WindowInstanceWithEthereum = Window & typeof globalThis & { ethereum?: prov
           </Box>
           <Stack pt={10} align={'center'} color={useColorModeValue("black" , "white")}>
             <Text color={'gray.500'} fontSize={'sm'} textTransform={'uppercase'}>
-              Brand
+              {creator}
             </Text>
             <Heading fontSize={'2xl'} fontFamily={'body'} fontWeight={500}>
               {name}
@@ -139,7 +141,6 @@ type WindowInstanceWithEthereum = Window & typeof globalThis & { ethereum?: prov
         </Stack>
 
         <Stack mt={8} direction={'row'} spacing={4}>
-         
           <Button
             flex={1}
             fontSize={'md'}
@@ -159,9 +160,11 @@ type WindowInstanceWithEthereum = Window & typeof globalThis & { ethereum?: prov
             Mint to Rarible
           </Button>
         </Stack>
-        <Stack mt={8} direction={'row'} spacing={4}>
+        <Stack mt={4} mb={4} spacing={1}>
             <Buy />
-            <Sell />
+        </Stack>
+        <Stack direction={"row"} spacing={4}>
+          <Sell />
         </Stack>
         </Box>
       </Center>
