@@ -28,7 +28,6 @@ import {
 import { providers } from 'ethers'
 import { FaUser } from "react-icons/fa";
 import { useForm } from "react-hook-form";
-
 import { TextileInstance } from "../services/textile/textile";
 type WindowInstanceWithEthereum = Window & typeof globalThis & { ethereum?: providers.ExternalProvider };
   class StrongType<Definition, Type> {
@@ -94,6 +93,11 @@ export default function Component() {
         setSelectedFile(file);
         setSubmitEnabled(true);
       };
+      // TODO: Use this to list your threadDB collections
+      const list = async (client: TextileInstance["client"]) => {
+        const threads = await client.listThreads()
+        return threads
+      }
 
   return (
     <Box bg={useColorModeValue("gray.200", "inherit")} p={10}>
@@ -143,14 +147,14 @@ export default function Component() {
                 <FormLabel>Creator name</FormLabel>
                 <Input type="text" {...register('creatorname')}/>
               </FormControl>
-              {/* <FormControl id="album" as={GridItem} colSpan={[3, 2]}>
+               <FormControl id="album" as={GridItem} colSpan={[3, 2]}>
                 <FormLabel>Select Collection</FormLabel>
                 <Select placeholder="Select Album">
                     <option>Album 1</option>
                     <option>Album 2</option>
                 </Select>
                 </FormControl>
-                <FormControl id="privacy" as={GridItem} colSpan={[3, 2]}>
+                {/*<FormControl id="privacy" as={GridItem} colSpan={[3, 2]}>
                 <FormLabel>Privacy</FormLabel>
                 <Select placeholder="Select privacy">
                     <option>Public</option>

@@ -6,11 +6,20 @@ import {
     Heading,
     Text,
     Stack,
-    VStack,
+    SimpleGrid,
     HStack,
     Button,
-    Badge
+    useToken,
+    Badge,
+    ButtonGroup,
+    Flex,
+    IconButton,
+    Editable,
+    EditableInput,
+    EditablePreview,
+    useEditableControls,
   } from '@chakra-ui/react';
+import { CheckIcon, CloseIcon, EditIcon } from '@chakra-ui/icons';
 import {
   createLazyMint, 
   generateTokenId
@@ -58,115 +67,162 @@ type WindowInstanceWithEthereum = Window & typeof globalThis & { ethereum?: prov
     console.log(await useCreateLazyMint);
   }
 
-  export default function ProductSimple({imagelink , bio, name, creator, deleteMedia} ) {
+  export default function BrandDiscovery({imagelink , bio, name, creator, deleteMedia} ) {
+    /* Here's a custom control */
+    function EditableControls() {
+      const {
+        isEditing,  
+        getSubmitButtonProps,
+        getCancelButtonProps,
+        getEditButtonProps,
+      } = useEditableControls()
+    return isEditing ? (
+      <ButtonGroup justifyContent="center" size="sm">
+        <IconButton aria-label="Submit" icon={<CheckIcon />} {...getSubmitButtonProps()} />
+        <IconButton aria-label="Close" icon={<CloseIcon />} {...getCancelButtonProps()} />
+      </ButtonGroup>
+    ) : (
+      <Flex justifyContent="center">
+        <IconButton aria-label="Edit" size="sm" icon={<EditIcon />} {...getEditButtonProps()} />
+      </Flex>
+    )
+  }
     return (
-      <Center py={12}>
-        <Box
-          role={'group'}
-          p={6}
-          maxW={'330px'}
-          w={'full'}
-          bg={useColorModeValue('white', 'gray.700')}
-          boxShadow={'2xl'}
-          rounded={'sm'}
-          pos={'relative'}
-          zIndex={1}>
+      <>
           <Box
-            rounded={'lg'}
-            mt={-12}
+            role={'group'}
+            maxW='sm'
+            overflow="hidden"
+            align="center"
+            width='full'
+            height='auto'
+            bg={useColorModeValue('white', 'gray.700')}
+            boxShadow={'lg'}
+            borderWidth="1px"
+            rounded="lg"
             pos={'relative'}
-            height={'230px'}
-            _after={{
-              transition: 'all .3s ease',
-              content: '""',
-              w: 'full',
-              h: 'full',
-              pos: 'absolute',
-              top: 5,
-              left: 0,
-              backgroundImage: `url(${imagelink})`,
-              filter: 'blur(15px)',
-              zIndex: -1,
-            }}
-            _groupHover={{
-              _after: {
-                filter: 'blur(20px)',
-              },
-            }}>
-            <Image
-              loader={myLoader}
-              height={230}
-              width={282}
-              objectFit={'cover'}
-              src={imagelink}
-            />
-          </Box>
-          <Stack pt={10} align={'center'} color={useColorModeValue("black" , "white")}>
-            <Text color={'gray.500'} fontSize={'sm'} textTransform={'uppercase'}>
-              {creator}
-            </Text>
-            <Heading fontSize={'2xl'} fontFamily={'body'} fontWeight={500}>
-              {name}
-            </Heading>
-            <Stack direction={'row'} align={'center'}>
-              <Text fontWeight={800} fontSize={'xl'}>
-                {bio}
-              </Text>
-              
-            </Stack>
-          </Stack>
-
-        <Stack align={'center'} justify={'center'} direction={'row'} mt={6}>
-          <Badge
-            px={2}
-            py={1}
-            bg={useColorModeValue('gray.50', 'gray.800')}
-            fontWeight={'400'}>
-            #art
-          </Badge>
-          <Badge
-            px={2}
-            py={1}
-            bg={useColorModeValue('gray.50', 'gray.800')}
-            fontWeight={'400'}>
-            #photography
-          </Badge>
-          <Badge
-            px={2}
-            py={1}
-            bg={useColorModeValue('gray.50', 'gray.800')}
-            fontWeight={'400'}>
-            #music
-          </Badge>
-        </Stack>
-
-        <Stack mt={8} direction={'row'} spacing={4}>
-          <Button
-            flex={1}
-            fontSize={'md'}
-            bg={'blue.400'}
-            color={'white'}
-            boxShadow={
-              '0px 1px 25px -5px rgb(66 153 225 / 48%), 0 10px 10px -5px rgb(66 153 225 / 43%)'
-            }
-            _hover={{
-              bg: 'blue.500',
-            }}
-            _focus={{
-              bg: 'blue.500',
-            }}
-            onClick={submitHandler}
+            zIndex={1}
             >
-            Mint to Rarible
-          </Button>
-        </Stack>
-        <Stack mt={4} mb={4} spacing={1}>
-            <Buy />
-        </Stack>
-        <Stack direction={"row"} spacing={4}>
-          <Sell />
-        </Stack>
-        </Box>
-      </Center>
+            <Box
+              rounded={'lg'}
+              mt={-12}
+              pos={'relative'}
+              height={'230px'}
+              _after={{
+                transition: 'all .3s ease',
+                content: '""',
+                w: 'full',
+                h: 'full',
+                pos: 'absolute',
+                top: 5,
+                left: 0,
+                backgroundImage: `url(${imagelink})`,
+                filter: 'blur(15px)',
+                zIndex: -1,
+              }}
+              _groupHover={{
+                _after: {
+                  filter: 'blur(20px)',
+                },
+              }}>
+              <Image
+                loader={myLoader}
+                height={230}
+                width={282}
+                objectFit={'cover'}
+                src={imagelink}
+              />
+            </Box>
+            <Stack pt={10} align={'center'} color={useColorModeValue("black" , "white")}>
+              <Editable color={'gray.500'} fontSize={'sm'} textTransform={'uppercase'} defaultValue={creator} isPreviewFocusable={false}>
+                <EditablePreview />
+                <EditableInput />
+                <EditableControls />
+              </Editable>
+              <Editable fontSize={'2xl'} fontFamily={'body'} fontWeight={500} defaultValue={name} isPreviewFocusable={false}>
+                <EditablePreview />
+                <EditableInput />
+                <EditableControls />
+              </Editable>
+              <Stack direction={'row'} align={'center'}>
+                <Editable fontWeight={800} fontSize={'xl'} defaultValue={bio} isPreviewFocusable={false}>
+                  <EditablePreview />
+                  <EditableInput />
+                  <EditableControls />
+                </Editable>
+              </Stack>
+            </Stack>
+
+          <Stack align={'center'} justify={'center'} direction={'row'} mt={6}>
+            <Badge
+              px={2}
+              py={1}
+              bg={useColorModeValue('gray.50', 'gray.800')}
+              fontWeight={'400'}>
+              #art
+            </Badge>
+            <Badge
+              px={2}
+              py={1}
+              bg={useColorModeValue('gray.50', 'gray.800')}
+              fontWeight={'400'}>
+              #photography
+            </Badge>
+            <Badge
+              px={2}
+              py={1}
+              bg={useColorModeValue('gray.50', 'gray.800')}
+              fontWeight={'400'}>
+              #music
+            </Badge>
+          </Stack>
+          <HStack mt={8} direction={'row'} spacing={4}>
+            <Button
+              flex={1}
+              fontSize={'md'}
+              bg={'red.400'}
+              color={'white'}
+              boxShadow={
+                '0px 1px 25px -5px rgb(66 153 225 / 48%), 0 10px 10px -5px rgb(66 153 225 / 43%)'
+              }
+              _hover={{
+                bg: 'red.500',
+              }}
+              _focus={{
+                bg: 'red.500',
+              }}
+              onClick={deleteMedia}
+              >
+              Delete
+            </Button>
+          </HStack>
+          <Stack mt={8} direction={'row'} spacing={4}>
+            <Button
+              flex={1}
+              fontSize={'md'}
+              bg={'blue.400'}
+              color={'white'}
+              boxShadow={
+                '0px 1px 25px -5px rgb(66 153 225 / 48%), 0 10px 10px -5px rgb(66 153 225 / 43%)'
+              }
+              _hover={{
+                bg: 'blue.500',
+              }}
+              _focus={{
+                bg: 'blue.500',
+              }}
+              onClick={submitHandler}
+              >
+              Mint to Rarible
+            </Button>
+          </Stack>
+          <Stack mt={4} mb={4} spacing={1}>
+              <Buy />
+          </Stack>
+          <Stack direction={"row"} spacing={4}>
+            <Sell />
+          </Stack>
+          </Box>
+          </>
     );
   }
