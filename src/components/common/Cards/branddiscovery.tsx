@@ -101,7 +101,7 @@ type WindowInstanceWithEthereum = Window & typeof globalThis & { ethereum?: prov
             borderWidth="1px"
             rounded="lg"
             pos={'relative'}
-            zIndex={1}
+            zIndex={0}
             >
             <Box
               rounded={'lg'}
