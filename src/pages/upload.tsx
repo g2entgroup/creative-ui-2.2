@@ -27,6 +27,8 @@ import {
 } from "@chakra-ui/react";
 import { providers } from 'ethers'
 import { FaUser } from "react-icons/fa";
+import { useForm } from "react-hook-form";
+
 import { TextileInstance } from "../services/textile/textile";
 type WindowInstanceWithEthereum = Window & typeof globalThis & { ethereum?: providers.ExternalProvider };
   class StrongType<Definition, Type> {
@@ -40,6 +42,11 @@ export default function Component() {
     const [nftUploaded , setNftUploaded] = useState(false)
     const [submitEnabled, setSubmitEnabled] = useState(false);
     const [selectedFile, setSelectedFile] = useState<File>();
+    const {
+      handleSubmit,
+      register,
+      formState: { errors, isSubmitting }
+    } = useForm();
 
     const submitHandler = async (event) => {
         event.preventDefault();
@@ -61,18 +68,19 @@ export default function Component() {
     }
 
     let nftMetadata
-    const onFileUpload = async event => {
+    async function onFileUpload(values){
         event.preventDefault();
         setSubmitEnabled(false);
+        console.log(JSON.stringify(values))
 
         const textileInstance = await TextileInstance.getInstance();
-        nftMetadata = await textileInstance.uploadNFT(selectedFile);
+        nftMetadata = await textileInstance.uploadNFT(selectedFile, values.nfttitle, values.creatorname);
         await textileInstance.uploadTokenMetadata(nftMetadata);
         await textileInstance.addNFTToUserCollection(nftMetadata);
         const all = await textileInstance.getAllUserNFTs();
 
       if (nftMetadata != undefined) { setNftUploaded(true) }
-      console.log("nftmetadat : " + nftMetadata);
+      console.log("nftmetadata : " + nftMetadata);
       
     }
 
@@ -112,7 +120,7 @@ export default function Component() {
           </GridItem>
           <GridItem mt={[5, null, 0]} colSpan={{ md: 2 }}>
             <chakra.form
-                onSubmit={onFileUpload}
+                onSubmit={handleSubmit(onFileUpload)}
               method="POST"
               shadow="base"
               rounded={[null, "md"]}
@@ -129,13 +137,13 @@ export default function Component() {
                   
                   <FormControl id="nfttitle" as={GridItem} colSpan={[3, 2]}>
                 <FormLabel>NFT Title</FormLabel>
-                <Input type="text" />
+                <Input type="text" {...register('nfttitle')}/>
               </FormControl>
               <FormControl id="creatorname" as={GridItem} colSpan={[3, 2]} >
                 <FormLabel>Creator name</FormLabel>
-                <Input type="text" />
+                <Input type="text" {...register('creatorname')}/>
               </FormControl>
-              <FormControl id="album" as={GridItem} colSpan={[3, 2]}>
+              {/* <FormControl id="album" as={GridItem} colSpan={[3, 2]}>
                 <FormLabel>Select Collection</FormLabel>
                 <Select placeholder="Select Album">
                     <option>Album 1</option>
@@ -149,7 +157,7 @@ export default function Component() {
                     <option>Protected</option>
                     <option>Private</option>
                 </Select>
-                </FormControl>
+                </FormControl> */}
                 </SimpleGrid>
 
                 
@@ -194,7 +202,7 @@ export default function Component() {
                         alignItems="baseline"
                       >
                         <chakra.label
-                          for="file-upload"
+                          htmlFor="file-upload"
                           cursor="pointer"
                           rounded="md"
                           fontSize="md"
