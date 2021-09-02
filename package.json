@@ -43,6 +43,7 @@
     "isomorphic-ws": "^4.0.1",
     "next": "^11.1.2",
     "nextjs-cors": "^1.0.6",
+    "node-fetch": "^1.7.3",
     "qrcode.react": "^1.0.1",
     "react": "^17.0.2",
     "react-blockies": "^1.4.1",
