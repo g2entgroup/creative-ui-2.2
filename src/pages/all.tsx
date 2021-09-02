@@ -21,7 +21,8 @@ export default function All () {
      setDisplayPix(true)
      console.log(photos)
     photos.map((element) => {
-            cid.push(element.cid)
+            cid.push({'cid' : element.cid, 'name': element.name, 'creator':element.description})
+            
     });
    console.log(photos)
    console.log(cid)
@@ -38,8 +39,8 @@ export default function All () {
     <SimpleGrid columns={{sm: 1, md: 4}} marginBottom={"10"} hidden={!displayPix}>
 
     {   
-         cids.map((e) => (
-            <BrandDiscovery imagelink={"https://hub.textile.io/ipfs/"+ e } key={e} bio="user item" name="your name"></BrandDiscovery>
+         cids.map((id) => (
+            <BrandDiscovery imagelink={"https://hub.textile.io/ipfs/"+ id.cid } key={id.cid} bio={id.creator} name={id.name}></BrandDiscovery>
             )) 
     }
  
