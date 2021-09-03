@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { list, SimpleGrid, Text } from "@chakra-ui/react"
 import { Flex, Spacer , Center} from "@chakra-ui/react"
-import BrandDiscovery from '../components/common/Cards/branddiscovery'
+import BucketCard from '../components/common/Cards/BucketCard'
 import { Button, ButtonGroup } from "@chakra-ui/react"
 import { TextileInstance } from "../services/textile/textile";
 import { getIdentity } from "../utils/fetchTextileIdentity"
@@ -44,7 +44,7 @@ export default function All () {
 
     {   
          cids.map((id) => (
-            <BrandDiscovery imagelink={"https://hub.textile.io/ipfs/"+ id.cid } key={id.cid} creator={id.creator} name={id.name} bio={id.description} deleteMedia={deleteMedia}></BrandDiscovery>
+            <BucketCard imagelink={"https://hub.textile.io/ipfs/"+ id.cid } key={id.cid} creator={id.creator} name={id.name} bio={id.description} deleteMedia={deleteMedia}></BucketCard>
             )) 
     }
  
