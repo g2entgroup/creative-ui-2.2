@@ -9,6 +9,7 @@ import {
   Heading,
   Text,
   Stack,
+  VStack,
   FormControl,
   FormLabel,
   Input,
@@ -29,6 +30,8 @@ import { providers } from 'ethers'
 import { FaUser } from "react-icons/fa";
 import { useForm } from "react-hook-form";
 import { TextileInstance } from "../services/textile/textile";
+import AddAttributes from "../components/Attributes/AddAttributes";
+import AttributesList from "../components/Attributes/AttributesList";
 type WindowInstanceWithEthereum = Window & typeof globalThis & { ethereum?: providers.ExternalProvider };
   class StrongType<Definition, Type> {
     // @ts-ignore
@@ -82,6 +85,27 @@ export default function Component() {
       console.log("nftmetadata : " + nftMetadata);
       
     }
+
+  const attributesList = [
+    { id: 1, text: 'Buy eggs'},
+    { id: 2, text: 'Walk the dog'},
+    { id: 3, text: 'Watch a movie'}
+  ];
+
+  const [attributes, setAttributes] = useState(attributesList);
+
+
+  function deleteAttribute(id){
+  const newAttributes = attributes.filter((item)=> {
+    return item.id !== id 
+  })
+  setAttributes(newAttributes)
+  console.log(newAttributes)
+  }
+
+  function addAttribute(newAttribute){
+  setAttributes([...attributes, newAttribute])
+  }
 
     const onFileChange = async event => {
         const file = ((event.target as HTMLInputElement).files as FileList)[0];
@@ -138,7 +162,6 @@ export default function Component() {
                 p={{ sm: 6 }}
               >
                 <SimpleGrid columns={3} spacing={6}>
-                  
                   <FormControl id="nfttitle" as={GridItem} colSpan={[3, 2]}>
                 <FormLabel>NFT Title</FormLabel>
                 <Input type="text" {...register('nfttitle')}/>
@@ -147,6 +170,10 @@ export default function Component() {
                 <FormLabel>Creator name</FormLabel>
                 <Input type="text" {...register('creatorname')}/>
               </FormControl>
+              <Box id="attributes" as={GridItem} colSpan={[3, 2]}>
+                <AttributesList attributes={attributes} deleteAttribute={deleteAttribute} />
+                <AddAttributes addAttributes={addAttribute} />
+              </Box>
                <FormControl id="album" as={GridItem} colSpan={[3, 2]}>
                 <FormLabel>Select Collection</FormLabel>
                 <Select placeholder="Select Album">

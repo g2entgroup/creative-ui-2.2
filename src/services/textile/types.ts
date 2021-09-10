@@ -12,6 +12,9 @@ export interface NFTMetadata {
   ownerWalletAddress?: string; // account address
   user?: string; // public key
   description?: string;
+  attributes?: {
+    [k: string]: unknown;
+  };
 }
 
 export interface TokenMetadata {
