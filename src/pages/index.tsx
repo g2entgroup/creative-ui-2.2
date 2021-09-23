@@ -1,5 +1,5 @@
 import { Heading, SimpleGrid, Box, OrderedList, ListItem, Avatar, AvatarBadge, Link, Image } from "@chakra-ui/react";
-import CreativeCard from '../components/CreativeCard';
+import CreativeCard from '../components/common/Cards/CreativeCard';
 import BrandHero from '../components/BrandHero';
 import { Content } from "../components/common/Content/Content";
 import { Main } from "../components/common/Main/Main";

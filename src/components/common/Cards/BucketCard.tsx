@@ -1,6 +1,7 @@
 import { providers } from 'ethers';
 import {
     Box,
+    Center,
     useColorModeValue,
     Heading,
     Text,
@@ -8,10 +9,14 @@ import {
     SimpleGrid,
     HStack,
     Button,
+    useToken,
     Badge,
     ButtonGroup,
     Flex,
     IconButton,
+    Editable,
+    EditableInput,
+    EditablePreview,
     useEditableControls,
   } from '@chakra-ui/react';
 import { CheckIcon, CloseIcon, EditIcon } from '@chakra-ui/icons';
@@ -62,7 +67,26 @@ type WindowInstanceWithEthereum = Window & typeof globalThis & { ethereum?: prov
     console.log(await useCreateLazyMint);
   }
 
-  export default function BrandDiscovery({imagelink , bio, name, creator} ) {
+  export default function BrandDiscovery({imagelink , bio, name, creator, deleteMedia} ) {
+    /* Here's a custom control */
+    function EditableControls() {
+      const {
+        isEditing,  
+        getSubmitButtonProps,
+        getCancelButtonProps,
+        getEditButtonProps,
+      } = useEditableControls()
+    return isEditing ? (
+      <ButtonGroup justifyContent="center" size="sm">
+        <IconButton aria-label="Submit" icon={<CheckIcon />} {...getSubmitButtonProps()} />
+        <IconButton aria-label="Close" icon={<CloseIcon />} {...getCancelButtonProps()} />
+      </ButtonGroup>
+    ) : (
+      <Flex justifyContent="center">
+        <IconButton aria-label="Edit" size="sm" icon={<EditIcon />} {...getEditButtonProps()} />
+      </Flex>
+    )
+  }
     return (
       <>
           <Box
@@ -109,14 +133,23 @@ type WindowInstanceWithEthereum = Window & typeof globalThis & { ethereum?: prov
                 src={imagelink}
               />
             </Box>
-            <Stack pt={10} align={'center'} color={useColorModeValue("black" , "white")}>
-              <Text color={'gray.500'} fontSize={'sm'} textTransform={'uppercase'} defaultValue={creator}>
-              </Text>
-              <Text fontSize={'2xl'} fontFamily={'body'} fontWeight={500} defaultValue={name}>
-              </Text>
+            <Stack pt={10} align={'center'} color={useColorModeValue("black", "white")}>
+              <Editable color={'gray.500'} fontSize={'sm'} textTransform={'uppercase'} defaultValue={creator} isPreviewFocusable={false}>
+                <EditablePreview />
+                <EditableInput />
+                <EditableControls />
+              </Editable>
+              <Editable color={'gray.500'} fontSize={'2xl'} fontFamily={'body'} fontWeight={500} defaultValue={name} isPreviewFocusable={false}>
+                <EditablePreview />
+                <EditableInput />
+                <EditableControls />
+              </Editable>
               <Stack direction={'row'} align={'center'}>
-                <Text fontWeight={800} fontSize={'xl'} defaultValue={bio}>
-                </Text>
+                <Editable color={'gray.500'} fontWeight={800} fontSize={'xl'} defaultValue={bio} isPreviewFocusable={false}>
+                  <EditablePreview />
+                  <EditableInput />
+                  <EditableControls />
+                </Editable>
               </Stack>
             </Stack>
 
@@ -143,7 +176,27 @@ type WindowInstanceWithEthereum = Window & typeof globalThis & { ethereum?: prov
               #music
             </Badge>
           </Stack>
-          <Stack mt={8} direction={'row'} spacing={4}>
+          <HStack mt={8} direction={'row'} spacing={4}>
+            <Button
+              flex={1}
+              fontSize={'md'}
+              bg={'red.400'}
+              color={'white'}
+              boxShadow={
+                '0px 1px 25px -5px rgb(66 153 225 / 48%), 0 10px 10px -5px rgb(66 153 225 / 43%)'
+              }
+              _hover={{
+                bg: 'red.500',
+              }}
+              _focus={{
+                bg: 'red.500',
+              }}
+              onClick={deleteMedia}
+              >
+              Delete
+            </Button>
+          </HStack>
+          <HStack mt={8} direction={'row'} spacing={4}>
             <Button
               flex={1}
               fontSize={'md'}
@@ -162,11 +215,9 @@ type WindowInstanceWithEthereum = Window & typeof globalThis & { ethereum?: prov
               >
               Mint to Rarible
             </Button>
-          </Stack>
-          <Stack mt={4} mb={4} spacing={1}>
-              <Buy />
-          </Stack>
+            <Sell />
+          </HStack>
         </Box>
-      </>
+    </>
     );
   }

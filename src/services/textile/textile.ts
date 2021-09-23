@@ -71,7 +71,7 @@ export class TextileInstance {
     }
   }
 
-  public async uploadNFT(file: File, name: string = "", description: string = ""): Promise<NFTMetadata> {
+  public async uploadNFT(file: File, name: string = "", description: string = "", attributes: string = '{"": any; }'): Promise<NFTMetadata> {
     if (!this.bucketInfo.bucket || !this.bucketInfo.bucketKey) {
       throw new Error('No bucket client or root key');
     }
@@ -90,7 +90,8 @@ export class TextileInstance {
       name: name != "" ? name : uploadName,
       description: description,
       path: location,
-      date: now.toString()
+      date: now.toString(),
+      attributes: {attributes}
     };
   }
 

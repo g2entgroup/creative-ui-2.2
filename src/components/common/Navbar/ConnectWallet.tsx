@@ -23,6 +23,10 @@ function ConnectWallet(): JSX.Element {
 
   const { onOpen, isOpen, onClose } = useDisclosure()
 
+  const onError = (error: Error) => {
+    console.log(error.message)
+  }
+
   return (
     <>
       <Box
@@ -56,7 +60,7 @@ function ConnectWallet(): JSX.Element {
                 />
               }
               onClick={() => {
-                activateBrowserWallet()
+                activateBrowserWallet(onError)
               }}
             >
               MetaMask
