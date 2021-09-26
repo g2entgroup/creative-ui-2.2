@@ -27,6 +27,7 @@ import {
 import Buy from "../Buy/buy";
 import Sell from "../Sell/sell";
 import Image from 'next/image';
+import { OpenSeaPort, Network } from 'opensea-js';
   
 const myLoader = ({ src, width, quality }) => {
   return `${src}?w=${width}&q=${quality || 75}`
@@ -51,6 +52,11 @@ type WindowInstanceWithEthereum = Window & typeof globalThis & { ethereum?: prov
     console.debug('Initializing web3 provider...');
     // @ts-ignore
     const provider = new providers.Web3Provider((window as WindowInstanceWithEthereum).ethereum);
+
+    // TODO: OpenSea Marketplace Function
+    const seaport = new OpenSeaPort(provider, {
+      networkName: Network.Main
+    })
 
     const accounts = await (window as WindowInstanceWithEthereum).ethereum.request({ method: 'eth_requestAccounts' });
     if (accounts.length === 0) {
