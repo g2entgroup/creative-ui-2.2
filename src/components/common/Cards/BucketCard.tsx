@@ -163,26 +163,26 @@ type WindowInstanceWithEthereum = Window & typeof globalThis & { ethereum?: prov
             <Badge
               px={2}
               py={1}
-              bg={useColorModeValue('gray.50', 'gray.800')}
+              bg={useColorModeValue('gray.50', 'gray.50')}
               fontWeight={'400'}>
               #art
             </Badge>
             <Badge
               px={2}
               py={1}
-              bg={useColorModeValue('gray.50', 'gray.800')}
+              bg={useColorModeValue('gray.50', 'gray.50')}
               fontWeight={'400'}>
               #photography
             </Badge>
             <Badge
               px={2}
               py={1}
-              bg={useColorModeValue('gray.50', 'gray.800')}
+              bg={useColorModeValue('gray.50', 'gray.50')}
               fontWeight={'400'}>
               #music
             </Badge>
           </Stack>
-          <HStack mt={8} direction={'row'} spacing={4}>
+          <HStack m={4} direction={'row'} spacing={4}>
             <Button
               flex={1}
               fontSize={'md'}
@@ -202,10 +202,28 @@ type WindowInstanceWithEthereum = Window & typeof globalThis & { ethereum?: prov
               Delete
             </Button>
           </HStack>
-          <HStack mt={8} direction={'row'} spacing={4}>
+          <HStack m={4} direction={'row'} spacing={4}>
+          <Button
+              flex={1}
+              fontSize={'sm'}
+              bg={'blue.400'}
+              color={'white'}
+              boxShadow={
+                '0px 1px 25px -5px rgb(66 153 225 / 48%), 0 10px 10px -5px rgb(66 153 225 / 43%)'
+              }
+              _hover={{
+                bg: 'blue.500',
+              }}
+              _focus={{
+                bg: 'blue.500',
+              }}
+              onClick={void(null)}
+              >
+              Mint to OpenSea
+            </Button>
             <Button
               flex={1}
-              fontSize={'md'}
+              fontSize={'smaller'}
               bg={'blue.400'}
               color={'white'}
               boxShadow={
@@ -219,9 +237,9 @@ type WindowInstanceWithEthereum = Window & typeof globalThis & { ethereum?: prov
               }}
               onClick={submitHandler}
               >
-              Mint to Rarible
+              LazyMint to Rarible
             </Button>
-            <Sell />
+            {/* <Sell /> */}
           </HStack>
         </Box>
     </>
