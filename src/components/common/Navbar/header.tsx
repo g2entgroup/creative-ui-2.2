@@ -153,7 +153,7 @@ const Header = ({ children }: HeaderProps): JSX.Element => {
           py={6}
           p={{ sm: 8 }}
         >
-          <Link isExternal>
+          <Link href="https://creativeplatform.io/guide" isExternal traget="_blank">
           <Section
             title="How It Works"
           >
@@ -173,7 +173,7 @@ const Header = ({ children }: HeaderProps): JSX.Element => {
             We think that the best way to align platform development with customers' interests is to empower the ones who actively interact with the protocol: creators, fans, and brands.
           </Section>
 
-          <Link href="https://www.creativeplatform.io/forum/" isExternal target="_blank">
+          <Link href="https://community.creativeplatform.io" isExternal target="_blank">
           <Section
             title="Discussion"
             icon={
@@ -203,7 +203,7 @@ const Header = ({ children }: HeaderProps): JSX.Element => {
           </Section>
           </Link>
 
-          <Link href="https://creative.nolt.io/" isExternal target="_blank">
+          <Link href="https://creative.canny.io/" isExternal target="_blank">
           <Section
             title="Feature Suggestions"
             description={
