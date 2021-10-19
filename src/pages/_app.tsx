@@ -12,6 +12,8 @@ import Footer from "../components/common/Footer/footer";
 import { BannerLink } from '../components/common/BannerLink';
 import { BellIcon } from '@chakra-ui/icons';
 import { StoreContainer } from "../utils/store";
+import Sidebar from "src/components/common/Sidenavigation/Navbar";
+
 const config = {
   readOnlyChainId: ChainId.Mumbai,
   readOnlyUrls: {
@@ -65,6 +67,8 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
             </Stack>
           </Box>
           <Component {...pageProps} />
+          <Sidebar/>
+
           <Footer />
         </Container>
         </StoreContainer.Provider>
