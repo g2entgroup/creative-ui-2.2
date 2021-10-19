@@ -67,7 +67,6 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
             </Stack>
           </Box>
           <Component {...pageProps} />
-          <Sidebar/>
 
           <Footer />
         </Container>
