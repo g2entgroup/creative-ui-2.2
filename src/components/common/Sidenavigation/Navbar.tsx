@@ -35,8 +35,10 @@ export default function Sidebar() {
         <Flex
             pos="sticky"
             left="5"
-            h="95vh"
+            
+            mb='4'
             marginTop="2.5vh"
+            background='pink.600'
             boxShadow="0 4px 12px 0 rgba(0, 0, 0, 0.05)"
             borderRadius={navSize == "small" ? "15px" : "30px"}
             w={navSize == "small" ? "75px" : "200px"}
@@ -92,7 +94,7 @@ export default function Sidebar() {
                     <Avatar size="sm" src="avatar-1.jpg" />
                     <Flex flexDir="column" ml={4} display={navSize == "small" ? "none" : "flex"}>
                         <Heading as="h3" size="sm">Sylwia Weller</Heading>
-                        <Text color="gray">0x3456...7967</Text>
+                        <Text color="gray.300">0x3456...7967</Text>
                     </Flex>
                 </Flex>
             </Flex>

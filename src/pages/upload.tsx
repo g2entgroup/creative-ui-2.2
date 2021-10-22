@@ -28,7 +28,7 @@ import {
 import { providers } from 'ethers'
 import { FaUser } from "react-icons/fa";
 import { useForm } from "react-hook-form";
-
+import { Spinner } from "@chakra-ui/react"
 import { TextileInstance } from "../services/textile/textile";
 type WindowInstanceWithEthereum = Window & typeof globalThis & { ethereum?: providers.ExternalProvider };
   class StrongType<Definition, Type> {
@@ -42,6 +42,7 @@ export default function Component() {
     const [nftUploaded , setNftUploaded] = useState(false)
     const [submitEnabled, setSubmitEnabled] = useState(false);
     const [selectedFile, setSelectedFile] = useState<File>();
+    const [ spin , setSpin ] = useState(false)
     const {
       handleSubmit,
       register,
@@ -71,6 +72,7 @@ export default function Component() {
     async function onFileUpload(values){
         event.preventDefault();
         setSubmitEnabled(false);
+        setSpin(true);
         console.log(JSON.stringify(values))
 
         const textileInstance = await TextileInstance.getInstance();
@@ -79,7 +81,7 @@ export default function Component() {
         await textileInstance.addNFTToUserCollection(nftMetadata);
         const all = await textileInstance.getAllUserNFTs();
 
-      if (nftMetadata != undefined) { setNftUploaded(true) }
+      if (nftMetadata != undefined) { setNftUploaded(true); setSpin(false) }
       console.log("nftmetadata : " + nftMetadata);
       
     }
@@ -248,11 +250,12 @@ export default function Component() {
                 >
                   Create
                 </Button>
+                {  spin ? (<Spinner size='lg' color='white' />) : ""}
+
               </Box>
             </chakra.form>
           </GridItem>
         </SimpleGrid>
-        {nftUploaded ? (<Text as="h3" size="3xl" color="hotpink"> Success !</Text>) : ""}
       </Box>
 
     </Box>

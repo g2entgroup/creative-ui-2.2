@@ -20,15 +20,15 @@ export default function NavItem({ icon, title, description, active, navSize }) {
         >
             <Menu placement="right">
                 <Link
-                    backgroundColor={active && "#AEC8CA"}
+                    backgroundColor={active && "pink.800"}
                     p={3}
                     borderRadius={8}
-                    _hover={{ textDecor: 'none', backgroundColor: "#AEC8CA" }}
+                    _hover={{ textDecor: 'none', backgroundColor: "yellow.300" , textColor: 'black'}}
                     w={navSize == "large" && "100%"}
                 >
                     <MenuButton w="100%">
                         <Flex>
-                            <Icon as={icon} fontSize="xl" color={active ? "#82AAAD" : "gray.500"} />
+                            <Icon as={icon} fontSize="xl" color={active ? "white" : "gray.200"} />
                             <Text ml={5} display={navSize == "small" ? "none" : "flex"}>{title}</Text>
                         </Flex>
                     </MenuButton>
