@@ -257,7 +257,7 @@ const Footer = () => {
           Copyright © 2021{" "}
           <Box as="text" color="#e50168">
             <Link href="https://app.daohaus.club/dao/0x89/0xc48996a569911fd6eba1b97b6419731eed32041e/">
-            Creative Organization, LLC
+            Creative Organization DAO, LLC
             </Link>
           </Box>
           . All Rights Reserved.

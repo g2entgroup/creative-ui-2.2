@@ -203,7 +203,7 @@ const SignIn = (props) => {
               <Stack spacing={1}>
               <Image
                 loader={myLoader}
-                src={CreativeLogo}
+                src="dyangxc7h/image/upload/v1623552244/creative/Creative_logo.png"
                 alt="Creative Logo"
                 width={100}
                 height={100}

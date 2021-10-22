@@ -9,6 +9,7 @@ import {
   Heading,
   Text,
   Stack,
+  VStack,
   FormControl,
   FormLabel,
   Input,
@@ -28,8 +29,9 @@ import {
 import { providers } from 'ethers'
 import { FaUser } from "react-icons/fa";
 import { useForm } from "react-hook-form";
-import { Spinner } from "@chakra-ui/react"
 import { TextileInstance } from "../services/textile/textile";
+import AddAttributes from "../components/attributes/AddAttributes";
+import AttributesList from "../components/attributes/AttributesList";
 type WindowInstanceWithEthereum = Window & typeof globalThis & { ethereum?: providers.ExternalProvider };
   class StrongType<Definition, Type> {
     // @ts-ignore
@@ -86,6 +88,27 @@ export default function Component() {
       
     }
 
+  const attributesList = [
+    { id: 1, text: 'Buy eggs'},
+    { id: 2, text: 'Walk the dog'},
+    { id: 3, text: 'Watch a movie'}
+  ];
+
+  const [attributes, setAttributes] = useState(attributesList);
+
+
+  function deleteAttribute(id){
+  const newAttributes = attributes.filter((item)=> {
+    return item.id !== id 
+  })
+  setAttributes(newAttributes)
+  console.log(newAttributes)
+  }
+
+  function addAttribute(newAttribute){
+  setAttributes([...attributes, newAttribute])
+  }
+
     const onFileChange = async event => {
         const file = ((event.target as HTMLInputElement).files as FileList)[0];
         if (file.size > 20460000) {
@@ -96,6 +119,11 @@ export default function Component() {
         setSelectedFile(file);
         setSubmitEnabled(true);
       };
+      // TODO: Use this to list your threadDB collections
+      const list = async (client: TextileInstance["client"]) => {
+        const threads = await client.listThreads()
+        return threads
+      }
 
   return (
     <Box bg={useColorModeValue("gray.200", "inherit")} p={10}>
@@ -136,7 +164,6 @@ export default function Component() {
                 p={{ sm: 6 }}
               >
                 <SimpleGrid columns={3} spacing={6}>
-                  
                   <FormControl id="nfttitle" as={GridItem} colSpan={[3, 2]}>
                 <FormLabel>NFT Title</FormLabel>
                 <Input type="text" {...register('nfttitle')}/>
@@ -145,14 +172,18 @@ export default function Component() {
                 <FormLabel>Creator name</FormLabel>
                 <Input type="text" {...register('creatorname')}/>
               </FormControl>
-              {/* <FormControl id="album" as={GridItem} colSpan={[3, 2]}>
+              <Box id="attributes" as={GridItem} colSpan={[3, 2]}>
+                <AttributesList attributes={attributes} deleteAttribute={deleteAttribute} />
+                <AddAttributes addAttributes={addAttribute} />
+              </Box>
+               <FormControl id="album" as={GridItem} colSpan={[3, 2]}>
                 <FormLabel>Select Collection</FormLabel>
                 <Select placeholder="Select Album">
                     <option>Album 1</option>
                     <option>Album 2</option>
                 </Select>
                 </FormControl>
-                <FormControl id="privacy" as={GridItem} colSpan={[3, 2]}>
+                {/*<FormControl id="privacy" as={GridItem} colSpan={[3, 2]}>
                 <FormLabel>Privacy</FormLabel>
                 <Select placeholder="Select privacy">
                     <option>Public</option>

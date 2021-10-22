@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Input, Tooltip } from "@chakra-ui/react";
+import { Button, Input, Tooltip, HStack } from "@chakra-ui/react";
 import { createSellOrder} from "../../../rarible/createOrders";
 import { RARIBLE_EXCHANGE_RINKEBY } from "../../../constants";
 const { utils } = require("ethers");
@@ -12,6 +12,7 @@ export default function Buy(props) {
   const [sellState, setSellState] = React.useState({});
   const [sellForEthValue, setSellForEthValue] = React.useState({});
   const [salt, setSalt] = React.useState({});
+  
   const buttons = (
     <Tooltip placement="right" title="* 10 ** 18">
       <div
@@ -29,7 +30,7 @@ export default function Buy(props) {
     </Tooltip>
   );
   return (
-    <div>
+    <HStack>
       <Button
       flex={1}
       fontSize={'md'}
@@ -95,6 +96,6 @@ export default function Buy(props) {
         </div>
       )) ||
         (sellState === "CRTV" && <span>CRTV</span>)}
-    </div>
+    </HStack>
   );
 }

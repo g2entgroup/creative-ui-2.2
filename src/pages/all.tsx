@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { list, SimpleGrid, Text } from "@chakra-ui/react"
 import { Flex, Spacer , Center} from "@chakra-ui/react"
-import BrandDiscovery from '../components/common/Cards/branddiscovery'
+import BucketCard from '../components/common/Cards/BucketCard'
 import { Button, ButtonGroup } from "@chakra-ui/react"
 import { TextileInstance } from "../services/textile/textile";
 import { getIdentity } from "../utils/fetchTextileIdentity"
@@ -28,7 +28,11 @@ export default function All () {
    console.log(cid)
    setCids(cid)
     }
-  
+    // TODO: Be able to delete entry
+    const deleteMedia = async (photos) => {
+        const textileInstance = await TextileInstance.getInstance();
+        await textileInstance.deleteNFTFromBucket(photos);
+    }
 
     return(
     <>
@@ -36,11 +40,11 @@ export default function All () {
         <Center>    
                 <Button colorScheme="blue" onClick={fetchGallery} hidden={displayPix}> Fetch my photos </Button>
         </Center>
-    <SimpleGrid columns={{sm: 1, md: 4}} marginBottom={"10"} hidden={!displayPix}>
+    <SimpleGrid columns={{sm: 1, md: 4}} marginBottom={20} spacing={20} hidden={!displayPix}>
 
     {   
          cids.map((id) => (
-            <BrandDiscovery imagelink={"https://hub.textile.io/ipfs/"+ id.cid } key={id.cid} bio={id.creator} name={id.name}></BrandDiscovery>
+            <BucketCard imagelink={"https://hub.textile.io/ipfs/"+ id.cid } key={id.cid} creator={id.creator} name={id.name} bio={id.description} deleteMedia={deleteMedia}></BucketCard>
             )) 
     }
  

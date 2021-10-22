@@ -23,7 +23,7 @@ export default function Sell(props) {
     </Tooltip>
   );
   return (
-    <div>
+    <>
       <Button 
       flex={1}
       fontSize={'md'}
@@ -65,6 +65,6 @@ export default function Sell(props) {
         </div>
       )) ||
         (sellState === "CTRV" && <span>CRTV</span>)}
-    </div>
+    </>
   );
 }

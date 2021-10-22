@@ -15,8 +15,8 @@ import {
   import SingleAlert from '../Notification/SingleAlert';
   
   const NotificationDrawer = () => {
-    const tcl = useColorModeValue("gray.900", "gray.50");
-    const tcs = useColorModeValue("gray.900", "black");
+    const tcl = useColorModeValue("gray.900", "gray.500");
+    const tcs = useColorModeValue("black", "gray.500");
     const { isOpen, onOpen, onClose } = useDisclosure();
     const btnRef = useRef();
       return (

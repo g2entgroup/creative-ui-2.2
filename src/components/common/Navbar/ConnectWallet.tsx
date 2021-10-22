@@ -23,6 +23,10 @@ function ConnectWallet(): JSX.Element {
 
   const { onOpen, isOpen, onClose } = useDisclosure()
 
+  const onError = (error: Error) => {
+    console.log(error.message)
+  }
+
   return (
     <>
       <Box
@@ -56,7 +60,7 @@ function ConnectWallet(): JSX.Element {
                 />
               }
               onClick={() => {
-                activateBrowserWallet()
+                activateBrowserWallet(onError)
               }}
             >
               MetaMask
@@ -95,7 +99,7 @@ function ConnectWallet(): JSX.Element {
                   loader={myLoader}
                   height={20}
                   width={20}
-                  src="/images/logo-walletconnect.svg"
+                  src="/images/venly_logo.png"
                   alt="WalletConnect"
                 />
               }
@@ -103,7 +107,7 @@ function ConnectWallet(): JSX.Element {
                 arkaneConnect
               }}
             >
-              Arkane
+              Venly
             </Button>
           </ModalBody>
         </ModalContent>
