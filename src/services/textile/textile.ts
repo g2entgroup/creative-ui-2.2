@@ -10,7 +10,7 @@ export class TextileInstance {
   private client: Client;
   private threadID: ThreadID;
 
-  private readonly apiKey = "bu5jbif4lu5tn4xmilwaxen3zjm";
+  private readonly apiKey = process.env.NEXT_PUBLIC_TEXTILE_API_KEY;
 
   private ipfsGateway = 'https://hub.textile.io';
 

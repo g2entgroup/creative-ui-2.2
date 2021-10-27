@@ -29,7 +29,6 @@ import {
 import Image from "next/image";
 import { TextileInstance } from "../../../services/textile/textile";
 import SignUp from './SignUp';
-import CreativeLogo from '../../../../public/images/Creative_logo.png';
 
 const myLoader = ({ src, width, quality }) => {
   return `https://res.cloudinary.com/${src}?w=${width}&q=${quality || 75}`
