@@ -219,7 +219,7 @@ type WindowInstanceWithEthereum = Window & typeof globalThis & { ethereum?: prov
               }}
               onClick={void(null)}
               >
-              Mint to OpenSea
+              OpenSea Mint
             </Button>
             <Button
               flex={1}
@@ -237,7 +237,7 @@ type WindowInstanceWithEthereum = Window & typeof globalThis & { ethereum?: prov
               }}
               onClick={submitHandler}
               >
-              LazyMint to Rarible
+              Rarible Mint
             </Button>
             {/* <Sell /> */}
           </HStack>
