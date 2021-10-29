@@ -53,6 +53,7 @@ export default function Sidebar() {
                 as="nav"
             >
                 <IconButton
+                    aria-label='iconbutton'
                     background="none"
                     mt={5}
                     _hover={{ background: 'none' }}
@@ -64,19 +65,19 @@ export default function Sidebar() {
                             changeNavSize("small")
                     }}
                 />
-                <NavItem navSize={navSize} icon={FiHome} title="Dashboard" description="This is the description for the dashboard." />
-                <NavItem navSize={navSize} icon={FiFolder} title="Albums" active />
-                <NavItem navSize={navSize} icon={FiMic} title="Artists"  />
-                <NavItem navSize={navSize} icon={FiGrid} title="Genres" />
-                <NavItem navSize={navSize} icon={FiDollarSign} title="Top Tracks" />
-                <NavItem navSize={navSize} icon={FiHeadphones} title="Free music" />
-                <NavItem navSize={navSize} icon={FiRadio} title="Stations" />
-                <NavItem navSize={navSize} icon={FiDownload} title="Downloads" />
-                <NavItem navSize={navSize} icon={AiFillWallet} title="Purchased" />
-                <NavItem navSize={navSize} icon={FiHeart} title="Favourites" />
-                <NavItem navSize={navSize} icon={FaHistory} title="History" />
-                <NavItem navSize={navSize} icon={BsMusicNoteList} title="Featured Playlist" />
-                <NavItem navSize={navSize} icon={BsMusicNote} title="Create Playlist" />
+                <NavItem navSize={navSize} icon={FiHome} title="Dashboard" description="This is the description for the dashboard."  active={false}/>
+                <NavItem navSize={navSize} icon={FiFolder} title="Albums" active={true} description='Albums'/>
+                <NavItem navSize={navSize} icon={FiMic} title="Artists" active={false}  description='artist'/>
+                <NavItem navSize={navSize} icon={FiGrid} title="Genres" active={false}  description='genres'/>
+                <NavItem navSize={navSize} icon={FiDollarSign} title="Top Tracks" active={false} description='top tracks'/>
+                <NavItem navSize={navSize} icon={FiHeadphones} title="Free music" active={false} description='free music'/>
+                <NavItem navSize={navSize} icon={FiRadio} title="Stations" active={false} description='stations'/>
+                <NavItem navSize={navSize} icon={FiDownload} title="Downloads" active={false} description='downloads'/>
+                <NavItem navSize={navSize} icon={AiFillWallet} title="Purchased" active={false} description='purchased'/>
+                <NavItem navSize={navSize} icon={FiHeart} title="Favourites" active={false} description='favourites'/>
+                <NavItem navSize={navSize} icon={FaHistory} title="History" active={false}  description='history'/>
+                <NavItem navSize={navSize} icon={BsMusicNoteList} title="Featured Playlist" active={false} description='featured playlist'/>
+                <NavItem navSize={navSize} icon={BsMusicNote} title="Create Playlist" active={false} description='create playlist'/>
 
 
 

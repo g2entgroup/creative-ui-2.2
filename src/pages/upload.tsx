@@ -25,13 +25,13 @@ import {
   Checkbox,
   RadioGroup,
   Radio,
+  Spinner
 } from "@chakra-ui/react";
 import { providers } from 'ethers'
 import { FaUser } from "react-icons/fa";
 import { useForm } from "react-hook-form";
 import { TextileInstance } from "../services/textile/textile";
-import AddAttributes from "../components/attributes/AddAttributes";
-import AttributesList from "../components/attributes/AttributesList";
+
 type WindowInstanceWithEthereum = Window & typeof globalThis & { ethereum?: providers.ExternalProvider };
   class StrongType<Definition, Type> {
     // @ts-ignore
@@ -172,10 +172,7 @@ export default function Component() {
                 <FormLabel>Creator name</FormLabel>
                 <Input type="text" {...register('creatorname')}/>
               </FormControl>
-              <Box id="attributes" as={GridItem} colSpan={[3, 2]}>
-                <AttributesList attributes={attributes} deleteAttribute={deleteAttribute} />
-                <AddAttributes addAttributes={addAttribute} />
-              </Box>
+              
                <FormControl id="album" as={GridItem} colSpan={[3, 2]}>
                 <FormLabel>Select Collection</FormLabel>
                 <Select placeholder="Select Album">
