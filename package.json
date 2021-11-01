@@ -2,9 +2,6 @@
   "name": "creative",
   "version": "0.1.0",
   "private": true,
-  "jest": {
-    "verbose": true
-  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
