@@ -25,7 +25,7 @@ import {
   Checkbox,
   RadioGroup,
   Radio,
-  Spinner,
+  Spinner
 } from "@chakra-ui/react";
 import { providers } from 'ethers'
 import { FaUser } from "react-icons/fa";
@@ -177,6 +177,7 @@ export default function Component() {
                 <AttributesList attributes={attributes} deleteAttribute={deleteAttribute} />
                 <AddAttributes addAttributes={addAttribute} />
               </Box>
+              
                <FormControl id="album" as={GridItem} colSpan={[3, 2]}>
                 <FormLabel>Select Collection</FormLabel>
                 <Select placeholder="Select Album">
