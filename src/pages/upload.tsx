@@ -31,7 +31,6 @@ import { providers } from 'ethers'
 import { FaUser } from "react-icons/fa";
 import { useForm } from "react-hook-form";
 import { TextileInstance } from "../services/textile/textile";
-
 type WindowInstanceWithEthereum = Window & typeof globalThis & { ethereum?: providers.ExternalProvider };
   class StrongType<Definition, Type> {
     // @ts-ignore

@@ -29,14 +29,15 @@
     ],
     "typeRoots": [
       "node_modules/@types"
-    ]
+    ],
+    "incremental": true
   },
-  
   "include": [
     "next-env.d.ts",
     "**/*.ts",
-    "**/*.tsx"
-, "next.config.js"  ],
+    "**/*.tsx",
+    "next.config.js"
+  ],
   "exclude": [
     "node_modules"
   ]

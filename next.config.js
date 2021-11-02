@@ -12,8 +12,9 @@ module.exports = {
     },
     webpack5: true,
     images: {
+      deviceSizes: [320, 420, 768, 1024, 1200],
       loader: "imgix",
-      path: "",
-      domains: ["res.cloudinary.com", "www.creativeplatform.io" , 'picsum.photos' , 'hub.textile.io' , 'ipfs.io', 'images.unsplash.com'],
+      path: "https://creative-platform.imgix.net/",
+      domains: ['hub.textile.io' , 'ipfs.io'],
     }
 };
