@@ -171,6 +171,10 @@ export default function Component() {
                 <FormLabel>Creator name</FormLabel>
                 <Input type="text" {...register('creatorname')}/>
               </FormControl>
+              <Box id="attributes" as={GridItem} colSpan={[3, 2]}>
+                <AttributesList attributes={attributes} deleteAttribute={deleteAttribute} />
+                <AddAttributes addAttributes={addAttribute} />
+              </Box>
               
                <FormControl id="album" as={GridItem} colSpan={[3, 2]}>
                 <FormLabel>Select Collection</FormLabel>
