@@ -1,4 +1,4 @@
-import { Stack, Input, Button, useToast } from '@chakra-ui/react'
+import { Stack, Input, Button, useToast, useColorModeValue } from '@chakra-ui/react'
 import React, {useState} from 'react'
 import { nanoid } from 'nanoid';
 
@@ -37,6 +37,7 @@ function handleSubmit(e){
             variant="outline" 
             type="text" 
             placeholder="Enter your Attributes..."
+            color={useColorModeValue("gray.700", "gray.50")}
             onChange={(e)=>setValue(e.target.value)} />
             <Button colorScheme="teal" type="submit">Add Attribute</Button>
         </Stack>

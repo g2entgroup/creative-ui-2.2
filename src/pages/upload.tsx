@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import {
   chakra,
   Box,
@@ -9,7 +9,6 @@ import {
   Heading,
   Text,
   Stack,
-  VStack,
   FormControl,
   FormLabel,
   Input,
@@ -45,7 +44,23 @@ export default function Component() {
     const [nftUploaded , setNftUploaded] = useState(false)
     const [submitEnabled, setSubmitEnabled] = useState(false);
     const [selectedFile, setSelectedFile] = useState<File>();
+    const [preview, setPreview] = useState('');
     const [ spin , setSpin ] = useState(false)
+
+    // create a preview as a side effect, whenever selected file is changed
+    useEffect(() => {
+      if (!selectedFile) {
+          setPreview(undefined)
+          return
+      }
+
+      const objectUrl = URL.createObjectURL(selectedFile)
+      setPreview(objectUrl)
+
+      // free memory when ever this component is unmounted
+      return () => URL.revokeObjectURL(objectUrl)
+  }, [selectedFile])
+
     const {
       handleSubmit,
       register,
@@ -136,7 +151,7 @@ export default function Component() {
         >
           <GridItem colSpan={{ md: 1 }}>
             <Box px={[4, 0]}>
-              <Heading fontSize="lg" fontWeight="md" lineHeight="6">
+              <Heading fontSize="lg" fontWeight="md" lineHeight="6" color={useColorModeValue("gray.700", "gray.50")}>
                 Upload NFT
               </Heading>
               <Text
@@ -166,12 +181,12 @@ export default function Component() {
               >
                 <SimpleGrid columns={3} spacing={6}>
                   <FormControl id="nfttitle" as={GridItem} colSpan={[3, 2]}>
-                <FormLabel>NFT Title</FormLabel>
-                <Input type="text" {...register('nfttitle')}/>
+                <FormLabel color={useColorModeValue("gray.700", "gray.50")}>NFT Title</FormLabel>
+                <Input type="text" color={useColorModeValue("gray.700", "gray.50")} {...register('nfttitle')}/>
               </FormControl>
               <FormControl id="creatorname" as={GridItem} colSpan={[3, 2]} >
-                <FormLabel>Creator name</FormLabel>
-                <Input type="text" {...register('creatorname')}/>
+                <FormLabel color={useColorModeValue("gray.700", "gray.50")}>Creator name</FormLabel>
+                <Input color={useColorModeValue("gray.700", "gray.50")} type="text" {...register('creatorname')}/>
               </FormControl>
               <Box id="attributes" as={GridItem} colSpan={[3, 2]}>
                 <AttributesList attributes={attributes} deleteAttribute={deleteAttribute} />
@@ -179,7 +194,7 @@ export default function Component() {
               </Box>
               
                <FormControl id="album" as={GridItem} colSpan={[3, 2]}>
-                <FormLabel>Select Collection</FormLabel>
+                <FormLabel color={useColorModeValue("gray.700", "gray.50")}>Select Collection</FormLabel>
                 <Select placeholder="Select Album">
                     <option>Album 1</option>
                     <option>Album 2</option>
@@ -263,9 +278,18 @@ export default function Component() {
                         fontSize="xs"
                         color={useColorModeValue("gray.500", "gray.50")}
                       >
-                        PNG, JPG, GIF up to 10MB
+                        PNG, JPG, GIF
                       </Text>
                     </Stack>
+                  </Flex>
+                  <Flex 
+                    mt={1}
+                    justify="center"
+                    px={6}
+                    pt={5}
+                    pb={6}
+                    >
+                    {selectedFile &&  <img src={preview} /> }
                   </Flex>
                 </FormControl>
               </Stack>
@@ -278,7 +302,7 @@ export default function Component() {
                 <Button
                   type="submit"
                   disabled={!submitEnabled}
-                  colorScheme="brand"
+                  color={useColorModeValue("gray.700", "gray.700")}
                   fontWeight="md"
                 >
                   Create
