@@ -62,7 +62,7 @@ type WindowInstanceWithEthereum = Window & typeof globalThis & { ethereum?: prov
     console.log(await useCreateLazyMint);
   }
 
-  export default function BrandDiscovery({imagelink , bio, name, creator} ) {
+  export default function BrandDiscovery({imagelink, name, description, creator} ) {
     return (
       <>
           <Box
@@ -115,7 +115,7 @@ type WindowInstanceWithEthereum = Window & typeof globalThis & { ethereum?: prov
               <Text fontSize={'2xl'} fontFamily={'body'} fontWeight={500} defaultValue={name}>
               </Text>
               <Stack direction={'row'} align={'center'}>
-                <Text fontWeight={800} fontSize={'xl'} defaultValue={bio}>
+                <Text fontWeight={800} fontSize={'xl'} defaultValue={description}>
                 </Text>
               </Stack>
             </Stack>
