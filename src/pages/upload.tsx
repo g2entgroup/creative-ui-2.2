@@ -9,6 +9,7 @@ import {
   Heading,
   Text,
   Stack,
+  VStack,
   FormControl,
   FormLabel,
   Input,
@@ -30,8 +31,8 @@ import { providers } from 'ethers'
 import { FaUser } from "react-icons/fa";
 import { useForm } from "react-hook-form";
 import { TextileInstance } from "../services/textile/textile";
-import AddAttributes from "../components/Attributes/AddAttributes";
-import AttributesList from "../components/Attributes/AttributesList";
+import AddAttributes from "../components/attributes/AddAttributes";
+import AttributesList from "../components/attributes/AttributesList";
 type WindowInstanceWithEthereum = Window & typeof globalThis & { ethereum?: providers.ExternalProvider };
   class StrongType<Definition, Type> {
     // @ts-ignore
@@ -94,7 +95,7 @@ export default function Component() {
         console.log(JSON.stringify(values))
 
         const textileInstance = await TextileInstance.getInstance();
-        nftMetadata = await textileInstance.uploadNFT(selectedFile, values.nfttitle, values.creatorname);
+        nftMetadata = await textileInstance.uploadNFT(selectedFile, values.name, values.description);
         await textileInstance.uploadTokenMetadata(nftMetadata);
         await textileInstance.addNFTToUserCollection(nftMetadata);
         const all = await textileInstance.getAllUserNFTs();
@@ -180,26 +181,30 @@ export default function Component() {
                 p={{ sm: 6 }}
               >
                 <SimpleGrid columns={3} spacing={6}>
-                  <FormControl id="nfttitle" as={GridItem} colSpan={[3, 2]}>
-                <FormLabel color={useColorModeValue("gray.700", "gray.50")}>NFT Title</FormLabel>
-                <Input type="text" color={useColorModeValue("gray.700", "gray.50")} {...register('nfttitle')}/>
-              </FormControl>
-              <FormControl id="creatorname" as={GridItem} colSpan={[3, 2]} >
-                <FormLabel color={useColorModeValue("gray.700", "gray.50")}>Creator name</FormLabel>
-                <Input color={useColorModeValue("gray.700", "gray.50")} type="text" {...register('creatorname')}/>
-              </FormControl>
+                <FormControl id="creator" as={GridItem} colSpan={[3, 2]}>
+                    <FormLabel color={useColorModeValue("gray.700", "gray.50")}>Creator</FormLabel>
+                    <Input type="text" color={useColorModeValue("gray.700", "gray.50")} {...register('creator')}/>
+                  </FormControl>
+                  <FormControl id="name" as={GridItem} colSpan={[3, 2]}>
+                    <FormLabel color={useColorModeValue("gray.700", "gray.50")}>NFT Title</FormLabel>
+                    <Input type="text" color={useColorModeValue("gray.700", "gray.50")} {...register('name')}/>
+                  </FormControl>
+                  <FormControl id="description" as={GridItem} colSpan={[3, 2]} >
+                    <FormLabel color={useColorModeValue("gray.700", "gray.50")}>NFT Description</FormLabel>
+                    <Textarea placeholder="Friendly OpenSea Creature that enjoys long swims in the ocean." color={useColorModeValue("gray.700", "gray.50")} type="text" {...register('description')}/>
+                  </FormControl>
               <Box id="attributes" as={GridItem} colSpan={[3, 2]}>
                 <AttributesList attributes={attributes} deleteAttribute={deleteAttribute} />
                 <AddAttributes addAttributes={addAttribute} />
               </Box>
               
-               <FormControl id="album" as={GridItem} colSpan={[3, 2]}>
+              <FormControl id="album" as={GridItem} colSpan={[3, 2]}>
                 <FormLabel color={useColorModeValue("gray.700", "gray.50")}>Select Collection</FormLabel>
                 <Select placeholder="Select Album">
                     <option>Album 1</option>
                     <option>Album 2</option>
                 </Select>
-                </FormControl>
+              </FormControl>
                 {/*<FormControl id="privacy" as={GridItem} colSpan={[3, 2]}>
                 <FormLabel>Privacy</FormLabel>
                 <Select placeholder="Select privacy">
@@ -230,7 +235,7 @@ export default function Component() {
                     borderStyle="dashed"
                     rounded="md"
                   >
-                    <Stack spacing={1} textAlign="center">
+                    <VStack spacing={1} textAlign="center">
                       <Icon
                         mx="auto"
                         boxSize={12}
@@ -280,7 +285,7 @@ export default function Component() {
                       >
                         PNG, JPG, GIF
                       </Text>
-                    </Stack>
+                    </VStack>
                   </Flex>
                   <Flex 
                     mt={1}

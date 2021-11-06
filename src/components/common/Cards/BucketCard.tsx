@@ -73,7 +73,7 @@ type WindowInstanceWithEthereum = Window & typeof globalThis & { ethereum?: prov
     console.log(await useCreateLazyMint);
   }
 
-  export default function BrandDiscovery({imagelink , bio, name, creator, deleteMedia} ) {
+  export default function BrandDiscovery({imagelink, creator, name, description, deleteMedia} ) {
     /* Here's a custom control */
     function EditableControls() {
       const {
@@ -140,23 +140,17 @@ type WindowInstanceWithEthereum = Window & typeof globalThis & { ethereum?: prov
               />
             </Box>
             <Stack pt={10} align={'center'} color={useColorModeValue("black", "white")}>
-              <Editable color={'gray.500'} fontSize={'sm'} textTransform={'uppercase'} defaultValue={creator} isPreviewFocusable={false}>
+              <Text color={'gray.500'} fontSize={'sm'} textTransform={'uppercase'} value={creator} />
+              <Editable color={'gray.500'} fontSize={'sm'} textTransform={'uppercase'} defaultValue={name} isPreviewFocusable={false}>
                 <EditablePreview />
                 <EditableInput />
                 <EditableControls />
               </Editable>
-              <Editable color={'gray.500'} fontSize={'2xl'} fontFamily={'body'} fontWeight={500} defaultValue={name} isPreviewFocusable={false}>
+              <Editable color={'gray.500'} fontSize={'2xl'} fontFamily={'body'} fontWeight={500} defaultValue={description} isPreviewFocusable={false}>
                 <EditablePreview />
                 <EditableInput />
                 <EditableControls />
               </Editable>
-              <Stack direction={'row'} align={'center'}>
-                <Editable color={'gray.500'} fontWeight={800} fontSize={'xl'} defaultValue={bio} isPreviewFocusable={false}>
-                  <EditablePreview />
-                  <EditableInput />
-                  <EditableControls />
-                </Editable>
-              </Stack>
             </Stack>
 
           <Stack align={'center'} justify={'center'} direction={'row'} mt={6}>

@@ -1,12 +1,9 @@
 import { useState } from 'react';
-import { list, SimpleGrid, Text } from "@chakra-ui/react"
-import { Flex, Spacer , Center} from "@chakra-ui/react"
+import { SimpleGrid } from "@chakra-ui/react"
+import { Flex, Center} from "@chakra-ui/react"
 import BucketCard from '../components/common/Cards/BucketCard'
-import { Button, ButtonGroup } from "@chakra-ui/react"
+import { Button } from "@chakra-ui/react"
 import { TextileInstance } from "../services/textile/textile";
-import { getIdentity } from "../utils/fetchTextileIdentity"
-import Image from 'next/image';
-import { object } from 'prop-types';
 
 export default function All () {
     const [displayPix , setDisplayPix ] = useState(false);
@@ -21,7 +18,7 @@ export default function All () {
      setDisplayPix(true)
      console.log(photos)
     photos.map((element) => {
-            cid.push({'cid' : element.cid, 'name': element.name, 'creator':element.description})
+            cid.push({'cid' : element.cid, 'name': element.name, 'description':element.description})
             
     });
    console.log(photos)
@@ -35,21 +32,22 @@ export default function All () {
     }
 
     return(
-    <>
-    <Flex alignContent="center">
-        <Center>    
-                <Button colorScheme="blue" onClick={fetchGallery} hidden={displayPix}> Fetch my photos </Button>
-        </Center>
-    <SimpleGrid columns={{sm: 1, md: 4}} marginBottom={20} spacing={20} hidden={!displayPix}>
+        <>
+            <Flex alignContent="center">
+                <Center>    
+                    <Button colorScheme="blue" onClick={fetchGallery} hidden={displayPix}> Fetch my photos </Button>
+                </Center>
+                <SimpleGrid columns={{sm: 1, md: 4}} marginBottom={20} spacing={20} hidden={!displayPix}>
 
-    {   
-         cids.map((id) => (
-            <BucketCard imagelink={"https://hub.textile.io/ipfs/"+ id.cid } key={id.cid} creator={id.creator} name={id.name} bio={id.description} deleteMedia={deleteMedia}></BucketCard>
-            )) 
-    }
- 
-    </SimpleGrid>
-    </Flex>
-        
-    </>)
+                    {   
+                        cids.map((id) => (
+                            <BucketCard imagelink={"https://hub.textile.io/ipfs/"+ id.cid } key={id.cid} creator={id.creator} name={id.name} description={id.description} deleteMedia={deleteMedia}></BucketCard>
+                        )) 
+                    }
+            
+                </SimpleGrid>
+            </Flex>
+            
+        </>
+    )
 }
