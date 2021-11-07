@@ -121,6 +121,7 @@ export default function Component() {
                         placeholder="www.example.com"
                         focusBorderColor="brand.400"
                         rounded="md"
+                        color={useColorModeValue("gray.700", "gray.50")}
                       />
                     </InputGroup>
                   </FormControl>
@@ -146,6 +147,7 @@ export default function Component() {
                         placeholder="creativecrtv"
                         focusBorderColor="brand.400"
                         rounded="md"
+                        color={useColorModeValue("gray.700", "gray.50")}
                       />
                     </InputGroup>
                     <FormHelperText>
@@ -170,6 +172,7 @@ export default function Component() {
                       shadow="sm"
                       focusBorderColor="brand.400"
                       fontSize={{ sm: "sm" }}
+                      color={useColorModeValue("gray.700", "gray.50")}
                     />
                     <FormHelperText>
                       Brief description for your requirements. URLs are hyperlinked.
@@ -206,6 +209,7 @@ export default function Component() {
                       size="sm"
                       fontWeight="medium"
                       _focus={{ shadow: "none" }}
+                      color={useColorModeValue("gray.700", "gray.50")}
                     >
                       Change
                     </Button>
@@ -235,6 +239,7 @@ export default function Component() {
                   colorScheme="brand"
                   _focus={{ shadow: "" }}
                   fontWeight="md"
+                  color={useColorModeValue("gray.700", "gray.50")}
                 >
                   Save
                 </Button>
@@ -308,6 +313,7 @@ export default function Component() {
                       size="sm"
                       w="full"
                       rounded="md"
+                      color={useColorModeValue("gray.700", "gray.50")}
                     />
                   </FormControl>
                   <FormControl as={GridItem} colSpan={[6, 3]}>
@@ -336,6 +342,7 @@ export default function Component() {
                       size="sm"
                       w="full"
                       rounded="md"
+                      color={useColorModeValue("gray.700", "gray.50")}
                     />
                     </InputGroup>
                   </FormControl>
@@ -358,10 +365,9 @@ export default function Component() {
                       size="sm"
                       w="full"
                       rounded="md"
+                      color={useColorModeValue("gray.700", "gray.50")}
                     />
                   </FormControl>
-
-                  
 
                   <FormControl as={GridItem} colSpan={[6, 4]}>
                     <FormLabel
@@ -383,6 +389,7 @@ export default function Component() {
                       size="sm"
                       w="full"
                       rounded="md"
+                      color={useColorModeValue("gray.700", "gray.50")}
                     />
                   </FormControl>
 
@@ -406,6 +413,7 @@ export default function Component() {
                       size="sm"
                       w="full"
                       rounded="md"
+                      color={useColorModeValue("gray.700", "gray.50")}
                     >
                       <option>United States</option>
                       <option>Canada</option>
@@ -435,6 +443,7 @@ export default function Component() {
                       size="sm"
                       w="full"
                       rounded="md"
+                      color={useColorModeValue("gray.700", "gray.50")}
                     />
                   </FormControl>
 
@@ -458,6 +467,7 @@ export default function Component() {
                       size="sm"
                       w="full"
                       rounded="md"
+                      color={useColorModeValue("gray.700", "gray.50")}
                     />
                   </FormControl>
 
@@ -481,6 +491,7 @@ export default function Component() {
                       size="sm"
                       w="full"
                       rounded="md"
+                      color={useColorModeValue("gray.700", "gray.50")}
                     />
                   </FormControl>
 
@@ -504,6 +515,7 @@ export default function Component() {
                       size="sm"
                       w="full"
                       rounded="md"
+                      color={useColorModeValue("gray.700", "gray.50")}
                     />
                   </FormControl>
                 </SimpleGrid>
@@ -519,6 +531,7 @@ export default function Component() {
                   colorScheme="brand"
                   _focus={{ shadow: "" }}
                   fontWeight="md"
+                  color={useColorModeValue("gray.700", "gray.50")}
                 >
                   Save
                 </Button>
@@ -690,9 +703,9 @@ export default function Component() {
               >
                 <Button
                   type="submit"
-                  colorScheme={useColorModeValue("brand", "brand")}
                   _focus={{ shadow: "" }}
                   fontWeight="md"
+                  color={useColorModeValue("gray.700", "gray.50")}
                 >
                   Save
                 </Button>
@@ -701,7 +714,6 @@ export default function Component() {
           </GridItem>
         </SimpleGrid>
       </Box>
-      
     </Box>
   );
 }
