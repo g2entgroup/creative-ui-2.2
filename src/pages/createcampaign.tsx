@@ -703,6 +703,7 @@ export default function Component() {
               >
                 <Button
                   type="submit"
+                  colorScheme={useColorModeValue("brand", "brand")}
                   _focus={{ shadow: "" }}
                   fontWeight="md"
                   color={useColorModeValue("gray.700", "gray.50")}
