@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import {
   chakra,
   Box,
@@ -27,8 +27,38 @@ import {
   Radio,
 } from "@chakra-ui/react";
 import { FaUser } from "react-icons/fa";
+import { setup, isSupported } from "@loomhq/loom-sdk";
+import { oembed } from "@loomhq/loom-embed";
+
+const API_KEY = process.env.NEXT_PUBLIC_LOOM;
+const BUTTON_ID = "loom-sdk-button";
 
 export default function Component() {
+  const [videoHTML, setVideoHTML] = useState("");
+
+  useEffect(() => {    
+    async function setupLoom() {      
+      const { supported, error } = await isSupported();
+      if (!supported) {        
+        console.warn(`Error setting up Loom: ${error}`);        
+        return;      
+      }
+      const button = document.getElementById(BUTTON_ID);
+      if (!button) {        
+        return;      
+      }
+      const { configureButton } = await setup({        
+        apiKey: API_KEY      
+      });
+      const sdkButton = configureButton({ element: button });
+      sdkButton.on("insert-click", async video => {        
+        const { html } = await oembed(video.sharedUrl, { width: 400 });        
+        setVideoHTML(html);      
+      });    
+    }
+    setupLoom();  
+  }, []);
+
   return (
 
     <Box bg={useColorModeValue("gray.50", "inherit")} p={10} >
@@ -58,7 +88,6 @@ export default function Component() {
           <GridItem mt={[5, null, 0]} colSpan={{ md: 2 }}>
             <chakra.form
              //ONSUBMIT CHECKPOINT
-              
               method="POST"
               shadow="base"
               rounded={[null, "md"]}
@@ -189,70 +218,10 @@ export default function Component() {
                     fontWeight="md"
                     color={useColorModeValue("gray.700", "gray.50")}
                   >
-                    Campaign Photo/Video Upload
+                    Record Campaign Details
                   </FormLabel>
-                  <Flex
-                    mt={1}
-                    justify="center"
-                    px={6}
-                    pt={5}
-                    pb={6}
-                    borderWidth={2}
-                    borderColor={useColorModeValue("gray.300", "gray.500")}
-                    borderStyle="dashed"
-                    rounded="md"
-                  >
-                    <Stack spacing={1} textAlign="center">
-                      <Icon
-                        mx="auto"
-                        boxSize={12}
-                        color={useColorModeValue("gray.400", "gray.500")}
-                        stroke="currentColor"
-                        fill="none"
-                        viewBox="0 0 48 48"
-                        aria-hidden="true"
-                      >
-                        <path
-                          d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02"
-                          strokeWidth="2"
-                          strokeLinejoin="round"
-                        />
-                      </Icon>
-                      <Flex
-                        fontSize="sm"
-                        color={useColorModeValue("gray.600", "gray.400")}
-                        alignItems="baseline"
-                      >
-                        <chakra.label
-                          for="file-upload"
-                          cursor="pointer"
-                          rounded="md"
-                          fontSize="md"
-                          color={useColorModeValue("brand.600", "brand.200")}
-                          pos="relative"
-                          _hover={{
-                            color: useColorModeValue("brand.400", "brand.300"),
-                          }}
-                        >
-                          <span>Upload a file</span>
-                          <VisuallyHidden>
-                            <input
-                              id="file-upload"
-                              name="file-upload"
-                              type="file"
-                            />
-                          </VisuallyHidden>
-                        </chakra.label>
-                        <Text pl={1}>or drag and drop</Text>
-                      </Flex>
-                      <Text
-                        fontSize="xs"
-                        color={useColorModeValue("gray.500", "gray.50")}
-                      >
-                        PNG, JPG, GIF up to 10MB
-                      </Text>
-                    </Stack>
-                  </Flex>
+                  <Button id={BUTTON_ID} color={useColorModeValue("gray.700", "gray.700")}>Record</Button>
+                  <div dangerouslySetInnerHTML={{ __html: videoHTML }}></div>
                 </FormControl>
               </Stack>
               <Box
