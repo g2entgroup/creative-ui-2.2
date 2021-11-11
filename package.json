@@ -7,8 +7,7 @@
     "build": "next build",
     "start": "next start",
     "export": "npm run build && next export",
-    "test": "jest --passWithNoTests",
-    "nuke": "rm -rf ./node_modules && rm -rf ./package-lock.json"
+    "test": "jest --passWithNoTests"
   },
   "dependencies": {
     "@ant-design/icons": "^4.6.2",
