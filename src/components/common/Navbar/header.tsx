@@ -1,6 +1,6 @@
 import React, { useState, useRef } from "react";
 import { useRouter } from 'next/router';
-import { useEthers, shortenAddress, useNotifications, useLookupAddress } from '@usedapp/core';
+import { useEthers, shortenAddress, useNotifications, useLookupAddress, getChainName } from '@usedapp/core';
 import ConnectWallet from "../Navbar/ConnectWallet";
 import {
   Alert,
@@ -32,7 +32,7 @@ import {
   Stack,
   Heading,
   Divider,
-  Center
+  Center,Text
 } from "@chakra-ui/react";
 import NotificationDrawer from "../Notification/NotificationDrawer";
 import { useViewportScroll } from "framer-motion";
@@ -79,9 +79,10 @@ function truncateHash(hash: string, length = 38): string {
 const Header = ({ children }: HeaderProps): JSX.Element => {
   const router = useRouter()
 
-  const { account, deactivate } = useEthers()
+  const { account, deactivate, chainId} = useEthers()
   const { notifications } = useNotifications()
   const ens = useLookupAddress()
+  const chainName = getChainName(chainId);
 
   const { toggleColorMode: toggleMode } = useColorMode();
   const text = useColorModeValue("dark", "light");
@@ -444,6 +445,13 @@ const Header = ({ children }: HeaderProps): JSX.Element => {
                 <Box px="3">
                   <chakra.h1 color="white" fontSize="md">
                     <Balance/>
+
+                    {/* 15.02&nbsp;ETH */}
+                  </chakra.h1>
+                </Box>
+                <Box px="3">
+                  <chakra.h1 color="white" fontSize="md">
+                    <Text>{chainName}</Text>
                     {/* 15.02&nbsp;ETH */}
                   </chakra.h1>
                 </Box>

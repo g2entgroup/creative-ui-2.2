@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "export": "npm run build && next export",
-    "test": "ts-jest --passWithNoTests"
+    "test": "jest --passWithNoTests"
   },
   "dependencies": {
     "@ant-design/icons": "^4.6.2",
