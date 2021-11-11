@@ -1,6 +1,7 @@
 import { newKit } from '@celo/contractkit'
 import { WalletConnectWallet, WalletConnectWalletOptions } from '@celo/wallet-walletconnect'
 import { Button, ButtonGroup } from "@chakra-ui/react"
+
 const walletOptions : WalletConnectWalletOptions = {
     connect: {
         metadata: {
