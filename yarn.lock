@@ -3219,6 +3219,11 @@
     "@webassemblyjs/ast" "1.11.0"
     "@xtuc/long" "4.2.2"
 
+"@wert-io/widget-initializer@^0.1.2":
+  version "0.1.2"
+  resolved "https://registry.yarnpkg.com/@wert-io/widget-initializer/-/widget-initializer-0.1.2.tgz#4c3282b287937ad9279a20e2792cdd336bdd8ec6"
+  integrity sha512-eY06UgKjKx7KW0+mR5EKRtnzIbhagNEEhAAPZQLsHLGek6yZPNSdtMw/nRja0pus2EsEY3CKKVpwmfmhM/l9iA==
+
 "@xtuc/ieee754@^1.2.0":
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/@xtuc/ieee754/-/ieee754-1.2.0.tgz#eef014a3145ae477a1cbc00cd1e552336dceb790"
