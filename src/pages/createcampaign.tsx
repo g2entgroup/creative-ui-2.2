@@ -225,7 +225,7 @@ export default function Component() {
                     Record Campaign Details
                   </FormLabel>
                   <Button id={BUTTON_ID} color={useColorModeValue("gray.700", "gray.700")}>Record</Button>
-                  <div dangerouslySetInnerHTML={{ __html: videoHTML }}></div>
+                  <div dangerouslySetInnerHTML={{ __html: videoHTML }} />
                 </FormControl>
               </Stack>
               <Box
@@ -371,7 +371,7 @@ export default function Component() {
 
                   <FormControl as={GridItem} colSpan={[6, 4]}>
                     <FormLabel
-                      for="email_address"
+                      htmlFor="email_address"
                       fontSize="sm"
                       fontWeight="md"
                       color={useColorModeValue("gray.700", "gray.50")}
@@ -395,7 +395,7 @@ export default function Component() {
 
                   <FormControl as={GridItem} colSpan={[6, 3]}>
                     <FormLabel
-                      for="country"
+                      htmlFor="country"
                       fontSize="sm"
                       fontWeight="md"
                       color={useColorModeValue("gray.700", "gray.50")}
@@ -425,7 +425,7 @@ export default function Component() {
 
                   <FormControl as={GridItem} colSpan={6}>
                     <FormLabel
-                      for="nft_address"
+                      htmlFor="nft_address"
                       fontSize="sm"
                       fontWeight="md"
                       color={useColorModeValue("gray.700", "gray.50")}
@@ -449,7 +449,7 @@ export default function Component() {
 
                   <FormControl as={GridItem} colSpan={[6, 6, null, 2]}>
                     <FormLabel
-                      for="voting_length"
+                      htmlFor="voting_length"
                       fontSize="sm"
                       fontWeight="md"
                       color={useColorModeValue("gray.700", "gray.50")}
@@ -473,7 +473,7 @@ export default function Component() {
 
                   <FormControl as={GridItem} colSpan={[6, 3, null, 2]}>
                     <FormLabel
-                      for="decision_length"
+                      htmlFor="decision_length"
                       fontSize="sm"
                       fontWeight="md"
                       color={useColorModeValue("gray.700", "gray.50")}
@@ -497,7 +497,7 @@ export default function Component() {
 
                   <FormControl as={GridItem} colSpan={[6, 3, null, 2]}>
                     <FormLabel
-                      for="submission_length"
+                      htmlFor="submission_length"
                       fontSize="sm"
                       fontWeight="md"
                       color={useColorModeValue("gray.700", "gray.50")}
@@ -604,7 +604,7 @@ export default function Component() {
                       </Flex>
                       <Box ml={3} fontSize="sm">
                         <chakra.label
-                          for="comments"
+                          htmlFor="comments"
                           fontWeight="md"
                           color={useColorModeValue("gray.700", "gray.50")}
                         >
@@ -626,7 +626,7 @@ export default function Component() {
                       </Flex>
                       <Box ml={3} fontSize="sm">
                         <chakra.label
-                          for="candidates"
+                          htmlFor="candidates"
                           fontWeight="md"
                           color={useColorModeValue("gray.700", "gray.50")}
                         >
@@ -647,7 +647,7 @@ export default function Component() {
                       </Flex>
                       <Box ml={3} fontSize="sm">
                         <chakra.label
-                          for="offers"
+                          htmlFor="offers"
                           fontWeight="md"
                           color={useColorModeValue("gray.700", "gray.50")}
                         >
