@@ -26,7 +26,8 @@ const options = {
   "origin": "https://sandbox.wert.io",
   "currency": "USD, EUR",
   "autosize": true,
-  "commodities": "ETH",
+  "commodity": "ETH",
+  "commodities": "ETH, MATIC",
 }
 
 const wertWidget = new WertWidget(options);
@@ -137,7 +138,7 @@ function ConnectWallet(): JSX.Element {
                     loader={myLoader}
                     height={20}
                     width={20}
-                    src="/images/wert.svg"
+                    src="/images/visa.svg"
                     alt="Wert"
                   />
                 }
