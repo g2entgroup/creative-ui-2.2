@@ -105,11 +105,7 @@ export default function Component() {
       
     }
 
-  const attributesList = [
-    { id: 1, text: 'Buy eggs'},
-    { id: 2, text: 'Walk the dog'},
-    { id: 3, text: 'Watch a movie'}
-  ];
+  const attributesList = [];
 
 
   const [attributes, setAttributes] = useState(attributesList);
@@ -125,10 +121,7 @@ export default function Component() {
 
   function addAttribute(newAttribute){
   setAttributes([...attributes, newAttribute])
-  console.log("added attr ===>", attributes)
   }
-
-  console.log(attributes, "<===attr list")
 
     const onFileChange = async event => {
         const file = ((event.target as HTMLInputElement).files as FileList)[0];
