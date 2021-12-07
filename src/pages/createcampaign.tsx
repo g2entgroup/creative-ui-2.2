@@ -35,8 +35,6 @@ const BUTTON_ID = "loom-sdk-button";
 
 export default function Component() {
   const [videoHTML, setVideoHTML] = useState("");
-  
-// https://www.loom.com/integrations-app/sdk?api_key=<your_key_kere>
 
   useEffect(() => {    
     async function setupLoom() {      
