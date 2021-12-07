@@ -9,7 +9,7 @@ const [value, setValue] = useState("")
 
 function handleSubmit(e){
     e.preventDefault();
-
+    console.log("submitted!!")
     if(value === ''){
         toast({
         title: "Please enter the text.",
@@ -29,7 +29,7 @@ function handleSubmit(e){
 
 }
     return (
-        <form onSubmit={handleSubmit}>
+        
         <Stack spacing={5}>
             <Input
             mt={5} 
@@ -39,9 +39,9 @@ function handleSubmit(e){
             placeholder="Enter your Attributes..."
             color={useColorModeValue("gray.700", "gray.50")}
             onChange={(e)=>setValue(e.target.value)} />
-            <Button colorScheme="teal" type="submit">Add Attribute</Button>
+            <Button onClick={handleSubmit} colorScheme="teal">Add Attribute</Button>
         </Stack>
-        </form>
+
     )
 }
 
