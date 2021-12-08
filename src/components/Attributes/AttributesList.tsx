@@ -3,7 +3,7 @@ import { DeleteIcon} from '@chakra-ui/icons'
 import React from 'react'
 
 
-function TodoList({ attributes, deleteAttribute }) {
+function AttributeList({ attributes, deleteAttribute }) {
 
     return (
 
@@ -46,4 +46,4 @@ function TodoList({ attributes, deleteAttribute }) {
     }   
 
 
-export default TodoList
+export default AttributeList
