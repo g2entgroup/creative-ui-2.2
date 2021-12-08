@@ -6,10 +6,9 @@ import React from 'react'
 function AttributeList({ attributes, deleteAttribute }) {
 
     return (
-
        !attributes.length ? 
        <Badge 
-       colorScheme="purple" 
+       colorScheme="pink" 
        variant="outline"
        borderRadius="4"
        p='4' m='5'
@@ -37,13 +36,10 @@ function AttributeList({ attributes, deleteAttribute }) {
   
             </HStack>  
             
-            ))} 
-          
+            ))}   
         </Stack>
         ) 
         ) 
     
     }   
-
-
 export default AttributeList
