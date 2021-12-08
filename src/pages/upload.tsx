@@ -180,15 +180,15 @@ export default function Component() {
                 <SimpleGrid columns={3} spacing={6}>
                 <FormControl id="creator" as={GridItem} colSpan={[3, 2]}>
                     <FormLabel color={useColorModeValue("gray.700", "gray.50")}>Creator</FormLabel>
-                    <Input type="text" color={useColorModeValue("gray.700", "gray.50")} {...register('creator')}/>
+                    <Input type="text" color={useColorModeValue("gray.700", "gray.50")} placeholder="thecreative.eth" {...register('creator')}/>
                   </FormControl>
                   <FormControl id="name" as={GridItem} colSpan={[3, 2]}>
                     <FormLabel color={useColorModeValue("gray.700", "gray.50")}>NFT Title</FormLabel>
-                    <Input type="text" color={useColorModeValue("gray.700", "gray.50")} {...register('name')}/>
+                    <Input type="text" color={useColorModeValue("gray.700", "gray.50")} placeholder="NFT Creature" {...register('name')}/>
                   </FormControl>
                   <FormControl id="description" as={GridItem} colSpan={[3, 2]} >
                     <FormLabel color={useColorModeValue("gray.700", "gray.50")}>NFT Description</FormLabel>
-                    <Textarea placeholder="Friendly OpenSea Creature that enjoys long swims in the ocean." color={useColorModeValue("gray.700", "gray.50")} type="text" {...register('description')}/>
+                    <Textarea placeholder="Friendly NFT Creature that enjoys long swims in the ocean." color={useColorModeValue("gray.700", "gray.50")} type="text" {...register('description')}/>
                   </FormControl>
               <Box id="attributes" as={GridItem} colSpan={[3, 2]}>
                 <AttributesList attributes={attributes} deleteAttribute={deleteAttribute} />
@@ -197,7 +197,7 @@ export default function Component() {
               
               <FormControl id="album" as={GridItem} colSpan={[3, 2]}>
                 <FormLabel color={useColorModeValue("gray.700", "gray.50")}>Select Collection</FormLabel>
-                <Select placeholder="Select Album">
+                <Select color={useColorModeValue("gray.700", "gray.50")} placeholder="Select Album">
                     <option>Album 1</option>
                     <option>Album 2</option>
                 </Select>
