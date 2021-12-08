@@ -22,7 +22,7 @@ const myLoader = ({ src, width, quality }) => {
 
 const options = {
   "containerId": "wert-widget",
-  "partner_id": "01FGKYK638SV618KZHAVEY7P79",
+  "partner_id": process.env.NEXT_PUBLIC_WERT_PARTNER_ID,
   "origin": "https://sandbox.wert.io",
   "currency": "USD, EUR",
   "autosize": true,
