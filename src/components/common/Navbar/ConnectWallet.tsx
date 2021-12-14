@@ -26,8 +26,7 @@ const options = {
   "origin": "https://sandbox.wert.io",
   "currency": "USD, EUR",
   "autosize": true,
-  "commodity": "ETH",
-  "commodities": "ETH, MATIC",
+  "commodities": "MAT",
 }
 
 const wertWidget = new WertWidget(options);
