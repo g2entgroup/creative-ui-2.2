@@ -80,7 +80,6 @@ export class TextileInstance {
     const fileName = `${file.name}`;
     const uploadName = `${now}_${fileName}`;
     const location = `nfts/${uploadName}`;
-
     const buf = await file.arrayBuffer();
     const raw = await this.bucketInfo.bucket.pushPath(this.bucketInfo.bucketKey, location, buf);
     console.log("uploadnft func ")
