@@ -24,3 +24,4 @@ sketch
 
 .env.me
 !.env.project
+.env*
