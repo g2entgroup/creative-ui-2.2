@@ -1,11 +1,15 @@
 import { Box, Flex, chakra, Heading, Stack, Button } from '@chakra-ui/react'
 export default function Hero() {
 
+  const myLoader = ({ src, width, quality }) => {
+    return `https://res.cloudinary.com/${src}?w=${width}&q=${quality || 75}`
+  }
+
     return(
         <Box
         w="full"
         h="container.sm"
-        backgroundImage="url(https://images.unsplash.com/photo-1504384308090-c894fdcc538d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80)"
+        backgroundImage="url(https://res.cloudinary.com/dyangxc7h/image/upload/v1623552689/creative/brands.jpg)"
         bgPos="center"
         bgSize="cover"
       >
