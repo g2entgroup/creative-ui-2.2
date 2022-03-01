@@ -1,15 +1,11 @@
 import { providers } from 'ethers';
 import {
     Box,
-    Center,
     useColorModeValue,
-    Heading,
     Text,
     Stack,
-    SimpleGrid,
     HStack,
     Button,
-    useToken,
     Badge,
     ButtonGroup,
     Flex,
@@ -252,7 +248,7 @@ type WindowInstanceWithEthereum = Window & typeof globalThis & { ethereum?: prov
               }}
               onClick={submitHandler}
               >
-              Celo Mint
+              Campaign Submit
             </Button>
           </HStack>
         </Box>

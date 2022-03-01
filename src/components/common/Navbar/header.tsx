@@ -1,6 +1,6 @@
 import React, { useState, useRef } from "react";
 import { useRouter } from 'next/router';
-import { useEthers, shortenAddress, useNotifications, useLookupAddress, getChainName, ChainId } from '@usedapp/core';
+import { useEthers, shortenAddress, useNotifications, useLookupAddress, Rinkeby, Mainnet, Mumbai, Polygon } from '@usedapp/core';
 import ConnectWallet from "../Navbar/ConnectWallet";
 import {
   Alert,
@@ -82,7 +82,20 @@ const Header = ({ children }: HeaderProps): JSX.Element => {
   const { account, deactivate, chainId} = useEthers()
   const { notifications } = useNotifications()
   const ens = useLookupAddress()
-  const chainName = ChainId;
+
+  let chainName: string;
+  if (chainId === Rinkeby.chainId) {
+    chainName = Rinkeby.chainName
+  }
+  else if (chainId === Mumbai.chainId) {
+    chainName = Mumbai.chainName
+  }
+  else if (chainId === Mainnet.chainId) {
+    chainName = Mainnet.chainName
+  }
+  else if (chainId === Polygon.chainId){
+    chainName = Polygon.chainName
+  }
 
   const { toggleColorMode: toggleMode } = useColorMode();
   const text = useColorModeValue("dark", "light");
