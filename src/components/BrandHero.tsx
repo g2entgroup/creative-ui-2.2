@@ -4,6 +4,10 @@ import Image from "next/image";
 
 const imgSrc = 'brands.jpg'
 
+const myLoader = ({ src, width, quality }) => {
+  return `https://res.cloudinary.com/${src}?w=${width}&q=${quality || 75}`
+}
+
 const BrandHero = () => {
   const bg = useColorModeValue("white", "gray.800");
   return (
@@ -131,12 +135,11 @@ const BrandHero = () => {
         w={{ lg: "50%" }}
       >
         <Image
-          src={imgSrc}
+          loader={myLoader}
+          src="dyangxc7h/image/upload/v1623552689/creative/brands.jpg"
           alt="Time Square Brands"
-          loading="eager"
-          layout="responsive"
-          width={"100%"}
-          height={"100%"}
+          width={1000}
+          height={720}
           
         />
       </Box>

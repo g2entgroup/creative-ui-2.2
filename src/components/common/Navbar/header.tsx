@@ -1,6 +1,6 @@
 import React, { useState, useRef } from "react";
 import { useRouter } from 'next/router';
-import { useEthers, shortenAddress, useNotifications, useLookupAddress, getChainName } from '@usedapp/core';
+import { useEthers, shortenAddress, useNotifications, useLookupAddress, getChainName, ChainId } from '@usedapp/core';
 import ConnectWallet from "../Navbar/ConnectWallet";
 import {
   Alert,
@@ -82,7 +82,7 @@ const Header = ({ children }: HeaderProps): JSX.Element => {
   const { account, deactivate, chainId} = useEthers()
   const { notifications } = useNotifications()
   const ens = useLookupAddress()
-  const chainName = getChainName(chainId);
+  const chainName = ChainId;
 
   const { toggleColorMode: toggleMode } = useColorMode();
   const text = useColorModeValue("dark", "light");

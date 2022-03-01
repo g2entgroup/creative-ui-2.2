@@ -32,6 +32,10 @@ import SignUp from './SignUp';
 
 const imgSrc = 'Creative_logo.png'
 
+const myLoader = ({ src, width, quality }) => {
+  return `https://res.cloudinary.com/${src}?w=${width}&q=${quality || 75}`
+}
+
 type WindowInstanceWithEthereum = Window & typeof globalThis & { ethereum?: providers.ExternalProvider };
 class StrongType<Definition, Type> {
   // @ts-ignore
@@ -199,7 +203,8 @@ const SignIn = (props) => {
             <Flex alignItems="center" pt="2%" justifyContent="space-between">
               <Stack spacing={1}>
               <Image
-                src={imgSrc}
+                loader={myLoader}
+                src="dyangxc7h/image/upload/v1623552244/creative/Creative_logo.png"
                 alt="Creative Logo"
                 width={100}
                 height={100}
