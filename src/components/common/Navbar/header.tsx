@@ -416,6 +416,7 @@ const Header = ({ children }: HeaderProps): JSX.Element => {
                   fontSize="md"
                   _hover={{ color: cl }}
                   _focus={{ boxShadow: "none" }}
+                  onClick={() => router.push('/vote')}
                 >
                   Vote
                 </Button>
