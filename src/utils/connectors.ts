@@ -1,7 +1,7 @@
 import { InjectedConnector } from '@web3-react/injected-connector';
 import { NetworkConnector } from '@web3-react/network-connector';
 import { WalletConnectConnector } from '@web3-react/walletconnect-connector';
-import { ArkaneConnect } from '@arkane-network/arkane-connect';
+import { VenlyConnect } from '@venly/connect';
 
 const INFURA_KEY = process.env.NEXT_PUBLIC_INFURA_KEY;
 const PROVIDER_MUMBAI = process.env.NEXT_PUBLIC_PROVIDER_MUMBAI;
@@ -31,4 +31,4 @@ export const walletconnect = new WalletConnectConnector({
   pollingInterval: POLLING_INTERVAL,
 });
 
-export const arkaneConnect = new ArkaneConnect(process.env.NEXT_PUBLIC_ARKANE_CLIENT_ID, { environment: 'staging'}); 
+export const venlyConnect = new VenlyConnect('creative-platform', { environment: 'staging'}); 

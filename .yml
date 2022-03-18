@@ -1,2 +1,15 @@
 - name: Textile Buckets
   uses: textileio/github-action-buckets@v25
+- name: Create .env file
+  uses: SpicyPizza/create-envfile@v1.3.0
+  with:
+    envkey_DEBUG: false
+    envkey_SOME_API_KEY: "123456abcdef"
+    envkey_SECRET_KEY: ${{ secrets.CIRCLE_API_KEY }}
+    envkey_SECRET_KEY: ${{ secrets.NEXT_PUBLIC_ARKANE_CLIENT_ID }}
+    envkey_SECRET_KEY: ${{ secrets.NEXT_PUBLIC_LOOM }}
+    envkey_SECRET_KEY: ${{ secrets.NEXT_PUBLIC_MATIC }}
+    envkey_SECRET_KEY: ${{ secrets.NEXT_PUBLIC_MUMBAI }}
+    envkey_SECRET_KEY: ${{ secrets.NEXT_PUBLIC_PROVIDER }}
+    envkey_SECRET_KEY: ${{ secrets.NEXT_PUBLIC_TEXTILE_API_KEY }}
+    envkey_SECRET_KEY: ${{ secrets.NEXT_PUBLIC_WERT_PARTNER_ID }}

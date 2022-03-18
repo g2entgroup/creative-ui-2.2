@@ -27,7 +27,7 @@ import {
   Radio,
   Spinner
 } from "@chakra-ui/react";
-import { providers } from 'ethers'
+import { providers } from 'ethers';
 import { FaUser } from "react-icons/fa";
 import { useForm } from "react-hook-form";
 import { TextileInstance } from "../services/textile/textile";
@@ -95,7 +95,7 @@ export default function Component() {
         console.log(JSON.stringify(values))
 
         const textileInstance = await TextileInstance.getInstance();
-        nftMetadata = await textileInstance.uploadNFT(selectedFile, values.name, values.description);
+        nftMetadata = await textileInstance.uploadNFT(selectedFile, values.name, values.description, values.attributes);
         await textileInstance.uploadTokenMetadata(nftMetadata);
         await textileInstance.addNFTToUserCollection(nftMetadata);
         const all = await textileInstance.getAllUserNFTs();
@@ -202,7 +202,7 @@ export default function Component() {
                     <option>Album 2</option>
                 </Select>
               </FormControl>
-                {/*<FormControl id="privacy" as={GridItem} colSpan={[3, 2]}>
+                {/* <FormControl id="" as={GridItem} colSpan={[3, 2]}>
                 <FormLabel>Privacy</FormLabel>
                 <Select placeholder="Select privacy">
                     <option>Public</option>

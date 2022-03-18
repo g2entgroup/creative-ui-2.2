@@ -75,7 +75,7 @@ function ConnectWallet(): JSX.Element {
                 />
               }
               onClick={() => {
-                activateBrowserWallet(onError)
+                activateBrowserWallet()
               }}
             >
               MetaMask
@@ -115,11 +115,11 @@ function ConnectWallet(): JSX.Element {
                   height={20}
                   width={20}
                   src="/images/venly_logo.png"
-                  alt="WalletConnect"
+                  alt="Venly Wallet"
                 />
               }
               onClick={() => {
-                arkaneConnect
+                venlyConnect
               }}
             >
               Venly
