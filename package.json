@@ -41,7 +41,7 @@
     "chalk": "^4.1.1",
     "eth-hooks": "^1.1.2",
     "ethers": "^5.1.0",
-    "follow-redirects": "1.14.7",
+    "follow-redirects": "1.14.8",
     "framer-motion": "^4.1.9",
     "google-protobuf": "^3.2.0",
     "ipfs-http-client": "^50.1.1",
