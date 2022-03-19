@@ -14,7 +14,8 @@ export default class Logo extends Component {
                 src="dyangxc7h/image/upload/v1623552244/creative/Creative_logo.png"
                 alt="Creative Logo"
                 width={155}
-                height={139} 
+                height={139}
+                quality={80} 
             />
         )
     }
