@@ -39,20 +39,6 @@ export default function AddressInput(props) {
   const currentValue = typeof props.value !== "undefined" ? props.value : value;
   const ens = useLookupAddress(props.ensProvider, currentValue);
 
-  const scannerButton = (
-    <div
-      style={{ marginTop: 4, cursor: "pointer" }}
-      onClick={() => {
-        setScan(!scan);
-      }}
-    >
-      <Badge count={<PlusSquareIcon style={{ fontSize: 9 }} />}>
-        <InfoOutlineIcon style={{ fontSize: 18 }} />
-      </Badge>{" "}
-      Scan
-    </div>
-  );
-
   const { ensProvider, onChange } = props;
   const updateAddress = useCallback(
     async newValue => {
@@ -126,7 +112,6 @@ export default function AddressInput(props) {
         placeholder={props.placeholder ? props.placeholder : "address"}
         // prefix={<Blockie address={currentValue} size={8} scale={3} />}
         value={ens || currentValue}
-        addonAfter={scannerButton}
         onChange={e => {
           updateAddress(e.target.value);
         }}
