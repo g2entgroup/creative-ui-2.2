@@ -154,7 +154,7 @@ const Header = ({ children }: HeaderProps): JSX.Element => {
           py={6}
           p={{ sm: 8 }}
         >
-          <Link href="https://creativeplatform.io/guide" isExternal traget="_blank">
+          <Link href="https://creativeplatform.io/guide" isExternal target="_blank">
           <Section
             title="How It Works"
           >

@@ -1,6 +1,7 @@
 import React from "react";
 import { chakra, Box, useColorModeValue, Icon } from "@chakra-ui/react";
-import Image from "next/image";
+import Hero from "../components/Hero";
+
 
 const imgSrc = 'brands.jpg'
 
@@ -130,15 +131,7 @@ const BrandHero = () => {
         right={{ lg: 0 }}
         w={{ lg: "50%" }}
       >
-        <Image
-          src={imgSrc}
-          alt="Time Square Brands"
-          loading="eager"
-          layout="responsive"
-          width={"100%"}
-          height={"100%"}
-          
-        />
+        <Hero />
       </Box>
     </Box>
   );
