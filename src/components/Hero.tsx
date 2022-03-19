@@ -14,7 +14,8 @@ export default class Hero extends Component {
                 src="dyangxc7h/image/upload/v1623552244/creative/brands.jpg"
                 alt="Creative Logo"
                 width={1920}
-                height={1400} 
+                height={1400}
+                quality={80} 
             />
         )
     }
