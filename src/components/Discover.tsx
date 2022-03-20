@@ -28,7 +28,7 @@ export default function Discover() {
   )
 
   return (
-    <Box maxW="sm" borderWidth="1px" rounded="lg" overflow="hidden" height="511px" width="full" boxShadow={`inset 0 4px 0 ${brand400}, 0 0 8px ${brand200}`}>
+    <Box maxW="sm" borderWidth="1px" rounded="lg" overflow="hidden" alignContent={"center"} height="511px" width="full" boxShadow={`inset 0 4px 0 ${brand400}, 0 0 8px ${brand200}`}>
         <Image
           loading="lazy" 
           src={imgSrc}
@@ -40,9 +40,6 @@ export default function Discover() {
 
       <Box p="6">
         <Box d="flex" alignItems="baseline">
-          {/* <Badge rounded="full" px="2" color={brand400}>
-            New
-          </Badge> */}
           <Box
             color="gray.500"
             fontWeight="semibold"
