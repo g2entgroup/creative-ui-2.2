@@ -10,8 +10,8 @@ import {
 } from "@chakra-ui/react";
 import Image from 'next/image';
 
-const myLoader = ({ src, width, quality }) => {
-  return `${src}?w=${width}&q=${quality || 75}`
+const myLoader = ({ src, width }) => {
+  return `${src}?w=${width}}`
 }
 
 export default function TopCreatives() {
@@ -27,7 +27,9 @@ export default function TopCreatives() {
                     loader={myLoader} 
                     src="/verifyAsset.svg" 
                     width={32} 
-                    height={32}/>
+                    height={32}
+                    quality={75}
+                    />
                   </AvatarBadge>
                 </Avatar>
                 &nbsp;plantarcowboy
