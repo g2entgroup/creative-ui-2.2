@@ -33,6 +33,8 @@ import { useForm } from "react-hook-form";
 import { TextileInstance } from "../services/textile/textile";
 import AddAttributes from "../components/Attributes/AddAttributes";
 import AttributesList from "../components/Attributes/AttributesList";
+import { init } from "@textile/eth-storage";
+import { BigNumber } from "ethers";
 type WindowInstanceWithEthereum = Window & typeof globalThis & { ethereum?: providers.ExternalProvider };
   class StrongType<Definition, Type> {
     // @ts-ignore
@@ -93,10 +95,17 @@ export default function Component() {
         setSubmitEnabled(false);
         setSpin(true);
         console.log(JSON.stringify(values))
-
+        const provider = new providers.Web3Provider((window as WindowInstanceWithEthereum).ethereum);
+        const storage = await init(provider.getSigner())
+       // const storage = await  init(provider.getSigners())
         const textileInstance = await TextileInstance.getInstance();
         nftMetadata = await textileInstance.uploadNFT(selectedFile, values.name, values.description);
-        await textileInstance.uploadTokenMetadata(nftMetadata);
+        if(await storage.hasDeposit()){
+          await textileInstance.uploadTokenMetadata(storage,nftMetadata);
+        }else{
+          await storage.addDeposit()
+          await textileInstance.uploadTokenMetadata(storage,nftMetadata);
+        }
         await textileInstance.addNFTToUserCollection(nftMetadata);
         const all = await textileInstance.getAllUserNFTs();
 
