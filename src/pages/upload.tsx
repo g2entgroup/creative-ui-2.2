@@ -13,7 +13,7 @@ import {
   FormControl,
   FormLabel,
   Input,
-  InputGroup,
+  ButtonGroup,
   InputLeftAddon,
   FormHelperText,
   Textarea,
@@ -186,7 +186,7 @@ export default function Component() {
                 spacing={6}
                 p={{ sm: 6 }}
               >
-                <SimpleGrid columns={3} spacing={6}>
+                <SimpleGrid columns={2} spacing={6}>
                 <FormControl id="creator" as={GridItem} colSpan={[3, 2]}>
                     <FormLabel color={useColorModeValue("gray.700", "gray.50")}>Creator</FormLabel>
                     <Input type="text" color={useColorModeValue("gray.700", "gray.50")} placeholder="thecreative.eth" {...register('creator')}/>
@@ -197,10 +197,10 @@ export default function Component() {
                   </FormControl>
                   <FormControl id="description" as={GridItem} colSpan={[3, 2]} >
                     <FormLabel color={useColorModeValue("gray.700", "gray.50")}>NFT Description</FormLabel>
-                    <Textarea placeholder="Friendly NFT Creature that enjoys long swims in the ocean." color={useColorModeValue("gray.700", "gray.50")} type="text" {...register('description')}/>
+                    <Textarea placeholder="Friendly NFT Creature that enjoys long swims in the ocean." color={useColorModeValue("gray.700", "gray.50")} {...register('description')}/>
                   </FormControl>
               <Box id="attributes" as={GridItem} colSpan={[3, 2]}>
-                <AttributesList attributes={attributes} deleteAttribute={deleteAttribute} />
+                <AttributesList attributes={attributes} deleteAttribute={deleteAttribute} {...register('attributes')}/>
                 <AddAttributes addAttributes={addAttribute} />
               </Box>
               
@@ -310,15 +310,25 @@ export default function Component() {
                 bg={useColorModeValue("gray.50", "gray.900")}
                 textAlign="right"
               >
-                <Button
-                  type="submit"
-                  disabled={!submitEnabled}
-                  color={useColorModeValue("gray.700", "gray.700")}
-                  fontWeight="md"
-                >
-                  Create
-                </Button>
-                {  spin ? (<Spinner size='lg' color='white' />) : ""}
+                <ButtonGroup variant='outline' spacing='6'>
+                  <Button
+                    type="button"
+                    disabled={!submitEnabled}
+                    color={useColorModeValue("gray.700", "white")}
+                    fontWeight="md"
+                  >
+                    Store on Filecoin
+                  </Button>
+                  <Button
+                    type="submit"
+                    disabled={!submitEnabled}
+                    color={useColorModeValue("gray.700", "white")}
+                    fontWeight="md"
+                  >
+                    Create
+                  </Button>
+                </ButtonGroup>
+                {  spin ? (<Spinner size='lg' color='pink' />) : ""}
 
               </Box>
             </chakra.form>
