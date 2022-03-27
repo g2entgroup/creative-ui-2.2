@@ -45,7 +45,7 @@ export default function Address(props) {
   if (!address) {
     return (
       <span>
-        <Skeleton avatar paragraph={{ rows: 1 }} />
+          <Skeleton height='40px' />
       </span>
     );
   }
@@ -77,7 +77,9 @@ export default function Address(props) {
   }
 
   let text;
-  if (props.onChange) {
+  if (props.onChange) {<Skeleton>
+          
+    </Skeleton>
     text = (
       <Text editable={{ onChange: props.onChange }} copyable={{ text: address }}>
         <a
