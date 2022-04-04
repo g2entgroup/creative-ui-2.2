@@ -2,10 +2,13 @@ import React from "react";
 import { Box, Badge, useToken } from "@chakra-ui/react";
 import Icon from "@chakra-ui/icon";
 import ReactPlayer from 'react-player/lazy';
+import { useRouter } from 'next/router';
+
 
 const StarIcon = ({ color }) => <Icon name="star" color={color} />
 
 export default function CreativeCard() {
+  const router = useRouter()
   const property = {
     videoUrl: "https://youtu.be/wQlN0BVltZI",
     imageAlt: "Tesla Campaign",
@@ -25,8 +28,23 @@ export default function CreativeCard() {
     // a single fallback or fallback array matching the length of the previous arg
   )
 
+  const goTo = () => {
+    router.push('/details/1')
+  };
+
   return (
-    <Box maxW="sm" borderWidth="1px" rounded="lg" overflow="hidden" align="center" height="511px" width="full" boxShadow={`inset 0 4px 0 ${brand400}, 0 0 8px ${brand200}`}>
+    <Box 
+      onClick={() => goTo()}
+      maxW="sm" 
+      borderWidth="1px" 
+      rounded="lg" 
+      overflow="hidden" 
+      align="center" 
+      cursor='pointer'
+      height="511px" 
+      width="full" 
+      boxShadow={`inset 0 4px 0 ${brand400}, 0 0 8px ${brand200}`}>
+      
       <ReactPlayer 
         url={property.videoUrl}
         playing={true}
@@ -34,7 +52,7 @@ export default function CreativeCard() {
         width='100%'
         height='70%'
       />
-
+    
       <Box p="6">
         <Box d="flex" alignItems="baseline">
           <Badge rounded="full" px="2" color={brand400}>
