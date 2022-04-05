@@ -29,19 +29,28 @@ function handleSubmit(e){
 
 }
     return (
-        
-        <Stack spacing={5}>
-            <Input
-            mt={5} 
-            value={value} 
-            variant="outline" 
-            type="text" 
-            placeholder="Enter your Attributes..."
-            color={useColorModeValue("gray.700", "gray.50")}
-            onChange={(e)=>setValue(e.target.value)} />
-            <Button onClick={handleSubmit} colorScheme="teal">Add Attribute</Button>
-        </Stack>
-
+        <>
+            <Stack direction={['column', 'row']} spacing={4}>
+                <Input
+                value={value} 
+                variant="outline" 
+                type="text" 
+                placeholder="Background..."
+                color={useColorModeValue("gray.700", "gray.50")}
+                onChange={(e)=>setValue(e.target.value)} />
+                <Input 
+                value={value} 
+                variant="outline" 
+                type="text" 
+                placeholder="Blue..."
+                color={useColorModeValue("gray.700", "gray.50")}
+                onChange={(e)=>setValue(e.target.value)} />
+            </Stack>
+            <Stack spacing={4} mt={4}>
+                <Button onClick={handleSubmit} colorScheme="teal">Add Attribute</Button>
+            </Stack>
+            
+        </>
     )
 }
 

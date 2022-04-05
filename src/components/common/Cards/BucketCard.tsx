@@ -23,10 +23,9 @@ import {
 import Buy from "../Buy/buy";
 import Sell from "../Sell/sell";
 import Image from 'next/image';
-import { OpenSeaPort, Network } from 'opensea-js';
   
-const myLoader = ({ src, width, quality }) => {
-  return `${src}?w=${width}&q=${quality || 75}`
+const myLoader = ({ src, width }) => {
+  return `${src}?w=${width}&q=${75}`
 }
 
 type WindowInstanceWithEthereum = Window & typeof globalThis & { ethereum?: providers.ExternalProvider };
@@ -48,11 +47,6 @@ type WindowInstanceWithEthereum = Window & typeof globalThis & { ethereum?: prov
     console.debug('Initializing web3 provider...');
     // @ts-ignore
     const provider = new providers.Web3Provider((window as WindowInstanceWithEthereum).ethereum);
-
-    // TODO: OpenSea Marketplace Function
-    const seaport = new OpenSeaPort(provider, {
-      networkName: Network.Main
-    })
 
     const accounts = await (window as WindowInstanceWithEthereum).ethereum.request({ method: 'eth_requestAccounts' });
     if (accounts.length === 0) {
@@ -95,7 +89,7 @@ type WindowInstanceWithEthereum = Window & typeof globalThis & { ethereum?: prov
             role={'group'}
             maxW='sm'
             overflow="hidden"
-            align="center"
+            alignItems={"center"}
             width='full'
             height='auto'
             bg={useColorModeValue('white', 'gray.700')}
@@ -136,7 +130,7 @@ type WindowInstanceWithEthereum = Window & typeof globalThis & { ethereum?: prov
               />
             </Box>
             <Stack pt={10} align={'center'} color={useColorModeValue("black", "white")}>
-              <Text color={'gray.500'} fontSize={'sm'} textTransform={'uppercase'} value={creator} />
+              <Text color={'gray.500'} fontSize={'sm'} textTransform={'uppercase'} defaultValue={creator} />
               <Editable color={'gray.500'} fontSize={'sm'} textTransform={'uppercase'} defaultValue={name} isPreviewFocusable={false}>
                 <EditablePreview />
                 <EditableInput />
