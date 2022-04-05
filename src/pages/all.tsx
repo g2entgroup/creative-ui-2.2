@@ -18,7 +18,7 @@ export default function All () {
      setDisplayPix(true)
      console.log(photos)
     photos.map((element) => {
-            cid.push({'cid' : element.cid, 'name': element.name, 'description':element.description})
+            cid.push({'cid' : element.cid, 'name': element.name, 'description': element.description})
             
     });
    console.log(photos)
