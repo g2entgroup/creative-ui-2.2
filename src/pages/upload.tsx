@@ -89,29 +89,36 @@ export default function Component() {
         }
     }
 
-    let nftMetadata
+    
     async function onFileUpload(values){
         event.preventDefault();
         setSubmitEnabled(false);
         setSpin(true);
         console.log(JSON.stringify(values))
-        const provider = new providers.Web3Provider((window as WindowInstanceWithEthereum).ethereum);
-        const storage = await init(provider.getSigner())
-       // const storage = await  init(provider.getSigners())
         const textileInstance = await TextileInstance.getInstance();
-        nftMetadata = await textileInstance.uploadNFT(selectedFile, values.name, values.description);
-        if(await storage.hasDeposit()){
-          await textileInstance.uploadTokenMetadata(storage,nftMetadata);
-        }else{
-          await storage.addDeposit()
-          await textileInstance.uploadTokenMetadata(storage,nftMetadata);
-        }
+        const nftMetadata = await textileInstance.uploadNFT(selectedFile, values.name, values.description);
         await textileInstance.addNFTToUserCollection(nftMetadata);
         const all = await textileInstance.getAllUserNFTs();
 
       if (nftMetadata != undefined) { setNftUploaded(true); setSpin(false) }
       console.log("nftmetadata : " + nftMetadata);
       
+    }
+
+    async function saveOnFileCoin(values){
+      setSubmitEnabled(false);
+      setSpin(true);
+      const provider = new providers.Web3Provider((window as WindowInstanceWithEthereum).ethereum);
+        const storage = await init(provider.getSigner())
+        const textileInstance = await TextileInstance.getInstance();
+        const nftMetadata = await textileInstance.uploadNFT(selectedFile, values.name, values.description);
+        if(await storage.hasDeposit()){
+          await textileInstance.uploadTokenMetadata(storage,nftMetadata);
+        }else{
+          await storage.addDeposit()
+          await textileInstance.uploadTokenMetadata(storage,nftMetadata);
+        }
+        setSpin(false)
     }
 
   const attributesList = [];
@@ -316,6 +323,7 @@ export default function Component() {
                     disabled={!submitEnabled}
                     color={useColorModeValue("gray.700", "white")}
                     fontWeight="md"
+                    onClick={handleSubmit(saveOnFileCoin)}
                   >
                     Store on Filecoin
                   </Button>
