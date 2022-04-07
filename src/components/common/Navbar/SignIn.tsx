@@ -185,7 +185,7 @@ const SignIn = (props) => {
 
   return (
     <>
-      <Button colorScheme="blue" variant="ghost" size="sm" onClick={onOpen} >
+      <Button colorScheme="blue" variant="ghost" size="md" onClick={onOpen} >
         Sign In
       </Button>
 
