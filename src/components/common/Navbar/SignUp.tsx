@@ -42,8 +42,8 @@ const SignUp = (props) => {
 
   return (
     <>
-      <Button colorScheme="blue" variant="ghost" size="sm" onClick={onOpen} >
-        Sign Up
+      <Button colorScheme="#FBC02D" variant="ghost" size="md" onClick={onOpen} >
+       Brand Sign Up
       </Button>
 
       <Modal isOpen={isOpen} onClose={onClose} size="xl" isCentered>
