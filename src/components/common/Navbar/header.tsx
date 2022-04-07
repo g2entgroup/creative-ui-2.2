@@ -34,6 +34,8 @@ import {
   Divider,
   Center,Text
 } from "@chakra-ui/react";
+import WertWidget from '@wert-io/widget-initializer';
+import NextLink from 'next/link';
 import NotificationDrawer from "../Notification/NotificationDrawer";
 import { useViewportScroll } from "framer-motion";
 //import Head, { MetaProps } from '../layout/Head';
@@ -45,6 +47,7 @@ import Logo from "../Navbar/Logo";
 import Balance from "../../Balance";
 import SignIn from "./SignIn";
 import SignUp from "./SignUp";
+import Image from 'next/image';
 
 const check = () => {
   if(localStorage.getItem('closeButtons') == 'true') {
@@ -106,6 +109,23 @@ const Header = ({ children }: HeaderProps): JSX.Element => {
   const { height } = ref.current
     ? ref.current.getBoundingClientRect()
     : { height: 0 };
+
+  const options = {
+    "containerId": "wert-widget",
+    "partner_id": process.env.NEXT_PUBLIC_WERT_PARTNER_ID,
+    "origin": "https://sandbox.wert.io",
+    "currency": "USD, EUR",
+    "autosize": true,
+    "commodities": "MAT",
+  }
+  
+  const wertWidget = new WertWidget(options);
+  
+  const redirectUrl = wertWidget.getRedirectUrl();
+
+  const myLoader = ({ src, width }) => {
+    return `${src}?w=${width}&q=${75}`
+  }
 
   const { scrollY } = useViewportScroll();
   React.useEffect(() => {
@@ -490,13 +510,6 @@ const Header = ({ children }: HeaderProps): JSX.Element => {
                     </chakra.h2>
                   </MenuButton>
                   <MenuList>
-                    <MenuItem color="red"
-                      onClick={() => {
-                        deactivate()
-                      }}
-                    >
-                      Disconnect
-                    </MenuItem>
                     <MenuItem>
                       {/* sign in  */}
                       <SignIn closeButton={check()}/>
@@ -505,6 +518,24 @@ const Header = ({ children }: HeaderProps): JSX.Element => {
                       {/* sign up  */}
                       <SignUp closeButton={check()}/>
                     </MenuItem>
+                    <NextLink href={redirectUrl}>
+                    <MenuItem as={Button} 
+                    color="black" 
+                    colorScheme= "pink"
+                    variant="solid"
+                    rightIcon={
+                      <Image
+                        loader={myLoader}
+                        height={40}
+                        width={40}
+                        src="/images/visa.svg"
+                        alt="Wert"
+                      />
+                    }>
+                      💰 Add Funds 
+                    </MenuItem>
+                    </NextLink>
+                    
                     <MenuItem as={Link} color="red" onClick={() => router.push('/upload')}>
                           Upload
                     </MenuItem>
@@ -512,7 +543,16 @@ const Header = ({ children }: HeaderProps): JSX.Element => {
                           Create Campaign
                     </MenuItem>
                     <MenuItem as={Link} onClick={() => router.push('/all')} color="red">
-                          View my bucket
+                          View My Library
+                    </MenuItem>
+                    <MenuItem as={Button} color="red"
+                  
+                    variant="solid"
+                      onClick={() => {
+                        deactivate()
+                      }}
+                    >
+                      Disconnect
                     </MenuItem>
                   </MenuList>
                 </Menu>

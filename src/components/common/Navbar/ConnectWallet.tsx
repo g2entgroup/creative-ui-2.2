@@ -13,11 +13,9 @@ import { useEthers } from '@usedapp/core';
 import React from 'react';
 import { walletconnect, arkaneConnect } from '../../../utils/connectors';
 import Image from 'next/image';
-import NextLink from 'next/link'
-import WertWidget from '@wert-io/widget-initializer';
 
-const myLoader = ({ src, width, quality }) => {
-  return `${src}?w=${width}&q=${quality || 75}`
+const myLoader = ({ src, width }) => {
+  return `${src}?w=${width}&q=${75}`
 }
 
 const options = {
@@ -29,9 +27,6 @@ const options = {
   "commodities": "MAT",
 }
 
-const wertWidget = new WertWidget(options);
-
-const redirectUrl = wertWidget.getRedirectUrl();
 
 function ConnectWallet(): JSX.Element {
   const { activate, activateBrowserWallet } = useEthers()
@@ -124,27 +119,6 @@ function ConnectWallet(): JSX.Element {
             >
               Venly
             </Button>
-            <NextLink href={redirectUrl}>
-              <Button
-                justifyContent="space-between"
-                width="100%"
-                mb="4"
-                size="lg"
-                colorScheme= "pink"
-                variant="solid"
-                rightIcon={
-                  <Image
-                    loader={myLoader}
-                    height={20}
-                    width={20}
-                    src="/images/visa.svg"
-                    alt="Wert"
-                  />
-                }
-              >
-                Wert
-              </Button>
-            </NextLink> 
           </ModalBody>
         </ModalContent>
       </Modal>
