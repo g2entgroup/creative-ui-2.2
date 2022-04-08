@@ -180,7 +180,7 @@ type WindowInstanceWithEthereum = Window & typeof globalThis & { ethereum?: prov
           <HStack m={4} direction={'row'} spacing={4}>
             <Lock />
           </HStack>
-          <HStack m={4} direction={'column'} spacing={4}>
+          <HStack m={4} direction={'row'} spacing={4}>
             <Button
               flex={1}
               fontSize={'md'}
