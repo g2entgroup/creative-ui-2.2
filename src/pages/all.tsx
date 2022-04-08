@@ -1,9 +1,10 @@
 import { useState } from 'react';
-import { SimpleGrid } from "@chakra-ui/react"
+import { Spacer, SimpleGrid } from "@chakra-ui/react"
 import { Flex, Center} from "@chakra-ui/react"
 import BucketCard from '../components/common/Cards/BucketCard'
-import { Button } from "@chakra-ui/react"
+import { Button, Stack } from "@chakra-ui/react"
 import { TextileInstance } from "../services/textile/textile";
+import BatchStorage from 'src/components/common/Button/batchStorage';
 
 export default function All () {
     const [displayPix , setDisplayPix ] = useState(false);
@@ -33,7 +34,11 @@ export default function All () {
 
     return(
         <>
-            <Flex alignContent="center">
+        <Flex p={4}>
+            <Spacer />
+            <BatchStorage></BatchStorage>   
+        </Flex> 
+        <Flex alignContent="center">
                 <Center>    
                     <Button colorScheme="blue" onClick={fetchGallery} hidden={displayPix}> Fetch my photos </Button>
                 </Center>
@@ -46,8 +51,7 @@ export default function All () {
                     }
             
                 </SimpleGrid>
-            </Flex>
-            
+            </Flex> 
         </>
     )
 }
