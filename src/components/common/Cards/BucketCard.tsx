@@ -24,9 +24,9 @@ import {
   createLazyMint, 
   generateTokenId
 } from '../../../rarible/createLazyMint';
-import Buy from "../Buy/buy";
-import Sell from "../Sell/sell";
+import Lock from '../Lock/lock';
 import Image from 'next/image';
+// import { OpenSeaPort, Network } from 'opensea-js';
   
 const myLoader = ({ src, width }) => {
   return `${src}?w=${width}&q=${75}`
@@ -51,6 +51,11 @@ type WindowInstanceWithEthereum = Window & typeof globalThis & { ethereum?: prov
     console.debug('Initializing web3 provider...');
     // @ts-ignore
     const provider = new providers.Web3Provider((window as WindowInstanceWithEthereum).ethereum);
+
+    // TODO: OpenSea Marketplace Function
+    // const seaport = new OpenSeaPort(provider, {
+    //   networkName: Network.Main
+    // })
 
     const accounts = await (window as WindowInstanceWithEthereum).ethereum.request({ method: 'eth_requestAccounts' });
     if (accounts.length === 0) {
@@ -89,11 +94,11 @@ type WindowInstanceWithEthereum = Window & typeof globalThis & { ethereum?: prov
   }
     return (
       <>
+        <Center>
           <Box
             role={'group'}
             maxW='sm'
             overflow="hidden"
-            alignItems={"center"}
             width='full'
             height='auto'
             bg={useColorModeValue('white', 'gray.700')}
@@ -103,6 +108,7 @@ type WindowInstanceWithEthereum = Window & typeof globalThis & { ethereum?: prov
             pos={'relative'}
             zIndex={0}
             >
+              <Center>
             <Box
               rounded={'lg'}
               mt={-12}
@@ -133,6 +139,7 @@ type WindowInstanceWithEthereum = Window & typeof globalThis & { ethereum?: prov
                 src={imagelink}
               />
             </Box>
+            </Center>
             <Stack pt={10} align={'center'} color={useColorModeValue("black", "white")}>
               <Text color={'gray.500'} fontSize={'sm'} textTransform={'uppercase'} defaultValue={creator} />
               <Editable color={'gray.500'} fontSize={'sm'} textTransform={'uppercase'} defaultValue={name} isPreviewFocusable={false}>
@@ -151,26 +158,29 @@ type WindowInstanceWithEthereum = Window & typeof globalThis & { ethereum?: prov
             <Badge
               px={2}
               py={1}
-              bg={useColorModeValue('gray.50', 'gray.50')}
+              bg={useColorModeValue('gray.50', 'black')}
               fontWeight={'400'}>
               #art
             </Badge>
             <Badge
               px={2}
               py={1}
-              bg={useColorModeValue('gray.50', 'gray.50')}
+              bg={useColorModeValue('gray.50', 'black')}
               fontWeight={'400'}>
               #photography
             </Badge>
             <Badge
               px={2}
               py={1}
-              bg={useColorModeValue('gray.50', 'gray.50')}
+              bg={useColorModeValue('gray.50', 'black')}
               fontWeight={'400'}>
               #music
             </Badge>
           </Stack>
           <HStack m={4} direction={'row'} spacing={4}>
+            <Lock />
+          </HStack>
+          <HStack m={4} direction={'column'} spacing={4}>
             <Button
               flex={1}
               fontSize={'md'}
@@ -246,10 +256,11 @@ type WindowInstanceWithEthereum = Window & typeof globalThis & { ethereum?: prov
               }}
               onClick={submitHandler}
               >
-              Celo Mint
+              Submit to Campaign
             </Button>
           </HStack>
         </Box>
+        </Center>
     </>
     );
   }
