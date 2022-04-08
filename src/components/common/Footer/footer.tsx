@@ -32,13 +32,14 @@ const Footer = () => {
         <Heading fontSize="2rem">CREATIVE</Heading>
       </Box>
       {/* 4 sliders  */}
-      <Grid
-        templateColumns="repeat(4, 1fr)"
-        gap={4}
-        justifyItems="center"
-        justifyContent="center"
-      >
-        <Box w="90%">
+      <Box
+        width='100%'
+        display='flex'
+        flex-direction={['row','column']}
+        flexWrap='wrap'>
+        <Box
+          width={['100%', '50%', '25%']}
+          padding={5}>
           <Box as="h3" fontWeight="500" fontSize="xl" color="#e50168">
             Creative Platform
           </Box>
@@ -53,7 +54,9 @@ const Footer = () => {
           A creative blockchain platform for independent creators, fans, and brands to exchange services directly and earn incentives through DeFi.
           </Text>
         </Box>
-        <Box w="90%">
+        <Box
+          width={['100%', '550%', '25%']}
+          padding={5}>
           <Box as="h3" fontWeight="500" fontSize="xl" color="#e50168">
             Join Our Community DAO
           </Box>
@@ -80,7 +83,9 @@ const Footer = () => {
             <Link href="https://app.daohaus.club/dao/0x89/0xc48996a569911fd6eba1b97b6419731eed32041e/" isExternal target="_blank">Creative Organization</Link>
           </Box>
         </Box>
-        <Box w="90%">
+        <Box
+          width={['100%', '50%', '25%']}
+          padding={5}>
           <Box as="h3" fontWeight="500" fontSize="xl" color="#e50168">
             Subscribe
           </Box>
@@ -118,7 +123,9 @@ const Footer = () => {
             Sign Me Up
           </Box>
         </Box>
-        <Box w="100%">
+        <Box
+          width={['100%', '50%', '25%']}
+          padding={5}>
           <Box as="h3" fontWeight="500" fontSize="xl" color="#e50168">
             Contact Us
           </Box>
@@ -240,7 +247,7 @@ const Footer = () => {
             </Box>
           </Flex>
         </Box>
-      </Grid>
+      </Box>
 
       {/* copmpany  */}
 

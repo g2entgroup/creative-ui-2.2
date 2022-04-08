@@ -28,7 +28,16 @@ export default function Discover() {
   )
 
   return (
-    <Box maxW="sm" borderWidth="1px" rounded="lg" overflow="hidden" alignContent={"center"} height="511px" width="full" boxShadow={`inset 0 4px 0 ${brand400}, 0 0 8px ${brand200}`}>
+    <Box 
+      maxW="sm" 
+      borderWidth="1px" 
+      rounded="lg" 
+      overflow="hidden" 
+      alignContent={"center"} 
+      height="511px" 
+      width="full"
+      margin={10}
+      boxShadow={`inset 0 4px 0 ${brand400}, 0 0 8px ${brand200}`}>
         <Image
           loading="lazy" 
           src={imgSrc}

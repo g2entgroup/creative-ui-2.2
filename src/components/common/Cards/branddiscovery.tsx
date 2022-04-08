@@ -68,8 +68,9 @@ type WindowInstanceWithEthereum = Window & typeof globalThis & { ethereum?: prov
           <Box
             role={'group'}
             maxW='sm'
+            minW='sm'
+            margin={5}
             overflow="hidden"
-            align="center"
             width='full'
             height='auto'
             bg={useColorModeValue('white', 'gray.700')}

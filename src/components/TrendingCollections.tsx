@@ -8,20 +8,11 @@ const myLoader = ({ src, width }) => {
 
 const TrendingCollections = () => {
   return (
-    <Flex
-      bg={useColorModeValue("gray.300", "gray.600")}
-      p={50}
-      w="full"
-      alignItems="center"
-      justifyContent="center"
-    >
       <Box
-        maxW="xs"
-        mx="auto"
-        bg={useColorModeValue("white", "gray.800")}
-        shadow="lg"
-        rounded="lg"
-      >
+        width="320px"
+        margin={5}
+        color={useColorModeValue("gray.800", "white")}
+        >
         <Box px={4} py={2}>
           <chakra.h1
             color={useColorModeValue("gray.800", "white")}
@@ -81,7 +72,6 @@ const TrendingCollections = () => {
           </chakra.button>
         </Flex>
       </Box>
-    </Flex>
   );
 };
 
