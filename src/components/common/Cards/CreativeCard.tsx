@@ -35,7 +35,8 @@ export default function CreativeCard() {
   return (
     <Box 
       onClick={() => goTo()}
-      maxW="sm" 
+      maxW="sm"
+      minW="sm" 
       borderWidth="1px" 
       rounded="lg" 
       overflow="hidden" 
