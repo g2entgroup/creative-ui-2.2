@@ -14,14 +14,21 @@ export default function Home() {
       <BrandHero />
       <Main>
         {/* LATEST BRAND CAMPAIGNS */}
-        <Heading as="h2" size="lg" color="white" my={4}>🆕 Latest Brand Campaigns</Heading>
+        <Heading 
+          as="h2" 
+          size="lg" 
+          color="white" 
+          my={4}>🆕 Latest Brand Campaigns</Heading>
         <Box
            display='flex'
-           margin='auto'
-           flexDir={['column', 'row']}
-           flexWrap={['wrap']}
-           alignItems={['center']}
-           justifyContent='flex-start'>
+           minWidth='100vw'
+           flexDir={['column','column','column', 'row']}
+           padding={[2, 2, 2, 10]}
+           alignItems={['center','center','center', 'flex-start']}
+           justifyContent={['center','center','center', 'flex-start']}
+          flexWrap={['nowrap', 'nowrap', 'nowrap', 'wrap']}
+           >
+          <CreativeCard />
           <CreativeCard />
           <CreativeCard />
           <CreativeCard />
@@ -31,21 +38,28 @@ export default function Home() {
       </Main>
       <Main>
         {/* TOP CREATORS */}
-        <Heading as="h2" size="lg" color="white" my={4}>🏆 Top Creatives</Heading>
+        <Heading 
+          as="h2" 
+          size="lg" 
+          color="white" 
+          my={4}>🏆 Top Creatives</Heading>
         <TopCreatives />
       </Main>
-      {/* TOP CREATORS END */}
       <Main>
         {/* LIVE BRAND CAMPAIGNS */}
-        <Heading as="h2" size="lg" color="white" my={4}>🎬 Live Brand Campaigns</Heading>
+        <Heading 
+          as="h2" 
+          size="lg" 
+          color="white" 
+          my={4}>🎬 Live Brand Campaigns</Heading>
         <Box
            display='flex'
-           margin='auto'
-           flexDir={['column', 'row']}
-           flexWrap={['wrap']}
-           alignItems={['center']}
-           justifyContent='flex-start'>
-          <LiveCampaigns />
+           minWidth='100vw'
+           flexDir={['column','column','column', 'row']}
+           padding={[2, 2, 2, 10]}
+           alignItems={['center','center','center', 'flex-start']}
+           justifyContent={['center','center','center', 'flex-start']}
+          flexWrap={['nowrap', 'nowrap', 'nowrap', 'wrap']}>
           <LiveCampaigns />
           <LiveCampaigns />
           <LiveCampaigns />
@@ -54,14 +68,21 @@ export default function Home() {
       </Main>
       <Main>
         {/* TRENDING COLLECTIONS */}
-        <Heading as="h2" size="lg" color="white" my={4}>📈 Trending Collections</Heading>
+        <Heading
+          as="h2" 
+          size="lg" 
+          color="white" 
+          my={4}>📈 Trending Collections</Heading>
         <Box
-           display='flex'
-           margin='auto'
-           flexDir={['column', 'row']}
-           flexWrap={['wrap']}
-           alignItems={['center']}
-           justifyContent='flex-start'>
+          display='flex'
+          minWidth='100vw'
+          flexDir={['column','column','column', 'row']}
+          padding={[2, 2, 2, 10]}
+          alignItems={['center','center','center', 'flex-start']}
+          justifyContent={['center','center','center', 'flex-start']}
+          flexWrap={['nowrap', 'nowrap', 'nowrap', 'wrap']}
+          >
+          <TrendingCollections />
           <TrendingCollections />
           <TrendingCollections />
         </Box>
@@ -69,7 +90,11 @@ export default function Home() {
       </Main>
       <Main>
         {/* DISCOVER */}
-        <Heading as="h2" size="lg" color="white" my={4}>🔭 Discover</Heading>
+        <Heading 
+          as="h2" 
+          size="lg" 
+          color="white" 
+          my={4}>🔭 Discover</Heading>
         <FilterTab />
         {/* DISCOVER END*/}
       </Main>

@@ -29,8 +29,8 @@ export const CountDown = ({ title, time }:{ title: string, time: string }) => {
 
     return (
         <Box
-            minW={400}
-            maxW={400}>
+            minWidth={[ '100%', '100%', '100%', '50%']}
+            maxWidth={[ '100%', '100%', '100%', '50%']}>
             <Heading
                 color='white'>
                 {title}

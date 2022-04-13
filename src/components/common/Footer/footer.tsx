@@ -19,7 +19,9 @@ const myLoader = ({ src, width, quality }) => {
 
 const Footer = () => {
   return (
-    <Box mx="4rem" bgColor="#161d2f">
+    <Box
+      flexDir={['column','column','column', 'row']}
+      bgColor="#161d2f">
       {/* logo  */}
       <Box textAlign="center" mb="3rem">
         <Image
@@ -35,10 +37,10 @@ const Footer = () => {
       <Box
         width='100%'
         display='flex'
-        flex-direction={['row','column']}
-        flexWrap='wrap'>
+        flexDir={['column','column','row', 'row']}
+        flexWrap={['nowrap', 'nowrap', 'wrap', 'wrap']}>
         <Box
-          width={['100%', '50%', '25%']}
+          maxWidth={['100%', '50%', '50%', '25%']}
           padding={5}>
           <Box as="h3" fontWeight="500" fontSize="xl" color="#e50168">
             Creative Platform
@@ -55,7 +57,7 @@ const Footer = () => {
           </Text>
         </Box>
         <Box
-          width={['100%', '550%', '25%']}
+          maxWidth={['100%', '550%', '50%', '25%']}
           padding={5}>
           <Box as="h3" fontWeight="500" fontSize="xl" color="#e50168">
             Join Our Community DAO
@@ -67,7 +69,8 @@ const Footer = () => {
             w="50px"
             background="linear-gradient(to right, rgba(22, 29, 47, 0),#e50168,rgba(22,29,47,0));"
           />
-          <Text >
+          <Text
+            textOverflow={'wrap'}>
             Have a seat at the table and join our governance DAO, where our creative community helps decide the future of the Creative platform.
           </Text>
           <Box
@@ -84,7 +87,7 @@ const Footer = () => {
           </Box>
         </Box>
         <Box
-          width={['100%', '50%', '25%']}
+          width={['100%', '50%', '50%', '25%']}
           padding={5}>
           <Box as="h3" fontWeight="500" fontSize="xl" color="#e50168">
             Subscribe
@@ -124,7 +127,7 @@ const Footer = () => {
           </Box>
         </Box>
         <Box
-          width={['100%', '50%', '25%']}
+          width={['100%', '50%', '50%', '25%']}
           padding={5}>
           <Box as="h3" fontWeight="500" fontSize="xl" color="#e50168">
             Contact Us
@@ -166,10 +169,13 @@ const Footer = () => {
             >
               <AiOutlineMail />
             </Box>
-            <Box>
+            <Box
+              textOverflow={'wrap'}>
               <Box>Email us:</Box>
               <Box>
-                <Link href="mailto:creatives@creativeplatform.io">
+                <Link
+                  textOverflow={'wrap'}
+                  href="mailto:creatives@creativeplatform.io">
                   creatives@creativeplatform.io
                 </Link>
                 </Box>
