@@ -20,7 +20,7 @@ export default function Home() {
            margin='auto'
            flexDir={['column', 'row']}
            flexWrap={['wrap']}
-           alignItems='center'
+           alignItems={['center']}
            justifyContent='flex-start'>
           <CreativeCard />
           <CreativeCard />
@@ -32,7 +32,7 @@ export default function Home() {
       <Main>
         {/* TOP CREATORS */}
         <Heading as="h2" size="lg" color="white" my={4}>🏆 Top Creatives</Heading>
-        {/*<TopCreatives />*/}
+        <TopCreatives />
       </Main>
       {/* TOP CREATORS END */}
       <Main>
@@ -43,6 +43,7 @@ export default function Home() {
            margin='auto'
            flexDir={['column', 'row']}
            flexWrap={['wrap']}
+           alignItems={['center']}
            justifyContent='flex-start'>
           <LiveCampaigns />
           <LiveCampaigns />
@@ -59,6 +60,7 @@ export default function Home() {
            margin='auto'
            flexDir={['column', 'row']}
            flexWrap={['wrap']}
+           alignItems={['center']}
            justifyContent='flex-start'>
           <TrendingCollections />
           <TrendingCollections />
