@@ -20,9 +20,22 @@ export default function FilterTab() {
         <Tabs 
             variant="soft-rounded" 
             colorScheme="pink"
+            flexDir={['column', 'row']}
+            flexWrap={['wrap']}
+            alignItems='center'
+            justifyContent='flex-start'
             marginBottom={50}>
-            <HStack spacing={8}>
-            <TabList>
+            <HStack 
+                display='flex'
+                flexDir='row'
+                flexWrap='wrap'
+                maxW='100%'
+                spacing={8}>
+            <TabList
+                display='flex'
+                flexDir='row'
+                flexWrap='wrap'
+                maxW='100%'>
                 <Tab>All</Tab>
                 <Tab>🖼 Art</Tab>
                 <Tab>📸 Photography</Tab>
@@ -40,7 +53,9 @@ export default function FilterTab() {
                         display='flex'
                         margin='auto'
                         flexDir={['column', 'row']}
-                        flexWrap={['wrap']}>
+                        flexWrap={['wrap']}
+                        alignItems={['center']}
+                        justifyContent='flex-start'>
                         <Discover />
                         <Discover />
                         <Discover />
