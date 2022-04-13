@@ -3,12 +3,14 @@ import React from "react";
 import { Box, Badge, useToken } from "@chakra-ui/react";
 import Icon from "@chakra-ui/icon";
 import Image from 'next/image';
+import { useRouter } from 'next/router';
 
 const imgSrc = 'purple-emoji.gif'
 
 const StarIcon = ({ color }) => <Icon name="star" color={color} />
 
 export default function Discover() {
+  const router = useRouter()
   const property = {
     imageAlt: "Purple Emoji Campaign",
     crtv: 40,
@@ -27,16 +29,22 @@ export default function Discover() {
     // a single fallback or fallback array matching the length of the previous arg
   )
 
+  const goTo = () => {
+    router.push('/details/2');
+  };
+
   return (
     <Box 
       maxW="sm" 
       borderWidth="1px" 
       rounded="lg" 
+      margin={5}
+      onClick={() => goTo()}
       overflow="hidden" 
+      cursor='pointer'
       alignContent={"center"} 
       height="511px" 
-      width="full"
-      margin={10}
+      width="full" 
       boxShadow={`inset 0 4px 0 ${brand400}, 0 0 8px ${brand200}`}>
         <Image
           loading="lazy" 

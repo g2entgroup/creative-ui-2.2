@@ -107,11 +107,29 @@ export default function Component() {
                       fontWeight="md"
                       color={useColorModeValue("gray.700", "gray.50")}
                     >
+                       Brand Company 
+                    </FormLabel>
+                      <Input
+                        type="text"
+                        placeholder="Company Name"
+                        focusBorderColor="brand.400"
+                        rounded="md"
+                        color={useColorModeValue("gray.700", "gray.50")}
+                      />
+                  </FormControl>
+                </SimpleGrid>
+                <SimpleGrid columns={3} spacing={6}>
+                  <FormControl as={GridItem} colSpan={[3, 2]}>
+                    <FormLabel
+                      fontSize="sm"
+                      fontWeight="md"
+                      color={useColorModeValue("gray.700", "gray.50")}
+                    >
                        Brand Website 
                     </FormLabel>
                     <InputGroup size="sm">
                       <InputLeftAddon
-                        children="http://"
+                        children="https://"
                         bg={useColorModeValue("gray.50", "gray.800")}
                         color={useColorModeValue("gray.500", "gay.50")}
                         rounded="md"
