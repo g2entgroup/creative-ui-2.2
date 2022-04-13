@@ -20,22 +20,16 @@ export default function FilterTab() {
         <Tabs 
             variant="soft-rounded" 
             colorScheme="pink"
-            flexDir={['column', 'row']}
-            flexWrap={['wrap']}
-            alignItems='center'
-            justifyContent='flex-start'
+            maxWidth='100vw'
             marginBottom={50}>
-            <HStack 
+            <HStack
                 display='flex'
-                flexDir='row'
-                flexWrap='wrap'
-                maxW='100%'
-                spacing={8}>
+                margin={0}
+                flexDir={['column','column', 'column', 'row']}>
             <TabList
                 display='flex'
-                flexDir='row'
-                flexWrap='wrap'
-                maxW='100%'>
+                flexDir={['column','column', 'column', 'row']}
+                margin={[0]}>
                 <Tab>All</Tab>
                 <Tab>🖼 Art</Tab>
                 <Tab>📸 Photography</Tab>
@@ -47,15 +41,20 @@ export default function FilterTab() {
             </TabList>
             <FilterSort />
             </HStack>
-            <TabPanels>
+            <TabPanels
+                display='flex'
+                margin={0}
+                flexDir={['column','column', 'column', 'row']}
+                >
                 <TabPanel>
-                    <Box
-                        display='flex'
-                        margin='auto'
-                        flexDir={['column', 'row']}
-                        flexWrap={['wrap']}
-                        alignItems={['center']}
-                        justifyContent='flex-start'>
+                    <Box             
+                         display='flex'
+                         maxWidth='90vw'
+                         flexDir={['column','column','column', 'row']}
+                         padding={[2, 2, 2, 10]}
+                         alignItems={['center','center','center', 'flex-start']}
+                         justifyContent={['center','center','center', 'flex-start']}
+                         flexWrap={['nowrap', 'nowrap', 'nowrap', 'wrap']}>
                         <Discover />
                         <Discover />
                         <Discover />

@@ -79,15 +79,15 @@ type WindowInstanceWithEthereum = Window & typeof globalThis & { ethereum?: prov
             rounded="lg"
             pos={'relative'}
             zIndex={0}
+            display='flex'
+            flexDir='column'
+            alignItems='center'
             >
             <Box
               rounded={'lg'}
               mt={-12}
               pos={'relative'}
               height={'230px'}
-              display='flex'
-              alignItems='center'
-              justifyContent='center'
               _after={{
                 transition: 'all .3s ease',
                 content: '""',
