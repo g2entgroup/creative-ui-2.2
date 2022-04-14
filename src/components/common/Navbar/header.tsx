@@ -82,7 +82,7 @@ function truncateHash(hash: string, length = 38): string {
 const Header = ({ children }: HeaderProps): JSX.Element => {
   const router = useRouter()
 
-  const { account, deactivate, chainId} = useEthers()
+  const { account, deactivate, chainId } = useEthers()
   const { notifications } = useNotifications()
   const ens = useLookupAddress()
 
@@ -476,19 +476,35 @@ const Header = ({ children }: HeaderProps): JSX.Element => {
                 borderRadius="xl"
                 py="0"
               >
-                <Box px="3">
-                  <chakra.h1 color="white" fontSize="md">
+                <Box px="2">
+                  <chakra.h1 color="white" fontSize="sm">
                     <Balance/>
 
                     {/* 15.02&nbsp;ETH */}
                   </chakra.h1>
                 </Box>
-                <Box px="3">
+                {chainId === 80001 ? (
+                  <Box px="3" bg="purple.300">
                   <chakra.h1 color="white" fontSize="md">
                     <Text>{chainName}</Text>
                     {/* 15.02&nbsp;ETH */}
                   </chakra.h1>
                 </Box>
+                ) : chainId === 137 ? (
+                <Box px="3" bg="purple.600">
+                <chakra.h1 color="white" fontSize="md">
+                  <Text>{chainName}</Text>
+                  {/* 15.02&nbsp;ETH */}
+                </chakra.h1>
+              </Box>
+                ) : 
+                <Box px="3">
+                <chakra.h1 color="white" fontSize="md">
+                  <Text>{chainName}</Text>
+                  {/* 15.02&nbsp;ETH */}
+                </chakra.h1>
+              </Box>
+}
                 <Menu>
                   <MenuButton as={Button}
                     bg="gray.800"

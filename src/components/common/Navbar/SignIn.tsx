@@ -30,10 +30,6 @@ import { TextileInstance } from "../../../services/textile/textile";
 import SignUp from './SignUp';
 import Logo from './Logo-100';
 
-const myLoader = ({ src, width, quality }) => {
-  return `https://res.cloudinary.com/${src}?w=${width}&q=${quality || 75}`
-}
-
 type WindowInstanceWithEthereum = Window & typeof globalThis & { ethereum?: providers.ExternalProvider };
 class StrongType<Definition, Type> {
   // @ts-ignore
@@ -160,7 +156,6 @@ const SignIn = (props) => {
     onClose();
     // Close the modal function and set local storage variable 
     //handleSuccessSignin(); // set close buttons to true 
-
     // Create a textile instance which will create or get the bucket assoicated with this user.
     TextileInstance.setPrivateKey(identity);
     // Initialize the instance now itself which would create the bucket as well as the thread db collection
