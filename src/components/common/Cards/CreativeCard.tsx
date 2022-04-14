@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Badge, useToken } from "@chakra-ui/react";
+import { Box, Badge, useToken, useColorModeValue } from "@chakra-ui/react";
 import Icon from "@chakra-ui/icon";
 import ReactPlayer from 'react-player/lazy';
 import { useRouter } from 'next/router';
@@ -77,12 +77,12 @@ export default function CreativeCard() {
           as="h2"
           lineHeight="tight"
           isTruncated
-          color="white"
+          color={useColorModeValue("black", "white")}
         >
           {property.title}
         </Box>
 
-        <Box color="white">
+        <Box color={useColorModeValue("black", "white")}>
           {property.formattedPrice}
           <Box as="span" 
             bgGradient="linear(to-l, #7928CA, #e50168)"
@@ -90,7 +90,7 @@ export default function CreativeCard() {
             fontSize="lg"
             fontWeight="extrabold" 
           >
-            &nbsp;/ Weekly Prize
+            &nbsp;/ Prize Reward
           </Box>
         </Box>
 

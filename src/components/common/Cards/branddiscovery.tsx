@@ -19,12 +19,11 @@ import {
   createLazyMint, 
   generateTokenId
 } from '../../../rarible/createLazyMint';
-import Buy from "../Buy/buy";
-import Sell from "../Sell/sell";
+import Buy from "../Button/Buy/buy";
 import Image from 'next/image';
   
-const myLoader = ({ src, width, quality }) => {
-  return `${src}?w=${width}&q=${quality || 75}`
+const myLoader = ({ src, width }) => {
+  return `${src}?w=${width}&q=${75}`
 }
 
 type WindowInstanceWithEthereum = Window & typeof globalThis & { ethereum?: providers.ExternalProvider };
@@ -113,13 +112,13 @@ type WindowInstanceWithEthereum = Window & typeof globalThis & { ethereum?: prov
                 src={imagelink}
               />
             </Box>
-            <Stack pt={10} align={'center'} color={useColorModeValue("black" , "white")}>
-              <Text color={'gray.500'} fontSize={'sm'} textTransform={'uppercase'} defaultValue={creator}>
+            <Stack pt={10} align={'center'} color={useColorModeValue("gray.500" , "white")}>
+              <Text color={'gray.500'} fontSize={'sm'} textTransform={'uppercase'} defaultValue={creator}>{creator}
               </Text>
-              <Text fontSize={'2xl'} fontFamily={'body'} fontWeight={500} defaultValue={name}>
+              <Text fontSize={'2xl'} fontFamily={'body'} fontWeight={500} defaultValue={name}>{name}
               </Text>
               <Stack direction={'row'} align={'center'}>
-                <Text fontWeight={800} fontSize={'xl'} defaultValue={description}>
+                <Text fontWeight={800} fontSize={'sm'} defaultValue={description}>{description}
                 </Text>
               </Stack>
             </Stack>
@@ -128,21 +127,21 @@ type WindowInstanceWithEthereum = Window & typeof globalThis & { ethereum?: prov
             <Badge
               px={2}
               py={1}
-              bg={useColorModeValue('gray.50', 'gray.50')}
+              bg={useColorModeValue('gray.50', 'black')}
               fontWeight={'400'}>
               #art
             </Badge>
             <Badge
               px={2}
               py={1}
-              bg={useColorModeValue('gray.50', 'gray.50')}
+              bg={useColorModeValue('gray.50', 'black')}
               fontWeight={'400'}>
               #photography
             </Badge>
             <Badge
               px={2}
               py={1}
-              bg={useColorModeValue('gray.50', 'gray.50')}
+              bg={useColorModeValue('gray.50', 'black')}
               fontWeight={'400'}>
               #music
             </Badge>
