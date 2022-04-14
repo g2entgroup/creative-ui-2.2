@@ -38,6 +38,7 @@ export default function Discover() {
       maxW="sm" 
       borderWidth="1px" 
       rounded="lg" 
+      margin={5}
       onClick={() => goTo()}
       overflow="hidden" 
       cursor='pointer'

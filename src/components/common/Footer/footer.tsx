@@ -6,22 +6,25 @@ import {
   Heading,
   Text,
   Input,
-  Link
+  Link,
+  useColorModeValue
 } from "@chakra-ui/react";
 import { AiOutlineMail } from "react-icons/ai";
 import { FiTwitter, FiInstagram } from "react-icons/fi";
 import { SiDiscord } from "react-icons/si";
 import Image from "next/image";
 
-const myLoader = ({ src, width, quality }) => {
-  return `https://res.cloudinary.com/${src}?w=${width}&q=${quality || 75}`
+const myLoader = ({ src, width }) => {
+  return `https://res.cloudinary.com/${src}?w=${width}&q=${75}`
 }
 
 const Footer = () => {
   return (
-    <Box mx="4rem" bgColor="#161d2f">
+    <Box
+      flexDir={['column','column','column', 'row']}
+      bgColor="#161d2f">
       {/* logo  */}
-      <Box textAlign="center" mb="3rem">
+      <Box textAlign="center" mb="3rem" padding={10}>
         <Image
           loader={myLoader}
           src="dyangxc7h/image/upload/v1623552244/creative/Creative_logo.png"
@@ -29,16 +32,17 @@ const Footer = () => {
           width={90}
           height={80}
         />
-        <Heading fontSize="2rem">CREATIVE</Heading>
+        <Heading fontSize="2rem" color={"white"}>CREATIVE</Heading>
       </Box>
       {/* 4 sliders  */}
-      <Grid
-        templateColumns="repeat(4, 1fr)"
-        gap={4}
-        justifyItems="center"
-        justifyContent="center"
-      >
-        <Box w="90%">
+      <Box
+        width='100%'
+        display='flex'
+        flexDir={['column','column','row', 'row']}
+        flexWrap={['nowrap', 'nowrap', 'wrap', 'wrap']}>
+        <Box
+          maxWidth={['100%', '50%', '50%', '25%']}
+          padding={5}>
           <Box as="h3" fontWeight="500" fontSize="xl" color="#e50168">
             Creative Platform
           </Box>
@@ -49,11 +53,13 @@ const Footer = () => {
             w="50px"
             background="linear-gradient(to right, rgba(22, 29, 47, 0),#e50168,rgba(22,29,47,0));"
           />
-          <Text is="custom">
-          A creative blockchain platform for independent creators, fans, and brands to exchange services directly and earn incentives through DeFi.
+          <Text color={"white"}>
+            A creative blockchain platform for independent creators, fans, and brands to exchange services directly and earn incentives through DeFi.
           </Text>
         </Box>
-        <Box w="90%">
+        <Box
+          maxWidth={['100%', '550%', '50%', '25%']}
+          padding={5}>
           <Box as="h3" fontWeight="500" fontSize="xl" color="#e50168">
             Join Our Community DAO
           </Box>
@@ -64,7 +70,8 @@ const Footer = () => {
             w="50px"
             background="linear-gradient(to right, rgba(22, 29, 47, 0),#e50168,rgba(22,29,47,0));"
           />
-          <Text >
+          <Text
+            textOverflow={'wrap'} color={"white"}>
             Have a seat at the table and join our governance DAO, where our creative community helps decide the future of the Creative platform.
           </Text>
           <Box
@@ -80,7 +87,9 @@ const Footer = () => {
             <Link href="https://app.daohaus.club/dao/0x89/0xc48996a569911fd6eba1b97b6419731eed32041e/" isExternal target="_blank">Creative Organization</Link>
           </Box>
         </Box>
-        <Box w="90%">
+        <Box
+          width={['100%', '50%', '50%', '25%']}
+          padding={5}>
           <Box as="h3" fontWeight="500" fontSize="xl" color="#e50168">
             Subscribe
           </Box>
@@ -91,7 +100,7 @@ const Footer = () => {
             w="50px"
             background="linear-gradient(to right, rgba(22, 29, 47, 0),#e50168,rgba(22,29,47,0));"
           />
-          <Text>
+          <Text color={"white"}>
             Subscribe to our newsletter and get latest updates and offers.
           </Text>
 
@@ -118,7 +127,9 @@ const Footer = () => {
             Sign Me Up
           </Box>
         </Box>
-        <Box w="100%">
+        <Box
+          width={['100%', '50%', '50%', '25%']}
+          padding={5}>
           <Box as="h3" fontWeight="500" fontSize="xl" color="#e50168">
             Contact Us
           </Box>
@@ -143,12 +154,12 @@ const Footer = () => {
             <Box>
               <Box>Discord with us:</Box>
               <Box>
-                <Link href="https://discord.gg/8B4p7ztWTp" isExternal>Creative</Link>
+                <Link href="https://discord.gg/8B4p7ztWTp" color={"white"} isExternal>Creative Discord</Link>
               </Box>
             </Box>
           </Flex>
           {/* email  */}
-          <Flex mt="1rem" alignItems="center">
+          <Flex alignItems="center">
             <Box
               mr="1rem"
               bgGradient="linear(to-b, #2b5fa8, #e6006b)"
@@ -159,11 +170,15 @@ const Footer = () => {
             >
               <AiOutlineMail />
             </Box>
-            <Box>
+            <Box
+              textOverflow={'wrap'}>
               <Box>Email us:</Box>
               <Box>
-                <Link href="mailto:creatives@creativeplatform.io">
-                  creatives@creativeplatform.io
+                <Link
+                  color={"white"}
+                  textOverflow={'wrap'}
+                  href="mailto:creatives@creativeplatform.xyz">
+                  creatives@creativeplatform.xyz
                 </Link>
                 </Box>
             </Box>
@@ -240,7 +255,7 @@ const Footer = () => {
             </Box>
           </Flex>
         </Box>
-      </Grid>
+      </Box>
 
       {/* copmpany  */}
 
@@ -253,14 +268,14 @@ const Footer = () => {
           background="linear-gradient(to right, rgba(22, 29, 47, 0),#e50168,rgba(22,29,47,0));"
         />
         {/* Copyright */}
-        <Box textAlign="center">
-          Copyright © 2021{" "}
-          <Box as="text" color="#e50168">
-            <Link href="https://app.daohaus.club/dao/0x89/0xc48996a569911fd6eba1b97b6419731eed32041e/">
+        <Box w='100%' textAlign="center">
+          <Text color={"white"}>
+            Copyright © 2021{" "}
+            <Link color={"white"} href="https://app.daohaus.club/dao/0x89/0xc48996a569911fd6eba1b97b6419731eed32041e/" isExternal>
             Creative Organization DAO, LLC
             </Link>
-          </Box>
           . All Rights Reserved.
+          </Text>
         </Box>
       </Box>
     </Box>

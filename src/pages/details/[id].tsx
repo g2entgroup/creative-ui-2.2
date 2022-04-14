@@ -26,14 +26,16 @@ export default function Details() {
   }
 
   return (
-    <Content>
       <Box
-        width='50vw'
         margin='auto'
         marginBottom={'100px'}>
         <Box
           display='flex'
-          flexDir='row'>
+          flexDir={['column', 'column', 'row', 'row']}
+          margin={'auto'}
+          minWidth={['80vw','80vw','60vw','60vw',]}
+          maxWidth={['80vw','80vw','60vw','60vw',]}
+          marginBottom='20px'>
           <Box
             padding={2}>
               <Image 
@@ -78,6 +80,9 @@ export default function Details() {
           </Box>
         </Box>
         <Box
+          margin={'auto'}
+          minWidth={['90vw','80vw','60vw','60vw',]}
+          maxWidth={['90vw','80vw','60vw','60vw',]}
           marginBottom='50px'>
           <ReactPlayer 
             url={property.videoUrl}
@@ -85,7 +90,11 @@ export default function Details() {
             loop={true}
             width='100%'/>
         </Box>
-        <Box>
+        <Box
+          margin={'auto'}
+          minWidth={['90vw','80vw','60vw','60vw',]}
+          maxWidth={['90vw','80vw','60vw','60vw',]}
+          marginBottom='20px'>
           <Heading
             marginBottom='20px'
             color='white'>
@@ -98,10 +107,16 @@ export default function Details() {
           </Text>
         </Box>
         <Box
-          marginBottom='20px'
+        margin={'auto'}
+        minWidth={['90vw','80vw','60vw','60vw',]}
+        maxWidth={['90vw','80vw','60vw','60vw',]}
+        marginBottom='20px'
           display='flex'
-          flexDirection='row'
-          justifyContent='space-between'>
+          width={'100vw'}
+          flexDir={['column', 'column', 'column', 'row']}
+          flexWrap={['nowrap', 'nowrap', 'nowrap', 'wrap']}
+          justifyContent='space-between'
+          >
             <Box>
               <Heading
                 marginBottom='20px'
@@ -114,41 +129,37 @@ export default function Details() {
                   {property.capital}
               </Heading>
             </Box>
+            <CountDown 
+              title='Voting Ends'
+              time={property.voting}/>
+            <CountDown 
+              title='Decision'
+              time={property.decision}/>
             <CountDown
               title='Submission Deadline'
               time={property.submission}/>
         </Box>
         <Box
+          margin={'auto'}
+          minWidth={['90vw','80vw','60vw','60vw']}
+          maxWidth={['90vw','80vw','60vw','60vw']}
+          marginBottom='20px'
           display='flex'
-          flexDirection='row'
-          justifyContent='space-between'>
-          <CountDown 
-            title='Voting Ends'
-            time={property.voting}/>
-          <CountDown 
-            title='Decision'
-            time={property.decision}/>
-        </Box>
-        <Box
-          width='100%'
-          margin='auto'
-          marginTop='50px'
-          display='flex'
-          flexDir='row'
-          alignItems='center'
-          justifyContent='space-evenly'>
+          flexDir={['column', 'column', 'row', 'row']}
+          justifyContent={['space-evenly']}>
           <Button
             background='#e50168'
-            color='white'>
+            color='white'
+            margin={10}>
               Submit NFT
           </Button>
           <Button
             background='#e50168'
-            color='white'>
+            color='white'
+            margin={10}>
               Vote for Submission
           </Button>
         </Box>
       </Box>
-    </Content>
   );
 }

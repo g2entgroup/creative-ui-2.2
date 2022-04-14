@@ -41,7 +41,9 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
     <ChakraProvider resetCSS theme={theme}>
       <Web3ReactProvider getLibrary={getLibrary}>
       <StoreContainer.Provider>
-        <Container minH="100vh" minW="1080px">
+        <Box 
+          minH="100vh" 
+          minW="100vw">
         <Header
           children
          />
@@ -67,9 +69,8 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
             </Stack>
           </Box>
           <Component {...pageProps} />
-
           <Footer />
-        </Container>
+        </Box>
         </StoreContainer.Provider>
       </Web3ReactProvider>
     </ChakraProvider>
