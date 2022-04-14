@@ -40,6 +40,7 @@
     "blockies-ts": "^1.0.0",
     "bnc-notify": "^1.6.2",
     "chalk": "^4.1.1",
+    "coingecko-api": "^1.0.10",
     "eth-hooks": "^1.1.2",
     "ethers": "^5.1.0",
     "follow-redirects": "1.14.8",
