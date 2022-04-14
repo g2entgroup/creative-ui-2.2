@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Box, Badge, useToken } from "@chakra-ui/react";
+import { Box, Badge, useToken, useColorModeValue } from "@chakra-ui/react";
 import Icon from "@chakra-ui/icon";
 import ReactPlayer from 'react-player/lazy';
 
@@ -70,7 +70,7 @@ export default function LiveCampaigns() {
           {property.title}
         </Box>
 
-        <Box color="white">
+        <Box color={useColorModeValue("black", "white")}>
           {property.formattedPrice}
           <Box as="span" 
             bgGradient="linear(to-l, #7928CA, #e50168)"
@@ -78,7 +78,7 @@ export default function LiveCampaigns() {
             fontSize="lg"
             fontWeight="extrabold" 
           >
-            &nbsp;/ Weekly Prize
+            &nbsp;/ Prize Reward
           </Box>
         </Box>
 
