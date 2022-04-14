@@ -1,4 +1,4 @@
-import { Heading, SimpleGrid, Box, OrderedList, ListItem, Avatar, AvatarBadge, Link, Image } from "@chakra-ui/react";
+import { Heading, SimpleGrid, Box, OrderedList, ListItem, Avatar, AvatarBadge, Link, Image, useColorModeValue } from "@chakra-ui/react";
 import CreativeCard from '../components/common/Cards/CreativeCard';
 import BrandHero from '../components/BrandHero';
 import { Content } from "../components/common/Content/Content";
@@ -15,40 +15,54 @@ export default function Home() {
       <Main>
         {/* LATEST BRAND CAMPAIGNS */}
         <Heading as="h2" size="lg" color="white" my={4}>🆕 Latest Brand Campaigns</Heading>
-        <SimpleGrid columns={[1, 4]} spacing="2rem">
+        <Box
+           display='flex'
+           margin='auto'
+           flexDir={['column', 'row']}
+           flexWrap={['wrap']}
+           alignItems='center'
+           justifyContent='flex-start'>
           <CreativeCard />
           <CreativeCard />
           <CreativeCard />
           <CreativeCard />
-        </SimpleGrid>
+        </Box>
         {/* LATEST BRAND CAMPAIGNS END */}
       </Main>
       <Main>
         {/* TOP CREATORS */}
         <Heading as="h2" size="lg" color="white" my={4}>🏆 Top Creatives</Heading>
-        <TopCreatives />
+        {/*<TopCreatives />*/}
       </Main>
       {/* TOP CREATORS END */}
       <Main>
         {/* LIVE BRAND CAMPAIGNS */}
         <Heading as="h2" size="lg" color="white" my={4}>🎬 Live Brand Campaigns</Heading>
-        <SimpleGrid columns={[1, 4]} spacing="2rem">
+        <Box
+           display='flex'
+           margin='auto'
+           flexDir={['column', 'row']}
+           flexWrap={['wrap']}
+           justifyContent='flex-start'>
           <LiveCampaigns />
           <LiveCampaigns />
           <LiveCampaigns />
           <LiveCampaigns />
-        </SimpleGrid>
+        </Box>
         {/* LIVE BRAND CAMPAIGNS END */}
       </Main>
       <Main>
         {/* TRENDING COLLECTIONS */}
         <Heading as="h2" size="lg" color="white" my={4}>📈 Trending Collections</Heading>
-        <SimpleGrid columns={[1, 4]} spacing="2rem">
+        <Box
+           display='flex'
+           margin='auto'
+           flexDir={['column', 'row']}
+           flexWrap={['wrap']}
+           justifyContent='flex-start'>
           <TrendingCollections />
           <TrendingCollections />
-          <TrendingCollections /> 
-          <TrendingCollections />
-        </SimpleGrid>
+        </Box>
         {/* TRENDING COLLECTIONS END */}
       </Main>
       <Main>
