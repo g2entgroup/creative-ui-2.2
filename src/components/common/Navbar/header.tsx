@@ -90,7 +90,7 @@ const Header = ({ children }: HeaderProps): JSX.Element => {
   const { toggleColorMode: toggleMode } = useColorMode();
   const text = useColorModeValue("dark", "light");
   const SwitchIcon = useColorModeValue(FaMoon, FaSun);
-  const bg = useColorModeValue("white", "gray.900");
+  const bg = useColorModeValue("#F0F0F0", "gray.900");
   const ref = useRef(null);
   const [y, setY] = useState(0);
   const { height } = ref.current

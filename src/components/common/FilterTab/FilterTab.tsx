@@ -8,7 +8,8 @@ import {
     SimpleGrid, 
     HStack,
     Box,
-    useToken
+    useToken,
+    useColorModeValue
 } from "@chakra-ui/react";
 import Discover from "../../Discover";
 import FilterSort from "../FilterSort/FilterSort";
@@ -21,7 +22,7 @@ export default function FilterTab() {
             variant="soft-rounded" 
             colorScheme="pink"
             maxWidth='100vw'
-            marginBottom={50}>
+            margin={[0, 0, 10, 10]}>
             <HStack
                 display='flex'
                 margin={0}
@@ -29,39 +30,19 @@ export default function FilterTab() {
             <TabList
                 display='flex'
                 flexDir={['column','column', 'column', 'row']}
-                margin={[0]}>
+                margin={[0]}
+                >
                 <Tab>All</Tab>
-                <Tab>🖼 Art</Tab>
-                <Tab>📸 Photography</Tab>
-                <Tab>🎮 Games</Tab>
-                <Tab>👾 Metaverses</Tab>
-                <Tab>🎵 Music</Tab>
-                <Tab>🎞 Trailers</Tab>
-                <Tab>🎭 Pilots</Tab>
+                <Tab color={useColorModeValue("gray.900", "white")}>🖼&nbsp;Art</Tab>
+                <Tab color={useColorModeValue("gray.900", "white")}>📸&nbsp;Photography</Tab>
+                <Tab color={useColorModeValue("gray.900", "white")}>🎮&nbsp;Games</Tab>
+                <Tab color={useColorModeValue("gray.900", "white")}>👾&nbsp;Metaverses</Tab>
+                <Tab color={useColorModeValue("gray.900", "white")}>🎵&nbsp;Music</Tab>
+                <Tab color={useColorModeValue("gray.900", "white")}>🎞&nbsp;Trailers</Tab>
+                <Tab color={useColorModeValue("gray.900", "white")}>🎭&nbsp;Pilots</Tab>
             </TabList>
             <FilterSort />
             </HStack>
-            <TabPanels
-                display='flex'
-                margin={0}
-                flexDir={['column','column', 'column', 'row']}
-                >
-                <TabPanel>
-                    <Box             
-                         display='flex'
-                         maxWidth='90vw'
-                         flexDir={['column','column','column', 'row']}
-                         padding={[2, 2, 2, 10]}
-                         alignItems={['center','center','center', 'flex-start']}
-                         justifyContent={['center','center','center', 'flex-start']}
-                         flexWrap={['nowrap', 'nowrap', 'nowrap', 'wrap']}>
-                        <Discover />
-                        <Discover />
-                        <Discover />
-                        <Discover />
-                    </Box>
-                </TabPanel>
-            </TabPanels>
         </Tabs>
     );
 }
