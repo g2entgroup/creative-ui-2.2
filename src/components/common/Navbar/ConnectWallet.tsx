@@ -18,15 +18,6 @@ const myLoader = ({ src, width }) => {
   return `${src}?w=${width}&q=${75}`
 }
 
-const options = {
-  "containerId": "wert-widget",
-  "partner_id": process.env.NEXT_PUBLIC_WERT_PARTNER_ID,
-  "origin": "https://sandbox.wert.io",
-  "currency": "USD, EUR",
-  "autosize": true,
-  "commodities": "MAT",
-}
-
 
 function ConnectWallet(): JSX.Element {
   const { activate, activateBrowserWallet } = useEthers()
