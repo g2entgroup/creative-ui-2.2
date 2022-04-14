@@ -40,6 +40,7 @@ export default function LiveCampaigns() {
       rounded="lg" 
       overflow="hidden" 
       cursor='pointer'
+      margin={5}
       alignContent={"center"} 
       height="511px" 
       width="full" 
