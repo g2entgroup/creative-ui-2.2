@@ -7,6 +7,7 @@ import {
     TabPanel, 
     SimpleGrid, 
     HStack,
+    Box,
     useToken
 } from "@chakra-ui/react";
 import Discover from "../../Discover";
@@ -16,7 +17,10 @@ export default function FilterTab() {
     
 
     return (
-        <Tabs variant="soft-rounded" colorScheme="pink">
+        <Tabs 
+            variant="soft-rounded" 
+            colorScheme="pink"
+            marginBottom={50}>
             <HStack spacing={8}>
             <TabList>
                 <Tab>All</Tab>
@@ -32,70 +36,18 @@ export default function FilterTab() {
             </HStack>
             <TabPanels>
                 <TabPanel>
-                <SimpleGrid columns={[1, 4]} spacing="2rem">
-                    <Discover />
-                    <Discover />
-                    <Discover />
-                    <Discover />
-                </SimpleGrid>
-                </TabPanel>
-                <TabPanel>
-                <SimpleGrid columns={[1, 4]} spacing="2rem">
-                    <Discover />
-                    <Discover />
-                    <Discover />
-                    <Discover />
-                </SimpleGrid>
-                </TabPanel>
-                <TabPanel>
-                <SimpleGrid columns={[1, 4]} spacing="2rem">
-                    <Discover />
-                    <Discover />
-                    <Discover />
-                    <Discover />
-                </SimpleGrid>
-                </TabPanel>
-                <TabPanel>
-                <SimpleGrid columns={[1, 4]} spacing="2rem">
-                    <Discover />
-                    <Discover />
-                    <Discover />
-                    <Discover />
-                </SimpleGrid>
-                </TabPanel>
-                <TabPanel>
-                <SimpleGrid columns={[1, 4]} spacing="2rem">
-                    <Discover />
-                    <Discover />
-                    <Discover />
-                    <Discover />
-                </SimpleGrid>
-                </TabPanel>
-                <TabPanel>
-                <SimpleGrid columns={[1, 4]} spacing="2rem">
-                    <Discover />
-                    <Discover />
-                    <Discover />
-                    <Discover />
-                </SimpleGrid>
-                </TabPanel>
-                <TabPanel>
-                <SimpleGrid columns={[1, 4]} spacing="2rem">
-                    <Discover />
-                    <Discover />
-                    <Discover />
-                    <Discover />
-                </SimpleGrid>
-                </TabPanel>
-                <TabPanel>
-                <SimpleGrid columns={[1, 4]} spacing="2rem">
-                    <Discover />
-                    <Discover />
-                    <Discover />
-                    <Discover />
-                </SimpleGrid>
+                    <Box
+                        display='flex'
+                        margin='auto'
+                        flexDir={['column', 'row']}
+                        flexWrap={['wrap']}>
+                        <Discover />
+                        <Discover />
+                        <Discover />
+                        <Discover />
+                    </Box>
                 </TabPanel>
             </TabPanels>
-            </Tabs>
+        </Tabs>
     );
 }
