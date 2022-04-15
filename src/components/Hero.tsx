@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 //import { Image } from '@chakra-ui/react';
 import Image from 'next/image';
+import { Box } from '@chakra-ui/react';
 
 const myLoader = ({ src, width }) => {
     return `https://res.cloudinary.com/${src}?w=${width}}`
@@ -9,6 +10,8 @@ const myLoader = ({ src, width }) => {
   export default class Hero extends Component {
     render() {
         return (
+            <Box
+                marginTop={10}>
             <Image
                 loader={myLoader}
                 src='dyangxc7h/image/upload/v1623552244/creative/brands.jpg'
@@ -16,6 +19,7 @@ const myLoader = ({ src, width }) => {
                 width={1900}
                 height={1400}
             />
+            </Box>
         )
     }
 }
