@@ -16,18 +16,19 @@ export default function Home() {
       <Main>
         {/* LATEST BRAND CAMPAIGNS */}
         <Heading 
-          as="h2" 
+          as="h2"
+          margin={5} 
           size="lg" 
           color={useColorModeValue("black", "white")}          
           mx={10}>🆕 Latest Brand Campaigns</Heading>
         <Box
            display='flex'
            minWidth='100vw'
-           flexDir={['column','column','column', 'row']}
+           flexDir={['column','column','row', 'row']}
            padding={[2, 2, 2, 10]}
-           alignItems={['center','center','center', 'flex-start']}
-           justifyContent={['center','center','center', 'flex-start']}
-          flexWrap={['nowrap', 'nowrap', 'nowrap', 'wrap']}
+           alignItems={['center','center','flex-start', 'flex-start']}
+           justifyContent={['center','center','flex-start', 'flex-start']}
+           flexWrap={['nowrap', 'nowrap', 'wrap', 'wrap']}
            >
           <CreativeCard />
           <CreativeCard />
@@ -43,7 +44,7 @@ export default function Home() {
           as="h2" 
           size="lg" 
           color={useColorModeValue("black", "white")}          
-          mx={10}>🏆 Top Creatives</Heading>
+          mx={5}>🏆 Top Creatives</Heading>
         <TopCreatives />
       </Main>
       <Main>
@@ -51,16 +52,17 @@ export default function Home() {
         <Heading 
           as="h2" 
           size="lg" 
+          margin={5}
           color={useColorModeValue("black", "white")}          
           mx={10}>🎬 Live Brand Campaigns</Heading>
         <Box
            display='flex'
            minWidth='100vw'
-           flexDir={['column','column','column', 'row']}
+           flexDir={['column','column','row', 'row']}
            padding={[2, 2, 2, 10]}
-           alignItems={['center','center','center', 'flex-start']}
-           justifyContent={['center','center','center', 'flex-start']}
-          flexWrap={['nowrap', 'nowrap', 'nowrap', 'wrap']}>
+           alignItems={['center','center','flex-start', 'flex-start']}
+           justifyContent={['center','center','flex-start', 'flex-start']}
+           flexWrap={['nowrap', 'nowrap', 'wrap', 'wrap']}>
           <LiveCampaigns />
           <LiveCampaigns />
           <LiveCampaigns />
@@ -79,12 +81,11 @@ export default function Home() {
         <Box
           display='flex'
           minWidth='100vw'
-          flexDir={['column','column','column', 'row']}
+          flexDir={['column','column','row', 'row']}
           padding={[2, 2, 2, 10]}
-          alignItems={['center','center','center', 'flex-start']}
-          justifyContent={['center','center','center', 'flex-start']}
-          flexWrap={['nowrap', 'nowrap', 'nowrap', 'wrap']}
-          >
+          alignItems={['center','center','flex-start', 'flex-start']}
+          justifyContent={['center','center','flex-start', 'flex-start']}
+          flexWrap={['nowrap', 'nowrap', 'wrap', 'wrap']}>
           <TrendingCollections />
           <TrendingCollections />
           <TrendingCollections />
@@ -98,8 +99,9 @@ export default function Home() {
         {/* DISCOVER */}
         <Heading 
           as="h2" 
+          margin={5}
           size="lg" 
-         color={useColorModeValue("black", "white")}
+          color={useColorModeValue("black", "white")}
           mx={10}>🔭 Discover</Heading>
         <FilterTab />
         <Box             
@@ -107,8 +109,8 @@ export default function Home() {
           maxWidth='100vw'
           flexDir={['column','column','column', 'row']}
           padding={[2, 2, 2, 10]}
-          alignItems={['center','center','center', 'flex-start']}
-          justifyContent={['center','center','center', 'flex-start']}
+          alignItems={['center','center','flex-start', 'flex-start']}
+          justifyContent={['center','center','flex-start', 'flex-start']}
           flexWrap={['nowrap', 'nowrap', 'nowrap', 'wrap']}>
           <BrandDiscovery imagelink= "https://picsum.photos/200/300.webp?random=1" name="NFT Name" description="awesome creative NFT" creator="@creator" />
           <BrandDiscovery imagelink= "https://picsum.photos/200/300.webp?random=2" name="NFT Name" description="awesome creative NFT" creator="@creator" />
@@ -118,6 +120,7 @@ export default function Home() {
         <Box
           display='flex'
           maxWidth='100vw'
+          minW={'100vw'}
           flexDir={['row']}
           padding={[2, 2, 2, 10]}
           alignItems={['center']}
