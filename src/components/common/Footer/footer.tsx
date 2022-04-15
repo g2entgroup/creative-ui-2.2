@@ -129,7 +129,7 @@ const Footer = () => {
         </Box>
         <Box
           width={['100%', '50%', '50%', '25%']}
-          padding={5}>
+          padding={4}>
           <Box as="h3" fontWeight="500" fontSize="xl" color="#e50168">
             Contact Us
           </Box>
@@ -151,8 +151,7 @@ const Footer = () => {
             >
               <SiDiscord />
             </Box>
-            <Box>
-              <Box>Discord with us:</Box>
+            <Box padding={5}>
               <Box>
                 <Link href="https://discord.gg/8B4p7ztWTp" color={"white"} isExternal>Creative Discord</Link>
               </Box>
@@ -171,8 +170,7 @@ const Footer = () => {
               <AiOutlineMail />
             </Box>
             <Box
-              textOverflow={'wrap'}>
-              <Box>Email us:</Box>
+              textOverflow={'wrap'} padding={4}>
               <Box>
                 <Link
                   color={"white"}

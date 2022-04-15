@@ -19,12 +19,13 @@ export default function TopCreatives() {
     return (
     <Box
       display='flex'
-      flexDir={['column','column','column', 'row']}
-      width='90%'
+      flexDir={['row', 'row', 'row', 'row']}
       flexWrap='wrap'
+      width='90%'
       margin={10}
       alignContent={['flex-start', 'flex-start', 'flex-start', 'center']}
       justifyContent={['space-between']}
+      overflowY='hidden'
       > 
       <OrderedList
         display='flex'
@@ -122,7 +123,7 @@ export default function TopCreatives() {
         </ListItem>
       </OrderedList>
       <OrderedList
-        display='flex'
+        display={['none', 'flex', 'flex', 'flex']}
         flexDir='column'
         flexWrap='wrap'
       >
@@ -167,7 +168,7 @@ export default function TopCreatives() {
         </ListItem>
       </OrderedList>
       <OrderedList
-        display='flex'
+        display={['none', 'none', 'none', 'flex']}
         flexDir='column'
         flexWrap='wrap'
       >
@@ -212,7 +213,7 @@ export default function TopCreatives() {
                 </ListItem>
       </OrderedList>
       <OrderedList
-        display='flex'
+        display={['none', 'none', 'none', 'flex']}
         flexDir='column'
         flexWrap='wrap'
       >
