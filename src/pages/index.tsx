@@ -44,7 +44,7 @@ export default function Home() {
           as="h2" 
           size="lg" 
           color={useColorModeValue("black", "white")}          
-          mx={5}>🏆 Top Creatives</Heading>
+          mx={10}>🏆 Top Creatives</Heading>
         <TopCreatives />
       </Main>
       <Main>
