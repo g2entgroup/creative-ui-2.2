@@ -11,7 +11,7 @@ import TopCreatives from "../components/TopCreatives";
 
 export default function Home() {
   return (
-    <Content>
+    <Box>
       <BrandHero />
       <Main>
         {/* LATEST BRAND CAMPAIGNS */}
@@ -132,6 +132,6 @@ export default function Home() {
         </Box>
         {/* DISCOVER END*/}
       </Main>
-    </Content>
+    </Box>
   );
 }
