@@ -237,7 +237,6 @@ type WindowInstanceWithEthereum = Window & typeof globalThis & { ethereum?: prov
               >
               Rarible Mint
             </Button>
-            {/* <Sell /> */}
           </HStack>
           <HStack m={4} direction={'row'} spacing={4}>
           <Button
