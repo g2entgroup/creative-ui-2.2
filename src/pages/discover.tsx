@@ -4,28 +4,34 @@ import FilterTab from "../components/common/FilterTab/FilterTab";
 export default function Discover() {
     return(
         <Box
-            marginBottom={40}
-            width='100vw'
             display='flex'
-            flexDir='column'
-            alignItems='center'
-            justifyContent='center'>
+            minW='100vw'
+            maxW='100vw'
+            flexDir={['column','column','row', 'row']}
+            alignItems={['center','center','flex-start', 'flex-start']}
+            justifyContent={['center','center','flex-start', 'flex-start']}
+            flexWrap={['nowrap', 'nowrap', 'wrap', 'wrap']}
+        >
             <Box
-                width='100vw'
                 display='flex'
-                flexDir='column'
-                alignItems='flex-start'
-                justifyContent='flex-start'>
+                minWidth='100vw'
+                flexDir={['column','column','column', 'column']}
+                padding={[2, 2, 2, 10]}
+                alignItems={['center','center','center', 'flex-start']}
+                justifyContent={['center','center','center', 'center']}
+                flexWrap={['nowrap', 'nowrap', 'wrap', 'wrap']}>
                 <Text as="h1" fontSize="4xl" fontStyle="bold" margin="10">Discover and Explore</Text>
                 <FilterTab />
             </Box>
             <Box
                 display='flex'
-                margin='auto'
-                flexDir={['column', 'row']}
-                flexWrap={['wrap']}
-                alignItems='center'
-                justifyContent='center'>
+                minWidth='100vw'
+                flexDir={['column','column','row', 'row']}
+                padding={[2, 2, 2, 10]}
+                alignItems={['center','center','flex-start', 'flex-start']}
+                justifyContent={['center','center','flex-start', 'flex-start']}
+                flexWrap={['nowrap', 'nowrap', 'wrap', 'wrap']}
+            >
                 <BrandDiscovery imagelink= "https://picsum.photos/200/300.webp?random=1" name="NFT Name" description="awesome creative NFT" creator="@creator"/>
                 <BrandDiscovery imagelink= "https://picsum.photos/200/300.webp?random=2" name="NFT Name" description="awesome creative NFT" creator="@creator" />
                 <BrandDiscovery imagelink= "https://picsum.photos/200/300.webp?random=3" name="NFT Name" description="awesome creative NFT" creator="@creator" />

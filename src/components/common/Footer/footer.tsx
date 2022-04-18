@@ -83,6 +83,7 @@ const Footer = () => {
             borderRadius="2rem"
             mt="1rem"
             cursor="pointer"
+            maxW={'90%'}
           >
             <Link href="https://app.daohaus.club/dao/0x89/0xc48996a569911fd6eba1b97b6419731eed32041e/" isExternal target="_blank">Creative Organization</Link>
           </Box>
@@ -141,7 +142,11 @@ const Footer = () => {
             background="linear-gradient(to right, rgba(22, 29, 47, 0),#e50168,rgba(22,29,47,0));"
           />
           {/* phone  */}
-          <Flex alignItems="center">
+          <Box
+            display='flex'
+            flexDir='row'
+            flexWrap='wrap' 
+            alignItems="center">
             <Box
               mr="1rem"
               bgGradient="linear(to-b, #2b5fa8, #e6006b)"
@@ -156,9 +161,16 @@ const Footer = () => {
                 <Link href="https://discord.gg/8B4p7ztWTp" color={"white"} isExternal>Creative Discord</Link>
               </Box>
             </Box>
-          </Flex>
+          </Box>
           {/* email  */}
-          <Flex alignItems="center">
+          <Box
+          
+            display='flex'
+            flexDir='row'
+            flexWrap='wrap' 
+            alignItems="center"
+            maxWidth={'80%'}
+            overflowY={'hidden'}>
             <Box
               mr="1rem"
               bgGradient="linear(to-b, #2b5fa8, #e6006b)"
@@ -170,17 +182,19 @@ const Footer = () => {
               <AiOutlineMail />
             </Box>
             <Box
-              textOverflow={'wrap'} padding={4}>
+              overflow="wrap"
+              textOverflow={'wrap'}
+              padding={4}>
               <Box>
                 <Link
                   color={"white"}
                   textOverflow={'wrap'}
                   href="mailto:creatives@creativeplatform.xyz">
-                  creatives@creativeplatform.xyz
+                  <Text>creatives@creativeplatform.xyz</Text>
                 </Link>
                 </Box>
             </Box>
-          </Flex>
+          </Box>
 
           {/* address  
           <Flex mt="1rem" alignItems="center">
@@ -262,7 +276,7 @@ const Footer = () => {
         <Box
           m="1rem auto"
           h="2px"
-          w="300px"
+          maxW="300px"
           background="linear-gradient(to right, rgba(22, 29, 47, 0),#e50168,rgba(22,29,47,0));"
         />
         {/* Copyright */}
