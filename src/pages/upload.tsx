@@ -25,6 +25,7 @@ import {
   Checkbox,
   RadioGroup,
   Radio,
+  useToast,
   Spinner
 } from "@chakra-ui/react";
 import { providers } from 'ethers'
@@ -89,6 +90,7 @@ export default function Component() {
         }
     }
 
+    const toast = useToast();
     
     async function onFileUpload(values){
         event.preventDefault();
@@ -96,11 +98,20 @@ export default function Component() {
         setSpin(true);
         console.log(JSON.stringify(values))
         const textileInstance = await TextileInstance.getInstance();
-        const nftMetadata = await textileInstance.uploadNFT(selectedFile, values.name, values.description);
+        const nftMetadata = await textileInstance.uploadNFT(selectedFile, values.name, values.description, values.attributes);
         await textileInstance.addNFTToUserCollection(nftMetadata);
         const all = await textileInstance.getAllUserNFTs();
 
-      if (nftMetadata != undefined) { setNftUploaded(true); setSpin(false) }
+      if (nftMetadata != undefined) { 
+        setNftUploaded(true); 
+        setSpin(false); 
+        toast({
+          title: "Submitted!",
+          status: "success",
+          duration: 3000,
+          isClosable: true
+        }); 
+      }
       console.log("nftmetadata : " + nftMetadata);
       
     }
@@ -180,7 +191,7 @@ export default function Component() {
           </GridItem>
           <GridItem mt={[5, null, 0]} colSpan={{ md: 2 }}>
             <chakra.form
-                onSubmit={handleSubmit(onFileUpload)}
+              onSubmit={handleSubmit(onFileUpload)}
               method="POST"
               shadow="base"
               rounded={[null, "md"]}
@@ -317,26 +328,27 @@ export default function Component() {
                 bg={useColorModeValue("gray.50", "gray.900")}
                 textAlign="right"
               >
-                <ButtonGroup variant='outline' spacing='6'>
+                  {  spin ? (
                   <Button
-                    type="button"
-                    disabled={!submitEnabled}
+                    isLoading
                     color={useColorModeValue("gray.700", "white")}
                     fontWeight="md"
-                    onClick={handleSubmit(saveOnFileCoin)}
-                  >
-                    Store on Filecoin
-                  </Button>
-                  <Button
-                    type="submit"
-                    disabled={!submitEnabled}
-                    color={useColorModeValue("gray.700", "white")}
-                    fontWeight="md"
+                    loadingText='Loading'
+                    spinnerPlacement='end'
                   >
                     Create
-                  </Button>
-                </ButtonGroup>
-                {  spin ? (<Spinner size='lg' color='pink' />) : ""}
+                  </Button>) :
+                  (
+                    <Button
+                      type="submit"
+                      disabled={!submitEnabled}
+                      color={useColorModeValue("gray.700", "white")}
+                      fontWeight="md"
+                    >
+                      Create
+                    </Button>
+                  )
+                  }
 
               </Box>
             </chakra.form>
