@@ -46,8 +46,6 @@
     "follow-redirects": "1.14.8",
     "framer-motion": "^4.1.9",
     "google-protobuf": "^3.2.0",
-    "graphql": ">=16.0.0",
-    "graphql-tag": "^2.12.6",
     "ipfs-http-client": "^50.1.1",
     "isomorphic-unfetch": "^3.1.0",
     "isomorphic-ws": "^4.0.1",
