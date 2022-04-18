@@ -63,11 +63,9 @@ type WindowInstanceWithEthereum = Window & typeof globalThis & { ethereum?: prov
 
   export default function BrandDiscovery({imagelink, name, description, creator} ) {
     return (
-      <>
           <Box
             role={'group'}
             maxW='sm'
-            minW='sm'
             margin={5}
             overflow="hidden"
             width='full'
@@ -151,6 +149,5 @@ type WindowInstanceWithEthereum = Window & typeof globalThis & { ethereum?: prov
               <Buy />
           </Stack>
         </Box>
-      </>
     );
   }

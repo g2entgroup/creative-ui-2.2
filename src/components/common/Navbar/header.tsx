@@ -470,13 +470,15 @@ const Header = ({ children }: HeaderProps): JSX.Element => {
             </Flex>
             {account ? (
               <Box
-                display="flex"
+                display={['flex', 'flex', 'flex', 'flex']}
                 alignItems="center"
                 background="gray.700"
                 borderRadius="xl"
                 py="0"
               >
-                <Box px="2">
+                <Box 
+                  display={['none', 'none', 'none', 'flex']}
+                  px="2">
                   <chakra.h1 color="white" fontSize="sm">
                     <Balance/>
 
@@ -484,21 +486,29 @@ const Header = ({ children }: HeaderProps): JSX.Element => {
                   </chakra.h1>
                 </Box>
                 {chainId === 80001 ? (
-                  <Box px="3" bg="purple.300">
+                  <Box
+                  display={['none', 'none', 'flex', 'flex']} 
+                  px="3" 
+                  bg="purple.300">
                   <chakra.h1 color="white" fontSize="md">
                     <Text>{chainName}</Text>
                     {/* 15.02&nbsp;ETH */}
                   </chakra.h1>
                 </Box>
                 ) : chainId === 137 ? (
-                <Box px="3" bg="purple.600">
+                <Box 
+                  display={['none', 'none', 'none', 'flex']}
+                  px="3" 
+                  bg="purple.600">
                 <chakra.h1 color="white" fontSize="md">
                   <Text>{chainName}</Text>
                   {/* 15.02&nbsp;ETH */}
                 </chakra.h1>
               </Box>
                 ) : 
-                <Box px="3">
+                <Box 
+                  display={['none', 'none', 'none', 'flex']}
+                  px="3">
                 <chakra.h1 color="white" fontSize="md">
                   <Text>{chainName}</Text>
                   {/* 15.02&nbsp;ETH */}
@@ -521,11 +531,28 @@ const Header = ({ children }: HeaderProps): JSX.Element => {
                     px={3}
                     height="38px"
                   >
-                    <chakra.h2 color="white"  fontSize="md" fontWeight='medium'>
-                      { ens ?? shortenAddress(account)}
-                    </chakra.h2>
+                    <Box
+                      display={['none', 'none', 'flex', 'flex']}>
+                      <chakra.h2 color="white"  fontSize="md" fontWeight='medium'>
+                        { ens ?? shortenAddress(account)}
+                      </chakra.h2>
+                    </Box>
+                    <Box
+                      display={['flex', 'flex', 'none', 'none']}>
+                        <AiOutlineMenu />
+                    </Box>
                   </MenuButton>
-                  <MenuList>
+                  <MenuList
+                    zIndex='100'
+                    minH={'400px'}
+                    maxH={'400px'}
+                    overflowY='scroll'>
+                    <MenuItem
+                       display={['flex', 'flex', 'none', 'none']}>
+                      <chakra.h2 color="white"  fontSize="md" fontWeight='medium'>
+                        { ens ?? shortenAddress(account)}
+                      </chakra.h2>
+                    </MenuItem>
                     <MenuItem>
                       {/* sign in  */}
                       <SignIn closeButton={check()}/>
@@ -551,7 +578,34 @@ const Header = ({ children }: HeaderProps): JSX.Element => {
                       💰 Add Funds 
                     </MenuItem>
                     </NextLink>
-                    
+                    <MenuItem 
+                      display={['flex', 'flex', 'none', 'none']}
+                      as={Link} 
+                      onClick={() => router.push('/discover')} 
+                      color="white">
+                      Discover
+                    </MenuItem>
+                    <MenuItem 
+                      display={['flex', 'flex', 'none', 'none']}
+                      as={Link}  
+                      onClick={() => router.push('/community')} 
+                      color="white">
+                      Activity
+                    </MenuItem>
+                    <MenuItem 
+                      display={['flex', 'flex', 'none', 'none']}
+                      as={Link} 
+                      onClick={() => router.push('/vote')} 
+                      color="white">
+                      Vote
+                    </MenuItem>
+                    <MenuItem 
+                      display={['flex', 'flex', 'none', 'none']}
+                      as={Link} 
+                      onClick={() => router.push('/community')} 
+                      color="white">
+                      Community
+                    </MenuItem>
                     <MenuItem as={Link} color="red" onClick={() => router.push('/upload')}>
                           Upload
                     </MenuItem>
@@ -561,9 +615,23 @@ const Header = ({ children }: HeaderProps): JSX.Element => {
                     <MenuItem as={Link} onClick={() => router.push('/all')} color="red">
                           View My Library
                     </MenuItem>
-                    <MenuItem as={Button} color="red"
-                  
-                    variant="solid"
+                    <MenuItem>
+                      <IconButton
+                        size="md"
+                        fontSize="lg"
+                        aria-label={`Switch to ${text} mode`}
+                        variant="ghost"
+                        color="brand.700"
+                        ml={{ base: "0", md: "3" }}
+                        onClick={toggleMode}
+                        icon={<SwitchIcon />}
+                      />
+                      <NotificationDrawer/>
+                    </MenuItem>
+                    <MenuItem 
+                      as={Button} 
+                      color="red"
+                      variant="solid"
                       onClick={() => {
                         deactivate()
                       }}
