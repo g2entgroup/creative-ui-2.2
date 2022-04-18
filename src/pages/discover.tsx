@@ -15,10 +15,10 @@ export default function Discover() {
             <Box
                 display='flex'
                 minWidth='100vw'
-                flexDir={['column','column','row', 'row']}
+                flexDir={['column','column','column', 'column']}
                 padding={[2, 2, 2, 10]}
-                alignItems={['center','center','flex-start', 'flex-start']}
-                justifyContent={['center','center','flex-start', 'flex-start']}
+                alignItems={['center','center','center', 'flex-start']}
+                justifyContent={['center','center','center', 'center']}
                 flexWrap={['nowrap', 'nowrap', 'wrap', 'wrap']}>
                 <Text as="h1" fontSize="4xl" fontStyle="bold" margin="10">Discover and Explore</Text>
                 <FilterTab />
