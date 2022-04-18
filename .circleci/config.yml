@@ -31,6 +31,7 @@ jobs:
       - run:
           name: Run tests
           command: yarn test
+    parallelism: 4
 
 workflows:
   # Below is the definition of your workflow.
