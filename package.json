@@ -24,7 +24,7 @@
     "@ethersproject/providers": "^5.1.0",
     "@ethersproject/units": "^5.1.0",
     "@loomhq/loom-embed": "^1.2.7",
-    "@loomhq/loom-sdk": "^2.21.2",
+    "@loomhq/record-sdk": "^2.35.15",
     "@textile/eth-storage": "^1.0.0",
     "@textile/hub": "^6.1.2",
     "@usedapp/core": "^0.4.4",

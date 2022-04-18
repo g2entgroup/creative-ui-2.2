@@ -27,7 +27,7 @@ import {
   Radio,
 } from "@chakra-ui/react";
 import { FaUser } from "react-icons/fa";
-import { setup, isSupported } from "@loomhq/loom-sdk";
+import { setup, isSupported } from "@loomhq/record-sdk";
 import { oembed } from "@loomhq/loom-embed";
 
 const API_KEY = process.env.NEXT_PUBLIC_LOOM;
