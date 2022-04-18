@@ -20,6 +20,8 @@ psd
 thumb
 sketch
 
+yarn.lock
+
 # End of https://www.toptal.com/developers/gitignore/api/react
 
 .env.me
