@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Spacer, SimpleGrid } from "@chakra-ui/react"
+import { Spacer, Box } from "@chakra-ui/react"
 import { Flex, Center} from "@chakra-ui/react"
 import BucketCard from '../components/common/Cards/BucketCard'
 import { Button, Stack } from "@chakra-ui/react"
@@ -88,15 +88,21 @@ export default function All () {
                 <Center>    
                     <Button colorScheme="blue" onClick={fetchGallery} hidden={displayPix}> Fetch my photos </Button>
                 </Center>
-                <SimpleGrid columns={{sm: 1, md: 4}} marginBottom={20} spacing={20} hidden={!displayPix}>
-
+                <Box
+                    display='flex'
+                    minWidth='100vw'
+                    flexDir={['column','column','row', 'row']}
+                    padding={[2, 2, 2, 10]}
+                    alignItems={['center','center','flex-start', 'flex-start']}
+                    justifyContent={['center','center','center', 'center']}
+                    flexWrap={['nowrap', 'nowrap', 'wrap', 'wrap']} >
                     {   
                         cids.map((id) => (
                             <BucketCard imagelink={"https://hub.textile.io/ipfs/"+ id.cid } key={id.cid} creator={id.creator} name={id.name} description={id.description} deleteMedia={deleteMedia}></BucketCard>
                         )) 
                     }
             
-                </SimpleGrid>
+                </Box>
             </Flex> 
         </>
     )
