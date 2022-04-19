@@ -101,6 +101,7 @@ type WindowInstanceWithEthereum = Window & typeof globalThis & { ethereum?: prov
             overflow="hidden"
             width='full'
             height='auto'
+            margin={5}
             bg={useColorModeValue('white', 'gray.700')}
             boxShadow={'lg'}
             borderWidth="1px"

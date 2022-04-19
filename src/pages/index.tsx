@@ -23,11 +23,10 @@ export default function Home() {
           mx={10}>🆕 Latest Brand Campaigns</Heading>
         <Box
            display='flex'
-           minWidth='100vw'
            flexDir={['column','column','row', 'row']}
            padding={[2, 2, 2, 10]}
            alignItems={['center','center','flex-start', 'flex-start']}
-           justifyContent={['center','center','flex-start', 'flex-start']}
+           justifyContent={['center','center','center', 'center']}
            flexWrap={['nowrap', 'nowrap', 'wrap', 'wrap']}
            >
           <CreativeCard />
@@ -61,7 +60,7 @@ export default function Home() {
            flexDir={['column','column','row', 'row']}
            padding={[2, 2, 2, 10]}
            alignItems={['center','center','flex-start', 'flex-start']}
-           justifyContent={['center','center','flex-start', 'flex-start']}
+           justifyContent={['center','center','center', 'center']}
            flexWrap={['nowrap', 'nowrap', 'wrap', 'wrap']}>
           <LiveCampaigns />
           <LiveCampaigns />
@@ -84,7 +83,7 @@ export default function Home() {
           flexDir={['column','column','row', 'row']}
           padding={[2, 2, 2, 10]}
           alignItems={['center','center','flex-start', 'flex-start']}
-          justifyContent={['center','center','flex-start', 'flex-start']}
+          justifyContent={['center','center','center', 'center']}
           flexWrap={['nowrap', 'nowrap', 'wrap', 'wrap']}>
           <TrendingCollections />
           <TrendingCollections />
@@ -110,7 +109,7 @@ export default function Home() {
           flexDir={['column','column','column', 'row']}
           padding={[2, 2, 2, 10]}
           alignItems={['center','center','flex-start', 'flex-start']}
-          justifyContent={['center','center','flex-start', 'flex-start']}
+          justifyContent={['center','center','center', 'center']}
           flexWrap={['nowrap', 'nowrap', 'nowrap', 'wrap']}>
           <BrandDiscovery imagelink= "https://picsum.photos/200/300.webp?random=1" name="NFT Name" description="awesome creative NFT" creator="@creator" />
           <BrandDiscovery imagelink= "https://picsum.photos/200/300.webp?random=2" name="NFT Name" description="awesome creative NFT" creator="@creator" />
