@@ -530,9 +530,8 @@ const Header = ({ children }: HeaderProps): JSX.Element => {
                   </MenuButton>
                   <MenuList
                     zIndex='100'
-                    minH={'400px'}
                     maxH={'400px'}
-                    overflowY='scroll'>
+                    overflowY={['scroll','scroll','hidden', 'hidden']}>
                     <MenuItem
                        display={['flex', 'flex', 'none', 'none']}>
                       <chakra.h2 color="white"  fontSize="md" fontWeight='medium'>
