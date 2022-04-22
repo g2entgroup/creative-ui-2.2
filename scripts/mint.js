@@ -2,16 +2,17 @@
 //const { config, ethers } = require("hardhat");
 
 
-const {ethers} = require('ethers');
+const { useEthers } = require('@usedapp/core');
 const contractAddress = '0xD55cf33d0648837032c4396c72a44CE3C1C7c1b1'
 //contract abi
-const contractAbi = require("../artifacts/contracts/CreativeNFT.sol/CreativeNFT.json");
+const contractAbi = require("../contracts/CreativeNFT.json");
 
 //initializing web3
 //Metamask
-const provider = new ethers.providers.Web3Provider(window.ethereum)
-await provider.send("eth_requestAccounts", []);
-const signer = provider.getSigner()
+const { library } = useEthers();
+//const provider = new ethers.providers.Web3Provider(window.ethereum)
+await library.send("eth_requestAccounts", []);
+const signer = library.getSigner()
 const contractSend = new ethers.Contract(contractAddress, contractAbi, signer);
 
 //initializing contract
