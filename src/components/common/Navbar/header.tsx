@@ -10,8 +10,6 @@ import {
   chakra,
   HStack,
   Link,
-  LinkBox,
-  LinkOverlay,
   Popover,
   PopoverTrigger,
   PopoverContent,
