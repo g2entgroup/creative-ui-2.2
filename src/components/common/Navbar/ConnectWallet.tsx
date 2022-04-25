@@ -11,7 +11,7 @@ import {
 } from '@chakra-ui/react';
 import { useEthers } from '@usedapp/core';
 import React from 'react';
-import { walletconnect, arkaneConnect } from '../../../utils/connectors';
+import { walletconnect } from '../../../utils/connectors';
 import Image from 'next/image';
 
 const myLoader = ({ src, width }) => {
@@ -87,28 +87,6 @@ function ConnectWallet(): JSX.Element {
               }}
             >
               WalletConnect
-            </Button>
-            <Button
-              justifyContent="space-between"
-              width="100%"
-              mb="4"
-              size="lg"
-              colorScheme= "pink"
-              variant="solid"
-              rightIcon={
-                <Image
-                  loader={myLoader}
-                  height={20}
-                  width={20}
-                  src="/images/venly_logo.png"
-                  alt="WalletConnect"
-                />
-              }
-              onClick={() => {
-                arkaneConnect
-              }}
-            >
-              Venly
             </Button>
           </ModalBody>
         </ModalContent>

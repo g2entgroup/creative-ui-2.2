@@ -1,7 +1,6 @@
 // import { InjectedConnector } from '@web3-react/injected-connector';
 // import { NetworkConnector } from '@web3-react/network-connector';
 import { WalletConnectConnector } from '@web3-react/walletconnect-connector';
-import { ArkaneConnect } from '@arkane-network/arkane-connect';
 
 const INFURA_KEY = process.env.NEXT_PUBLIC_INFURA_KEY;
 const PROVIDER_MUMBAI = process.env.NEXT_PUBLIC_PROVIDER_MUMBAI;
@@ -29,5 +28,3 @@ export const walletconnect = new WalletConnectConnector({
   rpc: { 1: RPC_URLS[1], 4: RPC_URLS[4], 8001: RPC_URLS[80001], 137: RPC_URLS[137] },
   qrcode: true
 });
-
-export const arkaneConnect = new ArkaneConnect(process.env.NEXT_PUBLIC_ARKANE_CLIENT_ID, { environment: 'staging'}); 
