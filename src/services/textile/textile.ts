@@ -1,3 +1,4 @@
+import { ArrayInterpolation } from '@emotion/react';
 import { Buckets, PrivateKey, KeyInfo, Client, ThreadID, GetThreadResponse } from '@textile/hub'
 import { NFTMetadata, TokenMetadata } from './types'
 import { CoreAPI, init } from "@textile/eth-storage";
@@ -73,7 +74,7 @@ export class TextileInstance {
     }
   }
 
-  public async uploadNFT(file: File, name: string = "", description: string = "", attributes: string = '{"": any; }'): Promise<NFTMetadata> {
+  public async uploadNFT(file: File, name: string = "", description: string = "", attributes: string[]): Promise<NFTMetadata> {
     if (!this.bucketInfo.bucket || !this.bucketInfo.bucketKey) {
       throw new Error('No bucket client or root key');
     }
@@ -92,7 +93,7 @@ export class TextileInstance {
       description: description,
       path: location,
       date: now.toString(),
-      attributes: {attributes}
+      attributes: {attributes,string:[]}
     };
   }
 

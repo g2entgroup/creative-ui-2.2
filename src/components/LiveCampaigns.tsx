@@ -39,11 +39,10 @@ export default function LiveCampaigns() {
       borderWidth="1px" 
       rounded="lg" 
       overflow="hidden" 
-      cursor='pointer'
-      margin={5}
       alignContent={"center"} 
       height="511px" 
-      width="full" 
+      width="full"
+      margin={5}
       boxShadow={`inset 0 4px 0 ${brand400}, 0 0 8px ${brand200}`}>
       <ReactPlayer 
         url={property.videoUrl}
