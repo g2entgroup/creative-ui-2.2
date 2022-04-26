@@ -87,9 +87,6 @@ type WindowInstanceWithEthereum = Window & typeof globalThis & { ethereum?: prov
               mt={-12}
               pos={'relative'}
               height={'230px'}
-              display='flex'
-              alignItems='center'
-              justifyContent='center'
               _after={{
                 transition: 'all .3s ease',
                 content: '""',
