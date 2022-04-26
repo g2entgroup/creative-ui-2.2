@@ -24,10 +24,7 @@ import {
 import Link from "next/link";
 import Image from "next/image";
 import SignIn from './SignIn';
-
-const myLoader = ({ src, width, quality }) => {
-  return `https://res.cloudinary.com/${src}?w=${width}&q=${quality || 75}`
-}
+import Logo from './Logo-100';
 
 const check = () => {
   if(localStorage.getItem('closeButtons') == 'true') {
@@ -60,13 +57,7 @@ const SignUp = (props) => {
           >
             <Flex alignItems="center" pt="2%" justifyContent="space-between">
               <Stack spacing={1}>
-              <Image
-                loader={myLoader}
-                src="dyangxc7h/image/upload/v1623552244/creative/Creative_logo.png"
-                alt="Creative Logo"
-                width={100}
-                height={100}
-              />
+              <Logo />
               <Heading fontSize="2rem">CREATIVE</Heading>
               </Stack>
               <Container>

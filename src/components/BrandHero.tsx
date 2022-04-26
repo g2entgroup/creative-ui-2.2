@@ -1,12 +1,9 @@
 import React from "react";
 import { chakra, Box, useColorModeValue, Icon } from "@chakra-ui/react";
-import Image from "next/image";
+import Hero from "../components/Hero";
+
 
 const imgSrc = 'brands.jpg'
-
-const myLoader = ({ src, width, quality }) => {
-  return `https://res.cloudinary.com/${src}?w=${width}&q=${quality || 75}`
-}
 
 const BrandHero = () => {
   const bg = useColorModeValue("white", "gray.800");
@@ -134,14 +131,7 @@ const BrandHero = () => {
         right={{ lg: 0 }}
         w={{ lg: "50%" }}
       >
-        <Image
-          loader={myLoader}
-          src="dyangxc7h/image/upload/v1623552689/creative/brands.jpg"
-          alt="Time Square Brands"
-          width={1000}
-          height={720}
-          
-        />
+        <Hero />
       </Box>
     </Box>
   );

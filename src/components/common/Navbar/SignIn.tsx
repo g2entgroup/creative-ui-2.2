@@ -26,11 +26,9 @@ import {
   Stack,
   createStandaloneToast
 } from "@chakra-ui/react";
-import Image from "next/image";
 import { TextileInstance } from "../../../services/textile/textile";
 import SignUp from './SignUp';
-
-const imgSrc = 'Creative_logo.png'
+import Logo from './Logo-100';
 
 const myLoader = ({ src, width, quality }) => {
   return `https://res.cloudinary.com/${src}?w=${width}&q=${quality || 75}`
@@ -202,13 +200,7 @@ const SignIn = (props) => {
           >
             <Flex alignItems="center" pt="2%" justifyContent="space-between">
               <Stack spacing={1}>
-              <Image
-                loader={myLoader}
-                src="dyangxc7h/image/upload/v1623552244/creative/Creative_logo.png"
-                alt="Creative Logo"
-                width={100}
-                height={100}
-              />
+              <Logo />
               <Heading fontSize="2rem">CREATIVE</Heading>
               </Stack>
               <Container>

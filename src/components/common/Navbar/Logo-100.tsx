@@ -6,15 +6,15 @@ const myLoader = ({ src, width, quality }) => {
     return `https://res.cloudinary.com/${src}?w=${width}&q=${quality || 75}`
   }
 
-export default class Hero extends Component {
+export default class Logo extends Component {
     render() {
         return (
             <Image
                 loader={myLoader} 
-                src="dyangxc7h/image/upload/v1623552244/creative/brands.jpg"
+                src="dyangxc7h/image/upload/v1623552244/creative/Creative_logo.png"
                 alt="Creative Logo"
-                width={1920}
-                height={1400} 
+                width={155}
+                height={139} 
             />
         )
     }
