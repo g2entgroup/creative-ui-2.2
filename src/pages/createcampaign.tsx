@@ -934,15 +934,27 @@ export default function Component() {
                 bg={useColorModeValue("gray.50", "gray.900")}
                 textAlign="right"
               >
-                <Button
-                  type="submit"
-                  colorScheme={"red"}
-                  _focus={{ shadow: "" }}
-                  fontWeight="md"
-                  color={useColorModeValue("gray.700", "gray.800")}
-                >
-                  Save
-                </Button>
+                <ButtonGroup>
+                  <Button
+                    type="submit"
+                    colorScheme={"red"}
+                    _focus={{ shadow: "" }}
+                    fontWeight="md"
+                    color={useColorModeValue("gray.700", "gray.800")}
+                  >
+                    Save
+                  </Button>
+                  <Button
+                    type="submit"
+                    isDisabled
+                    colorScheme={"red"}
+                    _focus={{ shadow: "" }}
+                    fontWeight="md"
+                    color={useColorModeValue("gray.700", "gray.800")}>
+                      Deploy Campaign
+                  </Button>
+                </ButtonGroup>
+                
               </Box>
             </chakra.form>
           </GridItem>
