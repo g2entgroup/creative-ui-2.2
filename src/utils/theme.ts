@@ -33,7 +33,7 @@ export default {
     ...theme,
     colors: {
         ...theme.colors,
-        dark: { 100: '#1A202C' },
+        dark: { 100: '#CBD5E0' },
         light: { 100: '#f4f5f9' },
         primary: { 100: '#EC407A' },
         secondary: { 100: '#FFCA7F' },
