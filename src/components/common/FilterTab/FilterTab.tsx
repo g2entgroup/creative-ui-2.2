@@ -8,8 +8,7 @@ import {
     SimpleGrid, 
     HStack,
     Box,
-    useToken,
-    useColorModeValue
+    useToken
 } from "@chakra-ui/react";
 import Discover from "../../Discover";
 import FilterSort from "../FilterSort/FilterSort";
@@ -21,28 +20,34 @@ export default function FilterTab() {
         <Tabs 
             variant="soft-rounded" 
             colorScheme="pink"
-            maxWidth='100vw'
-            margin={[0, 0, 10, 10]}>
-            <HStack
-                display='flex'
-                margin={0}
-                flexDir={['column','column', 'column', 'row']}>
-            <TabList
-                display='flex'
-                flexDir={['column','column', 'column', 'row']}
-                margin={[0]}
-                >
+            marginBottom={50}>
+            <HStack spacing={8}>
+            <TabList>
                 <Tab>All</Tab>
-                <Tab color={useColorModeValue("gray.900", "white")}>🖼&nbsp;Art</Tab>
-                <Tab color={useColorModeValue("gray.900", "white")}>📸&nbsp;Photography</Tab>
-                <Tab color={useColorModeValue("gray.900", "white")}>🎮&nbsp;Games</Tab>
-                <Tab color={useColorModeValue("gray.900", "white")}>👾&nbsp;Metaverses</Tab>
-                <Tab color={useColorModeValue("gray.900", "white")}>🎵&nbsp;Music</Tab>
-                <Tab color={useColorModeValue("gray.900", "white")}>🎞&nbsp;Trailers</Tab>
-                <Tab color={useColorModeValue("gray.900", "white")}>🎭&nbsp;Pilots</Tab>
+                <Tab>🖼 Art</Tab>
+                <Tab>📸 Photography</Tab>
+                <Tab>🎮 Games</Tab>
+                <Tab>👾 Metaverses</Tab>
+                <Tab>🎵 Music</Tab>
+                <Tab>🎞 Trailers</Tab>
+                <Tab>🎭 Pilots</Tab>
             </TabList>
             <FilterSort />
             </HStack>
+            <TabPanels>
+                <TabPanel>
+                    <Box
+                        display='flex'
+                        margin='auto'
+                        flexDir={['column', 'row']}
+                        flexWrap={['wrap']}>
+                        <Discover />
+                        <Discover />
+                        <Discover />
+                        <Discover />
+                    </Box>
+                </TabPanel>
+            </TabPanels>
         </Tabs>
     );
 }
