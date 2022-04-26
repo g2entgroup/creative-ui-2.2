@@ -1,6 +1,8 @@
 import { ArrayInterpolation } from '@emotion/react';
 import { Buckets, PrivateKey, KeyInfo, Client, ThreadID, GetThreadResponse } from '@textile/hub'
 import { NFTMetadata, TokenMetadata } from './types'
+import { CoreAPI, init } from "@textile/eth-storage";
+import { BigNumber } from 'ethers';
 
 export class TextileInstance {
   private keyInfo: KeyInfo;
@@ -108,7 +110,7 @@ export class TextileInstance {
     }
   }
 
-  public async uploadTokenMetadata(nft: NFTMetadata) {
+  public async uploadTokenMetadata(storage:CoreAPI<BigNumber>,nft: NFTMetadata) {
     if (!this.bucketInfo.bucket || !this.bucketInfo.bucketKey || !nft.cid) {
       throw new Error('No bucket client or root key or tokenID');
     }
@@ -128,9 +130,23 @@ export class TextileInstance {
     nft.tokenMetadataPath = location;
     nft.tokenMetadataURL = `/ipfs/${raw.path.cid.toString()}`;
     console.log("uploadnftmetadata func ")
+   this.uploadnftmetadata(storage,tokenMeta)
     console.log(raw);
   }
 
+  private async uploadnftmetadata(storage:CoreAPI<BigNumber>,tokenMeta:TokenMetadata){
+
+    const blob = new Blob([JSON.stringify(tokenMeta)], {type: "application/json"});
+    const file = new File([blob], "metadata.json", {
+      type: "application/json",
+      lastModified: new Date().getTime()
+    });
+    const { id, cid } = await storage.store(file);
+    console.log(JSON.stringify(tokenMeta))
+    console.log('textile cid',cid)
+    
+
+  }
   public async addNFTToUserCollection(nft: NFTMetadata) {
     if (!this.client) {
       throw new Error('No client');

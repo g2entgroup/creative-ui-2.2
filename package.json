@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@ant-design/icons": "^4.6.2",
+    "@arkane-network/arkane-connect": "^1.26.0",
     "@babel/core": "^7.0.0",
     "@babel/preset-typescript": "^7.16.0",
     "@chakra-ui/icons": "^1.0.11",
@@ -24,11 +25,9 @@
     "@ethersproject/units": "^5.1.0",
     "@loomhq/loom-embed": "^1.2.7",
     "@loomhq/loom-sdk": "^2.21.2",
-    "@snapshot-labs/snapshot.js": "^0.3.56",
+    "@textile/eth-storage": "^1.0.0",
     "@textile/hub": "^6.1.2",
-    "@usedapp/core": "^0.11.0",
-    "@venly/connect": "^1.35.0",
-    "@venly/web3-provider": "^0.28.0",
+    "@usedapp/core": "^0.4.4",
     "@web3-react/core": "^6.1.9",
     "@web3-react/injected-connector": "^6.0.7",
     "@web3-react/network-connector": "^6.1.9",
@@ -46,12 +45,14 @@
     "follow-redirects": "1.14.8",
     "framer-motion": "^4.1.9",
     "google-protobuf": "^3.2.0",
+    "graphql": "^16.3.0",
+    "graphql-tag": "^2.12.6",
     "ipfs-http-client": "^50.1.1",
     "isomorphic-unfetch": "^3.1.0",
     "isomorphic-ws": "^4.0.1",
     "next": "^12.1.0",
     "nextjs-cors": "^1.0.7",
-    "node-fetch": "^2.6.1",
+    "node-fetch": "^2.6.7",
     "qrcode.react": "^1.0.1",
     "react": "^17.0.2",
     "react-blockies": "^1.4.1",
@@ -82,9 +83,5 @@
   },
   "resolutions": {
     "webpack": "5.21.2"
-  },
-  "main": "index.js",
-  "repository": "https://gawainb@github.com/gawainb/creative-ui-2.2.git",
-  "author": "Creative Organization DAO LLC",
-  "license": "MIT"
+  }
 }
