@@ -11,6 +11,8 @@ const TrendingCollections = () => {
       <Box
         width="320px"
         margin={5}
+        bg={useColorModeValue("gray.300", "gray.600")}
+        p={10}
         color={useColorModeValue("gray.800", "white")}
         >
         <Box px={4} py={2}>

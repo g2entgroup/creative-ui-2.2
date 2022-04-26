@@ -6,8 +6,7 @@ import {
     ListItem, 
     Avatar, 
     AvatarBadge, 
-    Link,
-    useColorModeValue
+    Link
 } from "@chakra-ui/react";
 import Image from 'next/image';
 
@@ -33,7 +32,7 @@ export default function TopCreatives() {
       >
         <ListItem 
           margin={2}
-          color={useColorModeValue("black", "white")}
+          color="whiteAlpha.700" 
           value="1">
           <Link>
             <Avatar size="xs" name="plantarcowboy" src="https://bit.ly/dan-abramov">
@@ -51,7 +50,7 @@ export default function TopCreatives() {
         </ListItem>
         <ListItem 
           margin={2}
-          color={useColorModeValue("black", "white")}          
+          color="whiteAlpha.700" 
           value="2">
           <Link>
             <Avatar size="xs" name="maliciousnorth" src="https://bit.ly/tioluwani-kolawole">
@@ -64,7 +63,7 @@ export default function TopCreatives() {
         </ListItem>
         <ListItem
           margin={2}
-          color={useColorModeValue("black", "white")} 
+          color="whiteAlpha.700" 
           value="3">
           <Link>
             <Avatar size="xs" name="thingmanager" src="https://bit.ly/kent-c-dodds">
@@ -83,7 +82,7 @@ export default function TopCreatives() {
       >
         <ListItem 
           margin={2}
-          color={useColorModeValue("black", "white")} 
+          color="whiteAlpha.700" 
           value="4">
           <Link>
             <Avatar size="xs" name="feastpizza" src="https://bit.ly/ryan-florence">
@@ -96,7 +95,7 @@ export default function TopCreatives() {
         </ListItem>
         <ListItem 
           margin={2}
-          color={useColorModeValue("black", "white")} 
+          color="whiteAlpha.700" 
           value="5">
           <Link>
             <Avatar size="xs" name="fennelidentical" src="https://bit.ly/prosper-baba">
@@ -109,7 +108,7 @@ export default function TopCreatives() {
         </ListItem>
         <ListItem 
           margin={2}
-          color={useColorModeValue("black", "white")} 
+          color="whiteAlpha.700" 
           value="6">
           <Link>
           <Avatar size="xs" name="hutdaily" src="https://bit.ly/code-beast">
@@ -128,7 +127,7 @@ export default function TopCreatives() {
       >
         <ListItem 
           margin={2}
-          color={useColorModeValue("black", "white")} 
+          color="whiteAlpha.700" 
           value="8">
           <Link>
             <Avatar size="xs" name="decimalgingery" src="https://avataaars.io/?avatarStyle=Circle&topType=LongHairBigHair&accessoriesType=Prescription02&hairColor=Black&facialHairType=MoustacheFancy&facialHairColor=BrownDark&clotheType=Hoodie&clotheColor=Gray01&eyeType=Dizzy&eyebrowType=Angry&mouthType=Grimace&skinColor=Black">
@@ -141,7 +140,7 @@ export default function TopCreatives() {
         </ListItem>
         <ListItem 
           margin={2}
-          color={useColorModeValue("black", "white")} 
+          color="whiteAlpha.700" 
           value="9">
           <Link>
             <Avatar size="xs" name="notionmoan" src="https://avataaars.io/?avatarStyle=Circle&topType=LongHairNotTooLong&accessoriesType=Kurt&hairColor=BrownDark&facialHairType=BeardLight&facialHairColor=Blonde&clotheType=CollarSweater&clotheColor=PastelBlue&eyeType=WinkWacky&eyebrowType=SadConcernedNatural&mouthType=Default&skinColor=DarkBrown">
@@ -154,7 +153,7 @@ export default function TopCreatives() {
         </ListItem>
         <ListItem 
           margin={2}
-          color={useColorModeValue("black", "white")} 
+          color="whiteAlpha.700" 
           value="10">
           <Link>
             <Avatar size="xs" name="tatteredvast" src="https://avataaars.io/?avatarStyle=Circle&topType=ShortHairFrizzle&accessoriesType=Sunglasses&hairColor=Blonde&facialHairType=BeardMajestic&facialHairColor=Black&clotheType=GraphicShirt&clotheColor=Red&graphicType=Skull&eyeType=WinkWacky&eyebrowType=SadConcernedNatural&mouthType=Sad&skinColor=DarkBrown">
@@ -173,7 +172,7 @@ export default function TopCreatives() {
       >
         <ListItem 
           margin={2}
-          color={useColorModeValue("black", "white")} 
+          color="whiteAlpha.700" 
           value="11">
           <Link>
             <Avatar size="xs" name="spanbesides" src="https://avataaars.io/?avatarStyle=Circle&topType=ShortHairDreads02&accessoriesType=Prescription01&hairColor=Black&facialHairType=Blank&facialHairColor=BlondeGolden&clotheType=Hoodie&clotheColor=PastelOrange&graphicType=Diamond&eyeType=Surprised&eyebrowType=AngryNatural&mouthType=Twinkle&skinColor=DarkBrown">
@@ -186,7 +185,7 @@ export default function TopCreatives() {
         </ListItem>
         <ListItem 
           margin={2}
-          color={useColorModeValue("black", "white")}
+          color="whiteAlpha.700" 
           value="12">
           <Link>
             <Avatar size="xs" name="userkooky" src="https://avataaars.io/?avatarStyle=Circle&topType=LongHairBob&accessoriesType=Prescription01&hairColor=Black&facialHairType=MoustacheMagnum&facialHairColor=Brown&clotheType=ShirtCrewNeck&clotheColor=PastelGreen&eyeType=Default&eyebrowType=SadConcerned&mouthType=Concerned&skinColor=Black">
@@ -199,7 +198,7 @@ export default function TopCreatives() {
         </ListItem>
                 <ListItem 
                   margin={2}
-                  color={useColorModeValue("black", "white")} 
+                  color="whiteAlpha.700" 
                   value="13">
                   <Link>
                     <Avatar size="xs" name="arrangesquawk" src="https://avataaars.io/?avatarStyle=Circle&topType=ShortHairFrizzle&accessoriesType=Round&hairColor=Brown&facialHairType=MoustacheMagnum&facialHairColor=Red&clotheType=ShirtScoopNeck&clotheColor=Gray02&eyeType=Cry&eyebrowType=UpDown&mouthType=Eating&skinColor=Tanned">
@@ -218,7 +217,7 @@ export default function TopCreatives() {
       >
         <ListItem 
           margin={2}
-          color={useColorModeValue("black", "white")} 
+          color="whiteAlpha.700" 
           value="14">
           <Link>
           <Avatar size="xs" name="beaverumpire" src="https://avataaars.io/?avatarStyle=Circle&topType=LongHairStraight&accessoriesType=Kurt&hairColor=BlondeGolden&facialHairType=BeardMedium&facialHairColor=Auburn&clotheType=BlazerShirt&clotheColor=White&eyeType=Squint&eyebrowType=RaisedExcitedNatural&mouthType=Disbelief&skinColor=DarkBrown">
@@ -231,7 +230,7 @@ export default function TopCreatives() {
         </ListItem>
         <ListItem  
           margin={2}
-          color={useColorModeValue("black", "white")} 
+          color="whiteAlpha.700" 
           value="15">
           <Link>
           <Avatar size="xs" name="fifthmainstay" src="https://avataaars.io/?avatarStyle=Circle&topType=ShortHairShaggyMullet&accessoriesType=Kurt&hairColor=PastelPink&facialHairType=MoustacheFancy&facialHairColor=BlondeGolden&clotheType=Hoodie&clotheColor=PastelOrange&eyeType=WinkWacky&eyebrowType=Default&mouthType=Twinkle&skinColor=DarkBrown">
