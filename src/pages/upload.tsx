@@ -26,7 +26,8 @@ import {
   RadioGroup,
   Radio,
   useToast,
-  Spinner
+  Spinner,
+  AspectRatio,
 } from "@chakra-ui/react";
 import { providers } from 'ethers'
 import { FaUser } from "react-icons/fa";
@@ -48,8 +49,10 @@ export default function Component() {
     const [nftUploaded , setNftUploaded] = useState(false)
     const [submitEnabled, setSubmitEnabled] = useState(false);
     const [selectedFile, setSelectedFile] = useState<File>();
+    const [extension, setExtension] = useState('');
+    const [fileName, setFileName] = useState('');
     const [preview, setPreview] = useState('');
-    const [ spin , setSpin ] = useState(false)
+    const [spin , setSpin] = useState(false);
 
     // create a preview as a side effect, whenever selected file is changed
     useEffect(() => {
@@ -151,15 +154,26 @@ export default function Component() {
   }
 
     const onFileChange = async event => {
-        const file = ((event.target as HTMLInputElement).files as FileList)[0];
-        if (file.size > 20460000) {
-          alert("Please upload an image that has a max size of 20 MB");
+      const file = ((event.target as HTMLInputElement).files as FileList)[0];
+      const sFileName = file.name;
+      const sFileExtension = sFileName.split('.')[sFileName.split('.').length - 1].toLowerCase();
+
+       if (!(sFileExtension === "jpg" ||
+            sFileExtension === "mp4" ||
+            sFileExtension === "gif" ||
+            sFileExtension === "png" ||
+            sFileExtension === "gltf" ||
+            sFileExtension === "glb" ||
+            sFileExtension === "mov" ) || file.size > 5368709120) {
+          alert("Please upload an image that has a max size of 5 GB");
           return;
         }
     
-        setSelectedFile(file);
-        setSubmitEnabled(true);
-      };
+    setSelectedFile(file);
+    setFileName(sFileName);
+    setExtension(sFileExtension);
+    setSubmitEnabled(true);
+  };
       // TODO: Use this to list your threadDB collections
       const list = async (client: TextileInstance["client"]) => {
         const threads = await client.listThreads()
@@ -306,8 +320,8 @@ export default function Component() {
                       <Text
                         fontSize="xs"
                         color={useColorModeValue("gray.500", "gray.50")}
-                      >
-                        PNG, JPG, GIF
+                      >                        
+                       PNG, JPG, GIF, GLTF, GLB, MP4, MOV, 5 GB max
                       </Text>
                     </VStack>
                   </Flex>
@@ -318,7 +332,19 @@ export default function Component() {
                     pt={5}
                     pb={6}
                     >
-                    {selectedFile &&  <img src={preview} /> }
+                    { selectedFile && extension === "png" ||
+                      extension === "jpg" ||
+                      extension === "gif"
+                      ? <img src={preview} />
+                      : selectedFile && extension === "mov" ||
+                      extension === "mp4" ?
+                      <video controls width="50%">
+                        <source src={preview}
+                                type={`video/${extension}`} />
+                        Sorry, your browser doesn't support embedded videos.
+                      </video>
+                      : ''
+                    }
                   </Flex>
                 </FormControl>
               </Stack>
