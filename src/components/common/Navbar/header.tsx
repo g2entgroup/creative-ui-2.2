@@ -1,6 +1,6 @@
 import React, { useState, useRef } from "react";
 import { useRouter } from 'next/router';
-import { useEthers, shortenAddress, useNotifications, useLookupAddress, Rinkeby, Mainnet, Mumbai, Polygon } from '@usedapp/core';
+import { ChainId, useEthers, shortenAddress, useNotifications, useLookupAddress, useEtherBalance } from '@usedapp/core';
 import ConnectWallet from "../Navbar/ConnectWallet";
 import {
   Alert,
@@ -30,7 +30,8 @@ import {
   Stack,
   Heading,
   Divider,
-  Center,Text
+  Center,
+  Text,
 } from "@chakra-ui/react";
 import WertWidget from '@wert-io/widget-initializer';
 import NextLink from 'next/link';
@@ -41,11 +42,12 @@ import { IoIosArrowDown } from "react-icons/io";
 import { AiFillHome, AiOutlineInbox, AiOutlineMenu } from "react-icons/ai";
 import { BsFillCameraVideoFill } from "react-icons/bs";
 import { FaMoon, FaSun } from "react-icons/fa";
+// import Balance from "../Balance/Balance";
 import Logo from "../Navbar/Logo";
-import Balance from "../../Balance";
 import SignIn from "./SignIn";
 import SignUp from "./SignUp";
 import Image from 'next/image';
+import { formatEther } from "@ethersproject/units";
 
 const check = () => {
   if(localStorage.getItem('closeButtons') == 'true') {
@@ -78,24 +80,27 @@ function truncateHash(hash: string, length = 38): string {
 }
 
 const Header = ({ children }: HeaderProps): JSX.Element => {
-  const router = useRouter()
+  const router = useRouter();
 
-  const { account, deactivate, chainId } = useEthers()
-  const { notifications } = useNotifications()
-  const ens = useLookupAddress()
+  const { account, deactivate, chainId } = useEthers();
+  const ethersBalance = useEtherBalance(account);
+  const { notifications } = useNotifications();
+  const ens = useLookupAddress();
 
   let chainName: string;
-  if (chainId === Rinkeby.chainId) {
-    chainName = Rinkeby.chainName
+  if (chainId === ChainId.Rinkeby) {
+    chainName = "Rinkeby"
   }
-  else if (chainId === Mumbai.chainId) {
-    chainName = Mumbai.chainName
+  else if (chainId === ChainId.Mumbai) {
+    chainName = "Mumbai"
   }
-  else if (chainId === Mainnet.chainId) {
-    chainName = Mainnet.chainName
+  else if (chainId === ChainId.Mainnet) {
+    chainName = "Mainnet"
   }
-  else if (chainId === Polygon.chainId){
-    chainName = Polygon.chainName
+  else if (chainId === ChainId.Polygon){
+    chainName = "Polygon"
+  } else {
+    ''
   }
 
   const { toggleColorMode: toggleMode } = useColorMode();
@@ -478,7 +483,8 @@ const Header = ({ children }: HeaderProps): JSX.Element => {
                   display={['none', 'none', 'none', 'flex']}
                   px="2">
                   <chakra.h1 color="white" fontSize="sm">
-                    <Balance/>
+                    <Text>Balance:</Text>
+                  {ethersBalance && <Text>{formatEther(ethersBalance).slice(0,6)} ETH </Text>}
 
                     {/* 15.02&nbsp;ETH */}
                   </chakra.h1>
@@ -490,7 +496,7 @@ const Header = ({ children }: HeaderProps): JSX.Element => {
                   bg="purple.300">
                   <chakra.h1 color="white" fontSize="md">
                     <Text>{chainName}</Text>
-                    {/* 15.02&nbsp;ETH */}
+                    
                   </chakra.h1>
                 </Box>
                 ) : chainId === 137 ? (
