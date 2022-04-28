@@ -1,5 +1,5 @@
 import { hexlify } from "@ethersproject/bytes";
-import { parseUnits } from "@ethersproject/units";
+import { parseUnits } from "ethers/lib/utils";
 import { createStandaloneToast } from "@chakra-ui/react";
 import Notify from "bnc-notify";
 import { BLOCKNATIVE_DAPPID } from "../constants";

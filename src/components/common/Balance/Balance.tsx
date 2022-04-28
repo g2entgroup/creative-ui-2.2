@@ -3,7 +3,7 @@ import { Text } from '@chakra-ui/react';
 import { useEtherBalance, useEthers} from '@usedapp/core';
 import useSWR from "swr";
 //import { fetcher } from "../utils/myFetcher";
-import { formatEther } from "@ethersproject/units";
+import { formatEther } from "ethers/lib/utils";
 
 
 
