@@ -4,9 +4,9 @@ import snapshot from '@snapshot-labs/snapshot.js';
 
 const hub = 'https://testnet.snapshot.org'; // or https://testnet.snapshot.org for testnet
 const client = new snapshot.Client712(hub);
-const network = '0x64';
+const network = '137';
 const provider = snapshot.utils.getProvider(network);
-const space = snapshot.utils.getUrl()
+const space = snapshot.utils.getUrl("https://snapshot.org/#/thecreative.eth", "thecreative.eth")
 
 
 const Vote = () => {
