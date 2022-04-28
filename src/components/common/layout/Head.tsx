@@ -46,7 +46,6 @@ const Head = ({ customMeta }: { customMeta?: MetaProps }): JSX.Element => {
       <meta name="twitter:title" content={meta.title} />
       <meta name="twitter:description" content={meta.description} />
       <meta name="twitter:image" content={meta.image} />
-      <script src="/node_modules/@arkane-network/web3-arkane-provider/dist/web3-arkane-provider.js"></script>
     </NextHead>
   )
 }
