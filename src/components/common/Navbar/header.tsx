@@ -47,7 +47,7 @@ import Logo from "../Navbar/Logo";
 import SignIn from "./SignIn";
 import SignUp from "./SignUp";
 import Image from 'next/image';
-import { formatEther } from "@ethersproject/units";
+import { formatEther } from "ethers/lib/utils";
 
 const check = () => {
   if(localStorage.getItem('closeButtons') == 'true') {

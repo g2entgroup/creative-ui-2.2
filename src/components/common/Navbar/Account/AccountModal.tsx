@@ -3,7 +3,7 @@ import React from 'react'
 import { chakra } from '@chakra-ui/system';
 import { useEthers, useEtherBalance, getExplorerAddressLink } from '@usedapp/core';
 import { TransactionsList } from '../Transactions/History';
-import { formatEther } from '@ethersproject/units';
+import { formatEther } from 'ethers/lib/utils';
 import { BigNumber } from 'ethers';
 // import { Colors, Shadows, Transitions } from '../../../../styles/styles';
 import { LinkIcon } from '@chakra-ui/icons';

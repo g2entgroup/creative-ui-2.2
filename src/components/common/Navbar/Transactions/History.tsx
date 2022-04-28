@@ -15,7 +15,7 @@ import { TimeIcon, CheckIcon, WarningTwoIcon, LinkIcon, LockIcon, UnlockIcon, In
 import { Box, chakra, Text } from '@chakra-ui/react';
 //import { Colors, Shadows } from '../../global/styles'
 import { AnimatePresence, motion, isValidMotionProp } from 'framer-motion';
-import { formatEther } from '@ethersproject/units';
+import { formatEther } from 'ethers/lib/utils';
 import { BigNumber } from 'ethers';
 import Link from "next/link";
 

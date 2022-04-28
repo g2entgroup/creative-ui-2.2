@@ -26,7 +26,7 @@ export const Web3ModalButton = () => {
   // Example for Polygon/Matic:
   const customNetworkOptions = {
     rpcUrl: 'https://rpc-mumbai.maticvigil.com',
-    chainId: 80001
+    chainId: 80001,
   }
 
   const activateProvider = async () => {
@@ -109,7 +109,7 @@ export const Web3ModalButton = () => {
           <LoginButton onClick={() => deactivate()}>Disconnect</LoginButton>
         </>
       ) : (
-        <LoginButton onClick={activateProvider}>Connect</LoginButton>
+        <LoginButton onClick={activateProvider}>Wallet Connect</LoginButton>
       )}
     </Account>
   )
