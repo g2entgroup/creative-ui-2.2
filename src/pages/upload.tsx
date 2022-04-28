@@ -125,7 +125,7 @@ export default function Component() {
       const provider = new providers.Web3Provider((window as WindowInstanceWithEthereum).ethereum);
         const storage = await init(provider.getSigner())
         const textileInstance = await TextileInstance.getInstance();
-        const nftMetadata = await textileInstance.uploadNFT(selectedFile, values.name, values.description);
+        const nftMetadata = await textileInstance.uploadNFT(selectedFile, values.name, values.description, values.addAttributes);
         if(await storage.hasDeposit()){
           await textileInstance.uploadTokenMetadata(storage,nftMetadata);
         }else{
