@@ -311,9 +311,9 @@ export default function Component(props) {
                                 <Form
                                     //ONSUBMIT CHECKPOINT
                                     method="POST"
-                                    shadow="base"
-                                    rounded={[null, "md"]}
-                                    overflow={{ sm: "hidden" }}
+                                    // shadow="base"
+                                    // rounded={[null, "md"]}
+                                    // overflow={{ sm: "hidden" }}
                                 >
                                     <Stack
                                         px={4}
@@ -742,9 +742,9 @@ export default function Component(props) {
                             {() => (
                                 <Form
                                     method="POST"
-                                    shadow="base"
-                                    rounded={[null, "md"]}
-                                    overflow={{ sm: "hidden" }}
+                                    // shadow="base"
+                                    // rounded={[null, "md"]}
+                                    // overflow={{ sm: "hidden" }}
                                 >
                                     <Stack
                                         px={4}
@@ -1006,7 +1006,7 @@ export default function Component(props) {
                                                             {...field}
                                                             value={
                                                                 form.values
-                                                                    .nftAddresss
+                                                                    .nftAddress
                                                             }
                                                             name="nftAddress"
                                                             id="nftAddress"
@@ -1258,9 +1258,9 @@ export default function Component(props) {
                             {({ values }) => (
                                 <Form
                                     method="POST"
-                                    shadow="base"
-                                    rounded={[null, "md"]}
-                                    overflow={{ sm: "hidden" }}
+                                    // shadow="base"
+                                    // rounded={[null, "md"]}
+                                    // overflow={{ sm: "hidden" }}
                                 >
                                     <Stack
                                         px={4}

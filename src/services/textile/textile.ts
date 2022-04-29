@@ -579,7 +579,7 @@ export class TextileInstance {
             ...settings,
             updatedAt: now.toString(),
             filename: preferencesName,
-            cid: metadataRes.path.cid,
+            cid: raw.path.cid,
         };
     }
 
