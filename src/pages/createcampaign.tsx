@@ -178,11 +178,11 @@ export default function Component(props) {
                 await textileInstance.getCampaignPreferences(campaign._id);
             const activePool: PoolMetadata | any =
                 await textileInstance.getActiveCampaignPool(campaign._id);
-            console.log({
-                campaign,
-                campaignPreferences,
-                activePool,
-            });
+            // console.log({
+            //     campaign,
+            //     campaignPreferences,
+            //     activePool,
+            // });
             setCampaign(userCampaign);
             setCampaignPreferences(campaignPreferences);
             setPool(activePool);
@@ -296,10 +296,10 @@ export default function Component(props) {
                     <GridItem mt={[5, null, 0]} colSpan={{ md: 2 }}>
                         <Formik
                             initialValues={{
-                                brand_name: "",
-                                brand_website: "",
-                                twitter_account: "",
-                                campaign_brief: "",
+                                brandName: "",
+                                brandWebsite: "",
+                                twitterAccount: "",
+                                campaignBrief: "",
                                 logo: "",
                                 record: "0",
                             }}
@@ -339,7 +339,7 @@ export default function Component(props) {
                                                                 "gray.700",
                                                                 "gray.50"
                                                             )}
-                                                            htmlFor="brand_name"
+                                                            htmlFor="brandName"
                                                         >
                                                             Brand Name
                                                         </FormLabel>
@@ -347,12 +347,12 @@ export default function Component(props) {
                                                             {...field}
                                                             value={
                                                                 form.values
-                                                                    .brand_name
+                                                                    .brandName
                                                             }
                                                             type="text"
                                                             placeholder="Company Name"
-                                                            id="brand_name"
-                                                            name="brand_name"
+                                                            id="brandName"
+                                                            name="brandName"
                                                             focusBorderColor="brand.400"
                                                             rounded="md"
                                                             color={useColorModeValue(
@@ -395,8 +395,15 @@ export default function Component(props) {
                                                                 rounded="md"
                                                             />
                                                             <Input
+                                                                {...field}
+                                                                value={
+                                                                    form.values
+                                                                        .brandWebsite
+                                                                }
                                                                 type="text"
                                                                 placeholder="www.example.com"
+                                                                id="brandWebsite"
+                                                                name="brandWebsite"
                                                                 focusBorderColor="brand.400"
                                                                 rounded="md"
                                                                 color={useColorModeValue(
@@ -444,10 +451,10 @@ export default function Component(props) {
                                                                 {...field}
                                                                 value={
                                                                     form.values
-                                                                        .twitter_account
+                                                                        .twitterAccount
                                                                 }
-                                                                id="twitter_account"
-                                                                name="twitter_account"
+                                                                id="twitterAccount"
+                                                                name="twitterAccount"
                                                                 placeholder="creativecrtv"
                                                                 focusBorderColor="brand.400"
                                                                 rounded="md"
@@ -488,10 +495,10 @@ export default function Component(props) {
                                                             {...field}
                                                             value={
                                                                 form.values
-                                                                    .campaign_brief
+                                                                    .campaignBrief
                                                             }
-                                                            id="campaign_brief"
-                                                            name="campaign_brief"
+                                                            id="campaignBrief"
+                                                            name="campaignBrief"
                                                             placeholder="Additional information about your campaign"
                                                             mt={1}
                                                             rows={3}
@@ -718,15 +725,15 @@ export default function Component(props) {
                         <Formik
                             initialValues={{
                                 pool_address: "",
-                                pool_name: "",
+                                poolName: "",
                                 capital_amount: 0,
-                                capital_address: "",
+                                capitalAddress: "",
                                 email_address: "",
                                 country: "",
-                                nft_address: "",
-                                voting_length: "",
-                                decision_length: "",
-                                submission_length: "",
+                                nftAddress: "",
+                                votingLength: "",
+                                decisionLength: "",
+                                submissionLength: "",
                             }}
                             onSubmit={(values, actions) => {
                                 handleSavePoolDetails(values);
@@ -771,10 +778,10 @@ export default function Component(props) {
                                                             {...field}
                                                             value={
                                                                 form.values
-                                                                    .pool_name
+                                                                    .poolName
                                                             }
-                                                            name="pool_name"
-                                                            id="pool_name"
+                                                            name="poolName"
+                                                            id="poolName"
                                                             autoComplete="given-name"
                                                             mt={1}
                                                             focusBorderColor="brand.400"
@@ -860,10 +867,10 @@ export default function Component(props) {
                                                             {...field}
                                                             value={
                                                                 form.values
-                                                                    .capital_address
+                                                                    .capitalAddress
                                                             }
-                                                            name="capital_address"
-                                                            id="capital_address"
+                                                            name="capitalAddress"
+                                                            id="capitalAddress"
                                                             autoComplete="given-name"
                                                             mt={1}
                                                             focusBorderColor="brand.400"
@@ -984,7 +991,7 @@ export default function Component(props) {
                                                         colSpan={6}
                                                     >
                                                         <FormLabel
-                                                            htmlFor="nft_address"
+                                                            htmlFor="nftAddress"
                                                             fontSize="sm"
                                                             fontWeight="md"
                                                             color={useColorModeValue(
@@ -999,10 +1006,10 @@ export default function Component(props) {
                                                             {...field}
                                                             value={
                                                                 form.values
-                                                                    .nft_addresss
+                                                                    .nftAddresss
                                                             }
-                                                            name="nft_address"
-                                                            id="nft_address"
+                                                            name="nftAddress"
+                                                            id="nftAddress"
                                                             autoComplete="nft-address"
                                                             mt={1}
                                                             focusBorderColor="brand.400"
@@ -1031,7 +1038,7 @@ export default function Component(props) {
                                                         ]}
                                                     >
                                                         <FormLabel
-                                                            htmlFor="voting_length"
+                                                            htmlFor="votingLength"
                                                             fontSize="sm"
                                                             fontWeight="md"
                                                             color={useColorModeValue(
@@ -1046,10 +1053,10 @@ export default function Component(props) {
                                                             {...field}
                                                             value={
                                                                 form.values
-                                                                    .voting_length
+                                                                    .votingLength
                                                             }
-                                                            name="voting_length"
-                                                            id="voting_length"
+                                                            name="votingLength"
+                                                            id="votingLength"
                                                             autoComplete="number"
                                                             mt={1}
                                                             focusBorderColor="brand.400"
@@ -1078,7 +1085,7 @@ export default function Component(props) {
                                                         ]}
                                                     >
                                                         <FormLabel
-                                                            htmlFor="decision_length"
+                                                            htmlFor="decisionLength"
                                                             fontSize="sm"
                                                             fontWeight="md"
                                                             color={useColorModeValue(
@@ -1093,11 +1100,11 @@ export default function Component(props) {
                                                             {...field}
                                                             value={
                                                                 form.values
-                                                                    .decision_length
+                                                                    .decisionLength
                                                             }
-                                                            name="decision_length"
-                                                            id="decision_length"
-                                                            autoComplete="decision_length"
+                                                            name="decisionLength"
+                                                            id="decisionLength"
+                                                            autoComplete="decisionLength"
                                                             mt={1}
                                                             focusBorderColor="brand.400"
                                                             shadow="sm"
@@ -1125,7 +1132,7 @@ export default function Component(props) {
                                                         ]}
                                                     >
                                                         <FormLabel
-                                                            htmlFor="submission_length"
+                                                            htmlFor="submissionLength"
                                                             fontSize="sm"
                                                             fontWeight="md"
                                                             color={useColorModeValue(
@@ -1140,11 +1147,11 @@ export default function Component(props) {
                                                             {...field}
                                                             value={
                                                                 form.values
-                                                                    .submission_length
+                                                                    .submissionLength
                                                             }
-                                                            name="submission_length"
-                                                            id="submission_length"
-                                                            autoComplete="submission_length"
+                                                            name="submissionLength"
+                                                            id="submissionLength"
+                                                            autoComplete="submissionLength"
                                                             mt={1}
                                                             focusBorderColor="brand.400"
                                                             shadow="sm"
