@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import {
     Buckets,
     PrivateKey,
@@ -16,6 +17,11 @@ import {
     PoolMetadata,
     TokenMetadata,
 } from "./types";
+=======
+import { ArrayInterpolation } from '@emotion/react';
+import { Buckets, PrivateKey, KeyInfo, Client, ThreadID, GetThreadResponse } from '@textile/hub'
+import { NFTMetadata, TokenMetadata } from './types'
+>>>>>>> ca5a8dfbc34ba5ec170f03c349c56ab66869c8fc
 import { CoreAPI, init } from "@textile/eth-storage";
 import { BigNumber } from "ethers";
 import { storageKey } from "@chakra-ui/system";

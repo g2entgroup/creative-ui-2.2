@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { AppProps } from "next/app";
 import { ChainId, DAppProvider } from "@usedapp/core";
 import {
@@ -15,19 +15,23 @@ import {
 import theme from "../utils/theme";
 import { Web3ReactProvider } from "@web3-react/core";
 import { getLibrary } from "../utils/utils";
-import { Container } from "../components/common/container";
 import Header from "../components/common/Navbar/header";
 import Footer from "../components/common/Footer/footer";
 import { BannerLink } from "../components/common/BannerLink";
 import { BellIcon } from "@chakra-ui/icons";
 import { StoreContainer } from "../utils/store";
-import Sidebar from "src/components/common/Sidenavigation/Navbar";
+import { getDefaultProvider } from "ethers";
 
 const config = {
     readOnlyChainId: ChainId.Mumbai,
     readOnlyUrls: {
         [ChainId.Mumbai]: process.env.NEXT_PUBLIC_MUMBAI,
     },
+    notifications: 
+    {
+        checkInterval: 1500,
+        expirationPeriod: 5000
+    }
 };
 
 // Extend the theme to include custom colors, fonts, etc

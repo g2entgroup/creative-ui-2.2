@@ -1,6 +1,6 @@
 import React, { useState, useRef } from "react";
 import { useRouter } from 'next/router';
-import { useEthers, shortenAddress, useNotifications, useLookupAddress, getChainName } from '@usedapp/core';
+import { ChainId, useEthers, shortenAddress, useNotifications, useLookupAddress, useEtherBalance } from '@usedapp/core';
 import ConnectWallet from "../Navbar/ConnectWallet";
 import {
   Alert,
@@ -10,8 +10,6 @@ import {
   chakra,
   HStack,
   Link,
-  LinkBox,
-  LinkOverlay,
   Popover,
   PopoverTrigger,
   PopoverContent,
@@ -32,7 +30,8 @@ import {
   Stack,
   Heading,
   Divider,
-  Center,Text
+  Center,
+  Text,
 } from "@chakra-ui/react";
 import WertWidget from '@wert-io/widget-initializer';
 import NextLink from 'next/link';
@@ -43,11 +42,12 @@ import { IoIosArrowDown } from "react-icons/io";
 import { AiFillHome, AiOutlineInbox, AiOutlineMenu } from "react-icons/ai";
 import { BsFillCameraVideoFill } from "react-icons/bs";
 import { FaMoon, FaSun } from "react-icons/fa";
+// import Balance from "../Balance/Balance";
 import Logo from "../Navbar/Logo";
-import Balance from "../../Balance";
 import SignIn from "./SignIn";
 import SignUp from "./SignUp";
 import Image from 'next/image';
+import { formatEther } from "ethers/lib/utils";
 
 const check = () => {
   if(localStorage.getItem('closeButtons') == 'true') {
@@ -80,12 +80,28 @@ function truncateHash(hash: string, length = 38): string {
 }
 
 const Header = ({ children }: HeaderProps): JSX.Element => {
-  const router = useRouter()
+  const router = useRouter();
 
-  const { account, deactivate, chainId } = useEthers()
-  const { notifications } = useNotifications()
-  const ens = useLookupAddress()
-  const chainName = getChainName(chainId);
+  const { account, deactivate, chainId } = useEthers();
+  const ethersBalance = useEtherBalance(account);
+  const { notifications } = useNotifications();
+  const ens = useLookupAddress();
+
+  let chainName: string;
+  if (chainId === ChainId.Rinkeby) {
+    chainName = "Rinkeby"
+  }
+  else if (chainId === ChainId.Mumbai) {
+    chainName = "Mumbai"
+  }
+  else if (chainId === ChainId.Mainnet) {
+    chainName = "Mainnet"
+  }
+  else if (chainId === ChainId.Polygon){
+    chainName = "Polygon"
+  } else {
+    ''
+  }
 
   const { toggleColorMode: toggleMode } = useColorMode();
   const text = useColorModeValue("dark", "light");
@@ -412,6 +428,7 @@ const Header = ({ children }: HeaderProps): JSX.Element => {
                   fontSize="md"
                   _hover={{ color: cl }}
                   _focus={{ boxShadow: "none" }}
+                  onClick={() => router.push('/activity')}
                 >
                   Activity
                 </Button>
@@ -423,6 +440,7 @@ const Header = ({ children }: HeaderProps): JSX.Element => {
                   fontSize="md"
                   _hover={{ color: cl }}
                   _focus={{ boxShadow: "none" }}
+                  onClick={() => router.push('/vote')}
                 >
                   Vote
                 </Button>
@@ -466,7 +484,8 @@ const Header = ({ children }: HeaderProps): JSX.Element => {
                   display={['none', 'none', 'none', 'flex']}
                   px="2">
                   <chakra.h1 color="white" fontSize="sm">
-                    <Balance/>
+                    <Text>Balance:</Text>
+                  {ethersBalance && <Text>{formatEther(ethersBalance).slice(0,6)} MATIC</Text>}
 
                     {/* 15.02&nbsp;ETH */}
                   </chakra.h1>
@@ -478,7 +497,7 @@ const Header = ({ children }: HeaderProps): JSX.Element => {
                   bg="purple.300">
                   <chakra.h1 color="white" fontSize="md">
                     <Text>{chainName}</Text>
-                    {/* 15.02&nbsp;ETH */}
+                    
                   </chakra.h1>
                 </Box>
                 ) : chainId === 137 ? (
@@ -500,7 +519,7 @@ const Header = ({ children }: HeaderProps): JSX.Element => {
                   {/* 15.02&nbsp;ETH */}
                 </chakra.h1>
               </Box>
-}
+              }
                 <Menu>
                   <MenuButton as={Button}
                     bg="gray.800"
@@ -563,34 +582,6 @@ const Header = ({ children }: HeaderProps): JSX.Element => {
                       💰 Add Funds 
                     </MenuItem>
                     </NextLink>
-                    <MenuItem 
-                      display={['flex', 'flex', 'none', 'none']}
-                      as={Link} 
-                      onClick={() => router.push('/discover')} 
-                      color="white">
-                      Discover
-                    </MenuItem>
-                    <MenuItem 
-                      display={['flex', 'flex', 'none', 'none']}
-                      as={Link}  
-                      onClick={() => router.push('/community')} 
-                      color="white">
-                      Activity
-                    </MenuItem>
-                    <MenuItem 
-                      display={['flex', 'flex', 'none', 'none']}
-                      as={Link} 
-                      onClick={() => router.push('/vote')} 
-                      color="white">
-                      Vote
-                    </MenuItem>
-                    <MenuItem 
-                      display={['flex', 'flex', 'none', 'none']}
-                      as={Link} 
-                      onClick={() => router.push('/community')} 
-                      color="white">
-                      Community
-                    </MenuItem>
                     <MenuItem as={Link} color="red" onClick={() => router.push('/upload')}>
                           Upload
                     </MenuItem>

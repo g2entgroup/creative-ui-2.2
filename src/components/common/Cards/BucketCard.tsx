@@ -81,17 +81,42 @@ type WindowInstanceWithEthereum = Window & typeof globalThis & { ethereum?: prov
         getCancelButtonProps,
         getEditButtonProps,
       } = useEditableControls()
-    return isEditing ? (
-      <ButtonGroup justifyContent="center" size="sm">
-        <IconButton aria-label="Submit" icon={<CheckIcon />} {...getSubmitButtonProps()} />
-        <IconButton aria-label="Close" icon={<CloseIcon />} {...getCancelButtonProps()} />
-      </ButtonGroup>
-    ) : (
-      <Flex justifyContent="center">
-        <IconButton aria-label="Edit" size="sm" icon={<EditIcon />} {...getEditButtonProps()} />
-      </Flex>
-    )
-  }
+
+      return isEditing ? (
+        <ButtonGroup 
+          justifyContent="center" 
+          size="sm">
+          <IconButton 
+            aria-label="Submit" 
+            icon={<CheckIcon />} 
+            {...getSubmitButtonProps()} 
+          />
+          <IconButton 
+            aria-label="Close" 
+            icon={<CloseIcon />} 
+            {...getCancelButtonProps()} 
+          />
+        </ButtonGroup>
+      ) : (
+        <Flex justifyContent="center">
+          <IconButton 
+            aria-label="Edit" 
+            size="sm" 
+            icon={<EditIcon />} 
+            {...getEditButtonProps()} 
+          />
+        </Flex>
+      )
+    }
+
+    const truncateText = (text: string, number: number) => {
+      if (text.length <= number) {
+        return text
+      }
+      // Return str truncated with '...' concatenated to the end of str.
+      return text.slice(0, number) + '...'
+    }
+
     return (
       <>
         <Center>
@@ -141,14 +166,32 @@ type WindowInstanceWithEthereum = Window & typeof globalThis & { ethereum?: prov
               />
             </Box>
             </Center>
-            <Stack pt={10} align={'center'} color={useColorModeValue("black", "white")}>
-              <Text color={'gray.500'} fontSize={'sm'} textTransform={'uppercase'} defaultValue={creator} />
-              <Editable color={'gray.500'} fontSize={'sm'} textTransform={'uppercase'} defaultValue={name} isPreviewFocusable={false}>
+            <Stack 
+              pt={10} 
+              align={'center'} 
+              color={useColorModeValue("black", "white")}>
+              <Text
+                color={'gray.500'} 
+                fontSize={'sm'} 
+                textTransform={'uppercase'} 
+                defaultValue={creator} />
+              <Editable 
+                color={'gray.500'} 
+                fontSize={'sm'} 
+                textTransform={'uppercase'} 
+                defaultValue={truncateText(name, 10)} 
+                isPreviewFocusable={false}>
                 <EditablePreview />
                 <EditableInput />
                 <EditableControls />
               </Editable>
-              <Editable color={'gray.500'} fontSize={'2xl'} fontFamily={'body'} fontWeight={500} defaultValue={description} isPreviewFocusable={false}>
+              <Editable 
+                color={'gray.500'} 
+                fontSize={'2xl'} 
+                fontFamily={'body'} 
+                fontWeight={500} 
+                defaultValue={truncateText(description, 20)} 
+                isPreviewFocusable={false}>
                 <EditablePreview />
                 <EditableInput />
                 <EditableControls />
