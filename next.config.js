@@ -7,7 +7,8 @@ module.exports = {
         '/all': { page: '/all' },
         '/create-campaign': { page: '/createcampaign' },
         '/discover': { page: '/discover'},
-        '/upload': { page: '/upload'}
+        '/upload': { page: '/upload'},
+        '/activity': { page: '/activity'}
       };
     },
     webpack5: true,
