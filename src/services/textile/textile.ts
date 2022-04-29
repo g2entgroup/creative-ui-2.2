@@ -36,7 +36,7 @@ export class TextileInstance {
     private static singletonInstance: TextileInstance;
     private static identity: PrivateKey;
 
-    private readonly threadName = "UserNFTThread";
+    private readonly threadName = "UserNFTThread-test";
     private readonly collectionName = "UserNFTList";
 
     public static async getInstance(
@@ -74,7 +74,11 @@ export class TextileInstance {
             await this.client.listThreads();
         const thread = threadList.find((obj) => obj.name === this.threadName);
         if (!thread) {
-            this.threadID = await this.client.newDB(undefined, this.threadName);
+            console.log("CREATE_DB");
+            this.threadID = await this.client.newDB(
+                ThreadID.fromRandom(),
+                this.threadName
+            );
             await this.client.newCollection(this.threadID, {
                 name: this.collectionName,
             });
@@ -90,8 +94,10 @@ export class TextileInstance {
             await this.client.newCollection(this.threadID, {
                 name: "settings",
             });
+            console.log("COLLECTIONS_CREATED");
         } else {
             this.threadID = ThreadID.fromString(thread.id);
+            console.log("RETRIEVED_DB");
         }
     }
 
@@ -288,7 +294,8 @@ export class TextileInstance {
     }
 
     public async uploadCampaignMetadata(
-        campaign: CampaignMetadata
+        campaign: CampaignMetadata,
+        img?: File
     ): Promise<CampaignMetadata | any> {
         console.log("uploadCampaignMetadata func ");
         if (!this.bucketInfo.bucket || !this.bucketInfo.bucketKey) {
@@ -303,14 +310,16 @@ export class TextileInstance {
         const now = new Date().getTime();
         campaign.name = `${now}_${campaign.brandName}`;
         const metadataLocation = `campaigns/${campaign.name}`;
-        const imgLocation = `campaigns/${campaign.name}/images/${campaign.image.name}`;
+        const imgLocation = `campaigns/${campaign.name}/images/${img.name}`;
 
-        const imgBuf = await campaign.image.arrayBuffer();
+        const imgBuf = await img.arrayBuffer();
         const imgRes = await this.bucketInfo.bucket.pushPath(
             this.bucketInfo.bucketKey,
             imgLocation,
             imgBuf
         );
+
+        console.log(imgRes);
 
         const blob = new Blob([JSON.stringify(campaign)], {
             type: "application/json",
@@ -322,6 +331,8 @@ export class TextileInstance {
             metadataLocation,
             metadataBuf
         );
+
+        console.log(metadataRes);
 
         return {
             ...campaign,
@@ -365,7 +376,7 @@ export class TextileInstance {
             );
             campaign = campaigns[0];
         } catch (err) {
-            campaign = {};
+            console.log(err);
         }
         return campaign;
     }
@@ -380,7 +391,20 @@ export class TextileInstance {
         console.log("getting all campaigns in user library...");
 
         const query = new Where("ownerAddress").eq(ownerAddress);
-        return await this.client.find(this.threadID, "campaigns", query);
+
+        let userCampaigns: CampaignMetadata[];
+
+        try {
+            userCampaigns = await this.client.find(
+                this.threadID,
+                "campaigns",
+                query
+            );
+        } catch (err) {
+            userCampaigns = [];
+        }
+
+        return userCampaigns;
     }
 
     public async getCampaignsByBrandName(
@@ -393,7 +417,20 @@ export class TextileInstance {
         console.log("getting all campaigns for provided brand name...");
 
         const query = new Where("brandName").eq(brandName);
-        return await this.client.find(this.threadID, "campaigns", query);
+
+        let brandCampaigns: CampaignMetadata[];
+
+        try {
+            brandCampaigns = await this.client.find(
+                this.threadID,
+                "campaigns",
+                query
+            );
+        } catch (err) {
+            brandCampaigns = [];
+        }
+
+        return brandCampaigns;
     }
 
     public async getCampaignByID(
@@ -405,11 +442,19 @@ export class TextileInstance {
 
         console.log("getting campaign...");
 
-        return await this.client.findByID(
-            this.threadID,
-            "campaigns",
-            campaignId
-        );
+        let campaign: CampaignMetadata;
+
+        try {
+            campaign = await this.client.findByID(
+                this.threadID,
+                "campaigns",
+                campaignId
+            );
+        } catch (err) {
+            console.log(err);
+        }
+
+        return campaign;
     }
 
     public async uploadPoolMetadata(
@@ -506,9 +551,11 @@ export class TextileInstance {
         const tx = this.client.readTransaction(this.threadID, "pools");
 
         await tx.start();
-        campaign.previousPools.map(async (e) =>
-            pools.push(await tx.findByID(e))
-        );
+        if (campaign.previousPools) {
+            campaign.previousPools.map(async (e) =>
+                pools.push(await tx.findByID(e))
+            );
+        }
         await tx.end();
 
         return pools;
@@ -521,11 +568,17 @@ export class TextileInstance {
             throw new Error("No client");
         }
 
-        const campaign: CampaignMetadata = await this.client.findByID(
-            this.threadID,
-            "pools",
-            campaignId
-        );
+        let campaign: CampaignMetadata;
+
+        try {
+            campaign = await this.client.findByID(
+                this.threadID,
+                "pools",
+                campaignId
+            );
+        } catch (err) {
+            console.log(err);
+        }
 
         let pool: PoolMetadata;
 
@@ -536,7 +589,7 @@ export class TextileInstance {
                 campaign.activePoolId
             );
         } catch (err) {
-            pool = {};
+            console.log(err);
         }
 
         return pool;
@@ -547,7 +600,15 @@ export class TextileInstance {
             throw new Error("No client");
         }
 
-        return await this.client.findByID(this.threadID, "pools", poolId);
+        let pool: PoolMetadata;
+
+        try {
+            pool = await this.client.findByID(this.threadID, "pools", poolId);
+        } catch (err) {
+            console.log(err);
+        }
+
+        return pool;
     }
 
     public async uploadCampaignPreferences(
@@ -615,14 +676,43 @@ export class TextileInstance {
 
         console.log("fetching campaign notification settings...");
 
-        let campaign: CampaignSettings;
+        let preferences: CampaignSettings;
 
         try {
-            await this.client.findByID(this.threadID, "settings", campaignId);
+            const campaign: CampaignMetadata = await this.client.findByID(
+                this.threadID,
+                "campaigns",
+                campaignId
+            );
+            preferences = campaign.notificationPreferences;
         } catch (err) {
-            campaign = {};
+            console.log(err);
         }
 
-        return campaign;
+        return preferences;
+    }
+
+    public async getPreferencesById(
+        preferencesId: string
+    ): Promise<CampaignSettings> {
+        if (!this.client) {
+            throw new Error("No client");
+        }
+
+        console.log("fetching campaign notification settings...");
+
+        let preferences: CampaignSettings;
+
+        try {
+            preferences = await this.client.findByID(
+                this.threadID,
+                "settings",
+                preferencesId
+            );
+        } catch (err) {
+            console.log(err);
+        }
+
+        return preferences;
     }
 }

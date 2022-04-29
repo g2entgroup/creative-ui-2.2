@@ -78,9 +78,9 @@ export interface PoolMetadata {
     email?: string;
     country?: string;
     nftAddress?: string;
-    votingLength?: string;
-    decisionLength?: string;
-    submissionLength?: string;
+    votingLength?: number;
+    decisionLength?: number;
+    submissionLength?: number;
 }
 
 export interface CampaignMetadata {
@@ -91,7 +91,8 @@ export interface CampaignMetadata {
     twitterAccount?: string;
     campaignBrief?: string;
     campaignImageURI?: string;
-    image?: File;
+    record?: boolean | string;
+    image?: string;
     activePoolId?: string;
     previousPools?: string[];
     notificationPreferences?: CampaignSettings;
