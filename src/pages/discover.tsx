@@ -1,4 +1,4 @@
-import { SimpleGrid, Text, Box, Button, useColorModeValue } from "@chakra-ui/react";
+import { SimpleGrid, Text, Box, Button } from "@chakra-ui/react";
 import BrandDiscovery from '../components/common/Cards/branddiscovery';
 import FilterTab from "../components/common/FilterTab/FilterTab";
 export default function Discover() {
@@ -20,7 +20,7 @@ export default function Discover() {
                 alignItems={['center','center','center', 'flex-start']}
                 justifyContent={['center','center','center', 'center']}
                 flexWrap={['nowrap', 'nowrap', 'wrap', 'wrap']}>
-                <Text as="h1" fontSize="4xl" fontStyle="bold" margin="10" colorScheme={useColorModeValue("black", "gray")}>Discover and Explore</Text>
+                <Text as="h1" fontSize="4xl" fontStyle="bold" margin="10">Discover and Explore</Text>
                 <FilterTab />
             </Box>
             <Box

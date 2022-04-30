@@ -11,8 +11,8 @@ import {
 import React, { ReactElement, ReactNode } from 'react';
 //import { TextBold } from '../../typography/Text'
 //import { ContentBlock } from '../base/base'
-import { TimeIcon, CheckIcon, WarningTwoIcon, LinkIcon, LockIcon, UnlockIcon, InfoIcon, SpinnerIcon } from '@chakra-ui/icons';
-import { Box, chakra, Text, useColorModeValue } from '@chakra-ui/react';
+import { TimeIcon, CheckIcon, WarningTwoIcon, LinkIcon, LockIcon, UnlockIcon, InfoIcon, SpinnerIcon  } from '@chakra-ui/icons'
+import { Box, chakra, Text } from '@chakra-ui/react';
 //import { Colors, Shadows } from '../../global/styles'
 import { AnimatePresence, motion, isValidMotionProp } from 'framer-motion';
 import { formatEther } from 'ethers/lib/utils';
@@ -198,7 +198,6 @@ const NotificationText = chakra(Text, {
 const TransactionDetails = chakra(Box, {
     baseStyle: {
         fontSize: "14px",
-        color: "black",
     }
 })
 
@@ -302,7 +301,6 @@ const TitleRow = chakra(Text, {
         padding: "16px",
         fontSize: "18px",
         fontWeight: "bold",
-        color: "black",
     }
 })
 
