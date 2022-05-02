@@ -1,9 +1,9 @@
 import React from "react";
-import { Box, Heading, Text, Button, Image } from "@chakra-ui/react";
+import { Box, Heading, Text, Button, Image, SimpleGrid, } from "@chakra-ui/react";
 import CreativeCard from '../components/common/Cards/CreativeCard';
 import { useEthers, shortenAddress, useLookupAddress, } from '@usedapp/core';
 import Icon from "@chakra-ui/icon";
-import { FaTwitter, FaInstagram } from 'react-icons/fa';
+import { FaTwitter, FaInstagram, FaStar } from 'react-icons/fa';
 import {  } from '@chakra-ui/react'
 
 const Profile = () => {
@@ -151,7 +151,8 @@ const Profile = () => {
               display='flex'
               alignItems='center'
               marginBottom={5}>
-              <StarIcon
+              <FaStar
+                fontSize={35}
                 color="yellow"
               />
               <Heading
@@ -211,20 +212,14 @@ const Profile = () => {
               Submitted Campaign Details
             </Heading>
           </Box>
-          <Box
+          <SimpleGrid
             marginBottom={5}
-            display='flex'
-            flexDir='row'
-            padding={2}>
+            columns={[4,4,4,6]}>
             <Box 
-              maxW='10%'
-              minW='10%'
-              display={['none','none','none','flex']}
+              maxW='10%' 
               h='10' />
             <Box 
-              w='100%' 
-              h='10'
-              padding={5}>
+              h='10'>
               <Heading
                 as='h4' 
                 size='md'>
@@ -232,9 +227,7 @@ const Profile = () => {
               </Heading>
             </Box>
             <Box 
-              w='100%' 
               h='10'
-              padding={5}
               display={['none','none','none','flex']}>
               <Heading
                 as='h4' 
@@ -243,9 +236,7 @@ const Profile = () => {
               </Heading>
             </Box>
             <Box 
-              w='100%' 
               h='10'
-              padding={5}
               display={['none','none','none','flex']}>
               <Heading
                 as='h4' 
@@ -254,43 +245,34 @@ const Profile = () => {
               </Heading>
             </Box>
             <Box 
-              w='100%' 
-              h='10'
-              padding={5}>
+              h='10'>
               <Heading
                 as='h4' 
                 size='md'>
                 Stage
               </Heading>
             </Box>
-            <Box 
-              w='100%' 
-              h='10'
-              padding={5}>
+            <Box  
+              h='10'>
               <Heading
                 as='h4' 
                 size='md'>
                 Claim
               </Heading>
             </Box>
-        </Box>
+        </SimpleGrid>
         <Box
             background='gray'
-            width='100%'
-            display={['flex','flex','flex','flex']}
-            flexDir={['column','column','column','column']}>
+            width='100%'>
             {
               brandData.map((data) => {
                 return(
-                  <Box 
-                    padding={2}
-                    display='flex'
-                    flexDir='row'>
+                  <SimpleGrid 
+                    columns={[4,4,4,6]} 
+                    padding={2}>
                     <Box 
-                      maxW='10%'
-                      minW='10%'
                       h='10'
-                      display={['none','none','none','flex']}
+                      display={'flex'}
                       alignItems='center'
                       justifyContent={'center'}
                       >
@@ -302,7 +284,6 @@ const Profile = () => {
                     </Box>
                     <Box 
                       h='10'
-                      padding={5}
                       display={'flex'}
                       alignItems='center'
                       justifyContent={'flex-start'}>
@@ -314,7 +295,6 @@ const Profile = () => {
                     </Box>
                     <Box 
                       h='10'
-                      padding={5}
                       display={['none','none','none','flex']}
                       alignItems='center'
                       justifyContent={'flex-start'}>
@@ -328,7 +308,6 @@ const Profile = () => {
                       h='10'
                       display={'flex'}
                       alignItems='center'
-                      padding={5}
                       justifyContent={'flex-start'}>
                       <Box
                         background={data.active ? "green": "red"} 
@@ -348,7 +327,6 @@ const Profile = () => {
                     </Box>
                     <Box 
                       h='10'
-                      padding={5}
                       display={['none','none','none','flex']}
                       alignItems='center'
                       justifyContent={'flex-start'}>
@@ -360,7 +338,6 @@ const Profile = () => {
                     </Box>
                     <Box 
                       h='10'
-                      padding={5}
                       display={'flex'}
                       alignItems='center'
                       justifyContent={'flex-start'}>
@@ -373,7 +350,7 @@ const Profile = () => {
                         </Button>
                       }
                     </Box>
-                  </Box>
+                  </SimpleGrid>
                 )
               })
             }
