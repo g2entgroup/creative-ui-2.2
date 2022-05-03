@@ -1,4 +1,3 @@
-import { Content } from "../../components/common/Content/Content";
 import { Heading, Text, Box, Image, Button } from "@chakra-ui/react";
 import { FaTwitter, FaGlobe } from 'react-icons/fa';
 import ReactPlayer from 'react-player/lazy';

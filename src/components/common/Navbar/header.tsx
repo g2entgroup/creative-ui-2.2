@@ -550,6 +550,19 @@ const Header = ({ children }: HeaderProps): JSX.Element => {
                     zIndex='100'
                     maxH={'400px'}
                     overflowY={['scroll','scroll','hidden', 'hidden']}>
+                    <MenuItem>
+                      <IconButton
+                        display={["flex", "flex", "none", "none"]}
+                        size="md"
+                        fontSize="lg"
+                        aria-label={`Switch to ${text} mode`}
+                        variant="ghost"
+                        color="brand.700"
+                        ml={{ base: "0", md: "3" }}
+                        onClick={toggleMode}
+                        icon={<SwitchIcon />}
+                      />
+                    </MenuItem>
                     <MenuItem
                        display={['flex', 'flex', 'none', 'none']}>
                       <chakra.h2 color="white"  fontSize="md" fontWeight='medium'>
@@ -617,19 +630,6 @@ const Header = ({ children }: HeaderProps): JSX.Element => {
                     </MenuItem>
                     <MenuItem as={Link} onClick={() => router.push('/all')} color="red">
                           View My Library
-                    </MenuItem>
-                    <MenuItem>
-                      <IconButton
-                        size="md"
-                        fontSize="lg"
-                        aria-label={`Switch to ${text} mode`}
-                        variant="ghost"
-                        color="brand.700"
-                        ml={{ base: "0", md: "3" }}
-                        onClick={toggleMode}
-                        icon={<SwitchIcon />}
-                      />
-                      <NotificationDrawer/>
                     </MenuItem>
                     <MenuItem 
                       as={Button} 
