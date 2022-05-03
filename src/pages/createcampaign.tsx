@@ -148,7 +148,6 @@ export default function Component(props) {
     };
 
     const { getRootProps, getInputProps } = useDropzone({
-        accept: "image/*",
         onDrop: (acceptedFiles) => {
             setFiles(
                 acceptedFiles.map((file) =>

@@ -36,7 +36,7 @@ import {
     ModalCloseButton,
     useDisclosure,
 } from "@chakra-ui/react";
-import { providers, utils } from "ethers";
+import { Contract, providers, utils } from "ethers";
 import { BigNumber } from "ethers";
 import { FaUser } from "react-icons/fa";
 import { useForm } from "react-hook-form";
@@ -48,10 +48,8 @@ import useContractLoader from "../hooks/ContractLoader";
 import Transactor from "../services/Transactor";
 import { NETWORKS } from "../constants";
 import { ethers } from "ethers";
-// import { Contract } from "@usedapp/core/node_modules/ethers";
 import { Collection, NFTMetadata } from "src/services/textile/types";
 import { useContractFunction, useEthers } from "@usedapp/core";
-import { Contract } from "@usedapp/core/node_modules/@ethersproject/contracts";
 import abi from "../contracts/YourCollectible.abi";
 import address from "../contracts/YourCollectible.address";
 import bytecode from "../contracts/YourCollectible.bytecode";
