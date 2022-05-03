@@ -1,16 +1,30 @@
 import React from "react";
-import { Box, Heading, Text, Button, Image, SimpleGrid, } from "@chakra-ui/react";
+import { Box, 
+  Heading, 
+  Text, 
+  Button, 
+  Image, 
+  SimpleGrid, 
+  Editable,
+  EditableInput,
+  EditableTextarea,
+  EditablePreview,
+  useEditableControls, 
+  ButtonGroup,
+  IconButton,
+  Flex,
+  Input,
+  chakra} from "@chakra-ui/react";
 import CreativeCard from '../components/common/Cards/CreativeCard';
 import { useEthers, shortenAddress, useLookupAddress, } from '@usedapp/core';
-import Icon from "@chakra-ui/icon";
 import { FaTwitter, FaInstagram, FaStar } from 'react-icons/fa';
-import {  } from '@chakra-ui/react'
+import { CheckIcon, CloseIcon, EditIcon } from "@chakra-ui/icons";
 
 const Profile = () => {
   const ens = useLookupAddress();
   const { account } = useEthers();
-  const [twitter, setTwitter] = React.useState('@SopieCat');
-  const [instagram, setInstagram] = React.useState('@SopieCat');
+  const [twitter, setTwitter] = React.useState('@username');
+  const [instagram, setInstagram] = React.useState('@username');
   const [balance, setBalance] = React.useState(10000);
   const [brandData] = React.useState(
     [
@@ -35,7 +49,27 @@ const Profile = () => {
     ]
   );
   const [bio] = React.useState('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi eu convallis sapien. Etiam aliquet semper justo nec posuere. Aliquam molestie efficitur quam quis bibendum. Aliquam sodales nisi consequat metus egestas eleifend. Morbi tincidunt ex a volutpat congue.')
-  const StarIcon = ({ color }) => <Icon name="star" color={color} /> 
+
+  /* Here's a custom control */
+  function EditableControls() {
+    const {
+      isEditing,
+      getSubmitButtonProps,
+      getCancelButtonProps,
+      getEditButtonProps,
+    } = useEditableControls()
+
+    return isEditing ? (
+      <ButtonGroup justifyContent='left' size='sm'>
+        <IconButton aria-label="check icon" icon={<CheckIcon />} {...getSubmitButtonProps()} />
+        <IconButton aria-label="close icon" icon={<CloseIcon />} {...getCancelButtonProps()} />
+      </ButtonGroup>
+    ) : (
+      <Flex justifyContent='left'>
+        <IconButton aria-label="edit icon" size='sm' icon={<EditIcon />} {...getEditButtonProps()} />
+      </Flex>
+    )
+  }
 
   return(
     <Box
@@ -84,29 +118,45 @@ const Profile = () => {
             >
             <Box
               marginBottom={[10,10,0,0]}>
-              <Box
-                display='flex'
-                justifyContent={'center'}
-                marginBottom={5}>
-                <Heading>wallet address</Heading>
+             <Box
+              display={['flex', 'flex', 'flex', 'flex']}>
+                <chakra.h2 color="white"  fontSize="md" fontWeight='medium'>
+                    { ens ?? account }
+                </chakra.h2>
               </Box>
               <Box  
                 display='flex'
-                alignContent={'center'}>
+                alignContent={'left'}
+                padding={2}
+                >
                 <FaTwitter />
-                <Text
-                  marginLeft={2}>
-                  {twitter}
-                </Text>
+                <Editable
+                  marginLeft={2}
+                  textAlign='left' 
+                  defaultValue={twitter}
+                  fontSize={"sm"}
+                >
+            
+                  <EditablePreview />
+                  <Input as={EditableInput} />
+                </Editable>
               </Box>
               <Box
                 display='flex'
-                alignContent={'center'}>
+                alignContent={'left'}
+                padding={2}
+                >
                 <FaInstagram />
-                <Text
-                  marginLeft={2}>
-                  {instagram}
-                </Text>
+                <Editable
+                  marginLeft={2}
+                  textAlign='left' 
+                  defaultValue={instagram}
+                  fontSize={"sm"}
+                >
+            
+                  <EditablePreview />
+                  <Input as={EditableInput} />
+                </Editable>
               </Box>
             </Box>
           </Box>
@@ -129,9 +179,17 @@ const Profile = () => {
           flexDir={['column','column','row','row']}
           marginBottom={20}
           cursor={'pointer'}>
-            <Text>
-              BIO: {bio}
-            </Text>
+          <Editable
+          textAlign='left' 
+          defaultValue={bio}
+          fontSize={"lg"}
+          isPreviewFocusable={true}
+          >
+            <Heading>Biography</Heading>
+            <EditableControls />
+            <EditablePreview />
+            <Input as={EditableTextarea} />
+          </Editable>
         </Box>
 
         <Box
