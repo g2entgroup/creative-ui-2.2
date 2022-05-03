@@ -428,6 +428,7 @@ const Header = ({ children }: HeaderProps): JSX.Element => {
                   fontSize="md"
                   _hover={{ color: cl }}
                   _focus={{ boxShadow: "none" }}
+                  onClick={() => router.push('/activity')}
                 >
                   Activity
                 </Button>
@@ -484,7 +485,7 @@ const Header = ({ children }: HeaderProps): JSX.Element => {
                   px="2">
                   <chakra.h1 color="white" fontSize="sm">
                     <Text>Balance:</Text>
-                  {ethersBalance && <Text>{formatEther(ethersBalance).slice(0,6)} ETH </Text>}
+                  {ethersBalance && <Text>{formatEther(ethersBalance).slice(0,6)} MATIC</Text>}
 
                     {/* 15.02&nbsp;ETH */}
                   </chakra.h1>
@@ -518,7 +519,7 @@ const Header = ({ children }: HeaderProps): JSX.Element => {
                   {/* 15.02&nbsp;ETH */}
                 </chakra.h1>
               </Box>
-}
+              }
                 <Menu>
                   <MenuButton as={Button}
                     bg="gray.800"
@@ -594,34 +595,6 @@ const Header = ({ children }: HeaderProps): JSX.Element => {
                       💰 Add Funds 
                     </MenuItem>
                     </NextLink>
-                    <MenuItem 
-                      display={['flex', 'flex', 'none', 'none']}
-                      as={Link} 
-                      onClick={() => router.push('/discover')} 
-                      color="white">
-                      Discover
-                    </MenuItem>
-                    <MenuItem 
-                      display={['flex', 'flex', 'none', 'none']}
-                      as={Link}  
-                      onClick={() => router.push('/community')} 
-                      color="white">
-                      Activity
-                    </MenuItem>
-                    <MenuItem 
-                      display={['flex', 'flex', 'none', 'none']}
-                      as={Link} 
-                      onClick={() => router.push('/vote')} 
-                      color="white">
-                      Vote
-                    </MenuItem>
-                    <MenuItem 
-                      display={['flex', 'flex', 'none', 'none']}
-                      as={Link} 
-                      onClick={() => router.push('/community')} 
-                      color="white">
-                      Community
-                    </MenuItem>
                     <MenuItem as={Link} color="red" onClick={() => router.push('/upload')}>
                           Upload
                     </MenuItem>
