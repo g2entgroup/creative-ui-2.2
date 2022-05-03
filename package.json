@@ -10,7 +10,6 @@
     "test": "jest --passWithNoTests"
   },
   "dependencies": {
-    "@ant-design/icons": "^4.6.2",
     "@babel/core": "^7.0.0",
     "@babel/preset-typescript": "^7.16.0",
     "@chakra-ui/icons": "^1.0.11",
@@ -33,9 +32,6 @@
     "@venly/web3-provider": "^0.32.0",
     "@walletconnect/web3-provider": "^1.7.8",
     "@web3-react/core": "^6.1.9",
-    "@web3-react/injected-connector": "^6.0.7",
-    "@web3-react/network-connector": "^6.1.9",
-    "@web3-react/walletconnect-connector": "^6.2.13",
     "@wert-io/widget-initializer": "^0.1.2",
     "authereum": "^0.1.14",
     "axios": "^0.21.2",

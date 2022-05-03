@@ -12,16 +12,21 @@ import Authereum from "authereum";
 import Fortmatic from "fortmatic";
 
 export const Web3ModalButton = () => {
-  const { account, activate, deactivate } = useEthers()
-  const ens = useLookupAddress()
-  const [showModal, setShowModal] = useState(false)
-  const [activateError, setActivateError] = useState('')
-  const { error } = useEthers()
+  const { account, activate, deactivate, error } = useEthers();
+  const ens = useLookupAddress();
+  const [showModal, setShowModal] = useState(false);
+  const [activateError, setActivateError] = useState('');
+  
   useEffect(() => {
-    if (error) {
+    let mounted = true
+    if (mounted) {
       setActivateError(error.message)
     }
-  }, [error])
+    return function cleanup() {
+      mounted = false
+    }
+  }, []);
+
 
   // Example for Polygon/Matic:
   const customNetworkOptions = {
@@ -91,7 +96,7 @@ export const Web3ModalButton = () => {
       providerOptions,
     })
     try {
-      const provider = await web3Modal.connect()
+      const provider = await web3Modal.connect();
       await activate(provider)
       setActivateError('')
     } catch (error: any) {
