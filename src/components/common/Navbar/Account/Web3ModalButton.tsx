@@ -18,14 +18,10 @@ export const Web3ModalButton = () => {
   const [activateError, setActivateError] = useState('');
   
   useEffect(() => {
-    let mounted = true
-    if (mounted) {
+    if (error) {
       setActivateError(error.message)
     }
-    return function cleanup() {
-      mounted = false
-    }
-  }, []);
+  }, [error]);
 
 
   // Example for Polygon/Matic:
