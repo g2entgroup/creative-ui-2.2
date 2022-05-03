@@ -4,8 +4,6 @@ import { Mumbai, Config, DAppProvider } from "@usedapp/core";
 import { ChakraProvider, Box, HStack, Icon, Stack, Text } from "@chakra-ui/react";
 // import theme from "../styles/theme";
 import theme from "../utils/theme";
-import { Web3ReactProvider } from "@web3-react/core";
-import { getLibrary } from "../utils/utils";
 import Header from "../components/common/Navbar/header";
 import Footer from "../components/common/Footer/footer";
 import { BannerLink } from '../components/common/BannerLink';
@@ -43,7 +41,6 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
   return (
     <DAppProvider config={config}>
     <ChakraProvider resetCSS theme={theme}>
-      <Web3ReactProvider getLibrary={getLibrary}>
       <StoreContainer.Provider>
         <Box 
           minH="100vh" 
@@ -76,7 +73,6 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
           <Footer />
         </Box>
         </StoreContainer.Provider>
-      </Web3ReactProvider>
     </ChakraProvider>
     </DAppProvider>
   );
