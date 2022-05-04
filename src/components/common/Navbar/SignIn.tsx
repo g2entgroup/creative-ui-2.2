@@ -222,9 +222,6 @@ const SignIn = (props) => {
                     <Button onClick={generatePrivateKey} color="red">Login with Metamask</Button>
                   </FormControl>
                 </Stack>
-                <Box>Don't Have An Account?
-                  <SignUp closeButton={check()} />
-                </Box>
               </Container>
             </Flex>
           </ModalBody>
