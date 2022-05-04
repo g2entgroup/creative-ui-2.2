@@ -24,7 +24,8 @@ import {
   InputRightElement,
   Container,
   Stack,
-  createStandaloneToast
+  createStandaloneToast,
+  useColorModeValue,
 } from "@chakra-ui/react";
 import { TextileInstance } from "../../../services/textile/textile";
 import SignUp from './SignUp';
@@ -180,7 +181,7 @@ const SignIn = (props) => {
 
   return (
     <>
-      <Button colorScheme="blue" variant="ghost" size="md" onClick={onOpen} >
+      <Button colorScheme={useColorModeValue("gray.900", "white")} variant="ghost" size="md" onClick={onOpen} >
         Sign In
       </Button>
 
@@ -196,30 +197,31 @@ const SignIn = (props) => {
             <Flex alignItems="center" pt="2%" justifyContent="space-between">
               <Stack spacing={1}>
               <Logo />
-              <Heading fontSize="2rem">CREATIVE</Heading>
+              <Heading fontSize="2rem" color={useColorModeValue("white", "white")}>CREATIVE</Heading>
               </Stack>
               <Container>
               <Stack spacing={6}>
-                <Heading as="h6" size="md">Sign In</Heading>
+                <Heading as="h6" size="md" color={useColorModeValue("white", "white")}>Sign In</Heading>
                 {/* name */}
                   <FormControl id="login" isRequired>
-                  <FormLabel>Password</FormLabel>
+                  <FormLabel color={useColorModeValue("white", "white")}>Password</FormLabel>
                     <InputGroup>
                       <Input
                         name="password"
+                        color={"white"}
                         placeholder="Password"
                         type={show ? "text" : "password"}
                         
                         onChange={handleChange}
                       />
                       <InputRightElement width="4.5rem">
-                      <Button h="1.75rem" size="sm" onClick={handleClick} color="red">
+                      <Button h="1.75rem" size="sm" onClick={handleClick} color={useColorModeValue("gray.900", "white")}>
                         {show ? "Hide" : "Show"}
                       </Button>
                     </InputRightElement>
                     </InputGroup>
                     <FormHelperText>enter account password</FormHelperText>
-                    <Button onClick={generatePrivateKey} color="red">Login with Metamask</Button>
+                    <Button onClick={generatePrivateKey} color={useColorModeValue("gray.900", "white")}>Login with Metamask</Button>
                   </FormControl>
                 </Stack>
               </Container>
