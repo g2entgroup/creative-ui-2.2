@@ -15,22 +15,22 @@ const Profile = () => {
   const [brandData] = React.useState(
     [
       {
-        image:'https://bit.ly/dan-abramov', brand: 'TESLA Brand Campaign', prize: 500, active: true, stage: 'Voting Stage', claim: false
+        id: 1, image:'https://bit.ly/dan-abramov', brand: 'TESLA Brand Campaign', prize: 500, active: true, stage: 'Voting Stage', claim: false
       },
       {
-        image:'https://bit.ly/dan-abramov', brand: 'TESLA Brand Campaign', prize: 500, active: true, stage: 'Decision Stage',  claim: false
+        id: 2, image:'https://bit.ly/dan-abramov', brand: 'TESLA Brand Campaign', prize: 500, active: true, stage: 'Decision Stage',  claim: false
       },
       {
-        image:'https://bit.ly/dan-abramov', brand: 'TESLA Brand Campaign', prize: 500, active: true, stage: 'Submission Stage',  claim: false
+        id: 3, image:'https://bit.ly/dan-abramov', brand: 'TESLA Brand Campaign', prize: 500, active: true, stage: 'Submission Stage',  claim: false
       },
       {
-        image:'https://bit.ly/dan-abramov', brand: 'Coca-Cola Brand Campaign', prize: 500, active: false, stage: 'Ended',  claim: false
+        id: 4, image:'https://bit.ly/dan-abramov', brand: 'Coca-Cola Brand Campaign', prize: 500, active: false, stage: 'Ended',  claim: false
       },
       {
-        image:'https://bit.ly/dan-abramov', brand: 'TESLA Brand Campaign', prize: 500, active: true, stage: 'Voting Stage',  claim: false
+        id: 5,  image:'https://bit.ly/dan-abramov', brand: 'TESLA Brand Campaign', prize: 500, active: true, stage: 'Voting Stage',  claim: false
       },
       {
-        image:'https://bit.ly/dan-abramov', brand: 'TESLA Brand Campaign', prize: 500, active: false, stage: 'Ended',  claim: false
+        id: 6, image:'https://bit.ly/dan-abramov', brand: 'TESLA Brand Campaign', prize: 500, active: false, stage: 'Ended',  claim: false
       },
     ]
   );
@@ -267,7 +267,8 @@ const Profile = () => {
             {
               brandData.map((data) => {
                 return(
-                  <SimpleGrid 
+                  <SimpleGrid
+                    key={data.id}
                     columns={[4,4,4,6]} 
                     padding={2}>
                     <Box 
