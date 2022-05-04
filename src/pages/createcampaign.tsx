@@ -1552,9 +1552,7 @@ export default function Component() {
                                             Capital
                                         </FormLabel>
                                         <Editable
-                                            defaultValue={
-                                                poolForm.values.capital
-                                            }
+                                            defaultValue={`${poolForm.values.capital}`}
                                             isPreviewFocusable={true}
                                         >
                                             <InputGroup>
@@ -1692,9 +1690,7 @@ export default function Component() {
                                             Pool Owner address
                                         </FormLabel>
                                         <Editable
-                                            defaultValue={
-                                                poolForm.values.poolOwner
-                                            }
+                                            defaultValue={account}
                                             isPreviewFocusable={true}
                                         >
                                             <EditablePreview />
@@ -1777,9 +1773,7 @@ export default function Component() {
                                             Campaign Length
                                         </FormLabel>
                                         <Editable
-                                            defaultValue={
-                                                poolForm.values.campaignLength
-                                            }
+                                            defaultValue={`${poolForm.values.campaignLength}`}
                                             isPreviewFocusable={true}
                                         >
                                             <EditablePreview />
@@ -1823,9 +1817,7 @@ export default function Component() {
                                             Voting Length
                                         </FormLabel>
                                         <Editable
-                                            defaultValue={
-                                                poolForm.values.votingLength
-                                            }
+                                            defaultValue={`${poolForm.values.votingLength}`}
                                             isPreviewFocusable={true}
                                         >
                                             <EditablePreview />
@@ -1868,9 +1860,7 @@ export default function Component() {
                                             Decision Length
                                         </FormLabel>
                                         <Editable
-                                            defaultValue={
-                                                poolForm.values.decisionLength
-                                            }
+                                            defaultValue={`${poolForm.values.decisionLength}`}
                                             isPreviewFocusable={true}
                                         >
                                             <EditablePreview />
@@ -1915,9 +1905,7 @@ export default function Component() {
                                             Submission Length
                                         </FormLabel>
                                         <Editable
-                                            defaultValue={
-                                                poolForm.values.submissionLength
-                                            }
+                                            defaultValue={`${poolForm.values.submissionLength}`}
                                             isPreviewFocusable={true}
                                         >
                                             <EditablePreview />
