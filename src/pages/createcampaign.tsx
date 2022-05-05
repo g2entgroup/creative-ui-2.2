@@ -130,7 +130,7 @@ export default function Component() {
             country: "",
             email: "",
             record: "0",
-            videoCid: "",
+            videoUrl: "",
             image: "",
             activePoolId: "",
             previousPools: [""],
@@ -145,7 +145,6 @@ export default function Component() {
         initialValues: {
             _id: "",
             poolAddress: "",
-            filename: "",
             updatedAt: "",
             poolName: "Your Product Name",
             capital: 7500,
@@ -196,7 +195,9 @@ export default function Component() {
             const sdkButton = configureButton({ element: button });
             sdkButton.on("insert-click", async (video) => {
                 const { html } = await oembed(video.sharedUrl, { width: 400 });
+                campaignForm.values.videoUrl = video.sharedUrl;
                 setVideoHTML(html);
+                console.log({ video });
             });
         }
         setupLoom();
@@ -247,7 +248,7 @@ export default function Component() {
             files[0]
         );
 
-        console.log(values);
+        console.log({ campaignMetadata });
 
         await textileInstance.addCampaign(campaignMetadata, account);
 
