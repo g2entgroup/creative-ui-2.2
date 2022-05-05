@@ -87,6 +87,7 @@ export interface CampaignMetadata {
     country?: string;
     record?: boolean | string;
     videoCid?: string;
+    videoUrl?: string;
     image?: string;
     activePoolId?: string;
     previousPools?: string[];

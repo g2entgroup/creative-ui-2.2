@@ -301,7 +301,22 @@ export class TextileInstance {
 
         campaign.ownerAddress = ownerAddress;
 
-        return await this.client.create(this.threadID, "campaigns", [campaign]);
+        let campaignCid;
+
+        try {
+            campaignCid = await this.client.create(this.threadID, "campaigns", [
+                campaign,
+            ]);
+        } catch (err) {
+            console.log(err);
+            await this.client.newCollection(this.threadID, {
+                name: "campaigns",
+            });
+            campaignCid = await this.client.create(this.threadID, "campaigns", [
+                campaign,
+            ]);
+        }
+        return campaignCid;
     }
 
     public async removeCampaign(campaignId: string) {
