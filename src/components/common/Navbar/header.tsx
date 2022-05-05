@@ -190,7 +190,7 @@ const Header = ({ children }: HeaderProps): JSX.Element => {
           py={6}
           p={{ sm: 8 }}
         >
-          <Link href="https://creativeplatform.io/guide" isExternal target="_blank">
+          <Link href="https://creativeplatform.io/guide" isExternal>
           <Section
             title="How It Works"
           >
@@ -207,10 +207,12 @@ const Header = ({ children }: HeaderProps): JSX.Element => {
               />
             }
           >
-            We think that the best way to align platform development with customers' interests is to empower the ones who actively interact with the protocol: creators, fans, and brands.
+            <Text color={useColorModeValue("black", "white")}>
+              We think that the best way to align platform development with customers' interests is to empower the ones who actively interact with the protocol: creators, fans, and brands.
+            </Text>
           </Section>
 
-          <Link href="https://community.creativeplatform.io" isExternal target="_blank">
+          <Link href="https://community.creativeplatform.io" isExternal>
           <Section
             title="Discussion"
             icon={
@@ -222,10 +224,12 @@ const Header = ({ children }: HeaderProps): JSX.Element => {
               />
             }
           >
-            The place to discuss all things related to the Creative platform.
+            <Text color={useColorModeValue("black", "white")}>
+              The place to discuss all things related to the Creative platform.
+            </Text>
           </Section>
           </Link>
-            <Link href="https://app.daohaus.club/dao/0x89/0xc48996a569911fd6eba1b97b6419731eed32041e/proposals" isExternal target="_blank">
+            <Link href="https://app.daohaus.club/dao/0x89/0xc48996a569911fd6eba1b97b6419731eed32041e/proposals" isExternal>
           <Section
             title="DAO Proposals"
             icon={
@@ -240,10 +244,10 @@ const Header = ({ children }: HeaderProps): JSX.Element => {
           </Section>
           </Link>
 
-          <Link href="https://creative.canny.io/" isExternal target="_blank">
+          <Link href="https://creative.canny.io/" isExternal>
           <Section
             title="Feature Suggestions"
-            description={
+            icon={
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"
@@ -252,7 +256,9 @@ const Header = ({ children }: HeaderProps): JSX.Element => {
               />
             }
           >
-            Suggest a feature to the Creative community for the good of the platform.
+            <Text color={useColorModeValue("black", "white")}>
+              Suggest a feature to the Creative community for the good of the platform.
+            </Text>
           </Section>
           </Link>
         </SimpleGrid>

@@ -103,8 +103,8 @@ export default function All () {
             justifyContent={['center','center','center', 'center']}
             flexWrap={['nowrap', 'nowrap', 'wrap', 'wrap']} >
           {   
-            cids.map((id) => (
-              <BucketCard imagelink={"https://hub.textile.io/ipfs/"+ id.cid } key={id.cid} creator={id.creator} name={id.name} description={id.description} deleteMedia={deleteMedia}></BucketCard>
+            cids.map((id, index) => (
+              <BucketCard key={index} imagelink={`https://hub.textile.io/ipfs/${id.cid}`} creator={id.creator} name={id.name} description={id.description} deleteMedia={deleteMedia}></BucketCard>
             )) 
           }  
         </Box>
