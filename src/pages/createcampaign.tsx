@@ -191,7 +191,7 @@ export default function Component() {
                 return;
             }
             const { configureButton } = await setup({
-                apiKey: API_KEY,
+                publicAppId: API_KEY,
             });
             const sdkButton = configureButton({ element: button });
             sdkButton.on("insert-click", async (video) => {
