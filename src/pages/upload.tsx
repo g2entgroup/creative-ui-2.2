@@ -114,10 +114,6 @@ export default function Component() {
         setSpin(true);
         console.log(JSON.stringify(values));
 
-        const storage = await init(
-            new ethers.providers.Web3Provider(window.ethereum).getSigner()
-        );
-
         const textileInstance = await TextileInstance.getInstance();
 
         const contract = new Contract(address, abi, library.getSigner());
@@ -128,6 +124,8 @@ export default function Component() {
             values.description,
             values.attributes
         );
+
+        const storage = await init(library.getSigner());
 
         if (await storage.hasDeposit()) {
             await textileInstance.uploadTokenMetadata(storage, nftMetadata);
@@ -149,8 +147,8 @@ export default function Component() {
             });
         }
 
-        const tokenId = await contract.mintToken(
-            account,
+        const tokenId = await contract.mintItem(
+            library.getSigner().getAddress(),
             `https://ipfs.io/ipfs/${nftMetadata.cid}`
         );
 

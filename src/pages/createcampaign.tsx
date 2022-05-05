@@ -140,6 +140,7 @@ export default function Component() {
             handleSaveCampaignDetails(values);
         },
     });
+
     const poolForm = useFormik({
         initialValues: {
             _id: "",
@@ -161,6 +162,7 @@ export default function Component() {
             handleSavePoolDetails(values);
         },
     });
+
     const preferencesForm = useFormik({
         initialValues: {
             _id: "",
@@ -245,7 +247,7 @@ export default function Component() {
             files[0]
         );
 
-        console.log(campaignMetadata);
+        console.log(values);
 
         await textileInstance.addCampaign(campaignMetadata, account);
 
@@ -258,6 +260,8 @@ export default function Component() {
         const pool = {
             ...values,
         };
+
+        console.log(pool);
 
         const poolMetadata = await textileInstance.uploadPoolMetadata({
             poolAddress: poolForm.values.poolAddress
