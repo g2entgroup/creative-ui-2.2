@@ -261,14 +261,14 @@ export default function Component() {
             ...values,
         };
 
-        console.log(pool);
-
         const poolMetadata = await textileInstance.uploadPoolMetadata({
             poolAddress: poolForm.values.poolAddress
                 ? poolForm.values.poolAddress
                 : "",
             ...pool,
         });
+
+        console.log({ poolMetadata });
 
         await textileInstance.uploadAndSetCampaignPool(
             campaignForm.values._id,
