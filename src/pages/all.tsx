@@ -104,7 +104,7 @@ export default function All () {
             flexWrap={['nowrap', 'nowrap', 'wrap', 'wrap']} >
           {   
             cids.map((id, index) => (
-              <BucketCard key={index} imagelink={`https://hub.textile.io/ipfs/${id.cid}`} creator={id.creator} name={id.name} description={id.description} deleteMedia={deleteMedia}></BucketCard>
+              <BucketCard key={index} imagelink={`https://dweb.link/ipfs/${id.cid}`} creator={id.creator} name={id.name} description={id.description} deleteMedia={deleteMedia}></BucketCard>
             )) 
           }  
         </Box>

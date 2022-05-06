@@ -13,7 +13,7 @@ export interface NFTMetadata {
     user?: string; // public key
     description?: string;
     attributes?: {
-        [k: string]: unknown;
+        [k: string]: string | number;
     };
 }
 
@@ -56,6 +56,11 @@ export interface TokenMetadata {
         [k: string]: unknown;
     };
     [k: string]: unknown;
+}
+
+export interface UserData {
+    _id?: string;
+    user_id: number;
 }
 
 export interface PoolMetadata {

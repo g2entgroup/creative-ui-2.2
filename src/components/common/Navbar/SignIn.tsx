@@ -168,7 +168,8 @@ const SignIn = (props) => {
 
   const createNotification = (identity: PrivateKey) => {
     const dispatchCustomEvent = createStandaloneToast();
-    dispatchCustomEvent({ title: "Secret Key",
+    dispatchCustomEvent({ 
+      title: "Secret Key",
       status: "success",
       description: ` SIGNED IN! Public Key: ${identity.public.toString()} Your app can now generate and reuse this users PrivateKey for creating user Mailboxes, Threads, and Buckets.`,
       duration: 9000,
@@ -221,7 +222,7 @@ const SignIn = (props) => {
                     </InputRightElement>
                     </InputGroup>
                     <FormHelperText>enter account password</FormHelperText>
-                    <Button onClick={generatePrivateKey} color={useColorModeValue("gray.900", "white")}>Login with Metamask</Button>
+                    <Button onClick={generatePrivateKey} padding={2} color={useColorModeValue("gray.900", "white")}>Login with Metamask</Button>
                   </FormControl>
                 </Stack>
               </Container>
