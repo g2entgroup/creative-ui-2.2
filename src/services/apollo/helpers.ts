@@ -45,7 +45,7 @@ export const uploadIpfsProfile = async ({
     JSON.stringify({
       version: "1.0.0",
       metadata_id: uuidv4(),
-      appId: "polyreel.xyz",
+      appId: "creative",
       name: name,
       bio: bio,
       location: location,
