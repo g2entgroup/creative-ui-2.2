@@ -1,8 +1,8 @@
-// MY INFURA_ID 
-export const INFURA_ID = "ff5a5c50d1e649bdb777f80813747e3d"
+// MY INFURA_ID
+export const INFURA_ID = "ff5a5c50d1e649bdb777f80813747e3d";
 
 // CREATIVE MATICVIGIL MATICVIGIL_KEY
-export const MATICVIGIL_KEY = "0555d91f079e6e531a60015e62d2578b1a4698dd"
+export const MATICVIGIL_KEY = "0555d91f079e6e531a60015e62d2578b1a4698dd";
 
 // MY ETHERSCAN_ID, SWAP IN YOURS FROM https://etherscan.io/myapikey
 export const ETHERSCAN_KEY = "PSW8C433Q667DVEX5BCRMGNAH9FSGFZ7Q8";
@@ -10,7 +10,15 @@ export const ETHERSCAN_KEY = "PSW8C433Q667DVEX5BCRMGNAH9FSGFZ7Q8";
 // BLOCKNATIVE ID FOR Notify.js:
 export const BLOCKNATIVE_DAPPID = "0b58206a-f3c0-4701-a62f-73c7243e8c77";
 
-export const RARIBLE_EXCHANGE_RINKEBY = "0x33Aef288C093Bf7b36fBe15c3190e616a993b0AD";
+export const RARIBLE_EXCHANGE_RINKEBY =
+  "0x33Aef288C093Bf7b36fBe15c3190e616a993b0AD";
+
+// LENS PROTOCOL CONSTANTS (MUMBAI NETWORK ONLY) - not used here because of export errors when calling this file - refer to /services/apollo/constants.ts
+// export const LENS_HUB_PROXY_ADDRESS =
+//   "0x4BF0c7AD32Fd2d32089790a54485e23f5C7736C0";
+// export const LENS_PERIPHERY_CONTRACT =
+//   "0x702C22BFCD705c42B46Df8512b51311a2B5e6036";
+// export const LENS_API_URL = "https://api-mumbai.lens.dev/";
 
 export const NETWORKS = {
   // localhost: {
@@ -70,13 +78,13 @@ export const NETWORKS = {
     blockExplorer: "https://blockscout.com/poa/xdai/",
   },
   bsc: {
-      name: "BSC",
-      color: "yellow",
-      chainId: 56,
-      price: 1,
-      gasPrice: 1000000000,
-      rpcUrl: "https://bsc-dataseed.binance.org/",
-      blockExplorer: "https://bscscan.com/"
+    name: "BSC",
+    color: "yellow",
+    chainId: 56,
+    price: 1,
+    gasPrice: 1000000000,
+    rpcUrl: "https://bsc-dataseed.binance.org/",
+    blockExplorer: "https://bscscan.com/",
   },
   bsc_Testnet: {
     name: "BSC Testnet",
@@ -85,15 +93,16 @@ export const NETWORKS = {
     price: 1,
     gasPrice: 1000000000,
     rpcUrl: "https://data-seed-prebsc-1-s1.binance.org:8545/",
-    blockExplorer: "https://bscscan.com/"
-},
+    blockExplorer: "https://bscscan.com/",
+  },
   matic: {
     name: "matic",
     color: "#2bbdf7",
     chainId: 137,
     price: 1,
     gasPrice: 1000000000,
-    rpcUrl: "https://polygon-mainnet.g.alchemy.com/v2/NDsioMXTwci91lMdODnh3iBbcJoxCgy8",
+    rpcUrl:
+      "https://polygon-mainnet.g.alchemy.com/v2/NDsioMXTwci91lMdODnh3iBbcJoxCgy8",
     faucet: "https://faucet.matic.network/",
     blockExplorer: "https://explorer-mainnet.maticvigil.com/",
   },
@@ -103,7 +112,8 @@ export const NETWORKS = {
     chainId: 80001,
     price: 1,
     gasPrice: 1000000000,
-    rpcUrl: "https://polygon-mumbai.g.alchemy.com/v2/4QdGUP8BOp3_NdNJAN1c2sWs12LtsfDF",
+    rpcUrl:
+      "https://polygon-mumbai.g.alchemy.com/v2/4QdGUP8BOp3_NdNJAN1c2sWs12LtsfDF",
     faucet: "https://faucet.matic.network/",
     blockExplorer: "https://mumbai-explorer.matic.today/",
   },
@@ -208,9 +218,9 @@ export const DEFAULT_SUPPORTED_CHAINS = [
   Velas,
   VelasTestnet,
   ZkSyncTestnet,
-]
+];
 
-export const NETWORK = chainId => {
+export const NETWORK = (chainId) => {
   for (const n in NETWORKS) {
     if (NETWORKS[n].chainId === chainId) {
       return NETWORKS[n];

@@ -10,6 +10,7 @@
     "test": "jest --passWithNoTests"
   },
   "dependencies": {
+    "@apollo/client": "^3.6.2",
     "@babel/core": "^7.0.0",
     "@babel/preset-typescript": "^7.16.0",
     "@chakra-ui/icons": "^1.0.11",
@@ -54,9 +55,11 @@
     "ipfs-http-client": "^50.1.1",
     "isomorphic-unfetch": "^3.1.0",
     "isomorphic-ws": "^4.0.1",
+    "jwt-decode": "^3.1.2",
     "next": "^12.1.0",
     "nextjs-cors": "^1.0.7",
     "node-fetch": "^2.6.1",
+    "omit-deep": "^0.3.0",
     "qrcode.react": "^1.0.1",
     "react": "^17.0.2",
     "react-blockies": "^1.4.1",
