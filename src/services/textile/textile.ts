@@ -29,7 +29,7 @@ export class TextileInstance {
 
     private readonly apiKey = process.env.NEXT_PUBLIC_TEXTILE_API_KEY;
 
-    private ipfsGateway = "https://hub.textile.io";
+    private ipfsGateway = "https://dweb.link";
 
     private static singletonInstance: TextileInstance;
     private static identity: PrivateKey;
@@ -199,6 +199,10 @@ export class TextileInstance {
         console.log("uploadnftmetadata func ");
         this.uploadnftmetadata(storage, tokenMeta);
         console.log(raw);
+        return {
+          tokenMetadataPath: location,
+          tokenMetadataURL: `/ipfs/${raw.path.cid.toString()}`
+        }
     }
 
     private async uploadnftmetadata(

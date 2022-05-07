@@ -122,7 +122,6 @@ export default function Component() {
             selectedFile,
             values.name,
             values.description,
-            values.attributes
         );
 
         const storage = await init(library.getSigner());
@@ -171,7 +170,7 @@ export default function Component() {
             selectedFile,
             values.name,
             values.description
-            // values.addAttributes
+            //values.addAttributes
         );
 
         let metadataRes;
