@@ -30,6 +30,7 @@ import {
 import { TextileInstance } from "../../../services/textile/textile";
 import SignUp from './SignUp';
 import Logo from './Logo-100';
+import { useEthers } from "@usedapp/core";
 
 type WindowInstanceWithEthereum = Window & typeof globalThis & { ethereum?: providers.ExternalProvider };
 class StrongType<Definition, Type> {
@@ -52,11 +53,9 @@ const SignIn = (props) => {
   const [closeButtons , setCloseButtons] = useState(false)
   const [secret, setSecret] = useState<String>();
 
-  const handleChange = (e: any) => setSecret(e.target.value);
+  const { account, library } = useEthers();
 
-  const handleSuccessSignin = () => {
-    localStorage.setItem('closeButtons', 'true');
-  }
+  const handleChange = (e: any) => setSecret(e.target.value);
 
   const generateMessageForEntropy = (ethereum_address: EthereumAddress, application_name: string, secret: string): string => {
     return (
@@ -97,39 +96,13 @@ const SignIn = (props) => {
     );
   }
 
-  const getSigner = async () => {
-    if (!(window as WindowInstanceWithEthereum).ethereum) {
-      throw new Error(
-        'Ethereum is not connected. Please download Metamask from https://metamask.io/download.html'
-      );
-    }
-
-    console.debug('Initializing web3 provider...');
-    // @ts-ignore
-    const provider = new providers.Web3Provider((window as WindowInstanceWithEthereum).ethereum);
-    const signer = provider.getSigner();
-    return signer
-  }
-
-  const getAddressAndSigner = async (): Promise<{address: EthereumAddress, signer: any}> => {
-    const signer = await getSigner()
-    // @ts-ignore
-    const accounts = await (window as WindowInstanceWithEthereum).ethereum.request({ method: 'eth_requestAccounts' });
-    if (accounts.length === 0) {
-      throw new Error('No account is provided. Please provide an account to this application.');
-    }
-
-    const address = new EthereumAddress(accounts[0]);
-
-    return {address, signer}
-  }
   const generatePrivateKey = async (): Promise<PrivateKey> => {
-    const metamask = await getAddressAndSigner()
+    const signer = library.getSigner();
     const salt = "$2a$10$3vx4QH1vSj9.URynBqkbae";
     // avoid sending the raw secret by hashing it first
     const hashSecret = hashSync(secret, salt);
-    const message = generateMessageForEntropy(metamask.address, 'Creative', hashSecret)
-    const signedText = await metamask.signer.signMessage(message);
+    const message = generateMessageForEntropy(new EthereumAddress(account), 'Creative', hashSecret)
+    const signedText = await signer.signMessage(message);
     const hash = utils.keccak256(signedText);
     if (hash === null) {
       throw new Error('No account is provided. Please provide an account to this application.');
@@ -158,10 +131,9 @@ const SignIn = (props) => {
     // Close the modal function and set local storage variable 
     //handleSuccessSignin(); // set close buttons to true 
     // Create a textile instance which will create or get the bucket assoicated with this user.
-    TextileInstance.setPrivateKey(identity);
     // Initialize the instance now itself which would create the bucket as well as the thread db collection
     // to hold the content and its related metadata.
-    await TextileInstance.getInstance();
+    await TextileInstance.getInstance(identity);
     // Your app can now use this identity for generating a user Mailbox, Threads, Buckets, etc
     return identity
   }
@@ -175,6 +147,10 @@ const SignIn = (props) => {
       duration: 9000,
       isClosable: true,
     });
+  }
+
+  const handleSuccessSignin = () => {
+    localStorage.setItem('closeButtons', 'true');
   }
 
   const [show, setShow] = useState(false);

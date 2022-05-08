@@ -1,3 +1,13 @@
+import { PrivateKey } from "@textile/crypto";
+
+export interface UserModel {
+    _id?: string;
+    name?: string;
+    username?: string;
+    email?: string;
+    role?: string;
+}
+
 export interface NFTMetadata {
     _id?: string;
     _mod?: number;
