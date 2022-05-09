@@ -134,16 +134,8 @@ export class TextileInstance {
     ): Promise<TextileInstance> {
         if (!TextileInstance.singletonInstance) {
             // TextileInstance.identity = identity;
-            try {
-                TextileInstance.singletonInstance = new TextileInstance();
-            } catch (err) {
-                throw new Error("new");
-            }
-            // try {
-                await TextileInstance.singletonInstance.init();
-            // } catch (err) {
-                // throw new Error("init");
-            // }
+            TextileInstance.singletonInstance = new TextileInstance();
+            await TextileInstance.singletonInstance.init();
         }
         return TextileInstance.singletonInstance;
     }
