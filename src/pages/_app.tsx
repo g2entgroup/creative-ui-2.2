@@ -24,7 +24,7 @@ import { apolloClient } from "../services/apollo/apollo-client";
 const config: Config = {
   readOnlyChainId: Mumbai.chainId,
   readOnlyUrls: {
-    [Mumbai.chainId]: getDefaultProvider(process.env.NEXT_PUBLIC_MUMBAI),
+    [Mumbai.chainId]: getDefaultProvider(`https://polygon-mumbai.g.alchemy.com/v2/${process.env.NEXT_PUBLIC_MUMBAI}`),
   },
   notifications: {
     checkInterval: 1500,

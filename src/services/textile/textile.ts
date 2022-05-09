@@ -149,7 +149,7 @@ export class TextileInstance {
 
         await userClient.setToken(privateKey.toString());
     }
-
+    
     public async uploadUserData(newUser: UserModel): Promise<void> {
         if (!this.bucketInfo.bucket || !this.bucketInfo.bucketKey ) {
             throw new Error("No bucket client or root key or tokenID");
