@@ -151,6 +151,48 @@ export class TextileInstance {
         await this.client.create(this.threadID, this.names.u, [newUser]);
     }
 
+    public async getUser(username: string): Promise<UserModel> {
+        if (!this.client) {
+            throw new Error("No client");
+        }
+
+        const query = new Where("username").eq(username);
+
+        return await this.client.find<UserModel>(
+            this.threadID,
+            this.names.u,
+            query
+        )[0];
+    }
+
+    public async getBrands(): Promise<UserModel[]> {
+        if (!this.client) {
+            throw new Error("No client");
+        }
+
+        const query = new Where("role").eq("brand");
+
+        return await this.client.find<UserModel>(
+            this.threadID,
+            this.names.u,
+            query
+        );
+    }
+
+    public async getPros(): Promise<UserModel[]> {
+        if (!this.client) {
+            throw new Error("No client");
+        }
+
+        const query = new Where("role").eq("pro");
+
+        return await this.client.find<UserModel>(
+            this.threadID,
+            this.names.u,
+            query
+        );
+    }
+
     public async uploadNFT(
         file: File,
         name: string = "",
