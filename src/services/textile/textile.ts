@@ -20,6 +20,7 @@ import {
     UserMessage,
     MailboxEvent,
     Query,
+    UserAuth,
 } from "@textile/hub";
 import { CoreAPI } from "@textile/eth-storage";
 import { BigNumber } from "ethers";
@@ -35,9 +36,7 @@ export class TextileInstance {
         p: "Pools"
     };
 
-    private keyInfo: KeyInfo = {
-        key: process.env.NEXT_PUBLIC_TEXTILE_API_KEY
-    };
+    private keyInfo: KeyInfo;
     private bucketInfo: {
         bucket?: Buckets;
         bucketKey?: string;
@@ -56,6 +55,7 @@ export class TextileInstance {
     private static singletonInstance: TextileInstance;
 
     private async init() {
+        console.log({ identity: TextileInstance.identity })
         await this.initializeClients();
         await this.initializeMailbox();
         await this.initializeBuckets();
@@ -63,9 +63,13 @@ export class TextileInstance {
     }
 
     private async initializeClients() {
+        this.keyInfo = {
+            key: process.env.NEXT_PUBLIC_TEXTILE_API_KEY
+        };
+
         this.client = await Client.withKeyInfo(this.keyInfo);
         this.userClient = await Users.withKeyInfo(this.keyInfo);
-        this.user = await this.getCurrentUser();
+        await this.userClient.getToken(TextileInstance.identity);
     }
 
     private async initializeMailbox() {
@@ -121,13 +125,25 @@ export class TextileInstance {
         }
     }
 
+    public static async setPrivateKey(privateKey: PrivateKey) {
+        TextileInstance.identity = privateKey;
+    }
+    
     public static async getInstance(
-        identity?: PrivateKey
+        // identity?: PrivateKey
     ): Promise<TextileInstance> {
-        if (!TextileInstance.singletonInstance || identity) {
-            TextileInstance.identity = identity;
-            TextileInstance.singletonInstance = new TextileInstance();
-            await TextileInstance.singletonInstance.init();
+        if (!TextileInstance.singletonInstance) {
+            // TextileInstance.identity = identity;
+            try {
+                TextileInstance.singletonInstance = new TextileInstance();
+            } catch (err) {
+                throw new Error("new");
+            }
+            // try {
+                await TextileInstance.singletonInstance.init();
+            // } catch (err) {
+                // throw new Error("init");
+            // }
         }
         return TextileInstance.singletonInstance;
     }
@@ -260,6 +276,7 @@ export class TextileInstance {
     public async sendUserInvite(): Promise<void> {
         if (!this.userClient) return;
         
+
     }
 
     public async deleteMessage(id: string): Promise<void> {

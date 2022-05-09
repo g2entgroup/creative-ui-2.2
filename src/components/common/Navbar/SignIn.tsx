@@ -133,7 +133,11 @@ const SignIn = (props) => {
     // Create a textile instance which will create or get the bucket assoicated with this user.
     // Initialize the instance now itself which would create the bucket as well as the thread db collection
     // to hold the content and its related metadata.
-    await TextileInstance.getInstance(identity);
+
+    await TextileInstance.setPrivateKey(identity);
+
+    await handleSuccessSignin();
+
     // Your app can now use this identity for generating a user Mailbox, Threads, Buckets, etc
     return identity
   }
@@ -149,8 +153,12 @@ const SignIn = (props) => {
     });
   }
 
-  const handleSuccessSignin = () => {
+  const handleSuccessSignin = async () => {
     localStorage.setItem('closeButtons', 'true');
+
+    const textileInstace = await TextileInstance.getInstance();
+
+    await textileInstace.setCurrentUser();
   }
 
   const [show, setShow] = useState(false);

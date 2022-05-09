@@ -152,10 +152,25 @@ const SignUp = (props) => {
       role
     }
 
-    await TextileInstance.signUp(privateKey);
-    const textileInstance = await TextileInstance.getInstance(privateKey);
+    console.log("signing up");
     
-    textileInstance.uploadUserData(newUser);
+    await TextileInstance.signUp(privateKey);
+
+    console.log("getting textile instance");
+    
+    await TextileInstance.setPrivateKey(privateKey);
+    
+    const textileInstance = await TextileInstance.getInstance();
+    
+    console.log("uploading user data");
+
+    await textileInstance.uploadUserData(newUser);
+
+    console.log("setting current user");
+
+    await textileInstance.setCurrentUser();
+
+    console.log("done");
 
     createNotification();
     onClose();
