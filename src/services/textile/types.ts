@@ -8,6 +8,14 @@ export interface UserModel {
     role?: string;
 }
 
+export interface DecryptedMessage {
+    _id?: string;
+    body?: string;
+    from?: string;
+    sent?: number;
+    readAt?: number;
+}
+
 export interface NFTMetadata {
     _id?: string;
     _mod?: number;

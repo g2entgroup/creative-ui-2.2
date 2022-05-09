@@ -1,6 +1,7 @@
 import {
     CampaignMetadata,
     CampaignSettings,
+    DecryptedMessage,
     NFTMetadata,
     PoolMetadata,
     TokenMetadata,
@@ -16,6 +17,8 @@ import {
     ThreadID,
     GetThreadResponse,
     Users,
+    UserMessage,
+    MailboxEvent,
 } from "@textile/hub";
 import { CoreAPI } from "@textile/eth-storage";
 import { BigNumber } from "ethers";
@@ -191,6 +194,82 @@ export class TextileInstance {
             this.names.u,
             query
         );
+    }
+
+    public async getInbox(): Promise<DecryptedMessage[]> {
+        if (!this.userClient) return;
+
+        const messages = await this.userClient.listInboxMessages()
+
+        const inbox: DecryptedMessage[] = []
+        for (const message of messages) {
+            inbox.push(await this.messageDecoder(message));
+        }
+
+        return inbox;
+    }
+
+    public async getMailboxListener(): Promise<any> {
+        if (!this.userClient) return;
+
+        return this.userClient.watchInbox(this.mailboxId, this.handleNewMessage);
+    }
+
+    public async sendMessage(newMessage: string): Promise<UserMessage> {
+        if (!this.userClient) return;
+        if (newMessage === '' || !this.userClient) return;
+
+        const encoded = new TextEncoder().encode(newMessage)
+
+        return await this.userClient.sendMessage(
+            TextileInstance.identity, 
+            TextileInstance.identity.public, 
+            encoded
+        );
+    }
+
+    public async sendUserInvite(): Promise<void> {
+        if (!this.userClient) return;
+        
+    }
+
+    public async deleteMessage(id: string): Promise<void> {
+        if (!this.userClient) return;
+
+        return await this.userClient.deleteInboxMessage(id);
+      }
+
+    private async messageDecoder(
+        encryptedMessage: UserMessage
+    ): Promise<DecryptedMessage> {
+        const bytes = await TextileInstance.identity.decrypt(encryptedMessage.body);
+
+        const body = new TextDecoder().decode(bytes);
+        const { 
+            from, 
+            readAt, 
+            createdAt, 
+            id
+        } = encryptedMessage;
+        
+        return {
+            _id: id,
+            body, 
+            from, 
+            readAt, 
+            sent: createdAt, 
+        };
+    }
+
+    private async handleNewMessage(
+        reply?: MailboxEvent, 
+        err?: Error
+    ): Promise<DecryptedMessage> {
+        if (err) return;
+        if (!this.client) return;
+        if (!reply || !reply.message) return;
+
+        return await this.messageDecoder(reply.message);
     }
 
     public async uploadNFT(
