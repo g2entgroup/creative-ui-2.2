@@ -149,7 +149,7 @@ export class TextileInstance {
 
         await userClient.setToken(privateKey.toString());
     }
-    
+
     public async uploadUserData(newUser: UserModel): Promise<void> {
         if (!this.bucketInfo.bucket || !this.bucketInfo.bucketKey ) {
             throw new Error("No bucket client or root key or tokenID");
@@ -265,10 +265,16 @@ export class TextileInstance {
         );
     }
 
-    public async sendUserInvite(): Promise<void> {
+    public async sendUserInvite(address: string): Promise<void> {
         if (!this.userClient) return;
         
 
+    }
+
+    public async acceptUserInvite(adress: string): Promise<void> {
+        if (!this.userClient) return;
+
+        
     }
 
     public async deleteMessage(id: string): Promise<void> {
