@@ -115,9 +115,9 @@ export class TextileInstance {
     }
 
     public static async getInstance(
-        identity: PrivateKey
+        identity?: PrivateKey
     ): Promise<TextileInstance> {
-        if (!TextileInstance.singletonInstance) {
+        if (!TextileInstance.singletonInstance || identity) {
             TextileInstance.identity = identity;
             TextileInstance.singletonInstance = new TextileInstance();
             await TextileInstance.singletonInstance.init();
@@ -612,38 +612,38 @@ export class TextileInstance {
         return pool;
     }
 
-    public async uploadCampaignPreferences(
-        settings: CampaignSettings
-    ): Promise<CampaignSettings | any> {
-        if (!this.bucketInfo.bucket || !this.bucketInfo.bucketKey) {
-            throw new Error("No bucket client or root key");
-        }
+    // public async uploadCampaignPreferences(
+    //     settings: CampaignSettings
+    // ): Promise<CampaignSettings | any> {
+    //     if (!this.bucketInfo.bucket || !this.bucketInfo.bucketKey) {
+    //         throw new Error("No bucket client or root key");
+    //     }
 
-        const now = new Date().getTime();
-        const preferencesName = `${now}_${settings.campaignName}_settings`;
-        const location = `settings/${preferencesName}`;
+    //     const now = new Date().getTime();
+    //     const preferencesName = `${now}_${settings.campaignName}_settings`;
+    //     const location = `settings/${preferencesName}`;
 
-        const blob = new Blob([JSON.stringify(settings)], {
-            type: "application/json",
-        });
-        const file = new File([blob], preferencesName);
+    //     const blob = new Blob([JSON.stringify(settings)], {
+    //         type: "application/json",
+    //     });
+    //     const file = new File([blob], preferencesName);
 
-        const buf = await file.arrayBuffer();
-        const raw = await this.bucketInfo.bucket.pushPath(
-            this.bucketInfo.bucketKey,
-            location,
-            buf
-        );
+    //     const buf = await file.arrayBuffer();
+    //     const raw = await this.bucketInfo.bucket.pushPath(
+    //         this.bucketInfo.bucketKey,
+    //         location,
+    //         buf
+    //     );
 
-        console.log("uploadCampaignPreferences func ");
-        console.log(raw);
-        return {
-            ...settings,
-            updatedAt: now.toString(),
-            filename: preferencesName,
-            cid: raw.path.cid,
-        };
-    }
+    //     console.log("uploadCampaignPreferences func ");
+    //     console.log(raw);
+    //     return {
+    //         ...settings,
+    //         updatedAt: now.toString(),
+    //         filename: preferencesName,
+    //         cid: raw.path.cid,
+    //     };
+    // }
 
     public async setCampaignPreferences(
         campaignId: string,
@@ -693,27 +693,27 @@ export class TextileInstance {
         return preferences;
     }
 
-    public async getPreferencesById(
-        preferencesId: string
-    ): Promise<CampaignSettings> {
-        if (!this.client) {
-            throw new Error("No client");
-        }
+    // public async getPreferencesById(
+    //     preferencesId: string
+    // ): Promise<CampaignSettings> {
+    //     if (!this.client) {
+    //         throw new Error("No client");
+    //     }
 
-        console.log("fetching campaign notification settings...");
+    //     console.log("fetching campaign notification settings...");
 
-        let preferences: CampaignSettings;
+    //     let preferences: CampaignSettings;
 
-        try {
-            preferences = await this.client.findByID(
-                this.threadID,
-                "settings",
-                preferencesId
-            );
-        } catch (err) {
-            console.log(err);
-        }
+    //     try {
+    //         preferences = await this.client.findByID(
+    //             this.threadID,
+    //             "settings",
+    //             preferencesId
+    //         );
+    //     } catch (err) {
+    //         console.log(err);
+    //     }
 
-        return preferences;
-    }
+    //     return preferences;
+    // }
 }
