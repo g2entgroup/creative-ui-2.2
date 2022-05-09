@@ -2,6 +2,7 @@ import { PrivateKey } from "@textile/crypto";
 
 export interface UserModel {
     _id?: string;
+    publicKey?: string;
     name?: string;
     username?: string;
     email?: string;

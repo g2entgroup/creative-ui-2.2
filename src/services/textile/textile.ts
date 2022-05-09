@@ -19,6 +19,7 @@ import {
     Users,
     UserMessage,
     MailboxEvent,
+    Query,
 } from "@textile/hub";
 import { CoreAPI } from "@textile/eth-storage";
 import { BigNumber } from "ethers";
@@ -47,6 +48,8 @@ export class TextileInstance {
     private client: Client;
     private userClient: Users;
 
+    private user: UserModel;
+
     private threadID: ThreadID;
     private mailboxId: string;
 
@@ -62,6 +65,7 @@ export class TextileInstance {
     private async initializeClients() {
         this.client = await Client.withKeyInfo(this.keyInfo);
         this.userClient = await Users.withKeyInfo(this.keyInfo);
+        this.user = await this.getCurrentUser();
     }
 
     private async initializeMailbox() {
@@ -151,15 +155,40 @@ export class TextileInstance {
             buf
         );
 
-        await this.client.create(this.threadID, this.names.u, [newUser]);
+        await this.client.create(this.threadID, this.names.u, [{
+            ...newUser,
+            publicKey: TextileInstance.identity.public.toString()
+        }]);
     }
 
-    public async getUser(username: string): Promise<UserModel> {
+    public async setCurrentUser(): Promise<UserModel> {
         if (!this.client) {
             throw new Error("No client");
         }
 
-        const query = new Where("username").eq(username);
+        const query: Query = new Where("publicKey").eq(TextileInstance.identity.public.toString());
+
+        return await this.client.find<UserModel>(
+            this.threadID,
+            this.names.u,
+            query
+        )[0];
+    }
+
+    public async getCurrentUser(): Promise<UserModel> {
+        if (!this.user) {
+            throw new Error("No current user has been set");
+        }
+        
+        return this.user;
+    }
+
+    public async getUser(username?: string): Promise<UserModel> {
+        if (!this.client) {
+            throw new Error("No client");
+        }
+
+        const query: Query = new Where("username").eq(username);
 
         return await this.client.find<UserModel>(
             this.threadID,
