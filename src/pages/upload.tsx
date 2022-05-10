@@ -122,6 +122,7 @@ export default function Component() {
             selectedFile,
             values.name,
             values.description,
+            values.attributes,
         );
 
         const storage = await init(library.getSigner());
@@ -169,8 +170,8 @@ export default function Component() {
         const nftMetadata = await textileInstance.uploadNFT(
             selectedFile,
             values.name,
-            values.description
-            //values.addAttributes
+            values.description,
+            values.addAttributes
         );
 
         let metadataRes;

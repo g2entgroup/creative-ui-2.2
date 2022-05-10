@@ -22,7 +22,8 @@ function handleSubmit(e){
     }
     const attribute = {
         id: nanoid(),
-        text: [key, value]
+        property: key,
+        text: value
     }
 
     addAttributes(attribute)
@@ -37,14 +38,14 @@ function handleSubmit(e){
                 value={key} 
                 variant="outline" 
                 type="text" 
-                placeholder="Background..."
+                placeholder="Background"
                 color={useColorModeValue("gray.700", "gray.50")}
                 onChange={(e) => setKey(e.target.value)} />
                 <Input 
                 value={value} 
                 variant="outline" 
                 type="text" 
-                placeholder="Blue..."
+                placeholder="Blue"
                 color={useColorModeValue("gray.700", "gray.50")}
                 onChange={(e)=>setValue(e.target.value)} />
             </Stack>
