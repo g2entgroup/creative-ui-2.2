@@ -24,7 +24,7 @@ function AttributeList({ attributes, deleteAttribute }) {
                         variant="outline"
                         borderRadius="sm" 
                     >
-                        {attribute.text}
+                        {attribute.property}: {attribute.text}
                     </Badge>
 
                     <Flex w="10px" >

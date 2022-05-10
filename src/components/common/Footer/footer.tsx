@@ -156,7 +156,7 @@ const Footer = () => {
             >
               <SiDiscord />
             </Box>
-            <Box padding={5}>
+            <Box padding={4}>
               <Box>
                 <Link href="https://discord.gg/8B4p7ztWTp" color={"white"} isExternal>Creative Discord</Link>
               </Box>
@@ -190,7 +190,7 @@ const Footer = () => {
                   color={"white"}
                   textOverflow={'wrap'}
                   href="mailto:creatives@creativeplatform.xyz">
-                  <Text>creatives@creativeplatform.xyz</Text>
+                  <Link href="mailto:creatives@creativeplatform.xyz">Email</Link>
                 </Link>
                 </Box>
             </Box>
