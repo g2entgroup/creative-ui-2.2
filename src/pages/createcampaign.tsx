@@ -311,17 +311,15 @@ export default function Component() {
     ) => {
         const textileInstance = await TextileInstance.getInstance();
 
-        const preferenceMetadata =
-            await textileInstance.uploadCampaignPreferences({
-                ...values,
-            });
+        // const preferenceMetadata =
+        //     await textileInstance.uploadCampaignPreferences({
+        //         ...values,
+        //     });
 
         await textileInstance.setCampaignPreferences(
             campaignForm.values._id,
-            preferenceMetadata
+            values
         );
-
-        preferencesForm.setValues(preferenceMetadata);
     };
 
     function EditableControls() {

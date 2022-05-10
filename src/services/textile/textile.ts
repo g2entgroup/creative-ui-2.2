@@ -1,9 +1,11 @@
 import {
     CampaignMetadata,
     CampaignSettings,
+    DecryptedMessage,
     NFTMetadata,
     PoolMetadata,
     TokenMetadata,
+    UserModel,
 } from "./types";
 import {
     Where,
@@ -14,99 +16,74 @@ import {
     Client,
     ThreadID,
     GetThreadResponse,
+    Users,
+    UserMessage,
+    MailboxEvent,
+    Query,
+    UserAuth,
 } from "@textile/hub";
 import { CoreAPI } from "@textile/eth-storage";
 import { BigNumber } from "ethers";
 
 export class TextileInstance {
+
+    private readonly ipfsGateway = "https://dweb.link";
+    private readonly names = {
+        t: "UserNFTThread",
+        n: "UserNFTList",
+        u: "UserData",
+        c: "Collections",
+        p: "Pools"
+    };
+
     private keyInfo: KeyInfo;
     private bucketInfo: {
         bucket?: Buckets;
         bucketKey?: string;
     };
+
+    private static identity: PrivateKey;
+    
     private client: Client;
+    private userClient: Users;
+
+    private user: UserModel;
+
     private threadID: ThreadID;
-
-    private readonly apiKey = process.env.NEXT_PUBLIC_TEXTILE_API_KEY;
-
-    private ipfsGateway = "https://dweb.link";
+    private mailboxId: string;
 
     private static singletonInstance: TextileInstance;
-    private static identity: PrivateKey;
 
-    private readonly threadName = "UserNFTThread";
-    private readonly collectionName = "UserNFTList";
-
-    public static async getInstance(
-        identity?: PrivateKey
-    ): Promise<TextileInstance> {
-        if (!TextileInstance.singletonInstance) {
-            TextileInstance.singletonInstance = new TextileInstance();
-            await TextileInstance.singletonInstance.init(identity);
-        }
-        console.log(TextileInstance);
-        return TextileInstance.singletonInstance;
-    }
-
-    public static setPrivateKey(key: PrivateKey) {
-        TextileInstance.identity = key;
-    }
-
-    private async init(identity) {
-        console.log(this.apiKey);
-
-        this.keyInfo = {
-            key: this.apiKey,
-        };
-
-        this.configBuckets(identity);
-
+    private async init() {
+        console.log({ identity: TextileInstance.identity })
+        await this.initializeClients();
+        await this.initializeMailbox();
+        await this.initializeBuckets();
         await this.initializeCollection();
     }
 
-    private async initializeCollection(): Promise<void> {
-        this.client = await Client.withKeyInfo(this.keyInfo);
-        await this.client.getToken(TextileInstance.identity);
+    private async initializeClients() {
+        this.keyInfo = {
+            key: process.env.NEXT_PUBLIC_TEXTILE_API_KEY
+        };
 
-        const threadList: Array<GetThreadResponse> =
-            await this.client.listThreads();
-        const thread = threadList.find((obj) => obj.name === this.threadName);
-        if (!thread) {
-            console.log("CREATE_DB");
-            this.threadID = await this.client.newDB(
-                ThreadID.fromRandom(),
-                this.threadName
-            );
-            await this.client.newCollection(this.threadID, {
-                name: this.collectionName,
-            });
-            await this.client.newCollection(this.threadID, {
-                name: "collections",
-            });
-            await this.client.newCollection(this.threadID, {
-                name: "campaigns",
-            });
-            await this.client.newCollection(this.threadID, {
-                name: "pools",
-            });
-            await this.client.newCollection(this.threadID, {
-                name: "settings",
-            });
-            console.log("COLLECTIONS_CREATED");
-        } else {
-            this.threadID = ThreadID.fromString(thread.id);
-            console.log("RETRIEVED_DB");
-        }
+        this.client = await Client.withKeyInfo(this.keyInfo);
+        this.userClient = await Users.withKeyInfo(this.keyInfo);
+        await this.userClient.getToken(TextileInstance.identity);
     }
 
-    private async configBuckets(identity?: PrivateKey) {
+    private async initializeMailbox() {
+        this.mailboxId = await this.userClient.setupMailbox();
+    }
+
+    private async initializeBuckets() {
         if (!this.keyInfo) {
             throw new Error("No bucket client or root key or tokenID");
         }
 
         let buckets = await Buckets.withKeyInfo(this.keyInfo);
 
-        await buckets.getToken(identity ? identity : TextileInstance.identity);
+        await buckets.getToken(TextileInstance.identity);
 
         const buck = await buckets.getOrCreate("creativebucket");
 
@@ -118,6 +95,219 @@ export class TextileInstance {
             bucket: buckets,
             bucketKey: buck.root.key,
         };
+    }
+
+    private async initializeCollection(): Promise<void> {
+        await this.client.getToken(TextileInstance.identity);
+
+        const threadList: Array<GetThreadResponse> =
+            await this.client.listThreads();
+        const thread = threadList.find((obj) => obj.name === this.names.t);
+        if (!thread) {
+            this.threadID = await this.client.newDB(
+                ThreadID.fromRandom(),
+                this.names.t
+            );
+            await this.client.newCollection(this.threadID, {
+                name: this.names.u
+            });
+            await this.client.newCollection(this.threadID, {
+                name: this.names.n,
+            });
+            await this.client.newCollection(this.threadID, {
+                name: this.names.c,
+            });
+            await this.client.newCollection(this.threadID, {
+                name: this.names.p,
+            });
+        } else {
+            this.threadID = ThreadID.fromString(thread.id);
+        }
+    }
+
+    public static async setPrivateKey(privateKey: PrivateKey) {
+        TextileInstance.identity = privateKey;
+    }
+    
+    public static async getInstance(
+        // identity?: PrivateKey
+    ): Promise<TextileInstance> {
+        if (!TextileInstance.singletonInstance) {
+            // TextileInstance.identity = identity;
+            TextileInstance.singletonInstance = new TextileInstance();
+            await TextileInstance.singletonInstance.init();
+        }
+        return TextileInstance.singletonInstance;
+    }
+
+    public static async signUp(privateKey: PrivateKey) {
+        const keyInfo: KeyInfo = {
+            key: process.env.NEXT_PUBLIC_TEXTILE_API_KEY
+        };
+
+        const userClient = await Users.withKeyInfo(keyInfo);
+
+        await userClient.setToken(privateKey.toString());
+    }
+    
+    public async uploadUserData(newUser: UserModel): Promise<void> {
+        if (!this.bucketInfo.bucket || !this.bucketInfo.bucketKey ) {
+            throw new Error("No bucket client or root key or tokenID");
+        }
+
+        const buf = Buffer.from(JSON.stringify(newUser, null, 2));
+
+        await this.bucketInfo.bucket.pushPath(
+            this.bucketInfo.bucketKey,
+            `users/${new Date().getTime()}_${newUser.username}`,
+            buf
+        );
+
+        await this.client.create(this.threadID, this.names.u, [{
+            ...newUser,
+            publicKey: TextileInstance.identity.public.toString()
+        }]);
+    }
+
+    public async setCurrentUser(): Promise<UserModel> {
+        if (!this.client) {
+            throw new Error("No client");
+        }
+
+        const query: Query = new Where("publicKey").eq(TextileInstance.identity.public.toString());
+
+        return await this.client.find<UserModel>(
+            this.threadID,
+            this.names.u,
+            query
+        )[0];
+    }
+
+    public async getCurrentUser(): Promise<UserModel> {
+        if (!this.user) {
+            throw new Error("No current user has been set");
+        }
+        
+        return this.user;
+    }
+
+    public async getUser(username?: string): Promise<UserModel> {
+        if (!this.client) {
+            throw new Error("No client");
+        }
+
+        const query: Query = new Where("username").eq(username);
+
+        return await this.client.find<UserModel>(
+            this.threadID,
+            this.names.u,
+            query
+        )[0];
+    }
+
+    public async getBrands(): Promise<UserModel[]> {
+        if (!this.client) {
+            throw new Error("No client");
+        }
+
+        const query = new Where("role").eq("brand");
+
+        return await this.client.find<UserModel>(
+            this.threadID,
+            this.names.u,
+            query
+        );
+    }
+
+    public async getPros(): Promise<UserModel[]> {
+        if (!this.client) {
+            throw new Error("No client");
+        }
+
+        const query = new Where("role").eq("pro");
+
+        return await this.client.find<UserModel>(
+            this.threadID,
+            this.names.u,
+            query
+        );
+    }
+
+    public async getInbox(): Promise<DecryptedMessage[]> {
+        if (!this.userClient) return;
+
+        const messages = await this.userClient.listInboxMessages()
+
+        const inbox: DecryptedMessage[] = []
+        for (const message of messages) {
+            inbox.push(await this.messageDecoder(message));
+        }
+
+        return inbox;
+    }
+
+    public async getMailboxListener(): Promise<any> {
+        if (!this.userClient) return;
+
+        return this.userClient.watchInbox(this.mailboxId, this.handleNewMessage);
+    }
+
+    public async sendMessage(newMessage: string): Promise<UserMessage> {
+        if (!this.userClient) return;
+        if (newMessage === '' || !this.userClient) return;
+
+        const encoded = new TextEncoder().encode(newMessage)
+
+        return await this.userClient.sendMessage(
+            TextileInstance.identity, 
+            TextileInstance.identity.public, 
+            encoded
+        );
+    }
+
+    public async sendUserInvite(): Promise<void> {
+        if (!this.userClient) return;
+        
+
+    }
+
+    public async deleteMessage(id: string): Promise<void> {
+        if (!this.userClient) return;
+
+        return await this.userClient.deleteInboxMessage(id);
+      }
+
+    private async messageDecoder(
+        encryptedMessage: UserMessage
+    ): Promise<DecryptedMessage> {
+        const bytes = await TextileInstance.identity.decrypt(encryptedMessage.body);
+
+        const body = new TextDecoder().decode(bytes);
+        const { 
+            from, 
+            readAt, 
+            createdAt, 
+            id
+        } = encryptedMessage;
+        
+        return {
+            _id: id,
+            body, 
+            from, 
+            readAt, 
+            sent: createdAt, 
+        };
+    }
+
+    private async handleNewMessage(
+        reply?: MailboxEvent, 
+        err?: Error
+    ): Promise<DecryptedMessage> {
+        if (err) return;
+        if (!this.client) return;
+        if (!reply || !reply.message) return;
+
+        return await this.messageDecoder(reply.message);
     }
 
     public async uploadNFT(
@@ -226,7 +416,7 @@ export class TextileInstance {
             throw new Error("No client");
         }
         console.log("adding nft to user collection...");
-        await this.client.create(this.threadID, this.collectionName, [nft]);
+        await this.client.create(this.threadID, this.names.t, [nft]);
     }
 
     public async getAllUserNFTs(): Promise<Array<NFTMetadata>> {
@@ -237,7 +427,7 @@ export class TextileInstance {
         // TODO: Implement a pagination logic to query only limited data.
         const memeList = await this.client.find<NFTMetadata>(
             this.threadID,
-            this.collectionName,
+            this.names.t,
             {}
         );
         console.log("All user memes:", memeList);
@@ -252,7 +442,7 @@ export class TextileInstance {
         if (!this.bucketInfo.bucket || !this.bucketInfo.bucketKey) {
             if (this.keyInfo) {
                 console.log("CATCH CONFIG BUCKETS!!!!");
-                this.configBuckets();
+                this.initializeBuckets();
             } else {
                 throw new Error("No bucket client or root key");
             }
@@ -308,15 +498,15 @@ export class TextileInstance {
         let campaignCid;
 
         try {
-            campaignCid = await this.client.create(this.threadID, "campaigns", [
+            campaignCid = await this.client.create(this.threadID, this.names.c, [
                 campaign,
             ]);
         } catch (err) {
             console.log(err);
             await this.client.newCollection(this.threadID, {
-                name: "campaigns",
+                name: this.names.c,
             });
-            campaignCid = await this.client.create(this.threadID, "campaigns", [
+            campaignCid = await this.client.create(this.threadID, this.names.c, [
                 campaign,
             ]);
         }
@@ -324,7 +514,7 @@ export class TextileInstance {
     }
 
     public async removeCampaign(campaignId: string) {
-        await this.client.delete(this.threadID, "campaigns", [campaignId]);
+        await this.client.delete(this.threadID, this.names.c, [campaignId]);
     }
 
     // public async uplodLoomVideo(loomHtml: string) {
@@ -341,7 +531,7 @@ export class TextileInstance {
         try {
             const campaigns = await this.client.find(
                 this.threadID,
-                "campaigns",
+                this.names.c,
                 {}
             );
             campaign = campaigns[0];
@@ -367,7 +557,7 @@ export class TextileInstance {
         try {
             userCampaigns = await this.client.find(
                 this.threadID,
-                "campaigns",
+                this.names.c,
                 query
             );
         } catch (err) {
@@ -393,7 +583,7 @@ export class TextileInstance {
         try {
             brandCampaigns = await this.client.find(
                 this.threadID,
-                "campaigns",
+                this.names.c,
                 query
             );
         } catch (err) {
@@ -417,7 +607,7 @@ export class TextileInstance {
         try {
             campaign = await this.client.findByID(
                 this.threadID,
-                "campaigns",
+                this.names.c,
                 campaignId
             );
         } catch (err) {
@@ -472,7 +662,7 @@ export class TextileInstance {
 
         const poolId: string = await this.client.create(
             this.threadID,
-            "pools",
+            this.names.p,
             [pool]
         )[0];
 
@@ -480,7 +670,7 @@ export class TextileInstance {
 
         const tx: WriteTransaction = this.client.writeTransaction(
             this.threadID,
-            "campaigns"
+            this.names.c
         );
 
         await tx.start();
@@ -514,11 +704,11 @@ export class TextileInstance {
 
         const campaign: CampaignMetadata = await this.client.findByID(
             this.threadID,
-            "pools",
+            this.names.p,
             campaignId
         );
 
-        const tx = this.client.readTransaction(this.threadID, "pools");
+        const tx = this.client.readTransaction(this.threadID, this.names.p);
 
         await tx.start();
         if (campaign.previousPools) {
@@ -543,7 +733,7 @@ export class TextileInstance {
         try {
             campaign = await this.client.findByID(
                 this.threadID,
-                "pools",
+                this.names.p,
                 campaignId
             );
         } catch (err) {
@@ -555,7 +745,7 @@ export class TextileInstance {
         try {
             pool = await this.client.findByID(
                 this.threadID,
-                "pools",
+                this.names.p,
                 campaign.activePoolId
             );
         } catch (err) {
@@ -573,7 +763,7 @@ export class TextileInstance {
         let pool: PoolMetadata;
 
         try {
-            pool = await this.client.findByID(this.threadID, "pools", poolId);
+            pool = await this.client.findByID(this.threadID, this.names.p, poolId);
         } catch (err) {
             console.log(err);
         }
@@ -581,38 +771,38 @@ export class TextileInstance {
         return pool;
     }
 
-    public async uploadCampaignPreferences(
-        settings: CampaignSettings
-    ): Promise<CampaignSettings | any> {
-        if (!this.bucketInfo.bucket || !this.bucketInfo.bucketKey) {
-            throw new Error("No bucket client or root key");
-        }
+    // public async uploadCampaignPreferences(
+    //     settings: CampaignSettings
+    // ): Promise<CampaignSettings | any> {
+    //     if (!this.bucketInfo.bucket || !this.bucketInfo.bucketKey) {
+    //         throw new Error("No bucket client or root key");
+    //     }
 
-        const now = new Date().getTime();
-        const preferencesName = `${now}_${settings.campaignName}_settings`;
-        const location = `settings/${preferencesName}`;
+    //     const now = new Date().getTime();
+    //     const preferencesName = `${now}_${settings.campaignName}_settings`;
+    //     const location = `settings/${preferencesName}`;
 
-        const blob = new Blob([JSON.stringify(settings)], {
-            type: "application/json",
-        });
-        const file = new File([blob], preferencesName);
+    //     const blob = new Blob([JSON.stringify(settings)], {
+    //         type: "application/json",
+    //     });
+    //     const file = new File([blob], preferencesName);
 
-        const buf = await file.arrayBuffer();
-        const raw = await this.bucketInfo.bucket.pushPath(
-            this.bucketInfo.bucketKey,
-            location,
-            buf
-        );
+    //     const buf = await file.arrayBuffer();
+    //     const raw = await this.bucketInfo.bucket.pushPath(
+    //         this.bucketInfo.bucketKey,
+    //         location,
+    //         buf
+    //     );
 
-        console.log("uploadCampaignPreferences func ");
-        console.log(raw);
-        return {
-            ...settings,
-            updatedAt: now.toString(),
-            filename: preferencesName,
-            cid: raw.path.cid,
-        };
-    }
+    //     console.log("uploadCampaignPreferences func ");
+    //     console.log(raw);
+    //     return {
+    //         ...settings,
+    //         updatedAt: now.toString(),
+    //         filename: preferencesName,
+    //         cid: raw.path.cid,
+    //     };
+    // }
 
     public async setCampaignPreferences(
         campaignId: string,
@@ -624,7 +814,7 @@ export class TextileInstance {
 
         console.log("setting campaign notification preferences...");
 
-        const tx = this.client.writeTransaction(this.threadID, "campaigns");
+        const tx = this.client.writeTransaction(this.threadID, this.names.c);
 
         await tx.start();
 
@@ -662,27 +852,27 @@ export class TextileInstance {
         return preferences;
     }
 
-    public async getPreferencesById(
-        preferencesId: string
-    ): Promise<CampaignSettings> {
-        if (!this.client) {
-            throw new Error("No client");
-        }
+    // public async getPreferencesById(
+    //     preferencesId: string
+    // ): Promise<CampaignSettings> {
+    //     if (!this.client) {
+    //         throw new Error("No client");
+    //     }
 
-        console.log("fetching campaign notification settings...");
+    //     console.log("fetching campaign notification settings...");
 
-        let preferences: CampaignSettings;
+    //     let preferences: CampaignSettings;
 
-        try {
-            preferences = await this.client.findByID(
-                this.threadID,
-                "settings",
-                preferencesId
-            );
-        } catch (err) {
-            console.log(err);
-        }
+    //     try {
+    //         preferences = await this.client.findByID(
+    //             this.threadID,
+    //             "settings",
+    //             preferencesId
+    //         );
+    //     } catch (err) {
+    //         console.log(err);
+    //     }
 
-        return preferences;
-    }
+    //     return preferences;
+    // }
 }

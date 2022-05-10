@@ -24,8 +24,14 @@ import {
 } from "@chakra-ui/react";
 import Link from "next/link";
 import Image from "next/image";
-import SignIn from './SignIn';
+import SignIn, { EthereumAddress } from './SignIn';
 import Logo from './Logo-100';
+import { useEthers } from "@usedapp/core";
+import { PrivateKey } from "@textile/crypto";
+import { hashSync } from "bcryptjs";
+import { utils, BigNumber } from "ethers";
+import { TextileInstance } from "src/services/textile/textile";
+import { createStandaloneToast } from "@chakra-ui/toast";
 
 const check = () => {
   if(localStorage.getItem('closeButtons') == 'true') {
@@ -44,36 +50,130 @@ const SignUp = (props) => {
   const [username, setUsername] = useState('');
 
   const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [secret, setSecret] = useState<String>();
   const [role, setRole] = useState('');
   const [submitted, setSubmitted] = useState(false);
 
-  const handleSubmit = (e) => { 
+  const { account, library } = useEthers();
+
+  const handleChange = (e: any) => setSecret(e.target.value);
+
+  const generateMessageForEntropy = (ethereum_address: EthereumAddress, application_name: string, secret: string): string => {
+    return (
+      '******************************************************************************** \n' +
+      'READ THIS MESSAGE CAREFULLY. \n' +
+      'DO NOT SHARE THIS SIGNED MESSAGE WITH ANYONE OR THEY WILL HAVE READ AND WRITE \n' +
+      'ACCESS TO THIS APPLICATION. \n' +
+      'DO NOT SIGN THIS MESSAGE IF THE FOLLOWING IS NOT TRUE OR YOU DO NOT CONSENT \n' +
+      'TO THE CURRENT APPLICATION HAVING ACCESS TO THE FOLLOWING APPLICATION. \n' +
+      '******************************************************************************** \n' +
+      'The Ethereum address used by this application is: \n' +
+      '\n' +
+      ethereum_address.value +
+      '\n' +
+      '\n' +
+      '\n' +
+      'By signing this message, you authorize the current application to use the \n' +
+      'following app associated with the above address: \n' +
+      '\n' +
+      application_name +
+      '\n' +
+      '\n' +
+      '\n' +
+      'The hash of your non-recoverable, private, non-persisted password or secret \n' +
+      'phrase is: \n' +
+      '\n' +
+      secret +
+      '\n' +
+      '\n' +
+      '\n' +
+      '******************************************************************************** \n' +
+      'ONLY SIGN THIS MESSAGE IF YOU CONSENT TO THE CURRENT PAGE ACCESSING THE TEXTILE KEYS \n' +
+      'ASSOCIATED WITH THE ABOVE ADDRESS AND APPLICATION. \n' +
+      'NOTE THIS DOES NOT ALLOW ACCESS TO YOUR WALLET FOR BLOCKCHAIN TX. \n' +
+      'AGAIN, DO NOT SHARE THIS SIGNED MESSAGE WITH ANYONE OR THEY WILL HAVE READ AND \n' +
+      'WRITE ACCESS TO THIS APPLICATION. \n' +
+      '******************************************************************************** \n'
+    );
+  }
+
+  const generatePrivateKey = async (): Promise<PrivateKey> => {
+    const signer = library.getSigner();
+    const salt = "$2a$10$3vx4QH1vSj9.URynBqkbae";
+    // avoid sending the raw secret by hashing it first
+    const hashSecret = hashSync(secret, salt);
+    const message = generateMessageForEntropy(new EthereumAddress(account), 'Creative', hashSecret)
+    const signedText = await signer.signMessage(message);
+    const hash = utils.keccak256(signedText);
+    if (hash === null) {
+      throw new Error('No account is provided. Please provide an account to this application.');
+    }
+    // The following line converts the hash in hex to an array of 32 integers.
+      // @ts-ignore
+    const array = hash
+      // @ts-ignore
+      .replace('0x', '')
+      // @ts-ignore
+      .match(/.{2}/g)
+      .map((hexNoPrefix) => BigNumber.from('0x' + hexNoPrefix).toNumber())
+    
+    if (array.length !== 32) {
+      throw new Error('Hash of signature is not the correct size! Something went wrong!');
+    }
+    const identity = PrivateKey.fromRawEd25519Seed(Uint8Array.from(array))
+    console.log(`Your VIP Key: ${identity.toString()}`)
+    
+    const identityString = identity.toString()
+    localStorage.setItem("user-private-identity" , identityString)
+
+    return identity
+  }
+
+  const createNotification = () => {
+    const dispatchCustomEvent = createStandaloneToast();
+    dispatchCustomEvent({ 
+      title: "Secret Key",
+      status: "success",
+      description: `SUCCESS! ${username} (${account}) Your account has been created and you have been signed in!`,
+      duration: 9000,
+      isClosable: true,
+    });
+  }
+
+  const handleSubmit = async (e) => { 
     e.preventDefault()
-    console.log('Sending')
-  let data = {
+
+    const privateKey = await generatePrivateKey();
+
+    let newUser = {
       name,
+      username,
       email,
-      password,
       role
     }
-  fetch('/brandContact', {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json, text/plain, */*',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(data)
-    }).then((res) => {
-      console.log('Response received')
-      if (res.status === 200) {
-        console.log('Response succeeded!')
-        setSubmitted(true)
-        setName('')
-        setEmail('')
-        setRole('')
-      }
-    })
+
+    console.log("signing up");
+    
+    await TextileInstance.signUp(privateKey);
+
+    console.log("getting textile instance");
+    
+    await TextileInstance.setPrivateKey(privateKey);
+    
+    const textileInstance = await TextileInstance.getInstance();
+    
+    console.log("uploading user data");
+
+    await textileInstance.uploadUserData(newUser);
+
+    console.log("setting current user");
+
+    await textileInstance.setCurrentUser();
+
+    console.log("done");
+
+    createNotification();
+    onClose();
   }
 
   return (
@@ -122,16 +222,16 @@ const SignUp = (props) => {
                     />
                   </InputGroup>
                 </FormControl>
-                <FormControl id="password" isRequired>
+                <FormControl id="secret" isRequired>
                 <FormLabel color={useColorModeValue("white", "white")}>Password</FormLabel>
                   <InputGroup>
                     <Input
                       pr="4.5rem"
-                      name="password"
+                      name="secret"
                       type={show ? "text" : "password"}
                       placeholder="Enter password"
                       color={"white"}
-                      onChange={(e)=>{setPassword(e.target.value)}}
+                      onChange={(e)=>{setSecret(e.target.value)}}
                     />
                     <InputRightElement width="4.5rem">
                       <Button h="1.75rem" size="sm" onClick={handleClick} color={useColorModeValue("gray.900", "white")}>
@@ -155,10 +255,11 @@ const SignUp = (props) => {
                   <FormControl>
                     <FormLabel color={"white"}>Role</FormLabel>
                     <Select color={"white"} placeholder="Select option" onChange={(e)=>{setRole(e.target.value)}}>
+                      <option color={"white"} value="pro">Pro</option>
                       <option color={"white"} value="brand">Brand</option>
                     </Select>
                   </FormControl>
-                  <Button type="submit" color={useColorModeValue("gray.900", "white")}>Register Now</Button>
+                  <Button type="submit" onClick={handleSubmit} color={useColorModeValue("gray.900", "white")}>Register Now</Button>
                 </Stack>
                 <Box padding={2} color={"white"}>Already Have An Account?
                   <SignIn onClose={onClose}/>
