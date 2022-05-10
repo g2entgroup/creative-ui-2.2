@@ -5,7 +5,8 @@ import { nanoid } from 'nanoid';
 
 function AddAttributes({ addAttributes }) {
 const toast = useToast()
-const [value, setValue] = useState("")
+const [key, setKey] = useState("");
+const [value, setValue] = useState("");
 
 function handleSubmit(e){
     e.preventDefault();
@@ -21,10 +22,11 @@ function handleSubmit(e){
     }
     const attribute = {
         id: nanoid(),
-        text: value
+        text: [key, value]
     }
 
     addAttributes(attribute)
+    setKey('')
     setValue('')
 
 }
@@ -32,12 +34,12 @@ function handleSubmit(e){
         <>
             <Stack direction={['column', 'row']} spacing={4}>
                 <Input
-                value={value} 
+                value={key} 
                 variant="outline" 
                 type="text" 
                 placeholder="Background..."
                 color={useColorModeValue("gray.700", "gray.50")}
-                onChange={(e)=>setValue(e.target.value)} />
+                onChange={(e) => setKey(e.target.value)} />
                 <Input 
                 value={value} 
                 variant="outline" 
