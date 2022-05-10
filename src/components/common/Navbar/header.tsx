@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { useRouter } from 'next/router';
 import { ChainId, useEthers, shortenAddress, useNotifications, useLookupAddress, useEtherBalance } from '@usedapp/core';
 import ConnectWallet from "../Navbar/ConnectWallet";
@@ -46,8 +46,11 @@ import { FaMoon, FaSun } from "react-icons/fa";
 import Logo from "../Navbar/Logo";
 import SignIn from "./SignIn";
 import SignUp from "./SignUp";
+import InviteUser from "./InviteUser";
 import Image from 'next/image';
 import { formatEther } from "ethers/lib/utils";
+import { UserModel } from "src/services/textile/types";
+import { TextileInstance } from "src/services/textile/textile";
 
 const check = () => {
   if(localStorage.getItem('closeButtons') == 'true') {
@@ -82,12 +85,32 @@ function truncateHash(hash: string, length = 38): string {
 const Header = ({ children }: HeaderProps): JSX.Element => {
   const router = useRouter();
 
+  const [user, setUser] = useState<UserModel>();
+
   const { account, deactivate, chainId } = useEthers();
+
   const ethersBalance = useEtherBalance(account);
+
   const { notifications } = useNotifications();
+
   const ens = useLookupAddress();
 
+  const handleGetUser = async () => {
+    try {
+      const textileInstance = await TextileInstance.getInstance();
+      const user = await textileInstance.getCurrentUser();
+      setUser(user);  
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  useEffect(() => {
+    handleGetUser();
+  }, [account]);
+
   let chainName: string;
+
   if (chainId === ChainId.Rinkeby) {
     chainName = "Rinkeby"
   }
@@ -633,6 +656,9 @@ const Header = ({ children }: HeaderProps): JSX.Element => {
                     </MenuItem>
                     <MenuItem as={Link} onClick={() => router.push('/createcampaign')} color="red">
                           Create Campaign
+                    </MenuItem>
+                    <MenuItem>
+                      <InviteUser />
                     </MenuItem>
                     <MenuItem as={Link} onClick={() => router.push('/all')} color="red">
                           View My Library

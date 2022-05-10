@@ -21,6 +21,8 @@ import {
     MailboxEvent,
     Query,
     UserAuth,
+    DBInfo,
+    PublicKey,
 } from "@textile/hub";
 import { CoreAPI } from "@textile/eth-storage";
 import { BigNumber } from "ethers";
@@ -149,7 +151,7 @@ export class TextileInstance {
 
         await userClient.setToken(privateKey.toString());
     }
-    
+
     public async uploadUserData(newUser: UserModel): Promise<void> {
         if (!this.bucketInfo.bucket || !this.bucketInfo.bucketKey ) {
             throw new Error("No bucket client or root key or tokenID");
@@ -252,7 +254,7 @@ export class TextileInstance {
         return this.userClient.watchInbox(this.mailboxId, this.handleNewMessage);
     }
 
-    public async sendMessage(newMessage: string): Promise<UserMessage> {
+    public async sendMessage(newMessage: string, address: string): Promise<UserMessage> {
         if (!this.userClient) return;
         if (newMessage === '' || !this.userClient) return;
 
@@ -260,15 +262,39 @@ export class TextileInstance {
 
         return await this.userClient.sendMessage(
             TextileInstance.identity, 
-            TextileInstance.identity.public, 
+            PublicKey.fromString(address), 
             encoded
         );
     }
 
-    public async sendUserInvite(): Promise<void> {
+    public async sendUserInvite(address: string): Promise<UserMessage> {
         if (!this.userClient) return;
         
+        const dbInfo: DBInfo = await this.client.getDBInfo(this.threadID);
 
+        const message  = `
+            You have been invite to join a new user group!
+            \n\n
+            <**>
+            <Button 
+                onClick={() => {
+                    const textileInstance = await TextileInstance.getInstance();
+                    await textileInstance.acceptUserInvite(${JSON.stringify(dbInfo)})
+                }}  
+            >
+                Accept Invite
+            </Button>
+        `;
+
+        return await this.sendMessage(message, address);
+    }
+
+    public async acceptUserInvite(info: string): Promise<ThreadID> {
+        if (!this.userClient) return;
+
+        const dbInfo = JSON.parse(info);
+
+        return await this.client.joinFromInfo(dbInfo)
     }
 
     public async deleteMessage(id: string): Promise<void> {
