@@ -8,7 +8,8 @@ module.exports = {
         '/create-campaign': { page: '/createcampaign' },
         '/discover': { page: '/discover'},
         '/upload': { page: '/upload'},
-        '/profile': { page: '/profile'}
+        '/profile': { page: '/profile'},
+        '/message': { page: '/message'}
       };
     },
     webpack5: true,
