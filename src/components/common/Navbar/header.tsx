@@ -549,7 +549,7 @@ const Header = ({ children }: HeaderProps): JSX.Element => {
               </Box>
 }
                 <Menu>
-                  <MenuButton as={Button}
+                  <MenuButton
                     bg="gray.800"
                     border="1px solid transparent"
                     _hover={{

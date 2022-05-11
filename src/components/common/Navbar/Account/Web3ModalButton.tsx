@@ -21,6 +21,9 @@ export const Web3ModalButton = () => {
     if (error) {
       setActivateError(error.message)
     }
+    return () => {
+      setActivateError('');
+    }
   }, [error]);
 
 
