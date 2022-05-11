@@ -51,6 +51,7 @@ import Image from 'next/image';
 import { formatEther } from "ethers/lib/utils";
 import { UserModel } from "src/services/textile/types";
 import { TextileInstance } from "src/services/textile/textile";
+import { useUsersContext } from "src/services/context/users";
 
 const check = () => {
   if(localStorage.getItem('closeButtons') == 'true') {
@@ -85,9 +86,18 @@ function truncateHash(hash: string, length = 38): string {
 const Header = ({ children }: HeaderProps): JSX.Element => {
   const router = useRouter();
 
-  const [user, setUser] = useState<UserModel>();
+  const {
+    isLoggedIn,
+    user,
+    account,
+    role,
+    inbox,
+    logOut
+  } = useUsersContext();
 
-  const { account, deactivate, chainId } = useEthers();
+  // const [user, setUser] = useState<UserModel>();
+
+  const { deactivate, chainId } = useEthers();
 
   const ethersBalance = useEtherBalance(account);
 
@@ -95,19 +105,19 @@ const Header = ({ children }: HeaderProps): JSX.Element => {
 
   const ens = useLookupAddress();
 
-  const handleGetUser = async () => {
-    try {
-      const textileInstance = await TextileInstance.getInstance();
-      const user = await textileInstance.getCurrentUser();
-      setUser(user);  
-    } catch (err) {
-      console.log(err);
-    }
-  }
+  // const handleGetUser = async () => {
+  //   try {
+  //     const textileInstance = await TextileInstance.getInstance();
+  //     const user = await textileInstance.getCurrentUser();
+  //     setUser(user);  
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // }
 
   useEffect(() => {
-    handleGetUser();
-  }, [account]);
+    // handleGetUser();
+  }, []);
 
   let chainName: string;
 
@@ -421,7 +431,16 @@ const Header = ({ children }: HeaderProps): JSX.Element => {
             justifyContent="space-between"
           >
             <Flex align="flex-start">
-              <Link href="/">
+            <Button
+                  bg={bg}
+                  color="gray.500"
+                  display="inline-flex"
+                  alignItems="center"
+                  fontSize="md"
+                  _hover={{ color: "black" }}
+                  _focus={{ boxShadow: "none", color: "gray.500" }}
+                  onClick={() => router.push('/')}
+                >
                 <HStack>
                   <Logo />
                   <Heading
@@ -433,7 +452,7 @@ const Header = ({ children }: HeaderProps): JSX.Element => {
                     CREATIVE
                   </Heading>
                 </HStack>
-              </Link>
+              </Button>
             </Flex>
             <Flex>
               <HStack spacing="5" display={{ base: "none", md: "flex" }}>
@@ -513,9 +532,7 @@ const Header = ({ children }: HeaderProps): JSX.Element => {
                   px="2">
                   <chakra.h1 color="white" fontSize="sm">
                     <Text>Balance:</Text>
-                  {ethersBalance && <Text>{formatEther(ethersBalance).slice(0,6)} ETH </Text>}
-
-                    {/* 15.02&nbsp;ETH */}
+                    {ethersBalance && <Text>{formatEther(ethersBalance).slice(0,6)} ETH </Text>}
                   </chakra.h1>
                 </Box>
                 {chainId === 80001 ? (
@@ -592,20 +609,29 @@ const Header = ({ children }: HeaderProps): JSX.Element => {
                         icon={<SwitchIcon />}
                       />
                     </MenuItem>
-                    <MenuItem
-                       display={['flex', 'flex', 'none', 'none']}>
-                      <chakra.h2 color="white"  fontSize="md" fontWeight='medium'>
-                        { ens ?? shortenAddress(account)}
-                      </chakra.h2>
-                    </MenuItem>
-                    <MenuItem>
-                      {/* sign in  */}
-                      <SignIn closeButton={check()}/>
-                    </MenuItem>
-                    <MenuItem>
-                      {/* sign up  */}
-                      <SignUp closeButton={check()}/>
-                    </MenuItem>
+                    { ens ?? (
+                      <MenuItem
+                        display={['flex', 'flex', 'none', 'none']}>
+                        <chakra.h2 color="white"  fontSize="md" fontWeight='medium'>
+                          {shortenAddress(account)}
+                        </chakra.h2>
+                      </MenuItem>
+                    )}
+                    {!isLoggedIn && ( 
+                      <MenuItem>
+                        <SignIn closeButton={check()}/>
+                      </MenuItem>
+                    )}
+                    {!isLoggedIn && (
+                      <MenuItem>
+                        <SignUp closeButton={check()}/>
+                      </MenuItem>
+                    )}
+                    {role === "brand" && (
+                      <MenuItem>
+                        <InviteUser />
+                      </MenuItem>
+                    )}
                     <NextLink href={redirectUrl}>
                     <MenuItem as={Button} 
                     color="black" 
@@ -654,25 +680,38 @@ const Header = ({ children }: HeaderProps): JSX.Element => {
                     <MenuItem as={Link} color="red" onClick={() => router.push('/upload')}>
                           Upload
                     </MenuItem>
-                    <MenuItem as={Link} onClick={() => router.push('/createcampaign')} color="red">
-                          Create Campaign
-                    </MenuItem>
-                    <MenuItem>
-                      <InviteUser />
-                    </MenuItem>
+                    {role === "brand" && (
+                      <MenuItem as={Link} onClick={() => router.push('/createcampaign')} color="red">
+                            Create Campaign
+                      </MenuItem>
+                    )}
                     <MenuItem as={Link} onClick={() => router.push('/all')} color="red">
                           View My Library
                     </MenuItem>
-                    <MenuItem 
-                      as={Button} 
-                      color="red"
-                      variant="solid"
-                      onClick={() => {
-                        deactivate()
-                      }}
-                    >
-                      Disconnect
-                    </MenuItem>
+                    {!isLoggedIn && (
+                      <MenuItem 
+                        as={Button} 
+                        color="red"
+                        variant="solid"
+                        onClick={() => {
+                          deactivate()
+                        }}
+                      >
+                        Disconnect
+                      </MenuItem>
+                    )}
+                    {isLoggedIn && (
+                      <MenuItem 
+                        as={Button} 
+                        color="red"
+                        variant="solid"
+                        onClick={() => {
+                          logOut()
+                        }}
+                      >
+                        Log Out
+                      </MenuItem>
+                    )}
                   </MenuList>
                 </Menu>
               </Box>

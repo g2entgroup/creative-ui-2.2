@@ -31,6 +31,8 @@ import { TextileInstance } from "../../../services/textile/textile";
 import SignUp from './SignUp';
 import Logo from './Logo-100';
 import { useEthers } from "@usedapp/core";
+import { useUsersContext } from "src/services/context/users";
+import { UserModel } from "src/services/textile/types";
 
 type WindowInstanceWithEthereum = Window & typeof globalThis & { ethereum?: providers.ExternalProvider };
 class StrongType<Definition, Type> {
@@ -52,6 +54,8 @@ const SignIn = (props) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [closeButtons , setCloseButtons] = useState(false)
   const [secret, setSecret] = useState<String>();
+
+  const { logIn } = useUsersContext();
 
   const { account, library } = useEthers();
 
@@ -136,7 +140,9 @@ const SignIn = (props) => {
 
     await TextileInstance.setPrivateKey(identity);
 
-    await handleSuccessSignin();
+    await logIn();
+
+    localStorage.setItem('closeButtons', 'true');
 
     // Your app can now use this identity for generating a user Mailbox, Threads, Buckets, etc
     return identity
@@ -151,14 +157,6 @@ const SignIn = (props) => {
       duration: 9000,
       isClosable: true,
     });
-  }
-
-  const handleSuccessSignin = async () => {
-    localStorage.setItem('closeButtons', 'true');
-
-    const textileInstace = await TextileInstance.getInstance();
-
-    await textileInstace.setCurrentUser();
   }
 
   const [show, setShow] = useState(false);

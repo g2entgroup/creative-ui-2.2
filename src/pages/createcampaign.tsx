@@ -207,27 +207,20 @@ export default function Component() {
             const textileInstance = await TextileInstance.getInstance();
             const userCampaign: CampaignMetadata | any =
                 await textileInstance.getActiveUserCampaign();
-            console.log(userCampaign);
+            console.log({userCampaign});
             if (userCampaign) {
                 campaignForm.setValues(userCampaign);
-                const campaignPreferences: CampaignSettings | any =
-                    await textileInstance.getCampaignPreferences(
-                        userCampaign._id
-                    );
-                const activePool: PoolMetadata | any =
-                    await textileInstance.getActiveCampaignPool(
-                        userCampaign._id
-                    );
-                if (campaignPreferences) {
-                    preferencesForm.setValues(campaignPreferences);
-                }
-                if (activePool) {
+                preferencesForm.setValues(userCampaign.notificationPreferences);
+                    console.log({ preferences: preferencesForm.values, capaignPreferences: userCampaign.notificationPreferences })
+                if (userCampaign?.activePool) {
+                    const activePool = await textileInstance.getPoolById(userCampaign.activePool);
                     poolForm.setValues(activePool);
                     setPoolDeployable(true);
                 }
                 console.log({
-                    campaignPreferences,
-                    activePool,
+                    campaign: campaignForm.values,
+                    preferences: preferencesForm.values,
+                    pool: poolForm.values,
                 });
             }
         };
@@ -2056,6 +2049,7 @@ export default function Component() {
                                                 type="checkbox"
                                                 name="email"
                                                 value="comments"
+                                                checked={preferencesForm.values.email.some(el => el === "comments")}
                                                 onChange={
                                                     preferencesForm.handleChange
                                                 }
@@ -2088,7 +2082,11 @@ export default function Component() {
                                                 type="checkbox"
                                                 name="email"
                                                 value="candidates"
-                                            ></input>
+                                                checked={preferencesForm.values.email.some(el => el === "candidates")}
+                                                onChange={
+                                                    preferencesForm.handleChange
+                                                }
+                                                ></input>
                                         </Flex>
                                         <Box ml={3} fontSize="sm">
                                             <chakra.label
@@ -2118,7 +2116,11 @@ export default function Component() {
                                                 type="checkbox"
                                                 name="email"
                                                 value="offers"
-                                            ></input>
+                                                checked={preferencesForm.values.email.some(el => el === "offers")}
+                                                onChange={
+                                                    preferencesForm.handleChange
+                                                }
+                                                ></input>
                                         </Flex>
                                         <Box ml={3} fontSize="sm">
                                             <chakra.label

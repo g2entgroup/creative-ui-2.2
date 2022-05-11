@@ -86,22 +86,22 @@ export default function Component() {
     const submitHandler = async (event) => {
         event.preventDefault();
         console.log("submit handle func");
-        if (!(window as WindowInstanceWithEthereum).ethereum) {
-            throw new Error(
-                "Ethereum is not connected. Please download Metamask from https://metamask.io/download.html"
-            );
-        }
+        // if (!(window as WindowInstanceWithEthereum).ethereum) {
+        //     throw new Error(
+        //         "Ethereum is not connected. Please download Metamask from https://metamask.io/download.html"
+        //     );
+        // }
 
         console.debug("Initializing web3 provider...");
         // @ts-ignore
-        const accounts = await (
-            window as WindowInstanceWithEthereum
-        ).ethereum.request({ method: "eth_requestAccounts" });
-        if (accounts.length === 0) {
-            throw new Error(
-                "No account is provided. Please provide an account to this application."
-            );
-        }
+        // const accounts = await (
+        //     window as WindowInstanceWithEthereum
+        // ).ethereum.request({ method: "eth_requestAccounts" });
+        // if (accounts.length === 0) {
+        //     throw new Error(
+        //         "No account is provided. Please provide an account to this application."
+        //     );
+        // }
     };
 
     const { isOpen, onOpen, onClose } = useDisclosure();
@@ -109,14 +109,17 @@ export default function Component() {
     const toast = useToast();
 
     async function onFileUpload(values) {
-        event.preventDefault();
         setSubmitEnabled(false);
         setSpin(true);
         console.log(JSON.stringify(values));
 
         const textileInstance = await TextileInstance.getInstance();
 
+        console.log({ library, account })
+        
         const contract = new Contract(address, abi, library.getSigner());
+
+        console.log({contract})
 
         const nftMetadata: NFTMetadata = await textileInstance.uploadNFT(
             selectedFile,
@@ -125,14 +128,7 @@ export default function Component() {
             values.attributes,
         );
 
-        const storage = await init(library.getSigner());
-
-        if (await storage.hasDeposit()) {
-            await textileInstance.uploadTokenMetadata(storage, nftMetadata);
-        } else {
-            await storage.addDeposit();
-            await textileInstance.uploadTokenMetadata(storage, nftMetadata);
-        }
+        await textileInstance.addNFTToUserCollection(nftMetadata);
 
         const all: NFTMetadata[] = await textileInstance.getAllUserNFTs();
 

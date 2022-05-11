@@ -30,7 +30,7 @@ import { BigNumber } from "ethers";
 export class TextileInstance {
 
     private readonly ipfsGateway = "https://dweb.link";
-    private readonly names = {
+    private names = {
         t: "UserNFTThread",
         n: "UserNFTList",
         u: "UserData",
@@ -102,14 +102,18 @@ export class TextileInstance {
     private async initializeCollection(): Promise<void> {
         await this.client.getToken(TextileInstance.identity);
 
+        // this.names.t = `${TextileInstance.identity.public.toString()}_UserThread`;
+
         const threadList: Array<GetThreadResponse> =
-            await this.client.listThreads();
+        await this.client.listThreads();
+
         const thread = threadList.find((obj) => obj.name === this.names.t);
+        
         if (!thread) {
             this.threadID = await this.client.newDB(
                 ThreadID.fromRandom(),
-                this.names.t
             );
+            console.log({ threadID: this.threadID });
             await this.client.newCollection(this.threadID, {
                 name: this.names.u
             });
@@ -124,6 +128,8 @@ export class TextileInstance {
             });
         } else {
             this.threadID = ThreadID.fromString(thread.id);
+
+            console.log({ threadID: this.threadID });
         }
     }
 
@@ -132,10 +138,8 @@ export class TextileInstance {
     }
     
     public static async getInstance(
-        // identity?: PrivateKey
     ): Promise<TextileInstance> {
         if (!TextileInstance.singletonInstance) {
-            // TextileInstance.identity = identity;
             TextileInstance.singletonInstance = new TextileInstance();
             await TextileInstance.singletonInstance.init();
         }
@@ -152,23 +156,33 @@ export class TextileInstance {
         await userClient.setToken(privateKey.toString());
     }
 
-    public async uploadUserData(newUser: UserModel): Promise<void> {
+    public async uploadUserData(newUser: UserModel): Promise<UserModel> {
         if (!this.bucketInfo.bucket || !this.bucketInfo.bucketKey ) {
             throw new Error("No bucket client or root key or tokenID");
         }
 
-        const buf = Buffer.from(JSON.stringify(newUser, null, 2));
+        // const buf = Buffer.from(JSON.stringify(newUser, null, 2));
 
-        await this.bucketInfo.bucket.pushPath(
-            this.bucketInfo.bucketKey,
-            `users/${new Date().getTime()}_${newUser.username}`,
-            buf
-        );
+        // await this.bucketInfo.bucket.pushPath(
+        //     this.bucketInfo.bucketKey,
+        //     `users/${new Date().getTime()}_${newUser.username}`,
+        //     buf
+        // );
 
-        await this.client.create(this.threadID, this.names.u, [{
+        console.log({
+            msg: "begin user upload"
+        })
+
+        const user = {
             ...newUser,
             publicKey: TextileInstance.identity.public.toString()
-        }]);
+        };
+        
+        await this.client.create(this.threadID, this.names.u, [user]);
+
+        console.log({ user })
+
+        return user;
     }
 
     public async setCurrentUser(): Promise<UserModel> {
@@ -178,18 +192,14 @@ export class TextileInstance {
 
         const query: Query = new Where("publicKey").eq(TextileInstance.identity.public.toString());
 
-        return await this.client.find<UserModel>(
+        const users = await this.client.find<UserModel>(
             this.threadID,
             this.names.u,
             query
-        )[0];
-    }
+        );
 
-    public async getCurrentUser(): Promise<UserModel> {
-        if (!this.user) {
-            throw new Error("No current user has been set");
-        }
-        
+        this.user = users[0];
+
         return this.user;
     }
 
@@ -294,7 +304,7 @@ export class TextileInstance {
 
         const dbInfo = JSON.parse(info);
 
-        return await this.client.joinFromInfo(dbInfo)
+        return await this.client.joinFromInfo(dbInfo);
     }
 
     public async deleteMessage(id: string): Promise<void> {
@@ -442,7 +452,7 @@ export class TextileInstance {
             throw new Error("No client");
         }
         console.log("adding nft to user collection...");
-        await this.client.create(this.threadID, this.names.t, [nft]);
+        await this.client.create(this.threadID, this.names.n, [nft]);
     }
 
     public async getAllUserNFTs(): Promise<Array<NFTMetadata>> {
@@ -453,7 +463,7 @@ export class TextileInstance {
         // TODO: Implement a pagination logic to query only limited data.
         const memeList = await this.client.find<NFTMetadata>(
             this.threadID,
-            this.names.t,
+            this.names.n,
             {}
         );
         console.log("All user memes:", memeList);
@@ -564,6 +574,9 @@ export class TextileInstance {
         } catch (err) {
             console.log(err);
         }
+
+        console.log({ campaign })
+        
         return campaign;
     }
 
@@ -849,6 +862,8 @@ export class TextileInstance {
 
         await tx.save([campaign]);
         await tx.end();
+
+        console.log(campaign);
 
         return campaign._id;
     }
