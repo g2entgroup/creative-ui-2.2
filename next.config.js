@@ -9,7 +9,8 @@ module.exports = {
         '/discover': { page: '/discover'},
         '/upload': { page: '/upload'},
         '/profile': { page: '/profile'},
-        '/message': { page: '/message'}
+        '/message': { page: '/message'},
+        '/inbox': { page: '/inbox'}
       };
     },
     webpack5: true,
