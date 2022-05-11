@@ -32,6 +32,7 @@ import { hashSync } from "bcryptjs";
 import { utils, BigNumber } from "ethers";
 import { TextileInstance } from "src/services/textile/textile";
 import { createStandaloneToast } from "@chakra-ui/toast";
+import { useUsersContext } from "src/services/context/users";
 
 const check = () => {
   if(localStorage.getItem('closeButtons') == 'true') {
@@ -48,13 +49,14 @@ const SignUp = (props) => {
   const handleClick = () => setShow(!show);
   const [name, setName] = useState('');
   const [username, setUsername] = useState('');
-
   const [email, setEmail] = useState('');
   const [secret, setSecret] = useState<String>();
   const [role, setRole] = useState('');
   const [submitted, setSubmitted] = useState(false);
 
   const { account, library } = useEthers();
+
+  const { signUp } = useUsersContext();
 
   const handleChange = (e: any) => setSecret(e.target.value);
 
@@ -151,28 +153,14 @@ const SignUp = (props) => {
       email,
       role
     }
+    await TextileInstance.setPrivateKey(privateKey);
 
-    console.log("signing up");
-    
     await TextileInstance.signUp(privateKey);
 
-    console.log("getting textile instance");
-    
-    await TextileInstance.setPrivateKey(privateKey);
-    
-    const textileInstance = await TextileInstance.getInstance();
-    
-    console.log("uploading user data");
-
-    await textileInstance.uploadUserData(newUser);
-
-    console.log("setting current user");
-
-    await textileInstance.setCurrentUser();
-
-    console.log("done");
+    await signUp(newUser);
 
     createNotification();
+
     onClose();
   }
 

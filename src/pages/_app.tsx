@@ -20,6 +20,7 @@ import { getDefaultProvider } from "ethers";
 
 import { ApolloProvider } from "@apollo/client";
 import { apolloClient } from "../services/apollo/apollo-client";
+import { UserProvider } from "src/services/context/users";
 
 const config: Config = {
   readOnlyChainId: Mumbai.chainId,
@@ -52,33 +53,35 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
       <ApolloProvider client={apolloClient()}>
         <ChakraProvider resetCSS theme={theme}>
           <StoreContainer.Provider>
-            <Box minH="100vh" minW="100vw">
-              <Header children />
-              <Box as="section" pt="8" pb="12">
-                <Stack
-                  direction={{ base: "column", sm: "row" }}
-                  justifyContent="center"
-                  alignItems="center"
-                  py="3"
-                  px={{ base: "3", md: "6", lg: "8" }}
-                  color="white"
-                  bgGradient="linear(to-l, #FFCC80, #D32F2F, #EC407A)"
-                >
-                  <HStack spacing="3">
-                    <Icon as={BellIcon} fontSize="2xl" h="10" />
-                    <Text fontWeight="medium" marginEnd="2" is="custom">
-                      Confirm your email. Check your email. We&apos;ve send a
-                      message to <b>sample@gmail.com</b>
-                    </Text>
-                  </HStack>
-                  <BannerLink w={{ base: "full", sm: "auto" }} flexShrink={0}>
-                    Resend email
-                  </BannerLink>
-                </Stack>
+            <UserProvider>
+              <Box minH="100vh" minW="100vw">
+                <Header children />
+                <Box as="section" pt="8" pb="12">
+                  <Stack
+                    direction={{ base: "column", sm: "row" }}
+                    justifyContent="center"
+                    alignItems="center"
+                    py="3"
+                    px={{ base: "3", md: "6", lg: "8" }}
+                    color="white"
+                    bgGradient="linear(to-l, #FFCC80, #D32F2F, #EC407A)"
+                  >
+                    <HStack spacing="3">
+                      <Icon as={BellIcon} fontSize="2xl" h="10" />
+                      <Text fontWeight="medium" marginEnd="2" is="custom">
+                        Confirm your email. Check your email. We&apos;ve send a
+                        message to <b>sample@gmail.com</b>
+                      </Text>
+                    </HStack>
+                    <BannerLink w={{ base: "full", sm: "auto" }} flexShrink={0}>
+                      Resend email
+                    </BannerLink>
+                  </Stack>
+                </Box>
+                <Component {...pageProps} />
+                <Footer />
               </Box>
-              <Component {...pageProps} />
-              <Footer />
-            </Box>
+            </UserProvider>
           </StoreContainer.Provider>
         </ChakraProvider>
       </ApolloProvider>

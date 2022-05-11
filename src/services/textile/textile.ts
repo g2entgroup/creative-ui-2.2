@@ -135,7 +135,6 @@ export class TextileInstance {
         // identity?: PrivateKey
     ): Promise<TextileInstance> {
         if (!TextileInstance.singletonInstance) {
-            // TextileInstance.identity = identity;
             TextileInstance.singletonInstance = new TextileInstance();
             await TextileInstance.singletonInstance.init();
         }
@@ -152,7 +151,7 @@ export class TextileInstance {
         await userClient.setToken(privateKey.toString());
     }
 
-    public async uploadUserData(newUser: UserModel): Promise<void> {
+    public async uploadUserData(newUser: UserModel): Promise<UserModel> {
         if (!this.bucketInfo.bucket || !this.bucketInfo.bucketKey ) {
             throw new Error("No bucket client or root key or tokenID");
         }
@@ -169,6 +168,8 @@ export class TextileInstance {
             ...newUser,
             publicKey: TextileInstance.identity.public.toString()
         }]);
+
+        return newUser;
     }
 
     public async setCurrentUser(): Promise<UserModel> {
@@ -178,11 +179,19 @@ export class TextileInstance {
 
         const query: Query = new Where("publicKey").eq(TextileInstance.identity.public.toString());
 
-        return await this.client.find<UserModel>(
+        const users = await this.client.find<UserModel>(
             this.threadID,
             this.names.u,
             query
-        )[0];
+        );
+
+        console.log({
+            user: this.user
+        })
+
+        this.user = users[0];
+
+        return this.user;
     }
 
     public async getCurrentUser(): Promise<UserModel> {
@@ -294,7 +303,7 @@ export class TextileInstance {
 
         const dbInfo = JSON.parse(info);
 
-        return await this.client.joinFromInfo(dbInfo)
+        return await this.client.joinFromInfo(dbInfo);
     }
 
     public async deleteMessage(id: string): Promise<void> {
