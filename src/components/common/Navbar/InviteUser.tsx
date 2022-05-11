@@ -84,10 +84,13 @@ const InviteUser = (props) => {
 
   return (
     <>
-      <Button colorScheme={useColorModeValue("gray.900", "white")} variant="ghost" size="md" onClick={onOpen} >
-        Invite User
-      </Button>
-
+      <Stack align="center" justify="center">
+        <Box>
+          <Button colorScheme="#FBC02D" variant="ghost" onClick={onOpen} >
+            Invite User
+          </Button>
+        </Box>
+      </Stack>
       <Modal isOpen={isOpen} onClose={onClose} size="xl" isCentered>
         <ModalOverlay />
         <ModalContent borderRadius="10px" h="400px">

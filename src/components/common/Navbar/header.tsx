@@ -609,20 +609,29 @@ const Header = ({ children }: HeaderProps): JSX.Element => {
                         icon={<SwitchIcon />}
                       />
                     </MenuItem>
-                    <MenuItem
-                       display={['flex', 'flex', 'none', 'none']}>
-                      <chakra.h2 color="white"  fontSize="md" fontWeight='medium'>
-                        { ens ?? shortenAddress(account)}
-                      </chakra.h2>
-                    </MenuItem>
-                    <MenuItem>
-                      {/* sign in  */}
-                      {!isLoggedIn && <SignIn closeButton={check()}/>}
-                    </MenuItem>
-                    <MenuItem>
-                      {/* sign up  */}
-                      {!isLoggedIn && <SignUp closeButton={check()}/>}
-                    </MenuItem>
+                    { ens ?? (
+                      <MenuItem
+                        display={['flex', 'flex', 'none', 'none']}>
+                        <chakra.h2 color="white"  fontSize="md" fontWeight='medium'>
+                          {shortenAddress(account)}
+                        </chakra.h2>
+                      </MenuItem>
+                    )}
+                    {!isLoggedIn && ( 
+                      <MenuItem>
+                        <SignIn closeButton={check()}/>
+                      </MenuItem>
+                    )}
+                    {!isLoggedIn && (
+                      <MenuItem>
+                        <SignUp closeButton={check()}/>
+                      </MenuItem>
+                    )}
+                    {role === "brand" && (
+                      <MenuItem>
+                        <InviteUser />
+                      </MenuItem>
+                    )}
                     <NextLink href={redirectUrl}>
                     <MenuItem as={Button} 
                     color="black" 
@@ -674,11 +683,6 @@ const Header = ({ children }: HeaderProps): JSX.Element => {
                     {role === "brand" && (
                       <MenuItem as={Link} onClick={() => router.push('/createcampaign')} color="red">
                             Create Campaign
-                      </MenuItem>
-                    )}
-                    {role === "brand" && (
-                      <MenuItem>
-                        <InviteUser />
                       </MenuItem>
                     )}
                     <MenuItem as={Link} onClick={() => router.push('/all')} color="red">
