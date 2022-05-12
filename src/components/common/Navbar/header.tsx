@@ -223,7 +223,7 @@ const Header = ({ children }: HeaderProps): JSX.Element => {
           py={6}
           p={{ sm: 8 }}
         >
-          <Link href="https://creativeplatform.io/guide" isExternal>
+          <Link href="https://app.clarity.so/g2sbase/pages/adf6ba33-a3cf-411e-a89e-2b464b0c46b8" isExternal>
           <Section
             title="How It Works"
           >

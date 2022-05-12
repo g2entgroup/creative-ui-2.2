@@ -56,7 +56,7 @@ const BrandHero = () => {
                 color={useColorModeValue("gray.900", "white")}
               >
                 <chakra.span display={{ base: "block", xl: "inline" }}>
-                We've Set the Stage{" "}<br />
+                We've Set The Stage{" "}<br />
                 </chakra.span>
                 <chakra.span
                   display={{ base: "block", xl: "inline" }}
@@ -79,25 +79,25 @@ const BrandHero = () => {
                 display={{ sm: "flex" }}
                 justifyContent={{ sm: "center", lg: "start" }}
                 fontWeight="extrabold"
-                fontFamily="fantasy"
               >
-                <Box rounded="full" shadow="md">
+                <Box mt={[3, 0]} ml={[null, 3]}>
                   <chakra.a
                     
                     w="full"
                     display="flex"
                     alignItems="center"
                     justifyContent="center"
+                    px={{ base: 8, md: 10 }}
+                    py={{ base: 3, md: 4 }}
                     border="solid 1px transparent"
                     fontSize={{ base: "md", md: "lg" }}
                     rounded="md"
-                    color="white"
-                    bg="brand.600"
-                    _hover={{ bg: "brand.700" }}
-                    px={{ base: 8, md: 10 }}
-                    py={{ base: 3, md: 4 }}
+                    color={useColorModeValue("brand.900", "brand.800")}
+                    bg="brand.100"
+                    _hover={{ bg: "brand.200" }}
+                    
                   >
-                    Get started
+                    Get Started
                   </chakra.a>
                 </Box>
                 <Box mt={[3, 0]} ml={[null, 3]}>
@@ -112,11 +112,12 @@ const BrandHero = () => {
                     border="solid 1px transparent"
                     fontSize={{ base: "md", md: "lg" }}
                     rounded="md"
-                    color="brand.700"
+                    color={useColorModeValue("brand.900", "brand.800")}
                     bg="brand.100"
                     _hover={{ bg: "brand.200" }}
+                    href="https://app.clarity.so/g2sbase/pages/adf6ba33-a3cf-411e-a89e-2b464b0c46b8"
                   >
-                    Live demo
+                    Learn More
                   </chakra.a>
                 </Box>
               </Box>
