@@ -167,7 +167,7 @@ const SignUp = (props) => {
   return (
     <>
       <Button colorScheme="#FBC02D" variant="ghost" size="md" onClick={onOpen} >
-       Brand Sign Up
+       Sign Up
       </Button>
 
       <Modal isOpen={isOpen} onClose={onClose} size="xl" isCentered>
