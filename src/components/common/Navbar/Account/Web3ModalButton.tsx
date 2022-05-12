@@ -7,9 +7,9 @@ import { AccountModal } from './AccountModal';
 import WalletConnectProvider from '@walletconnect/web3-provider';
 import { Venly } from '@venly/web3-provider';
 import CoinbaseWalletSDK from '@coinbase/wallet-sdk';
-import Portis from "@portis/web3";
-import Authereum from "authereum";
-import Fortmatic from "fortmatic";
+// import Portis from "@portis/web3";
+// import Authereum from "authereum";
+// import Fortmatic from "fortmatic";
 
 export const Web3ModalButton = () => {
   const { account, activate, deactivate, error } = useEthers();
@@ -29,7 +29,7 @@ export const Web3ModalButton = () => {
 
   // Example for Polygon/Matic:
   const customNetworkOptions = {
-    rpcUrl: 'https://rpc-mumbai.maticvigil.com',
+    rpcUrl: process.env.NEXT_PUBLIC_MUMBAI,
     chainId: 80001,
   }
 
@@ -71,22 +71,6 @@ export const Web3ModalButton = () => {
           rpc: "", // Optional if `infuraId` is provided; otherwise it's required
           chainId: 80001, // Optional. It defaults to 1 if not provided
           darkMode: false // Optional. Use dark theme, defaults to false
-        }
-      },
-      portis: {
-        package: Portis, // required
-        options: {
-          id: process.env.NEXT_PUBLIC_PORTIS_ID // required
-        }
-      },
-      authereum: {
-        package: Authereum // required
-      },
-      fortmatic: {
-        package: Fortmatic, // required
-        options: {
-          key: process.env.NEXT_PUBLIC_FORTMATIC, // required
-          network: customNetworkOptions // if we don't pass it, it will default to localhost:8454
         }
       }
     }
