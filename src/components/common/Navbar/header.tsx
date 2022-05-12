@@ -627,7 +627,7 @@ const Header = ({ children }: HeaderProps): JSX.Element => {
                         <SignUp closeButton={check()}/>
                       </MenuItem>
                     )}
-                    {role === "brand" && (
+                    {isLoggedIn && role === "brand" && (
                       <MenuItem>
                         <InviteUser />
                       </MenuItem>
@@ -677,17 +677,23 @@ const Header = ({ children }: HeaderProps): JSX.Element => {
                       color="white">
                       Community
                     </MenuItem>
+                    {isLoggedIn && role === "pro" && (
+
+                    
                     <MenuItem as={Link} color="red" onClick={() => router.push('/upload')}>
                           Upload
                     </MenuItem>
-                    {role === "brand" && (
+                    )}
+                    {isLoggedIn && role === "brand" && (
                       <MenuItem as={Link} onClick={() => router.push('/createcampaign')} color="red">
                             Create Campaign
                       </MenuItem>
                     )}
+                    {isLoggedIn && role === "pro" && (
                     <MenuItem as={Link} onClick={() => router.push('/all')} color="red">
                           View My Library
                     </MenuItem>
+                    )}
                     {!isLoggedIn && (
                       <MenuItem 
                         as={Button} 
