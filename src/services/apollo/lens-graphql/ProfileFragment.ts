@@ -5,13 +5,10 @@ import { MediaFieldsFragment } from "./MediaFieldsFragment";
 export const ProfileFragment = gql`
   fragment ProfileFragment on Profile {
     id
-    ownedBy
     handle
     name
     bio
-    location
-    website
-    twitter
+    ownedBy
     picture {
       ... on MediaSet {
         original {
@@ -19,14 +16,29 @@ export const ProfileFragment = gql`
         }
       }
       ... on NftImage {
-        contractAddress
         tokenId
         uri
         verified
       }
     }
-    followModule {
+    coverPicture {
+      ... on NftImage {
+        tokenId
+        uri
+        verified
+      }
+      ... on MediaSet {
+        original {
+          ...MediaFieldsFragment
+        }
+      }
       __typename
+    }
+    attributes {
+      displayType
+      traitType
+      key
+      value
     }
     stats {
       totalFollowers

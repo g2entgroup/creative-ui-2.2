@@ -5,6 +5,10 @@ import { EditProfile } from "../lens";
 import { Box, Heading, Text, Image, chakra } from "@chakra-ui/react";
 import { FaTwitter, FaConnectdevelop, FaUserAlt } from "react-icons/fa";
 
+const filterAttributes = (attributes: any, key: string) => {
+  return attributes.filter((attribute: any) => attribute.key === key);
+};
+
 interface ProfileHeaderProps {
   profile: any;
   balance: number;
@@ -20,7 +24,7 @@ export const ProfileHeader = ({
   const [profilePic, setProfilePic] = useState(null);
 
   useEffect(() => {
-    if (profile.picture) {
+    if (profile && profile.picture) {
       if (profile.picture.__typename === "NftImage") {
         setProfilePic(profile.picture.uri);
       }
@@ -29,6 +33,37 @@ export const ProfileHeader = ({
       }
     }
   }, [profile]);
+
+  const checkLocation = () => {
+    const location = filterAttributes(profile.attributes, "location");
+    if (location[0]) return location[0].value;
+  };
+
+  const checkTwitter = () => {
+    const twitter = filterAttributes(profile.attributes, "twitter");
+    if (twitter[0]) return twitter[0].value;
+  };
+
+  const checkWebsite = () => {
+    const website = filterAttributes(profile.attributes, "website");
+    if (website[0]) return website[0].value;
+  };
+
+  if (!profile)
+    return (
+      <Box
+        margin={"auto"}
+        maxW={["100%", "100%", "100%", "60%"]}
+        display="flex"
+        overflowX="hidden"
+        justifyContent={["center", "center", "center", "space-evenly"]}
+        flexDir={["column", "column", "column", "row"]}
+      >
+        <chakra.h2 color="black" fontSize="3xl" fontWeight="bold">
+          No user with this handle
+        </chakra.h2>
+      </Box>
+    );
 
   return (
     <Box
@@ -62,16 +97,24 @@ export const ProfileHeader = ({
             <FaUserAlt size={80} />
           </Box>
         )}
-        <chakra.h2
-          color="black"
-          fontSize="md"
-          fontWeight="medium"
-          marginBottom={[10, 10, 10, 5]}
-        >
+        <chakra.h2 color="black" fontSize="md" fontWeight="medium">
           @{profile.handle}
         </chakra.h2>
+        {profile.attributes && checkLocation() && (
+          <Box
+            display="flex"
+            fontSize="sm"
+            alignContent={"left"}
+            padding={2}
+            marginBottom={[10, 10, 10, 5]}
+          >
+            <span style={{ display: "flex" }}>
+              <FaConnectdevelop />
+              <Text marginLeft={4}>{checkLocation()}</Text>
+            </span>
+          </Box>
+        )}
         {account === profile.ownedBy ? (
-          // <Button background="#e50168">Edit Profile</Button>
           <EditProfile profile={profile} refetch={refetch} />
         ) : (
           <CheckFollow profileId={profile.id} />
@@ -96,7 +139,7 @@ export const ProfileHeader = ({
                   {profile.name}
                 </chakra.h2>
               </Box>
-              {profile.twitter && (
+              {profile.attributes && checkTwitter() && (
                 <Box
                   display="flex"
                   fontSize="sm"
@@ -104,17 +147,17 @@ export const ProfileHeader = ({
                   padding={2}
                 >
                   <a
-                    href={`https://twitter.com/${profile.twitter}`}
+                    href={`https://twitter.com/${checkTwitter()}`}
                     target="_blank"
                     rel="noreferrer noopener"
                     style={{ display: "flex" }}
                   >
                     <FaTwitter />
-                    <Text marginLeft={4}>{profile.twitter}</Text>
+                    <Text marginLeft={4}>{checkTwitter()}</Text>
                   </a>
                 </Box>
               )}
-              {profile.website && (
+              {profile.attributes && checkWebsite() && (
                 <Box
                   display="flex"
                   fontSize="sm"
@@ -122,13 +165,13 @@ export const ProfileHeader = ({
                   padding={2}
                 >
                   <a
-                    href={`${profile.website}`}
+                    href={`${checkWebsite()}`}
                     target="_blank"
                     rel="noreferrer noopener"
                     style={{ display: "flex" }}
                   >
                     <FaConnectdevelop />
-                    <Text marginLeft={4}>{profile.website}</Text>
+                    <Text marginLeft={4}>{checkWebsite()}</Text>
                   </a>
                 </Box>
               )}

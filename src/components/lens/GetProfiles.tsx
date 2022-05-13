@@ -13,6 +13,11 @@ const GET_PROFILES = gql`
       items {
         ...ProfileFragment
       }
+      pageInfo {
+        prev
+        next
+        totalCount
+      }
     }
   }
   ${ProfileFragment}
@@ -33,17 +38,17 @@ export const GetProfiles = () => {
     },
     onCompleted: (data) => {
       setProfiles(data.profiles.items);
-      // console.log(data);
     },
   });
 
   if (!account) return <p>Please connect to Metamask to Log into Lens</p>;
   if (loading) return <p>loading...</p>;
   if (error) return <p>Error :(</p>;
-  // console.log(userProfilesData);
+
   const handleRefetch = async () => {
     await refetch();
   };
+
   return (
     <Box m={4} p={4}>
       <h1>Account's Profiles</h1>
