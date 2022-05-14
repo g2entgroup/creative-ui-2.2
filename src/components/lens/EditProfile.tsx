@@ -30,6 +30,10 @@ import {
   Input,
 } from "@chakra-ui/react";
 
+const filterAttributes = (attributes: any, key: string) => {
+  return attributes.filter((attribute: any) => attribute.key === key);
+};
+
 type WindowInstanceWithEthereum = Window &
   typeof globalThis & { ethereum?: providers.ExternalProvider };
 
@@ -83,7 +87,16 @@ export const EditProfile = ({ profile, refetch }: EditProfileProps) => {
     handleSubmit,
     register,
     formState: { errors, isSubmitting },
-  } = useForm();
+  } = useForm({
+    defaultValues: {
+      name: profile.name,
+      bio: profile.bio,
+      location:
+        filterAttributes(profile.attributes, "location")[0]?.value || "",
+      twitter: filterAttributes(profile.attributes, "twitter")[0]?.value || "",
+      website: filterAttributes(profile.attributes, "website")[0]?.value || "",
+    },
+  });
 
   const [createSetProfileMetadataTypedData, {}] = useMutation(UPDATE_PROFILE, {
     onCompleted({ createSetProfileMetadataTypedData }: any) {
@@ -144,9 +157,8 @@ export const EditProfile = ({ profile, refetch }: EditProfileProps) => {
     const payload = {
       name: values.name,
       bio: values.bio,
-      location: values.location,
       cover_picture: null,
-      social: [
+      attributes: [
         {
           traitType: "string",
           value: values.website,
@@ -156,6 +168,11 @@ export const EditProfile = ({ profile, refetch }: EditProfileProps) => {
           traitType: "string",
           value: values.twitter,
           key: "twitter",
+        },
+        {
+          traitType: "string",
+          value: values.location,
+          key: "location",
         },
       ],
     };
@@ -170,6 +187,7 @@ export const EditProfile = ({ profile, refetch }: EditProfileProps) => {
       },
     });
   };
+
   return (
     <>
       <Button background="#e50168" onClick={onOpen}>
@@ -192,12 +210,12 @@ export const EditProfile = ({ profile, refetch }: EditProfileProps) => {
                       id="name"
                       type="text"
                       name="name"
-                      value={profile.name}
                       placeholder="Name"
                       {...register("name")}
                     />
                   </InputGroup>
-
+                </FormControl>
+                <FormControl isInvalid={errors.location}>
                   <FormLabel>Location</FormLabel>
                   <InputGroup>
                     {/* <InputLeftElement children={<MdOutlineEmail />} /> */}
@@ -205,69 +223,68 @@ export const EditProfile = ({ profile, refetch }: EditProfileProps) => {
                       id="location"
                       type="text"
                       name="location"
-                      value={profile.location}
                       placeholder="Location"
                       {...register("location")}
                     />
                   </InputGroup>
-
+                </FormControl>
+                <FormControl isInvalid={errors.twitter}>
                   <FormLabel>Twitter Handle</FormLabel>
                   <InputGroup>
                     {/* <InputLeftElement children={<MdOutlineEmail />} /> */}
                     <Input
                       type="text"
                       name="twitter"
-                      value={profile.twitter}
                       placeholder="Twitter Handle"
                       {...register("twitter")}
                     />
                   </InputGroup>
-
+                </FormControl>
+                <FormControl isInvalid={errors.website}>
                   <FormLabel>Website</FormLabel>
                   <InputGroup>
                     {/* <InputLeftElement children={<MdOutlineEmail />} /> */}
                     <Input
                       type="text"
                       name="website"
-                      value={profile.website}
                       placeholder="Website"
                       {...register("website")}
                     />
                   </InputGroup>
-
+                </FormControl>
+                <FormControl isInvalid={errors.bio}>
                   <FormLabel>Bio</FormLabel>
                   <Textarea
                     name="bio"
-                    value={profile.bio}
                     placeholder="Bio"
                     rows={6}
                     resize="none"
                     {...register("bio")}
                   />
-
-                  {isUpdating ? (
-                    <>
-                      <Button isLoading></Button>
-                    </>
-                  ) : (
-                    <Box>
-                      <Button mr={8} variant="ghost" onClick={onClose}>
-                        Cancel
-                      </Button>
-                      <Button
-                        colorScheme="blue"
-                        type="submit"
-                        isLoading={isSubmitting}
-                      >
-                        Save
-                      </Button>
-                    </Box>
-                  )}
-
-                  <FormErrorMessage>
-                    {errors.name && errors.name.message}
-                  </FormErrorMessage>
                 </FormControl>
+
+                {isUpdating ? (
+                  <>
+                    <Button isLoading></Button>
+                  </>
+                ) : (
+                  <Box>
+                    <Button mr={8} variant="ghost" onClick={onClose}>
+                      Cancel
+                    </Button>
+                    <Button
+                      colorScheme="blue"
+                      type="submit"
+                      isLoading={isSubmitting}
+                    >
+                      Save
+                    </Button>
+                  </Box>
+                )}
+
+                <FormErrorMessage>
+                  {errors.name && errors.name.message}
+                </FormErrorMessage>
               </form>
             </Box>
           </ModalBody>

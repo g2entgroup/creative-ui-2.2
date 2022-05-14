@@ -31,16 +31,15 @@ type uploadIpfsProfileProps = {
   payload: {
     name: string;
     bio: string;
-    location: string;
     cover_picture: string;
-    social: any[];
+    attributes: any[];
   };
 };
 
 export const uploadIpfsProfile = async ({
   payload,
 }: uploadIpfsProfileProps) => {
-  const { name, bio, location, cover_picture, social } = payload;
+  const { name, bio, cover_picture, attributes } = payload;
   const result = await client.add(
     JSON.stringify({
       version: "1.0.0",
@@ -48,10 +47,8 @@ export const uploadIpfsProfile = async ({
       appId: "creative",
       name: name,
       bio: bio,
-      location: location,
       cover_picture: cover_picture,
-      social: social,
-      attributes: [],
+      attributes: attributes,
     })
   );
 

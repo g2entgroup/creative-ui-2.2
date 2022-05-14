@@ -9,6 +9,7 @@ import {
   Button,
   Image,
   SimpleGrid,
+  chakra,
 } from "@chakra-ui/react";
 import CreativeCard from "../../components/common/Cards/CreativeCard";
 import { useEthers, shortenAddress, useLookupAddress } from "@usedapp/core";
@@ -111,7 +112,23 @@ const ProfilePage: NextPage = () => {
 
   if (loading) return <p>loading...</p>;
   if (error) return <p>Error :(</p>;
-  //   console.log(profileData);
+  // console.log(profileData);
+
+  if (!profileData.profiles.items[0])
+    return (
+      <Box
+        margin={"auto"}
+        maxW={["100%", "100%", "100%", "60%"]}
+        display="flex"
+        overflowX="hidden"
+        justifyContent={["center", "center", "center", "space-evenly"]}
+        flexDir={["column", "column", "column", "row"]}
+      >
+        <chakra.h2 color="black" fontSize="3xl" fontWeight="bold">
+          No user with this handle
+        </chakra.h2>
+      </Box>
+    );
 
   return (
     <Box>

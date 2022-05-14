@@ -32,7 +32,6 @@ const AUTHENTICATION = gql`
 
 export const LensAuthentication = () => {
   const { account } = useEthers();
-  if (!account) return <p>Please connect to Metamask to Log into Lens</p>;
 
   const getChallenge = useQuery(GET_CHALLENGE, {
     variables: {
@@ -71,6 +70,8 @@ export const LensAuthentication = () => {
       signAuthentication();
     });
   };
+
+  if (!account) return <p>Please connect to Metamask to Log into Lens</p>;
 
   return (
     <Box bg="" color="black" p={4} h={48}>
