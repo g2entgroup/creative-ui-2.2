@@ -13,7 +13,10 @@ export const AccountButton = () => {
   const { error } = useEthers()
   useEffect(() => {
     if (error) {
-      setActivateError(error.message)
+      setActivateError(error.message);
+    }
+    return () => {
+      setActivateError('');
     }
   }, [error])
 
