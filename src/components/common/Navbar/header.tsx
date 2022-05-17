@@ -33,8 +33,6 @@ import {
   Center,
   Text,
 } from "@chakra-ui/react";
-import WertWidget from '@wert-io/widget-initializer';
-import NextLink from 'next/link';
 import NotificationDrawer from "../Notification/NotificationDrawer";
 import { useViewportScroll } from "framer-motion";
 //import Head, { MetaProps } from '../layout/Head';
@@ -49,9 +47,8 @@ import SignUp from "./SignUp";
 import InviteUser from "./InviteUser";
 import Image from 'next/image';
 import { formatEther } from "ethers/lib/utils";
-import { UserModel } from "src/services/textile/types";
-import { TextileInstance } from "src/services/textile/textile";
-import { useUsersContext } from "src/services/context/users";
+import { useUsersContext } from "../../../services/context/users";
+import transakSDK from '@transak/transak-sdk';
 
 const check = () => {
   if(localStorage.getItem('closeButtons') == 'true') {
@@ -115,9 +112,9 @@ const Header = ({ children }: HeaderProps): JSX.Element => {
   //   }
   // }
 
-  useEffect(() => {
-    // handleGetUser();
-  }, []);
+  // useEffect(() => {
+  //   // handleGetUser();
+  // }, []);
 
   let chainName: string;
 
@@ -146,25 +143,58 @@ const Header = ({ children }: HeaderProps): JSX.Element => {
     ? ref.current.getBoundingClientRect()
     : { height: 0 };
 
-  const options = {
-    "containerId": "wert-widget",
-    "partner_id": process.env.NEXT_PUBLIC_WERT_PARTNER_ID,
-    "origin": "https://sandbox.wert.io",
-    "currency": "USD, EUR",
-    "autosize": true,
-    "commodities": "MAT",
+  function loadInit() {
+    let transak = new transakSDK({
+      apiKey: '07d4475a-4b8c-49d6-ba88-61075d649c6f',  // Your API Key
+      environment: 'STAGING', // STAGING/PRODUCTION
+      networks: 'Polygon',
+      hostURL: window.location.href,
+      widgetHeight: '625px',
+      widgetWidth: '500px',
+      // Examples of some of the customization parameters you can pass
+      walletAddress: account, // Your customer's wallet address
+      themeColor: '#e50168', // App theme color
+      fiatCurrency: 'USD', // If you want to limit fiat selection eg 'USD'
+      //email: '', // Your customer's email address
+      redirectURL: 'localhost:3000'    
+    });
+
+    transak.init();
+    
+    // To get all the events
+    transak.on(transak.ALL_EVENTS, (data) => {
+      console.log(data)
+    });
+    
+    // This will trigger when the user marks payment is made.
+    transak.on(transak.EVENTS.TRANSAK_ORDER_SUCCESSFUL, (orderData) => {
+      console.log(orderData);
+      transak.close();
+    });
+    return () => {
+      transak.cleanup();
+    }
   }
+
+  // const options = {
+  //   "containerId": "wert-widget",
+  //   "partner_id": process.env.NEXT_PUBLIC_WERT_PARTNER_ID,
+  //   "origin": "https://sandbox.wert.io",
+  //   "currency": "USD, EUR",
+  //   "autosize": true,
+  //   "commodities": "MAT",
+  // }
   
-  const wertWidget = new WertWidget(options);
+  // const wertWidget = new WertWidget(options);
   
-  const redirectUrl = wertWidget.getRedirectUrl();
+  // const redirectUrl = wertWidget.getRedirectUrl();
 
   const myLoader = ({ src, width }) => {
     return `${src}?w=${width}&q=${75}`
   }
 
   const { scrollY } = useViewportScroll();
-  React.useEffect(() => {
+ useEffect(() => {
     return scrollY.onChange(() => setY(scrollY.get()));
   }, [scrollY]);
   const cl = useColorModeValue("gray.800", "white");
@@ -530,27 +560,26 @@ const Header = ({ children }: HeaderProps): JSX.Element => {
                 <Box 
                   display={['none', 'none', 'none', 'flex']}
                   px="2">
-                  <chakra.h1 color="white" fontSize="sm">
+                  <chakra.h1 color="white" fontSize="xs">
                     <Text>Balance:</Text>
-                    {ethersBalance && <Text>{formatEther(ethersBalance).slice(0,6)} ETH </Text>}
+                    {ethersBalance && <Text>{formatEther(ethersBalance).slice(0,6)} MATIC </Text>}
                   </chakra.h1>
                 </Box>
                 {chainId === 80001 ? (
                   <Box
                   display={['none', 'none', 'flex', 'flex']} 
-                  px="3" 
+                  px="2" 
                   bg="purple.300">
-                  <chakra.h1 color="white" fontSize="md">
+                  <chakra.h1 color="white" fontSize="sm">
                     <Text>{chainName}</Text>
-                    
                   </chakra.h1>
                 </Box>
                 ) : chainId === 137 ? (
                 <Box 
                   display={['none', 'none', 'none', 'flex']}
-                  px="3" 
+                  px="2" 
                   bg="purple.600">
-                <chakra.h1 color="white" fontSize="md">
+                <chakra.h1 color="white" fontSize="sm">
                   <Text>{chainName}</Text>
                   {/* 15.02&nbsp;ETH */}
                 </chakra.h1>
@@ -558,13 +587,13 @@ const Header = ({ children }: HeaderProps): JSX.Element => {
                 ) : 
                 <Box 
                   display={['none', 'none', 'none', 'flex']}
-                  px="3">
-                <chakra.h1 color="white" fontSize="md">
+                  px="2">
+                <chakra.h1 color="white" fontSize="sm">
                   <Text>{chainName}</Text>
                   {/* 15.02&nbsp;ETH */}
                 </chakra.h1>
               </Box>
-}
+              }
                 <Menu>
                   <MenuButton
                     bg="gray.800"
@@ -632,23 +661,22 @@ const Header = ({ children }: HeaderProps): JSX.Element => {
                         <InviteUser />
                       </MenuItem>
                     )}
-                    <NextLink href={redirectUrl}>
                     <MenuItem as={Button} 
                     color="black" 
                     colorScheme= "pink"
                     variant="solid"
+                    onClick={() => loadInit()}
                     rightIcon={
                       <Image
                         loader={myLoader}
                         height={40}
                         width={40}
                         src="/images/visa.svg"
-                        alt="Wert"
+                        alt="visa"
                       />
                     }>
                       💰 Add Funds 
                     </MenuItem>
-                    </NextLink>
                     <MenuItem 
                       display={['flex', 'flex', 'none', 'none']}
                       as={Link} 
