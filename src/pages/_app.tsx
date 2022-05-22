@@ -8,6 +8,7 @@ import {
   Icon,
   Stack,
   Text,
+  Button,
 } from "@chakra-ui/react";
 // import theme from "../styles/theme";
 import theme from "../utils/theme";
@@ -69,12 +70,11 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
                     <HStack spacing="3">
                       <Icon as={BellIcon} fontSize="2xl" h="10" />
                       <Text fontWeight="medium" marginEnd="2" is="custom">
-                        Confirm your email. Check your email. We&apos;ve send a
-                        message to <b>sample@gmail.com</b>
+                        Creative platform is available on Testnet. Make sure you are connected to: <b>Mumbai Testnet</b>
                       </Text>
                     </HStack>
                     <BannerLink w={{ base: "full", sm: "auto" }} flexShrink={0}>
-                      Resend email
+                      Add Mumbai Network
                     </BannerLink>
                   </Stack>
                 </Box>

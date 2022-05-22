@@ -94,7 +94,7 @@ const BrandHero = () => {
                     rounded="md"
                     color={useColorModeValue("brand.900", "brand.800")}
                     bg="brand.100"
-                    _hover={{ bg: "brand.200" }}
+                    _hover={{ bg: "brand.400" }}
                     
                   >
                     Get Started
@@ -114,7 +114,7 @@ const BrandHero = () => {
                     rounded="md"
                     color={useColorModeValue("brand.900", "brand.800")}
                     bg="brand.100"
-                    _hover={{ bg: "brand.200" }}
+                    _hover={{ bg: "brand.400" }}
                     href="https://app.clarity.so/g2sbase/pages/adf6ba33-a3cf-411e-a89e-2b464b0c46b8"
                   >
                     Learn More

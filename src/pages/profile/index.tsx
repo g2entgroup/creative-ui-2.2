@@ -169,7 +169,7 @@ const Profile = () => {
             <Box marginBottom={[10, 10, 0, 0]}>
               <Box display={["flex", "flex", "flex", "flex"]}>
                 <chakra.h2 color="white" fontSize="md" fontWeight="medium">
-                  {ens ?? account}
+                  {ens ?? shortenAddress(account)}
                 </chakra.h2>
               </Box>
               <Box display="flex" alignContent={"left"} padding={2}>
