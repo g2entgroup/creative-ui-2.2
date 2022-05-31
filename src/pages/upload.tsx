@@ -42,6 +42,7 @@ import { useEthers } from "@usedapp/core";
 import { NFTMetadata } from "src/services/textile/types";
 import abi from "../contracts/YourCollectible.abi";
 import address from "../contracts/YourCollectible.address";
+import mime from "mime"
 
 type WindowInstanceWithEthereum = Window &
     typeof globalThis & { ethereum?: providers.ExternalProvider };
