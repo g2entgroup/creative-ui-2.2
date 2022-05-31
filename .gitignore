@@ -26,5 +26,7 @@ package-lock.json
 # End of https://www.toptal.com/developers/gitignore/api/react
 
 .env.me
-!.env.project
+.env.project
 .env*
+!.env.project
+!.env.vault

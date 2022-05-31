@@ -44,6 +44,7 @@
     "bnc-notify": "^1.6.2",
     "chalk": "^4.1.1",
     "coingecko-api": "^1.0.10",
+    "dotenv": "^16.0.1",
     "eth-hooks": "^1.1.2",
     "ethers": "latest",
     "follow-redirects": "1.14.8",
@@ -57,6 +58,7 @@
     "isomorphic-unfetch": "^3.1.0",
     "isomorphic-ws": "^4.0.1",
     "jwt-decode": "^3.1.2",
+    "mime": "^3.0.0",
     "next": "^12.1.0",
     "nextjs-cors": "^1.0.7",
     "node-fetch": "^2.6.1",
@@ -83,6 +85,7 @@
     "ws": "^8.2.1"
   },
   "devDependencies": {
+    "@types/mime": "^2.0.3",
     "@types/node": "^16.11.6",
     "@types/react": "^17.0.19",
     "@types/react-dom": "^17.0.9",
