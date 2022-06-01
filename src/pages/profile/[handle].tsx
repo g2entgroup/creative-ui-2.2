@@ -12,7 +12,7 @@ import {
   chakra,
 } from "@chakra-ui/react";
 import CreativeCard from "../../components/common/Cards/CreativeCard";
-import { useEthers, shortenAddress, useLookupAddress } from "@usedapp/core";
+import { useEthers } from "@usedapp/core";
 import { FaStar } from "react-icons/fa";
 
 import { ProfileHeader } from "../../components/profile/ProfileHeader";
@@ -32,8 +32,6 @@ const GET_PROFILES = gql`
 const ProfilePage: NextPage = () => {
   const router = useRouter();
   const { handle } = router.query;
-
-  const ens = useLookupAddress();
   const { account } = useEthers();
 
   const [balance, setBalance] = React.useState(10000);
