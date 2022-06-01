@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useEthers, shortenAddress, useLookupAddress } from '@usedapp/core'
+import { useEthers, shortenAddress } from '@usedapp/core'
 import { Box, Button, chakra } from "@chakra-ui/react";
 
 import { AccountModal } from './AccountModal'

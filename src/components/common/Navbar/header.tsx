@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import { useRouter } from 'next/router';
-import { ChainId, useEthers, shortenAddress, useNotifications, useLookupAddress, useEtherBalance } from '@usedapp/core';
+import { ChainId, useEthers, shortenAddress, useNotifications, useEtherBalance } from '@usedapp/core';
 import ConnectWallet from "../Navbar/ConnectWallet";
 import {
   Alert,
