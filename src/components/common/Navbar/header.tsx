@@ -100,6 +100,8 @@ const Header = ({ children }: HeaderProps): JSX.Element => {
 
   const { notifications } = useNotifications();
 
+  const ens = useLookupAddress();
+
   // const handleGetUser = async () => {
   //   try {
   //     const textileInstance = await TextileInstance.getInstance();
@@ -611,7 +613,7 @@ const Header = ({ children }: HeaderProps): JSX.Element => {
                     <Box
                       display={['none', 'none', 'flex', 'flex']}>
                       <chakra.h2 color="white"  fontSize="md" fontWeight='medium'>
-                        {shortenAddress(account)}
+                        { ens ?? shortenAddress(account)}
                       </chakra.h2>
                     </Box>
                     <Box
@@ -636,12 +638,14 @@ const Header = ({ children }: HeaderProps): JSX.Element => {
                         icon={<SwitchIcon />}
                       />
                     </MenuItem>
+                    { ens ?? (
                       <MenuItem
                         display={['flex', 'flex', 'none', 'none']}>
                         <chakra.h2 color="white"  fontSize="md" fontWeight='medium'>
                           {shortenAddress(account)}
                         </chakra.h2>
                       </MenuItem>
+                    )}
                     {!isLoggedIn && ( 
                       <MenuItem>
                         <SignIn closeButton={check()}/>
