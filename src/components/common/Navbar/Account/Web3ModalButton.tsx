@@ -13,7 +13,6 @@ import CoinbaseWalletSDK from '@coinbase/wallet-sdk';
 
 export const Web3ModalButton = () => {
   const { account, activate, deactivate, error } = useEthers();
-  const ens = useLookupAddress();
   const [showModal, setShowModal] = useState(false);
   const [activateError, setActivateError] = useState('');
   
@@ -93,7 +92,7 @@ export const Web3ModalButton = () => {
       {showModal && <AccountModal setShowModal={setShowModal} />}
       {account ? (
         <>
-          <AccountLabel onClick={() => setShowModal(!showModal)}>{ens ?? shortenAddress(account)}</AccountLabel>
+          <AccountLabel onClick={() => setShowModal(!showModal)}>{shortenAddress(account)}</AccountLabel>
           <LoginButton onClick={() => deactivate()}>Disconnect</LoginButton>
         </>
       ) : (
