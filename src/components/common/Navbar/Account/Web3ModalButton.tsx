@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useEthers, shortenAddress, useLookupAddress } from '@usedapp/core'
+import { useEthers, shortenAddress } from '@usedapp/core'
 import { Button, chakra, Box } from '@chakra-ui/react';
 import Web3Modal from 'web3modal';
 
