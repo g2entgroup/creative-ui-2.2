@@ -55,9 +55,6 @@ export const MintProfile = ({ refetch }: MintProfileProps) => {
     ) {
       setSubmitError("Handle already taken");
     }
-    return () => {
-      setSubmitError('')
-    }
   }, [data]);
 
   const onSubmit: SubmitHandler<IFormInputs> = async (data) => {
