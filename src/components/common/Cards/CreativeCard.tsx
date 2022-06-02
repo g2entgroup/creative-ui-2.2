@@ -1,11 +1,8 @@
 import React from "react";
 import { Box, Badge, useToken, useColorModeValue } from "@chakra-ui/react";
-import Icon from "@chakra-ui/icon";
+import { StarIcon } from "@chakra-ui/icons";
 import ReactPlayer from 'react-player/lazy';
 import { useRouter } from 'next/router';
-
-
-const StarIcon = ({ color }) => <Icon name="star" color={color} />
 
 export default function CreativeCard() {
   const router = useRouter()
@@ -17,7 +14,7 @@ export default function CreativeCard() {
     title: "Tesla - Model Y",
     formattedPrice: "$79,900.00",
     reviewCount: 34,
-    rating: 4
+    rating: 3
   };
 
   const [brand400, brand200] = useToken(
@@ -78,12 +75,12 @@ export default function CreativeCard() {
           as="h2"
           lineHeight="tight"
           isTruncated
-          color={useColorModeValue("black", "white")}
+          color={useColorModeValue("white", "black")}
         >
           {property.title}
         </Box>
 
-        <Box color={useColorModeValue("black", "white")}>
+        <Box color={useColorModeValue("white", "black")}>
           {property.formattedPrice}
           <Box as="span" 
             bgGradient="linear(to-l, #7928CA, #e50168)"

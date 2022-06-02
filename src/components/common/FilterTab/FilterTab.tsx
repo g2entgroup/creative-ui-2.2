@@ -33,13 +33,13 @@ export default function FilterTab() {
                 margin={[0]}
                 >
                 <Tab>All</Tab>
-                <Tab color={useColorModeValue("gray.900", "white")}>🖼&nbsp;Art</Tab>
-                <Tab color={useColorModeValue("gray.900", "white")}>📸&nbsp;Photography</Tab>
-                <Tab color={useColorModeValue("gray.900", "white")}>🎮&nbsp;Games</Tab>
-                <Tab color={useColorModeValue("gray.900", "white")}>👾&nbsp;Metaverses</Tab>
-                <Tab color={useColorModeValue("gray.900", "white")}>🎵&nbsp;Music</Tab>
-                <Tab color={useColorModeValue("gray.900", "white")}>🎞&nbsp;Trailers</Tab>
-                <Tab color={useColorModeValue("gray.900", "white")}>🎭&nbsp;Pilots</Tab>
+                <Tab color={useColorModeValue("white", "black")}>🖼&nbsp;Art</Tab>
+                <Tab color={useColorModeValue("white", "black")}>📸&nbsp;Photography</Tab>
+                <Tab color={useColorModeValue("white", "black")}>🎮&nbsp;Games</Tab>
+                <Tab color={useColorModeValue("white", "black")}>👾&nbsp;Metaverses</Tab>
+                <Tab color={useColorModeValue("white", "black")}>🎵&nbsp;Music</Tab>
+                <Tab color={useColorModeValue("white", "black")}>🎞&nbsp;Trailers</Tab>
+                <Tab color={useColorModeValue("white", "black")}>🎭&nbsp;Pilots</Tab>
             </TabList>
             <FilterSort />
             </HStack>

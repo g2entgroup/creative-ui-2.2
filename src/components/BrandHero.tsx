@@ -93,7 +93,7 @@ const BrandHero = () => {
                     fontSize={{ base: "md", md: "lg" }}
                     rounded="md"
                     color={useColorModeValue("brand.900", "brand.800")}
-                    bg="brand.100"
+                    bg="brand.600"
                     _hover={{ bg: "brand.400" }}
                     
                   >
@@ -113,7 +113,7 @@ const BrandHero = () => {
                     fontSize={{ base: "md", md: "lg" }}
                     rounded="md"
                     color={useColorModeValue("brand.900", "brand.800")}
-                    bg="brand.100"
+                    bg="brand.600"
                     _hover={{ bg: "brand.400" }}
                     href="https://app.clarity.so/g2sbase/pages/adf6ba33-a3cf-411e-a89e-2b464b0c46b8"
                   >
