@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Heading, HStack, Box, Container } from "@chakra-ui/react";
 
 export const CountDown = ({ title, time }:{ title: string, time: string }) => {
@@ -9,17 +9,11 @@ export const CountDown = ({ title, time }:{ title: string, time: string }) => {
     const [minutes, setMinutes] = React.useState(0)
     const [seconds, setSeconds] = React.useState(0)
 
-    useEffect(() => {
+    React.useEffect(() => {
         setTimeout(() => {
           calculateTimeLeft();
         }, 1000);
-
-    return () => {
-        setTimeout(() => {
-            calculateTimeLeft();
-        }, 0)
-    }
-}, []);
+    });
 
     const calculateTimeLeft = () => {
         const difference = +new Date(time) - +new Date();
