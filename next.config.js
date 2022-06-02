@@ -8,6 +8,7 @@ module.exports = {
         '/create-campaign': { page: '/createcampaign' },
         '/discover': { page: '/discover'},
         '/upload': { page: '/upload'},
+        '/profile': { page: '/profile'},
         '/message': { page: '/message'},
         '/inbox': { page: '/inbox'}
       };
@@ -17,6 +18,6 @@ module.exports = {
       deviceSizes: [320, 420, 768, 1024, 1200],
       loader: 'cloudinary',
       path: "cloudinary://417721411368189:QiVZ8fJOoGbCEOeW1X8yukfrqs0@dyangxc7h",
-      domains: ['dweb.link', 'ipfs.io'],
+      domains: ['nftstorage.link' , 'dweb.link', 'ipfs.io'],
     }
 };
