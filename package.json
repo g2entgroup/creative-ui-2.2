@@ -28,6 +28,7 @@
     "@snapshot-labs/snapshot.js": "^0.3.76",
     "@textile/eth-storage": "^1.0.0",
     "@textile/hub": "^6.1.2",
+    "@transak/transak-sdk": "^1.0.31",
     "@usedapp/coingecko": "^1.0.0",
     "@usedapp/core": "^1.0.0",
     "@venly/web3-provider": "^0.32.0",

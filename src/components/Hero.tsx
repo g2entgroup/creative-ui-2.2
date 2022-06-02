@@ -10,15 +10,14 @@ const myLoader = ({ src, width }) => {
   export default class Hero extends Component {
     render() {
         return (
-            <Box
-                marginTop={10}>
-            <Image
+            <Box>
+                <Image
                 loader={myLoader}
                 src='dyangxc7h/image/upload/v1623552244/creative/brands.jpg'
                 alt="Creative Logo"
                 width={1900}
-                height={1400}
-            />
+                height={1800}
+                />
             </Box>
         )
     }

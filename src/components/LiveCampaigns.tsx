@@ -1,11 +1,11 @@
 import React from "react";
 
 import { Box, Badge, useToken, useColorModeValue } from "@chakra-ui/react";
-import Icon from "@chakra-ui/icon";
+import { StarIcon } from "@chakra-ui/icons";
 import ReactPlayer from 'react-player/lazy';
 import { useRouter } from 'next/router';
 
-const StarIcon = ({ color }) => <Icon name="star" color={color} />
+
 
 export default function LiveCampaigns() {
   const router = useRouter()
@@ -17,7 +17,7 @@ export default function LiveCampaigns() {
     title: "Pepsi - That's What I Like",
     formattedPrice: "$20,100.00",
     reviewCount: 2,
-    rating: 3
+    rating: 4
   };
 
   const [brand400, brand200] = useToken(
