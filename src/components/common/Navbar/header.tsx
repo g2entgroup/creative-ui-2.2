@@ -598,7 +598,6 @@ const Header = ({ children }: HeaderProps): JSX.Element => {
                   <MenuList
                     zIndex='100'
                     maxH={'400px'}
-                    bg={useColorModeValue("gray.900", "white")}
                     overflowY={['scroll','scroll','hidden', 'hidden']}>
                     {!isLoggedIn && ( 
                       <MenuItem
@@ -699,6 +698,7 @@ const Header = ({ children }: HeaderProps): JSX.Element => {
                       <MenuItem 
                         as={Button} 
                         colorScheme={"red"}
+                        color={"white"}
                         variant="solid"
                         onClick={() => {
                           logOut()

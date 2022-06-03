@@ -1,4 +1,4 @@
-import { Heading, SimpleGrid, Box, OrderedList, ListItem, Avatar, AvatarBadge, Link, Image, useColorModeValue, Button } from "@chakra-ui/react";
+import { Heading, Box, useColorModeValue, Button, Divider } from "@chakra-ui/react";
 import CreativeCard from '../components/common/Cards/CreativeCard';
 import BrandHero from '../components/BrandHero';
 import { Content } from "../components/common/Content/Content";
@@ -21,6 +21,7 @@ export default function Home() {
           size="lg" 
           color={useColorModeValue("black", "white")}          
           mx={10}>🆕 Latest Brand Campaigns</Heading>
+          <Divider w={200} mb={2}/>
         <Box
            display='flex'
            flexDir={['column','column','row', 'row']}
@@ -44,6 +45,7 @@ export default function Home() {
           size="lg" 
           color={useColorModeValue("black", "white")}          
           mx={10}>🏆 Top Creatives</Heading>
+          <Divider w={200} my={4}/>
         <TopCreatives />
       </Main>
       <Main>
@@ -54,6 +56,7 @@ export default function Home() {
           margin={5}
           color={useColorModeValue("black", "white")}          
           mx={10}>🎬 Live Brand Campaigns</Heading>
+          <Divider w={200} mb={2}/>
         <Box
            display='flex'
            minWidth='100vw'
@@ -77,6 +80,7 @@ export default function Home() {
           size="lg" 
           color={useColorModeValue("black", "white")} 
           mx={10}>📈 Trending Collections</Heading>
+          <Divider w={200} my={4}/>
         <Box
           display='flex'
           minWidth='100vw'
@@ -102,6 +106,7 @@ export default function Home() {
           size="lg" 
           color={useColorModeValue("black", "white")}
           mx={10}>🔭 Discover</Heading>
+          <Divider w={200} mb={2}/>
         <FilterTab />
         <Box             
           display='flex'
