@@ -194,9 +194,7 @@ const Header = ({ children }: HeaderProps): JSX.Element => {
     const tcl = useColorModeValue("gray.900", "black");
     const dcl = useColorModeValue("gray.500", "gray.900");
     return (
-      <Link
-        m={-3}
-        p={3}
+      <Box
         display="flex"
         alignItems="start"
         rounded="lg"
@@ -215,15 +213,15 @@ const Header = ({ children }: HeaderProps): JSX.Element => {
         >
           {props.icon}
         </chakra.svg>
-        <Box ml={4}>
-          <chakra.p fontSize="sm" fontWeight="700" color={tcl}>
+        <Box pl={4}>
+          <chakra.div fontSize="sm" fontWeight="700" color={tcl}>
             {props.title}
-          </chakra.p>
-          <chakra.p mt={1} fontSize="sm" color={dcl}>
+          </chakra.div>
+          <chakra.div mt={1} fontSize="sm" color={dcl}>
             {props.children}
-          </chakra.p>
+          </chakra.div>
         </Box>
-      </Link>
+      </Box>
     );
   };
 
