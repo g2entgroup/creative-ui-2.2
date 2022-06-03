@@ -1,6 +1,6 @@
-import { gql } from "@apollo/client";
+import { gql } from '@apollo/client'
 
-import { MediaFieldsFragment } from "./MediaFieldsFragment";
+import { MediaFieldsFragment } from './MediaFieldsFragment'
 
 export const ProfileFragment = gql`
   fragment ProfileFragment on Profile {
@@ -46,4 +46,4 @@ export const ProfileFragment = gql`
     }
   }
   ${MediaFieldsFragment}
-`;
+`
