@@ -16,7 +16,7 @@ export default function Inbox() {
         <Accordion allowMultiple>
             <AccordionItem>
                 <AccordionButton>
-                <Box flex="1" textAlign="left">
+                <Box display="1" textAlign="left">
                     Section 1 title
                 </Box>
                 <AccordionIcon />
@@ -32,7 +32,7 @@ export default function Inbox() {
             <AccordionItem>
                 <>
                     <AccordionButton>
-                    <Box flex="1" textAlign="left">
+                    <Box display="1" textAlign="left">
                         Section 2 title
                     </Box>
                     <AccordionIcon />

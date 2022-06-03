@@ -12,7 +12,6 @@ import {
   Heading,
   FormControl,
   FormLabel,
-  FormErrorMessage,
   FormHelperText,
   Select,
   Input,
@@ -20,19 +19,17 @@ import {
   InputRightElement,
   Container,
   Stack,
+  useToast,
   useColorModeValue,
 } from "@chakra-ui/react";
-import Link from "next/link";
-import Image from "next/image";
 import SignIn, { EthereumAddress } from "./SignIn";
 import LogoModal from "./LogoModal";
 import { useEthers } from "@usedapp/core";
 import { PrivateKey } from "@textile/crypto";
-import { hashSync } from "bcryptjs";
+import bcryptjs from "bcryptjs";
 import { utils, BigNumber } from "ethers";
-import { TextileInstance } from "src/services/textile/textile";
-import { createStandaloneToast } from "@chakra-ui/react";
-import { useUsersContext } from "src/services/context/users";
+import { TextileInstance } from "../../../services/textile/textile";
+import { useUsersContext } from "../../../services/context/users";
 
 const check = () => {
   if (localStorage.getItem("closeButtons") == "true") {
@@ -43,20 +40,20 @@ const check = () => {
 };
 
 const SignUp = (props) => {
-  const { isOpen, onOpen, onClose } = useDisclosure();
-
   const [show, setShow] = useState(false);
   const handleClick = () => setShow(!show);
   const [name, setName] = useState("");
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
-  const [secret, setSecret] = useState<String>();
+  const [secret, setSecret] = useState<string>();
   const [role, setRole] = useState("");
   const [submitted, setSubmitted] = useState(false);
 
   const { account, library } = useEthers();
-
   const { signUp } = useUsersContext();
+
+  const toast = useToast()
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   const handleChange = (e: any) => setSecret(e.target.value);
 
@@ -105,9 +102,9 @@ const SignUp = (props) => {
 
   const generatePrivateKey = async (): Promise<PrivateKey> => {
     const signer = library.getSigner();
-    const salt = "$2a$10$3vx4QH1vSj9.URynBqkbae";
+    const salt: string = "$2a$10$3vx4QH1vSj9.URynBqkbae";
     // avoid sending the raw secret by hashing it first
-    const hashSecret = hashSync(secret, salt);
+    const hashSecret = bcryptjs.hashSync(secret, salt);
     const message = generateMessageForEntropy(
       new EthereumAddress(account),
       "Creative",
@@ -144,8 +141,7 @@ const SignUp = (props) => {
   };
 
   const createNotification = () => {
-    const dispatchCustomEvent = createStandaloneToast();
-    dispatchCustomEvent({
+    toast({
       title: "Secret Key",
       status: "success",
       description: `SUCCESS! ${username} (${account}) Your account has been created and you have been signed in!`,

@@ -83,20 +83,20 @@ export interface UserData {
 }
 
 export interface PoolMetadata {
-    _id?: string;
-    poolAddress?: string;
-    filename?: string;
-    updatedAt?: string;
-    poolName?: string;
-    capital?: number;
-    capitalAddress?: string;
-    poolOwner?: string;
-    rngAddress?: string;
-    nftAddress?: string;
-    campaignLength?: number;
-    votingLength?: number;
-    decisionLength?: number;
-    submissionLength?: number;
+    _id: string;
+    poolAddress: string;
+    filename: string;
+    updatedAt: string;
+    poolName: string;
+    capital: number;
+    capitalAddress: string;
+    poolOwner: string;
+    rngAddress: string;
+    nftAddress: string;
+    campaignLength: number;
+    votingLength: number;
+    decisionLength: number;
+    submissionLength: number;
 }
 
 export interface CampaignMetadata {

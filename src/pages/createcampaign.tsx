@@ -17,24 +17,16 @@ import {
     FormHelperText,
     Textarea,
     Avatar,
-    Icon,
     Button,
-    VisuallyHidden,
     Select,
-    Checkbox,
-    RadioGroup,
-    Radio,
     Editable,
     EditableInput,
-    EditableTextarea,
     EditablePreview,
     useEditableControls,
     ButtonGroup,
     IconButton,
-    InputRightElement,
     InputRightAddon,
 } from "@chakra-ui/react";
-import { FaUser } from "react-icons/fa";
 import { setup, isSupported } from "@loomhq/record-sdk";
 import { oembed } from "@loomhq/loom-embed";
 import { CheckIcon, CloseIcon, EditIcon, EmailIcon } from "@chakra-ui/icons";
@@ -46,8 +38,8 @@ import {
     CampaignMetadata,
     CampaignSettings,
     PoolMetadata,
-} from "src/services/textile/types";
-import { TextileInstance } from "src/services/textile/textile";
+} from "../services/textile/types";
+import { TextileInstance } from "../services/textile/textile";
 
 const abi = require("../contracts/Pool.abi");
 const bytecode = require("../contracts/Pool.bytecode");

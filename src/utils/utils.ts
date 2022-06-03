@@ -1,5 +1,3 @@
-
-
 import { Contract } from '@ethersproject/contracts';
 import { Web3Provider } from '@ethersproject/providers'
 import { isAddress } from 'ethers/lib/utils'

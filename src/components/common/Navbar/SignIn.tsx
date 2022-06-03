@@ -2,7 +2,7 @@ import React, { useState } from "react";
 // @ts-ignore
 import { PrivateKey } from '@textile/hub'
 import { BigNumber, providers, utils } from 'ethers'
-import { hashSync } from 'bcryptjs'
+import bcryptjs from 'bcryptjs';
 import {
   Modal,
   ModalOverlay,
@@ -24,15 +24,15 @@ import {
   InputRightElement,
   Container,
   Stack,
-  createStandaloneToast,
+  useToast,
   useColorModeValue,
 } from "@chakra-ui/react";
 import { TextileInstance } from "../../../services/textile/textile";
 import SignUp from './SignUp';
 import LogoModal from './LogoModal';
 import { useEthers } from "@usedapp/core";
-import { useUsersContext } from "src/services/context/users";
-import { UserModel } from "src/services/textile/types";
+import { useUsersContext } from "../../../services/context/users";
+import { UserModel } from "../../../services/textile/types";
 
 type WindowInstanceWithEthereum = Window & typeof globalThis & { ethereum?: providers.ExternalProvider };
 class StrongType<Definition, Type> {
@@ -53,7 +53,9 @@ const check = () => {
 const SignIn = (props) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [closeButtons , setCloseButtons] = useState(false)
-  const [secret, setSecret] = useState<String>();
+  const [secret, setSecret] = useState<string>();
+
+  const toast = useToast()
 
   const { logIn } = useUsersContext();
 
@@ -102,9 +104,9 @@ const SignIn = (props) => {
 
   const generatePrivateKey = async (): Promise<PrivateKey> => {
     const signer = library.getSigner();
-    const salt = "$2a$10$3vx4QH1vSj9.URynBqkbae";
+    const salt: string = "$2a$10$3vx4QH1vSj9.URynBqkbae";
     // avoid sending the raw secret by hashing it first
-    const hashSecret = hashSync(secret, salt);
+    const hashSecret = bcryptjs.hashSync(secret, salt);
     const message = generateMessageForEntropy(new EthereumAddress(account), 'Creative', hashSecret)
     const signedText = await signer.signMessage(message);
     const hash = utils.keccak256(signedText);
@@ -149,8 +151,7 @@ const SignIn = (props) => {
   }
 
   const createNotification = (identity: PrivateKey) => {
-    const dispatchCustomEvent = createStandaloneToast();
-    dispatchCustomEvent({ 
+    toast({ 
       title: "Secret Key",
       status: "success",
       description: ` SIGNED IN! Public Key: ${identity.public.toString()} Your app can now generate and reuse this users PrivateKey for creating user Mailboxes, Threads, and Buckets.`,
