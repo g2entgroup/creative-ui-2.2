@@ -190,7 +190,7 @@ const Footer = () => {
                   color={"white"}
                   textOverflow={'wrap'}
                   href="mailto:creatives@creativeplatform.xyz">
-                  <Link href="mailto:creatives@creativeplatform.xyz">Email</Link>
+                  Email
                 </Link>
                 </Box>
             </Box>
@@ -295,3 +295,4 @@ const Footer = () => {
 };
 
 export default Footer;
+
