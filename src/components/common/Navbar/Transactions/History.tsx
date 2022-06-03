@@ -125,7 +125,7 @@ export const TransactionsList = () => {
   const { transactions } = useTransactions()
   return (
     <TableWrapper title="Transactions history">
-      <AnimatePresence initial={false}>
+      {/* <AnimatePresence initial={false}>
         {transactions.map((transaction) => (
           <ListElement
             transaction={transaction.transaction}
@@ -135,7 +135,7 @@ export const TransactionsList = () => {
             date={transaction.submittedAt}
           />
         ))}
-      </AnimatePresence>
+      </AnimatePresence> */}
     </TableWrapper>
   )
 }
@@ -160,7 +160,7 @@ export const NotificationsList = () => {
   const { notifications } = useNotifications()
   return (
     <NotificationsWrapper>
-      <AnimatePresence initial={false}>
+      {/* <AnimatePresence initial={false}>
         {notifications.map((notification) => {
           if ('transaction' in notification)
             return (
@@ -182,7 +182,7 @@ export const NotificationsList = () => {
               />
             )
         })}
-      </AnimatePresence>
+      </AnimatePresence> */}
     </NotificationsWrapper>
   )
 }

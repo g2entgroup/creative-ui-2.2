@@ -21,7 +21,7 @@ import { getDefaultProvider } from "ethers";
 
 import { ApolloProvider } from "@apollo/client";
 import { apolloClient } from "../services/apollo/apollo-client";
-import { UserProvider } from "src/services/context/users";
+import { UserProvider } from "../services/context/users";
 
 const config: Config = {
   readOnlyChainId: Mumbai.chainId,

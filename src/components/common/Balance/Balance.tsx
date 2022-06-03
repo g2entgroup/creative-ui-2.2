@@ -20,8 +20,8 @@ function Balance(): JSX.Element {
   
   return (
     account && chainId === 80001 ?
-    (currency = <Text>{etherBalance} MATIC</Text>) :
-    (currency = <Text>{finalBalance.slice(0,4)} ETH ${(addBalance).toFixed(2)}</Text>)
+    (currency = <Text><>{etherBalance} MATIC</></Text>) :
+    (currency = <Text><>{finalBalance.slice(0,4)} ETH ${(addBalance).toFixed(2)}</></Text>)
   )
 }
 

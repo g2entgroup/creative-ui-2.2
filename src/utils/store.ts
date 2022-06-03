@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { createContainer } from 'unstated-next'
+
 export const useStore = () => {
 
 
@@ -18,4 +19,5 @@ export const useStore = () => {
         handleValue1
     };
 }
+
 export const StoreContainer = createContainer(useStore)

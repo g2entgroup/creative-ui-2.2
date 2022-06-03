@@ -1,7 +1,7 @@
 import React from "react";
 import type { NextPage } from "next";
 
-import { GetProfiles, LensAuthentication } from "src/components/lens";
+import { GetProfiles, LensAuthentication } from "../components/lens";
 
 const LensPage: NextPage = () => {
   return (
