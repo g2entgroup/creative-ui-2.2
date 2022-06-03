@@ -258,7 +258,7 @@ const Header = ({ children }: HeaderProps): JSX.Element => {
               />
             }
           >
-            <Text color={useColorModeValue("black", "white")}>
+            <Text>
               We think that the best way to align platform development with customers' interests is to empower the ones who actively interact with the protocol: creators, fans, and brands.
             </Text>
           </Section>
@@ -275,7 +275,7 @@ const Header = ({ children }: HeaderProps): JSX.Element => {
               />
             }
           >
-            <Text color={useColorModeValue("black", "white")}>
+            <Text>
               The place to discuss all things related to the Creative platform.
             </Text>
           </Section>
@@ -307,7 +307,7 @@ const Header = ({ children }: HeaderProps): JSX.Element => {
               />
             }
           >
-            <Text color={useColorModeValue("black", "white")}>
+            <Text>
               Suggest a feature to the Creative community for the good of the platform.
             </Text>
           </Section>
