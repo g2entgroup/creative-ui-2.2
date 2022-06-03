@@ -49,7 +49,7 @@ export default function Discover() {
                 alignItems={['center']}
                 justifyContent={['center']}
                 flexWrap={['nowrap']}>
-                <Button colorScheme="pink" isFullWidth={true}>
+                <Button colorScheme="pink" width="full">
                     Load More
                 </Button>
             </Box>

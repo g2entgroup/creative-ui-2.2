@@ -53,7 +53,7 @@ export default function CreativeCard() {
       />
     
       <Box p="6">
-        <Box d="flex" alignItems="baseline">
+        <Box display="flex" alignItems="baseline">
           <Badge rounded="full" px="2" color={brand400}>
             New
           </Badge>
@@ -74,8 +74,8 @@ export default function CreativeCard() {
           fontWeight="semibold"
           as="h2"
           lineHeight="tight"
-          isTruncated
           color={useColorModeValue("black", "white")}
+          noOfLines={1}
         >
           {property.title}
         </Box>
@@ -92,7 +92,7 @@ export default function CreativeCard() {
           </Box>
         </Box>
 
-        <Box d="flex" mt="2" alignItems="center">
+        <Box display="flex" mt="2" alignItems="center">
           {Array(5)
             .fill("")
             .map((_, i) => (

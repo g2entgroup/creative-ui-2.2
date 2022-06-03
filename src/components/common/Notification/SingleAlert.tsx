@@ -12,7 +12,7 @@ const SingleAlert = () => {
     return (
         <Alert status="success">
             <AlertIcon />
-            <Box flex="1">
+            <Box display="1">
                 <AlertTitle>Success!</AlertTitle>
                 <AlertDescription display="block">
                 Your application has been received. We will review your application and

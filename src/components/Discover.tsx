@@ -56,7 +56,7 @@ export default function Discover() {
         />
 
       <Box p="6">
-        <Box d="flex" alignItems="baseline">
+        <Box display="flex" alignItems="baseline">
           <Box
             color="gray.500"
             fontWeight="semibold"
@@ -74,7 +74,7 @@ export default function Discover() {
           fontWeight="semibold"
           as="h2"
           lineHeight="tight"
-          isTruncated
+          noOfLines={1}
           color="white"
         >
           {property.title}
@@ -92,7 +92,7 @@ export default function Discover() {
           </Box>
         </Box>
 
-        <Box d="flex" mt="2" alignItems="center">
+        <Box display="flex" mt="2" alignItems="center">
           {Array(5)
             .fill("")
             .map((_, i) => (

@@ -1,7 +1,7 @@
 import { Heading, Text, Box, Image, Button } from "@chakra-ui/react";
 import { FaTwitter, FaGlobe } from 'react-icons/fa';
 import ReactPlayer from 'react-player/lazy';
-import { CountDown } from "src/components/common/CountDown";
+import { CountDown } from "../../components/common/CountDown";
 import { useRouter } from 'next/router';
 
 export default function Details() {

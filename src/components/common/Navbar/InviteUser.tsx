@@ -20,7 +20,7 @@ import {
   InputRightElement,
   Container,
   Stack,
-  createStandaloneToast,
+  useToast,
   useColorModeValue,
 } from "@chakra-ui/react";
 import { TextileInstance } from "../../../services/textile/textile";
@@ -48,6 +48,8 @@ const InviteUser = (props) => {
   const [closeButtons , setCloseButtons] = useState(false)
   const [address, setAddress] = useState<string>();
 
+  const toast = useToast();
+
   const { account, library } = useEthers();
 
   const handleSubmit = async () => {
@@ -64,8 +66,7 @@ const InviteUser = (props) => {
 
 
   const createNotification = () => {
-    const dispatchCustomEvent = createStandaloneToast();
-    dispatchCustomEvent({ 
+    toast({ 
       title: "Invite Sent!",
       status: "success",
       description: `SUCCESS! Invite has been sent to ${address}. Access to your brand will be granted once the user accepts your invite.`,

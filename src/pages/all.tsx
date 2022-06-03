@@ -4,9 +4,10 @@ import { Flex, Center } from "@chakra-ui/react";
 import BucketCard from "../components/common/Cards/BucketCard";
 import { Button, Stack } from "@chakra-ui/react";
 import { TextileInstance } from "../services/textile/textile";
-import BatchStorage from "src/components/common/Button/batchStorage";
+import BatchStorage from "../components/common/Button/batchStorage";
 import { providers } from "ethers";
 import { init } from "@textile/eth-storage";
+
 type WindowInstanceWithEthereum = Window &
   typeof globalThis & { ethereum?: providers.ExternalProvider };
 class StrongType<Definition, Type> {

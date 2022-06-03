@@ -50,10 +50,10 @@ import SignUp from "./SignUp";
 import InviteUser from "./InviteUser";
 import Image from 'next/image';
 import { formatEther } from "ethers/lib/utils";
-import { UserModel } from "src/services/textile/types";
-import { TextileInstance } from "src/services/textile/textile";
-import { useUsersContext } from "src/services/context/users";
 import { SiPcgamingwiki } from "react-icons/si";
+import { UserModel } from "../../../services/textile/types";
+import { TextileInstance } from "../../../services/textile/textile";
+import { useUsersContext } from "../../../services/context/users";
 
 const check = () => {
   if(localStorage.getItem('closeButtons') == 'true') {
@@ -147,36 +147,36 @@ const Header = ({ children }: HeaderProps): JSX.Element => {
     : { height: 0 };
 
     function loadInit() {
-      const transak = new transakSDK({
-        apiKey: '07d4475a-4b8c-49d6-ba88-61075d649c6f',  // Your API Key
-        environment: 'STAGING', // STAGING/PRODUCTION
-        hostURL: window.location.href,
-        widgetHeight: '625px',
-        widgetWidth: '500px',
-        // Examples of some of the customization parameters you can pass
-        defaultCryptoCurrency: 'MATIC', // Example 'ETH'
-        walletAddress: account, // Your customer's wallet address
-        //themeColor: '[COLOR_HEX]', // App theme color
-        fiatCurrency: 'USD', // If you want to limit fiat selection eg 'USD'
-        //email: '', // Your customer's email address
-        redirectURL: 'localhost:3000'
-      });
+      // const transak = new transakSDK({
+      //   apiKey: '07d4475a-4b8c-49d6-ba88-61075d649c6f',  // Your API Key
+      //   environment: 'STAGING', // STAGING/PRODUCTION
+      //   hostURL: window.location.href,
+      //   widgetHeight: '625px',
+      //   widgetWidth: '500px',
+      //   // Examples of some of the customization parameters you can pass
+      //   defaultCryptoCurrency: 'MATIC', // Example 'ETH'
+      //   walletAddress: account, // Your customer's wallet address
+      //   //themeColor: '[COLOR_HEX]', // App theme color
+      //   fiatCurrency: 'USD', // If you want to limit fiat selection eg 'USD'
+      //   //email: '', // Your customer's email address
+      //   redirectURL: 'localhost:3000'
+      // });
   
-      transak.init();
+      // transak.init();
   
-      // To get all the events
-      transak.on(transak.ALL_EVENTS, (/*data*/) => {
-        // console.log(data)
-      });
+      // // To get all the events
+      // transak.on(transak.ALL_EVENTS, (/*data*/) => {
+      //   // console.log(data)
+      // });
   
-      // This will trigger when the user marks payment is made.
-      transak.on(transak.EVENTS.TRANSAK_ORDER_SUCCESSFUL, (/*orderData*/) => {
-        // console.log(orderData);
-        transak.close();
-      });
-      return () => {
-        transak.cleanup();
-      }
+      // // This will trigger when the user marks payment is made.
+      // transak.on(transak.EVENTS.TRANSAK_ORDER_SUCCESSFUL, (/*orderData*/) => {
+      //   // console.log(orderData);
+      //   transak.close();
+      // });
+      // return () => {
+      //   transak.cleanup();
+      // }
     }
 
   const myLoader = ({ src, width }) => {

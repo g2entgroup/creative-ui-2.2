@@ -53,7 +53,7 @@ export default function LiveCampaigns() {
       />
 
       <Box p="6">
-        <Box d="flex" alignItems="center">
+        <Box display="flex" alignItems="center">
           <Box
             color="gray.500"
             fontWeight="semibold"
@@ -71,8 +71,8 @@ export default function LiveCampaigns() {
           fontWeight="semibold"
           as="h2"
           lineHeight="1.5"
-          isTruncated
           color={useColorModeValue("black", "white")}
+          noOfLines={1}
         >
           {property.title}
         </Box>
@@ -89,7 +89,7 @@ export default function LiveCampaigns() {
           </Box>
         </Box>
 
-        <Box d="flex" mt="2" alignItems="center">
+        <Box display="flex" mt="2" alignItems="center">
           {Array(5)
             .fill("")
             .map((_, i) => (

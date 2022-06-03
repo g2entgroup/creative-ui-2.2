@@ -1,6 +1,5 @@
 import { hexlify } from "@ethersproject/bytes";
 import { parseUnits } from "ethers/lib/utils";
-import { createStandaloneToast } from "@chakra-ui/react";
 import Notify from "bnc-notify";
 import { BLOCKNATIVE_DAPPID } from "../constants";
 
@@ -63,21 +62,21 @@ export default function Transactor(provider, gasPrice, etherscan) {
             };
           });
         } else {
-          createStandaloneToast.info({
-            message: "Local Transaction Sent",
-            description: result.hash,
-            placement: "bottomRight",
-          });
+          // toast.info({
+          //   message: "Local Transaction Sent",
+          //   description: result.hash,
+          //   placement: "bottomRight",
+          // });
         }
 
         return result;
       } catch (e) {
         console.log(e);
         console.log("Transaction Error:", e.message);
-        createStandaloneToast.error({
-          message: "Transaction Error",
-          description: e.message,
-        });
+        // toast.error({
+        //   message: "Transaction Error",
+        //   description: e.message,
+        // });
       }
     };
   }
