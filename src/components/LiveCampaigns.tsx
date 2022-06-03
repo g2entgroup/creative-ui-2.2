@@ -72,7 +72,7 @@ export default function LiveCampaigns() {
           as="h2"
           lineHeight="1.5"
           isTruncated
-          color="white"
+          color={useColorModeValue("black", "white")}
         >
           {property.title}
         </Box>

@@ -60,7 +60,7 @@ const BrandHero = () => {
                 </chakra.span>
                 <chakra.span
                   display={{ base: "block", xl: "inline" }}
-                  color={useColorModeValue("brand.600", "brand.400")}
+                  color={"brand.600"}
                 >
                   For You...
                 </chakra.span>
@@ -92,9 +92,9 @@ const BrandHero = () => {
                     border="solid 1px transparent"
                     fontSize={{ base: "md", md: "lg" }}
                     rounded="md"
-                    color={useColorModeValue("brand.900", "brand.800")}
+                    color={"white"}
                     bg="brand.600"
-                    _hover={{ bg: "brand.400" }}
+                    _hover={{ bg: "red.600" }}
                     
                   >
                     Get Started
@@ -112,9 +112,9 @@ const BrandHero = () => {
                     border="solid 1px transparent"
                     fontSize={{ base: "md", md: "lg" }}
                     rounded="md"
-                    color={useColorModeValue("brand.900", "brand.800")}
+                    color={"white"}
                     bg="brand.600"
-                    _hover={{ bg: "brand.400" }}
+                    _hover={{ bg: "red.600" }}
                     href="https://app.clarity.so/g2sbase/pages/adf6ba33-a3cf-411e-a89e-2b464b0c46b8"
                   >
                     Learn More

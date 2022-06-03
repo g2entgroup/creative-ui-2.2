@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 // @ts-ignore
-import { PrivateKey } from '@textile/hub'
-import { BigNumber, providers, utils } from 'ethers'
-import { hashSync } from 'bcryptjs'
+import { providers } from 'ethers'
 import {
   Modal,
   ModalOverlay,
@@ -16,9 +14,7 @@ import {
   Heading,
   FormControl,
   FormLabel,
-  FormErrorMessage,
   FormHelperText,
-  Select,
   Input,
   InputGroup,
   InputRightElement,
@@ -28,9 +24,8 @@ import {
   useColorModeValue,
 } from "@chakra-ui/react";
 import { TextileInstance } from "../../../services/textile/textile";
-import SignUp from './SignUp';
-import Logo from './Logo-100';
 import { useEthers } from "@usedapp/core";
+import LogoModal from "./LogoModal";
 
 type WindowInstanceWithEthereum = Window & typeof globalThis & { ethereum?: providers.ExternalProvider };
 class StrongType<Definition, Type> {
@@ -102,7 +97,7 @@ const InviteUser = (props) => {
           >
             <Flex alignItems="center" pt="2%" justifyContent="space-between">
               <Stack spacing={1}>
-              <Logo />
+              <LogoModal />
               <Heading fontSize="2rem" color={useColorModeValue("white", "white")}>CREATIVE</Heading>
               </Stack>
               <Container>

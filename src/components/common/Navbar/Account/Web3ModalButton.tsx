@@ -121,6 +121,7 @@ const Account = chakra(Box, {
 const LoginButton = chakra(Button, {
     baseStyle: {
       backgroundColor: "#e50168",
+      color: "white"
     }
 })
 const AccountLabel = chakra(Button, {

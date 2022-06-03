@@ -6,7 +6,7 @@ const myLoader = ({ src, width }) => {
     return `https://res.cloudinary.com/${src}?w=${width}`
   }
 
-export default class Logo extends Component {
+export default class LogoModal extends Component {
     render() {
         return (
             <Image
