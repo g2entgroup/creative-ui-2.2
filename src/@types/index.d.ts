@@ -1,3 +1,3 @@
 interface Window {
-    web3?: any;
+  web3?: any
 }

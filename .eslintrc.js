@@ -10,7 +10,17 @@ module.exports = {
     "prettier",
   ],
   rules: {
-    "no-console": 1, // Means warning
-    "prettier/prettier": 2, // Means error
+    "no-empty-pattern": 0,
+    "no-unsafe-optional-chaining": 0,
+    "@typescript-eslint/no-unused-vars": 0,
+    "@typescript-eslint/no-inferrable-types": 0,
+    "@typescript-eslint/ban-ts-comment": 0,
+    "@typescript-eslint/no-explicit-any": 0,
+    "@typescript-eslint/no-var-requires": 0,
+    "prefer-const": 0,
+    "no-console": 0, 
+    "prettier/prettier": 0,
+    "@next/next/no-img-element": 0,
+    "@typescript-eslint/no-empty-function": 0,
   },
 };

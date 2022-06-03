@@ -1,4 +1,4 @@
-import { gql } from "@apollo/client";
+import { gql } from '@apollo/client'
 
 export const MediaFieldsFragment = gql`
   fragment MediaFieldsFragment on Media {
@@ -8,4 +8,4 @@ export const MediaFieldsFragment = gql`
     size
     mimeType
   }
-`;
+`

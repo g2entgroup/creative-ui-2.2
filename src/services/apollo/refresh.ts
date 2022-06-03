@@ -1,7 +1,7 @@
-import { gql } from "@apollo/client/core";
-import { ApolloClient, InMemoryCache } from "@apollo/client";
+import { gql } from '@apollo/client/core'
+import { ApolloClient, InMemoryCache } from '@apollo/client'
 
-import { LENS_API_URL } from "./constants";
+import { LENS_API_URL } from './constants'
 
 export const REFRESH_AUTHENTICATION = `
   mutation ($request: RefreshRequest!) {
@@ -10,7 +10,7 @@ export const REFRESH_AUTHENTICATION = `
       refreshToken
     }
   }
-`;
+`
 
 export const refreshAuth = (refreshToken: string) => {
   return apolloClient.mutate({
@@ -20,10 +20,10 @@ export const refreshAuth = (refreshToken: string) => {
         refreshToken,
       },
     },
-  });
-};
+  })
+}
 
 const apolloClient = new ApolloClient({
   uri: LENS_API_URL,
   cache: new InMemoryCache(),
-});
+})
