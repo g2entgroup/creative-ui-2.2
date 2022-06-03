@@ -75,12 +75,12 @@ export default function CreativeCard() {
           as="h2"
           lineHeight="tight"
           isTruncated
-          color={useColorModeValue("white", "black")}
+          color={useColorModeValue("black", "white")}
         >
           {property.title}
         </Box>
 
-        <Box color={useColorModeValue("white", "black")}>
+        <Box color={useColorModeValue("black", "white")}>
           {property.formattedPrice}
           <Box as="span" 
             bgGradient="linear(to-l, #7928CA, #e50168)"

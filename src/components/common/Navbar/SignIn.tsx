@@ -29,7 +29,7 @@ import {
 } from "@chakra-ui/react";
 import { TextileInstance } from "../../../services/textile/textile";
 import SignUp from './SignUp';
-import Logo from './Logo-100';
+import LogoModal from './LogoModal';
 import { useEthers } from "@usedapp/core";
 import { useUsersContext } from "src/services/context/users";
 import { UserModel } from "src/services/textile/types";
@@ -179,7 +179,7 @@ const SignIn = (props) => {
           >
             <Flex alignItems="center" pt="2%" justifyContent="space-between">
               <Stack spacing={1}>
-              <Logo />
+              <LogoModal />
               <Heading fontSize="2rem" color={useColorModeValue("white", "white")}>CREATIVE</Heading>
               </Stack>
               <Container>

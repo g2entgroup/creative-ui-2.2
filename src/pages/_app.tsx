@@ -11,7 +11,7 @@ import {
   Button,
 } from "@chakra-ui/react";
 // import theme from "../styles/theme";
-import theme from "../utils/theme";
+import theme from "../styles/theme";
 import Header from "../components/common/Navbar/header";
 import Footer from "../components/common/Footer/footer";
 import { BannerLink } from "../components/common/BannerLink";

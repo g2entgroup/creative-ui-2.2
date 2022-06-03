@@ -25,7 +25,7 @@ import {
 import Link from "next/link";
 import Image from "next/image";
 import SignIn, { EthereumAddress } from "./SignIn";
-import Logo from "./Logo-100";
+import LogoModal from "./LogoModal";
 import { useEthers } from "@usedapp/core";
 import { PrivateKey } from "@textile/crypto";
 import { hashSync } from "bcryptjs";
@@ -193,7 +193,7 @@ const SignUp = (props) => {
           >
             <Flex alignItems="center" pt="2%" justifyContent="space-between">
               <Stack spacing={1}>
-                <Logo />
+                <LogoModal />
                 <Heading
                   fontSize="2rem"
                   color={useColorModeValue("white", "white")}
