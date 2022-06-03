@@ -105,6 +105,7 @@
     "@types/node": "^16.11.6",
     "@types/react": "^17.0.19",
     "@types/react-dom": "^17.0.9",
+    "@typescript-eslint/eslint-plugin": "^5.27.0",
     "eslint": "^8.16.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-prettier": "^4.0.0",
@@ -115,6 +116,7 @@
     "typescript": "^4.4.2"
   },
   "resolutions": {
-    "webpack": "5.21.2"
+    "webpack": "5.21.2",
+    "node-hid": "2.1.1"
   }
 }
