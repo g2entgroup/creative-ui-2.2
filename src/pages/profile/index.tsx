@@ -30,10 +30,7 @@ const GET_PROFILES = gql`
 `;
 
 const ProfilePage: NextPage = () => {
-//   const router = useRouter();
-//     const { handle } = router.query;
-    const {query} = useRouter()
-    console.log(query)
+  const {query} = useRouter()
   const { account } = useEthers();
 
   const [balance, setBalance] = React.useState(10000);
@@ -93,12 +90,9 @@ const ProfilePage: NextPage = () => {
     //   claim: false,
     // },
   ]);
-  const [bio] = React.useState(
-    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi eu convallis sapien. Etiam aliquet semper justo nec posuere. Aliquam molestie efficitur quam quis bibendum. Aliquam sodales nisi consequat metus egestas eleifend. Morbi tincidunt ex a volutpat congue."
-  );
+
 
   // Lens Profile Query
-
   const {
     data: profileData,
     loading,
