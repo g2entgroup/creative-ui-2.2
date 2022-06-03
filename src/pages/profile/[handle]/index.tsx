@@ -11,12 +11,12 @@ import {
   SimpleGrid,
   chakra,
 } from "@chakra-ui/react";
-import CreativeCard from "../../components/common/Cards/CreativeCard";
+import CreativeCard from "../../../components/common/Cards/CreativeCard";
 import { useEthers } from "@usedapp/core";
 import { FaStar } from "react-icons/fa";
 
-import { ProfileHeader } from "../../components/profile/ProfileHeader";
-import { ProfileFragment } from "../../services/apollo/lens-graphql/ProfileFragment";
+import { ProfileHeader } from "../../../components/profile/ProfileHeader";
+import { ProfileFragment } from "../../../services/apollo/lens-graphql/ProfileFragment";
 
 const GET_PROFILES = gql`
   query ($request: ProfileQueryRequest!) {
@@ -175,7 +175,7 @@ const ProfilePage: NextPage = () => {
             cursor={"pointer"}
           >
             <Box marginBottom={5}>
-              <Heading>Star Power</Heading>
+              <Heading>Star Power!</Heading>
             </Box>
             <Box display="flex" alignItems="center" marginBottom={5}>
               <FaStar fontSize={35} color="yellow" />
