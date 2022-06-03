@@ -17,7 +17,7 @@ import {
         <MenuButton as={Button} colorScheme="pink">
             Filter &amp; Sort
         </MenuButton>
-        <MenuList minWidth="240px" bgColor={useColorModeValue("gray.600", "white")}>
+        <MenuList minWidth="240px" bgColor={useColorModeValue("light", "dark")}>
             <MenuOptionGroup defaultValue="asc" title="Sort by" type="radio">
             <MenuItemOption value="asc">Recently Added</MenuItemOption>
             <MenuItemOption value="desc">Cheapest</MenuItemOption>

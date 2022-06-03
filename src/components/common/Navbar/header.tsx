@@ -32,6 +32,7 @@ import {
   Divider,
   Center,
   Text,
+  space,
 } from "@chakra-ui/react";
 import transakSDK from '@transak/transak-sdk';
 import NextLink from 'next/link';
@@ -52,6 +53,7 @@ import { formatEther } from "ethers/lib/utils";
 import { UserModel } from "src/services/textile/types";
 import { TextileInstance } from "src/services/textile/textile";
 import { useUsersContext } from "src/services/context/users";
+import { SiPcgamingwiki } from "react-icons/si";
 
 const check = () => {
   if(localStorage.getItem('closeButtons') == 'true') {
@@ -410,20 +412,6 @@ const Header = ({ children }: HeaderProps): JSX.Element => {
         justifySelf="self-start"
         onClick={mobileNav.onClose}
       />
-      <Button w="full" variant="ghost" leftIcon={<AiFillHome />}>
-        Dashboard
-      </Button>
-      <Button
-        w="full"
-        variant="solid"
-        colorScheme="brand"
-        leftIcon={<AiOutlineInbox />}
-      >
-        Inbox
-      </Button>
-      <Button w="full" variant="ghost" leftIcon={<BsFillCameraVideoFill />}>
-        Videos
-      </Button>
     </VStack>
   );
   return (
@@ -631,9 +619,12 @@ const Header = ({ children }: HeaderProps): JSX.Element => {
                       </MenuItem>
                     )}
                       <MenuItem as={Button} 
-                      color="black" 
+                      color="white" 
                       colorScheme= "pink"
                       variant="solid"
+                      size="md"
+                      mt={2}
+                      mb={4}
                       onClick={loadInit}
                       rightIcon={
                         <Image
@@ -694,7 +685,8 @@ const Header = ({ children }: HeaderProps): JSX.Element => {
                     {!isLoggedIn && (
                       <MenuItem 
                         as={Button} 
-                        color="red"
+                        color="white"
+                        colorScheme={"red"}
                         variant="solid"
                         onClick={() => {
                           deactivate()
@@ -706,7 +698,7 @@ const Header = ({ children }: HeaderProps): JSX.Element => {
                     {isLoggedIn && (
                       <MenuItem 
                         as={Button} 
-                        color="red"
+                        colorScheme={"red"}
                         variant="solid"
                         onClick={() => {
                           logOut()
@@ -762,10 +754,10 @@ const Header = ({ children }: HeaderProps): JSX.Element => {
               />
               <IconButton
                 display={{ base: "flex", md: "none" }}
+                variant='outline'
                 aria-label="Open menu"
                 fontSize="20px"
-                color={useColorModeValue("gray.800", "inherit")}
-                variant="ghost"
+                colorScheme="white"
                 icon={<AiOutlineMenu />}
                 onClick={mobileNav.onOpen}
               />

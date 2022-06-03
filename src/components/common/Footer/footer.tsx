@@ -7,7 +7,7 @@ import {
   Text,
   Input,
   Link,
-  useColorModeValue
+  useColorModeValue,
 } from "@chakra-ui/react";
 import { AiOutlineMail } from "react-icons/ai";
 import { FiTwitter, FiInstagram } from "react-icons/fi";
@@ -15,14 +15,12 @@ import { SiDiscord } from "react-icons/si";
 import Image from "next/image";
 
 const myLoader = ({ src, width }) => {
-  return `https://res.cloudinary.com/${src}?w=${width}&q=${75}`
-}
+  return `https://res.cloudinary.com/${src}?w=${width}&q=${75}`;
+};
 
 const Footer = () => {
   return (
-    <Box
-      flexDir={['column','column','column', 'row']}
-      bgColor="#161d2f">
+    <Box flexDir={["column", "column", "column", "row"]} bgColor="#161d2f">
       {/* logo  */}
       <Box textAlign="center" mb="3rem" padding={10}>
         <Image
@@ -32,17 +30,18 @@ const Footer = () => {
           width={90}
           height={80}
         />
-        <Heading fontSize="2rem" color={"white"}>CREATIVE</Heading>
+        <Heading fontSize="2rem" color={"white"}>
+          CREATIVE
+        </Heading>
       </Box>
       {/* 4 sliders  */}
       <Box
-        width='100%'
-        display='flex'
-        flexDir={['column','column','row', 'row']}
-        flexWrap={['nowrap', 'nowrap', 'wrap', 'wrap']}>
-        <Box
-          maxWidth={['100%', '50%', '50%', '25%']}
-          padding={5}>
+        width="100%"
+        display="flex"
+        flexDir={["column", "column", "row", "row"]}
+        flexWrap={["nowrap", "nowrap", "wrap", "wrap"]}
+      >
+        <Box maxWidth={["100%", "50%", "50%", "25%"]} padding={5}>
           <Box as="h3" fontWeight="500" fontSize="xl" color="#e50168">
             Creative Platform
           </Box>
@@ -54,12 +53,12 @@ const Footer = () => {
             background="linear-gradient(to right, rgba(22, 29, 47, 0),#e50168,rgba(22,29,47,0));"
           />
           <Text color={"white"}>
-            A creative blockchain platform for independent creators, fans, and brands to exchange services directly and earn incentives through DeFi.
+            A creative blockchain platform for independent creators, fans, and
+            brands to exchange services directly and earn incentives through
+            DeFi.
           </Text>
         </Box>
-        <Box
-          maxWidth={['100%', '550%', '50%', '25%']}
-          padding={5}>
+        <Box maxWidth={["100%", "550%", "50%", "25%"]} padding={5}>
           <Box as="h3" fontWeight="500" fontSize="xl" color="#e50168">
             Join Our Community DAO
           </Box>
@@ -70,9 +69,9 @@ const Footer = () => {
             w="50px"
             background="linear-gradient(to right, rgba(22, 29, 47, 0),#e50168,rgba(22,29,47,0));"
           />
-          <Text
-            textOverflow={'wrap'} color={"white"}>
-            Have a seat at the table and join our governance DAO, where our creative community helps decide the future of the Creative platform.
+          <Text textOverflow={"wrap"} color={"white"}>
+            Have a seat at the table and join our governance DAO, where our
+            creative community helps decide the future of the Creative platform.
           </Text>
           <Box
             as="button"
@@ -83,14 +82,18 @@ const Footer = () => {
             borderRadius="2rem"
             mt="1rem"
             cursor="pointer"
-            maxW={'90%'}
+            maxW={"90%"}
           >
-            <Link href="https://app.daohaus.club/dao/0x89/0xc48996a569911fd6eba1b97b6419731eed32041e/" isExternal target="_blank">Creative Organization</Link>
+            <Link
+              href="https://app.daohaus.club/dao/0x89/0xc48996a569911fd6eba1b97b6419731eed32041e/"
+              isExternal
+              target="_blank"
+            >
+              Creative Organization
+            </Link>
           </Box>
         </Box>
-        <Box
-          width={['100%', '50%', '50%', '25%']}
-          padding={5}>
+        <Box width={["100%", "50%", "50%", "25%"]} padding={5}>
           <Box as="h3" fontWeight="500" fontSize="xl" color="#e50168">
             Subscribe
           </Box>
@@ -128,9 +131,7 @@ const Footer = () => {
             Sign Me Up
           </Box>
         </Box>
-        <Box
-          width={['100%', '50%', '50%', '25%']}
-          padding={4}>
+        <Box width={["100%", "50%", "50%", "25%"]} padding={4}>
           <Box as="h3" fontWeight="500" fontSize="xl" color="#e50168">
             Contact Us
           </Box>
@@ -142,35 +143,38 @@ const Footer = () => {
             background="linear-gradient(to right, rgba(22, 29, 47, 0),#e50168,rgba(22,29,47,0));"
           />
           {/* phone  */}
-          <Box
-            display='flex'
-            flexDir='row'
-            flexWrap='wrap' 
-            alignItems="center">
+          <Box display="flex" flexDir="row" flexWrap="wrap" alignItems="center">
             <Box
               mr="1rem"
               bgGradient="linear(to-b, #2b5fa8, #e6006b)"
               px="0.6rem"
               py="0.5rem"
               borderRadius="0.4rem"
+              color="white"
             >
               <SiDiscord />
             </Box>
             <Box padding={4}>
               <Box>
-                <Link href="https://discord.gg/8B4p7ztWTp" color={"white"} isExternal>Creative Discord</Link>
+                <Link
+                  href="https://discord.gg/8B4p7ztWTp"
+                  color={"white"}
+                  isExternal
+                >
+                  Discord
+                </Link>
               </Box>
             </Box>
           </Box>
           {/* email  */}
           <Box
-          
-            display='flex'
-            flexDir='row'
-            flexWrap='wrap' 
+            display="flex"
+            flexDir="row"
+            flexWrap="wrap"
             alignItems="center"
-            maxWidth={'80%'}
-            overflowY={'hidden'}>
+            maxWidth={"80%"}
+            overflowY={"hidden"}
+          >
             <Box
               mr="1rem"
               bgGradient="linear(to-b, #2b5fa8, #e6006b)"
@@ -181,18 +185,16 @@ const Footer = () => {
             >
               <AiOutlineMail />
             </Box>
-            <Box
-              overflow="wrap"
-              textOverflow={'wrap'}
-              padding={4}>
+            <Box overflow="wrap" textOverflow={"wrap"} padding={4}>
               <Box>
                 <Link
                   color={"white"}
-                  textOverflow={'wrap'}
-                  href="mailto:creatives@creativeplatform.xyz">
-                  Email
+                  textOverflow={"wrap"}
+                  href="mailto:creatives@creativeplatform.xyz"
+                >
+                  Email Us
                 </Link>
-                </Box>
+              </Box>
             </Box>
           </Box>
 
@@ -215,30 +217,7 @@ const Footer = () => {
           */}
 
           <Flex mt="1rem">
-            <Box>Follow us:</Box>
-            {/* <Box
-              mx="1rem"
-              w="1.8rem"
-              bgGradient="linear(to-b, #2b5fa8, #e6006b)"
-              px="0.4rem"
-              py="0.25rem"
-              borderRadius="0.4rem"
-              cursor="pointer"
-            >
-              <FiFacebook />
-            </Box>
-            <Box
-              mr="1rem"
-              w="1.8rem"
-              bgGradient="linear(to-b, #2b5fa8, #e6006b)"
-              px="0.4rem"
-              py="0.25rem"
-              borderRadius="0.4rem"
-              cursor="pointer"
-            >
-              <FiLinkedin />
-            </Box> */}
-
+            <Box color={"white"}>Follow us:</Box>
             <Box
               mx="1rem"
               w="1.8rem"
@@ -247,8 +226,13 @@ const Footer = () => {
               py="0.25rem"
               borderRadius="0.4rem"
               cursor="pointer"
+              color={"white"}
             >
-              <Link href="https://www.twitter.com/creativecrtv" isExternal target="_blank">
+              <Link
+                href="https://www.twitter.com/creativecrtv"
+                isExternal
+                target="_blank"
+              >
                 <FiTwitter />
               </Link>
             </Box>
@@ -260,8 +244,13 @@ const Footer = () => {
               py="0.25rem"
               borderRadius="0.4rem"
               cursor="pointer"
+              color={"white"}
             >
-              <Link href="https://www.instagram.com/creativecrtv" isExternal target="_blank">
+              <Link
+                href="https://www.instagram.com/creativecrtv"
+                isExternal
+                target="_blank"
+              >
                 <FiInstagram />
               </Link>
             </Box>
@@ -280,13 +269,17 @@ const Footer = () => {
           background="linear-gradient(to right, rgba(22, 29, 47, 0),#e50168,rgba(22,29,47,0));"
         />
         {/* Copyright */}
-        <Box w='100%' textAlign="center">
+        <Box w="100%" textAlign="center">
           <Text color={"white"}>
             Copyright © 2021{" "}
-            <Link color={"white"} href="https://app.daohaus.club/dao/0x89/0xc48996a569911fd6eba1b97b6419731eed32041e/" isExternal>
-            Creative Organization DAO, LLC
+            <Link
+              color={"white"}
+              href="https://app.daohaus.club/dao/0x89/0xc48996a569911fd6eba1b97b6419731eed32041e/"
+              isExternal
+            >
+              Creative Organization DAO, LLC
             </Link>
-          . All Rights Reserved.
+            . All Rights Reserved.
           </Text>
         </Box>
       </Box>
@@ -295,4 +288,3 @@ const Footer = () => {
 };
 
 export default Footer;
-

@@ -31,8 +31,7 @@ export const CountDown = ({ title, time }:{ title: string, time: string }) => {
         <Box
             minWidth={[ '100%', '100%', '100%', '50%']}
             maxWidth={[ '100%', '100%', '100%', '50%']}>
-            <Heading
-                color='white'>
+            <Heading>
                 {title}
             </Heading>
             <HStack spacing='24px'>
@@ -41,8 +40,7 @@ export const CountDown = ({ title, time }:{ title: string, time: string }) => {
                     flexDirection='column'>
                     <Box>
                         <Heading
-                            as='h6' 
-                            color='white'>
+                            as='h6' >
                             {`${days} :`}
                         </Heading>
                     </Box>
@@ -60,8 +58,7 @@ export const CountDown = ({ title, time }:{ title: string, time: string }) => {
                     flexDirection='column'>
                     <Box>
                         <Heading
-                            as='h6' 
-                            color='white'>
+                            as='h6'>
                             {`${hours} :`}
                         </Heading>
                     </Box>
@@ -79,8 +76,7 @@ export const CountDown = ({ title, time }:{ title: string, time: string }) => {
                     flexDirection='column'>
                     <Box>
                         <Heading
-                            as='h6' 
-                            color='white'>
+                            as='h6'>
                             {`${minutes} :`}
                         </Heading>
                     </Box>
@@ -98,8 +94,7 @@ export const CountDown = ({ title, time }:{ title: string, time: string }) => {
                     flexDirection='column'>
                     <Box>
                         <Heading
-                            as='h6' 
-                            color='white'>
+                            as='h6'>
                             {`${seconds} `}
                         </Heading>
                     </Box>

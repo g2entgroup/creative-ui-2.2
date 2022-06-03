@@ -46,7 +46,7 @@ export default function Details() {
           <Box
             marginBottom='20px'>
             <Box>
-              <Heading color='white'>{`${property.brand} Brand Campaign`}</Heading>
+              <Heading>{`${property.brand} Brand Campaign`}</Heading>
             </Box>
             <Box>
             <Box
@@ -55,10 +55,9 @@ export default function Details() {
               flexDir='row'
               padding={2}
               alignItems='center'>
-              <FaGlobe color="white"/>
+              <FaGlobe />
               <Text
-                paddingLeft={2}
-                color='white'>
+                paddingLeft={2}>
                   {`${property.website} `}
               </Text>
             </Box>
@@ -68,10 +67,9 @@ export default function Details() {
               flexDir='row'
               alignItems='center'
               padding={2}>
-              <FaTwitter color="white" />
+              <FaTwitter />
               <Text
-                paddingLeft={2}
-                color='white'>
+                paddingLeft={2}>
                 @tesla
               </Text> 
             </Box>
@@ -95,13 +93,11 @@ export default function Details() {
           maxWidth={['90vw','80vw','60vw','60vw',]}
           marginBottom='20px'>
           <Heading
-            marginBottom='20px'
-            color='white'>
+            marginBottom='20px'>
               Campaign Details
           </Heading>
           <Text
-            marginBottom='50px'
-            color='white'>
+            marginBottom='50px'>
               {property.details}
           </Text>
         </Box>
@@ -118,8 +114,7 @@ export default function Details() {
           >
             <Box>
               <Heading
-                marginBottom='20px'
-                color='white'>
+                marginBottom='20px'>
                   Capital    
               </Heading>
               <Heading
