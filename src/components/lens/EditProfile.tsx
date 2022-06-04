@@ -84,7 +84,6 @@ export const EditProfile = ({ profile, refetch }: EditProfileProps) => {
   const [isUpdating, setIsUpdating] = useState(false);
   const { isOpen, onOpen, onClose } = useDisclosure();
   
-  // TODO: Hydration
   const {
     handleSubmit,
     register,

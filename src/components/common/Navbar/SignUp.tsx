@@ -29,7 +29,7 @@ import { PrivateKey } from "@textile/crypto";
 import bcryptjs from "bcryptjs";
 import { utils, BigNumber } from "ethers";
 import { TextileInstance } from "../../../services/textile/textile";
-import { useAuth } from "../../../services/context/users";
+import { useAuth } from "../../../services/context/auth";
 
 const SignUp = (props) => {
   const [show, setShow] = useState(false);
