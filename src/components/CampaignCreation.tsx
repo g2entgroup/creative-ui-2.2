@@ -93,7 +93,6 @@ export default function BrandPrizePool() {
                   </FormControl>
                 </SimpleGrid>
 
-                <div>
                   <FormControl id="email" mt={1}>
                     <FormLabel
                       fontSize="sm"
@@ -114,7 +113,6 @@ export default function BrandPrizePool() {
                       Brief description for your profile. URLs are hyperlinked.
                     </FormHelperText>
                   </FormControl>
-                </div>
 
                 <FormControl>
                   <FormLabel

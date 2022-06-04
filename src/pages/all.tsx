@@ -19,14 +19,14 @@ class StrongType<Definition, Type> {
 export default function All() {
   const [displayPix, setDisplayPix] = useState(false);
   const [cids, setCids] = useState([]);
-  let photos;
+  let photos = [];
   let cid = [];
 
   const fetchGallery = async () => {
     const textileInstance = await TextileInstance.getInstance();
     photos = await textileInstance.getAllUserNFTs();
     setDisplayPix(true);
-    console.log(photos);
+    // console.log(photos);
     photos.map((element) => {
       cid.push({
         cid: element.cid,
@@ -34,8 +34,8 @@ export default function All() {
         description: element.description,
       });
     });
-    console.log(photos);
-    console.log(cid);
+    // console.log(photos);
+    // console.log(cid);
     setCids(cid);
   };
   // TODO: Be able to delete NFT item

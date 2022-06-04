@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { Suspense, useState } from "react";
 import { gql, useMutation } from "@apollo/client";
 import { providers, Contract } from "ethers";
 import { useEthers } from "@usedapp/core";
@@ -83,6 +83,8 @@ export const EditProfile = ({ profile, refetch }: EditProfileProps) => {
   const { account } = useEthers();
   const [isUpdating, setIsUpdating] = useState(false);
   const { isOpen, onOpen, onClose } = useDisclosure();
+  
+  // TODO: Hydration
   const {
     handleSubmit,
     register,
@@ -190,106 +192,108 @@ export const EditProfile = ({ profile, refetch }: EditProfileProps) => {
 
   return (
     <>
-      <Button background="#e50168" onClick={onOpen}>
-        Edit Profile
-      </Button>
+      <Suspense>
+        <Button background="#e50168" onClick={onOpen}>
+          Edit Profile
+        </Button>
 
-      <Modal isOpen={isOpen} onClose={onClose}>
-        <ModalOverlay />
-        <ModalContent>
-          <ModalHeader>Edit Profile</ModalHeader>
-          <ModalCloseButton />
-          <ModalBody>
-            <Box>
-              <form onSubmit={handleSubmit(onSubmit)}>
-                <FormControl isInvalid={errors.name}>
-                  <FormLabel>Name</FormLabel>
-                  <InputGroup>
-                    {/* <InputLeftElement children={<BsPerson />} /> */}
-                    <Input
-                      id="name"
-                      type="text"
-                      name="name"
-                      placeholder="Name"
-                      {...register("name")}
+        <Modal isOpen={isOpen} onClose={onClose}>
+          <ModalOverlay />
+          <ModalContent>
+            <ModalHeader>Edit Profile</ModalHeader>
+            <ModalCloseButton />
+            <ModalBody>
+              <Box>
+                <form onSubmit={handleSubmit(onSubmit)}>
+                  <FormControl isInvalid={errors.name}>
+                    <FormLabel>Name</FormLabel>
+                    <InputGroup>
+                      {/* <InputLeftElement children={<BsPerson />} /> */}
+                      <Input
+                        id="name"
+                        type="text"
+                        name="name"
+                        placeholder="Name"
+                        {...register("name")}
+                      />
+                    </InputGroup>
+                  </FormControl>
+                  <FormControl isInvalid={errors.location}>
+                    <FormLabel>Location</FormLabel>
+                    <InputGroup>
+                      {/* <InputLeftElement children={<MdOutlineEmail />} /> */}
+                      <Input
+                        id="location"
+                        type="text"
+                        name="location"
+                        placeholder="Location"
+                        {...register("location")}
+                      />
+                    </InputGroup>
+                  </FormControl>
+                  <FormControl isInvalid={errors.twitter}>
+                    <FormLabel>Twitter Handle</FormLabel>
+                    <InputGroup>
+                      {/* <InputLeftElement children={<MdOutlineEmail />} /> */}
+                      <Input
+                        type="text"
+                        name="twitter"
+                        placeholder="Twitter Handle"
+                        {...register("twitter")}
+                      />
+                    </InputGroup>
+                  </FormControl>
+                  <FormControl isInvalid={errors.website}>
+                    <FormLabel>Website</FormLabel>
+                    <InputGroup>
+                      {/* <InputLeftElement children={<MdOutlineEmail />} /> */}
+                      <Input
+                        type="text"
+                        name="website"
+                        placeholder="Website"
+                        {...register("website")}
+                      />
+                    </InputGroup>
+                  </FormControl>
+                  <FormControl isInvalid={errors.bio}>
+                    <FormLabel>Bio</FormLabel>
+                    <Textarea
+                      name="bio"
+                      placeholder="Bio"
+                      rows={6}
+                      resize="none"
+                      {...register("bio")}
                     />
-                  </InputGroup>
-                </FormControl>
-                <FormControl isInvalid={errors.location}>
-                  <FormLabel>Location</FormLabel>
-                  <InputGroup>
-                    {/* <InputLeftElement children={<MdOutlineEmail />} /> */}
-                    <Input
-                      id="location"
-                      type="text"
-                      name="location"
-                      placeholder="Location"
-                      {...register("location")}
-                    />
-                  </InputGroup>
-                </FormControl>
-                <FormControl isInvalid={errors.twitter}>
-                  <FormLabel>Twitter Handle</FormLabel>
-                  <InputGroup>
-                    {/* <InputLeftElement children={<MdOutlineEmail />} /> */}
-                    <Input
-                      type="text"
-                      name="twitter"
-                      placeholder="Twitter Handle"
-                      {...register("twitter")}
-                    />
-                  </InputGroup>
-                </FormControl>
-                <FormControl isInvalid={errors.website}>
-                  <FormLabel>Website</FormLabel>
-                  <InputGroup>
-                    {/* <InputLeftElement children={<MdOutlineEmail />} /> */}
-                    <Input
-                      type="text"
-                      name="website"
-                      placeholder="Website"
-                      {...register("website")}
-                    />
-                  </InputGroup>
-                </FormControl>
-                <FormControl isInvalid={errors.bio}>
-                  <FormLabel>Bio</FormLabel>
-                  <Textarea
-                    name="bio"
-                    placeholder="Bio"
-                    rows={6}
-                    resize="none"
-                    {...register("bio")}
-                  />
-                </FormControl>
+                  </FormControl>
 
-                {isUpdating ? (
-                  <>
-                    <Button isLoading></Button>
-                  </>
-                ) : (
-                  <Box>
-                    <Button mr={8} variant="ghost" onClick={onClose}>
-                      Cancel
-                    </Button>
-                    <Button
-                      colorScheme="blue"
-                      type="submit"
-                      isLoading={isSubmitting}
-                    >
-                      Save
-                    </Button>
-                  </Box>
-                )}
+                  {isUpdating ? (
+                    <>
+                      <Button isLoading></Button>
+                    </>
+                  ) : (
+                    <Box>
+                      <Button mr={8} variant="ghost" onClick={onClose}>
+                        Cancel
+                      </Button>
+                      <Button
+                        colorScheme="blue"
+                        type="submit"
+                        isLoading={isSubmitting}
+                      >
+                        Save
+                      </Button>
+                    </Box>
+                  )}
 
-                <FormErrorMessage>
-                  {errors.name && errors.name.message}
-                </FormErrorMessage>
-              </form>
-            </Box>
-          </ModalBody>
-        </ModalContent>
-      </Modal>
+                  <FormErrorMessage>
+                    {errors.name && errors.name.message}
+                  </FormErrorMessage>
+                </form>
+              </Box>
+            </ModalBody>
+          </ModalContent>
+        </Modal>
+      </Suspense>
     </>
   );
 };

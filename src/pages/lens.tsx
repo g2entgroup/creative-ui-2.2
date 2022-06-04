@@ -5,10 +5,10 @@ import { GetProfiles, LensAuthentication } from "../components/lens";
 
 const LensPage: NextPage = () => {
   return (
-    <div>
+    <>
       <LensAuthentication />
       <GetProfiles />
-    </div>
+    </>
   );
 };
 

@@ -64,7 +64,7 @@
     "follow-redirects": "1.14.8",
     "formik": "^2.2.9",
     "fortmatic": "^2.2.1",
-    "framer-motion": "^4.1.9",
+    "framer-motion": "6.3.0",
     "google-protobuf": "^3.2.0",
     "graphql": "^15.0.0",
     "graphql-tag": "^2.12.6",

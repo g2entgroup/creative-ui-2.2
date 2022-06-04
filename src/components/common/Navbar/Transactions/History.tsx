@@ -8,7 +8,7 @@ import {
   StoredTransaction,
   shortenTransactionHash,
 } from '@usedapp/core';
-import React, { ReactElement, ReactNode } from 'react';
+import React, { ReactElement, ReactNode, Suspense } from 'react';
 //import { TextBold } from '../../typography/Text'
 //import { ContentBlock } from '../base/base'
 import { TimeIcon, CheckIcon, WarningTwoIcon, LinkIcon, LockIcon, UnlockIcon, InfoIcon, SpinnerIcon  } from '@chakra-ui/icons'
@@ -124,19 +124,21 @@ function TransactionIcon(transaction: StoredTransaction) {
 export const TransactionsList = () => {
   const { transactions } = useTransactions()
   return (
-    <TableWrapper title="Transactions history">
-      {/* <AnimatePresence initial={false}>
-        {transactions.map((transaction) => (
-          <ListElement
-            transaction={transaction.transaction}
-            title={transaction.transactionName}
-            icon={TransactionIcon(transaction)}
-            key={transaction.transaction.hash}
-            date={transaction.submittedAt}
-          />
-        ))}
-      </AnimatePresence> */}
-    </TableWrapper>
+    <Suspense>
+      <TableWrapper title="Transactions history">
+        <AnimatePresence initial={false}>
+          {transactions.map((transaction) => (
+            <ListElement
+              transaction={transaction.transaction}
+              title={transaction.transactionName}
+              icon={TransactionIcon(transaction)}
+              key={transaction.transaction.hash}
+              date={transaction.submittedAt}
+            />
+          ))}
+        </AnimatePresence>
+      </TableWrapper>
+    </Suspense>
   )
 }
 
@@ -159,31 +161,33 @@ const NotificationElement = ({ transaction, icon, title }: ListElementProps) => 
 export const NotificationsList = () => {
   const { notifications } = useNotifications()
   return (
-    <NotificationsWrapper>
-      {/* <AnimatePresence initial={false}>
-        {notifications.map((notification) => {
-          if ('transaction' in notification)
-            return (
-              <NotificationElement
-                key={notification.id}
-                icon={notificationContent[notification.type].icon}
-                title={notificationContent[notification.type].title}
-                transaction={notification.transaction}
-                date={Date.now()}
-              />
-            )
-          else
-            return (
-              <NotificationElement
-                key={notification.id}
-                icon={notificationContent[notification.type].icon}
-                title={notificationContent[notification.type].title}
-                date={Date.now()}
-              />
-            )
-        })}
-      </AnimatePresence> */}
-    </NotificationsWrapper>
+    <Suspense>
+      <NotificationsWrapper>
+        <AnimatePresence initial={false}>
+          {notifications.map((notification) => {
+            if ('transaction' in notification)
+              return (
+                <NotificationElement
+                  key={notification.id}
+                  icon={notificationContent[notification.type].icon}
+                  title={notificationContent[notification.type].title}
+                  transaction={notification.transaction}
+                  date={Date.now()}
+                />
+              )
+            else
+              return (
+                <NotificationElement
+                  key={notification.id}
+                  icon={notificationContent[notification.type].icon}
+                  title={notificationContent[notification.type].title}
+                  date={Date.now()}
+                />
+              )
+          })}
+        </AnimatePresence>
+      </NotificationsWrapper>
+    </Suspense>
   )
 }
 

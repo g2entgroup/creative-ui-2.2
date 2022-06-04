@@ -1,4 +1,3 @@
-import React, { useState, useRef, useEffect } from "react";
 import { useRouter } from 'next/router';
 import { ChainId, useEthers, shortenAddress, useNotifications, useEtherBalance } from '@usedapp/core';
 import ConnectWallet from "../Navbar/ConnectWallet";
@@ -32,7 +31,8 @@ import {
   Divider,
   Center,
   Text,
-  space,
+  LinkBox,
+  LinkOverlay,
 } from "@chakra-ui/react";
 import transakSDK from '@transak/transak-sdk';
 import NextLink from 'next/link';
@@ -40,8 +40,7 @@ import NotificationDrawer from "../Notification/NotificationDrawer";
 import { useViewportScroll } from "framer-motion";
 //import Head, { MetaProps } from '../layout/Head';
 import { IoIosArrowDown } from "react-icons/io";
-import { AiFillHome, AiOutlineInbox, AiOutlineMenu } from "react-icons/ai";
-import { BsFillCameraVideoFill } from "react-icons/bs";
+import { AiOutlineMenu } from "react-icons/ai";
 import { FaMoon, FaSun } from "react-icons/fa";
 // import Balance from "../Balance/Balance";
 import Logo from "../Navbar/Logo";
@@ -50,18 +49,8 @@ import SignUp from "./SignUp";
 import InviteUser from "./InviteUser";
 import Image from 'next/image';
 import { formatEther } from "ethers/lib/utils";
-import { SiPcgamingwiki } from "react-icons/si";
-import { UserModel } from "../../../services/textile/types";
-import { TextileInstance } from "../../../services/textile/textile";
-import { useUsersContext } from "../../../services/context/users";
-
-const check = () => {
-  if(localStorage.getItem('closeButtons') == 'true') {
-    return true
-  } else {
-    return false
-  }
-}
+import { useAuth } from "../../../services/context/users";
+import { ReactNode, useEffect, useRef, useState } from 'react';
 
 /**
  * Constants & Helpers
@@ -82,22 +71,20 @@ function truncateHash(hash: string, length = 38): string {
  * Prop Types
  */
  interface HeaderProps {
-  children: React.ReactNode
+  children: ReactNode
 }
 
 const Header = ({ children }: HeaderProps): JSX.Element => {
+  const [closeButtons, setCloseButtons] = useState(false);
+
   const router = useRouter();
 
   const {
     isLoggedIn,
-    user,
     account,
     role,
-    inbox,
     logOut
-  } = useUsersContext();
-
-  // const [user, setUser] = useState<UserModel>();
+  } = useAuth();
 
   const { deactivate, chainId } = useEthers();
 
@@ -105,19 +92,9 @@ const Header = ({ children }: HeaderProps): JSX.Element => {
 
   const { notifications } = useNotifications();
 
-  // const handleGetUser = async () => {
-  //   try {
-  //     const textileInstance = await TextileInstance.getInstance();
-  //     const user = await textileInstance.getCurrentUser();
-  //     setUser(user);  
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // }
-
-  useEffect(() => {
-    // handleGetUser();
-  }, []);
+  const check = () => {
+    return closeButtons ? closeButtons : !closeButtons;
+  }
 
   let chainName: string;
 
@@ -138,45 +115,49 @@ const Header = ({ children }: HeaderProps): JSX.Element => {
 
   const { toggleColorMode: toggleMode } = useColorMode();
   const text = useColorModeValue("dark", "light");
+  
   const SwitchIcon = useColorModeValue(FaMoon, FaSun);
+  
   const bg = useColorModeValue("#F0F0F0", "gray.900");
+
   const ref = useRef(null);
+
   const [y, setY] = useState(0);
   const { height } = ref.current
     ? ref.current.getBoundingClientRect()
     : { height: 0 };
 
     function loadInit() {
-      // const transak = new transakSDK({
-      //   apiKey: '07d4475a-4b8c-49d6-ba88-61075d649c6f',  // Your API Key
-      //   environment: 'STAGING', // STAGING/PRODUCTION
-      //   hostURL: window.location.href,
-      //   widgetHeight: '625px',
-      //   widgetWidth: '500px',
-      //   // Examples of some of the customization parameters you can pass
-      //   defaultCryptoCurrency: 'MATIC', // Example 'ETH'
-      //   walletAddress: account, // Your customer's wallet address
-      //   //themeColor: '[COLOR_HEX]', // App theme color
-      //   fiatCurrency: 'USD', // If you want to limit fiat selection eg 'USD'
-      //   //email: '', // Your customer's email address
-      //   redirectURL: 'localhost:3000'
-      // });
+      const transak = new transakSDK({
+        apiKey: '07d4475a-4b8c-49d6-ba88-61075d649c6f',  // Your API Key
+        environment: 'STAGING', // STAGING/PRODUCTION
+        hostURL: window.location.href,
+        widgetHeight: '625px',
+        widgetWidth: '500px',
+        // Examples of some of the customization parameters you can pass
+        defaultCryptoCurrency: 'MATIC', // Example 'ETH'
+        walletAddress: account, // Your customer's wallet address
+        //themeColor: '[COLOR_HEX]', // App theme color
+        fiatCurrency: 'USD', // If you want to limit fiat selection eg 'USD'
+        //email: '', // Your customer's email address
+        redirectURL: 'localhost:3000'
+      });
   
-      // transak.init();
+      transak.init();
   
-      // // To get all the events
-      // transak.on(transak.ALL_EVENTS, (/*data*/) => {
-      //   // console.log(data)
-      // });
+      // To get all the events
+      transak.on(transak.ALL_EVENTS, (/*data*/) => {
+        // console.log(data)
+      });
   
-      // // This will trigger when the user marks payment is made.
-      // transak.on(transak.EVENTS.TRANSAK_ORDER_SUCCESSFUL, (/*orderData*/) => {
-      //   // console.log(orderData);
-      //   transak.close();
-      // });
-      // return () => {
-      //   transak.cleanup();
-      // }
+      // This will trigger when the user marks payment is made.
+      transak.on(transak.EVENTS.TRANSAK_ORDER_SUCCESSFUL, (/*orderData*/) => {
+        // console.log(orderData);
+        transak.close();
+      });
+      return () => {
+        transak.cleanup();
+      }
     }
 
   const myLoader = ({ src, width }) => {
@@ -184,10 +165,13 @@ const Header = ({ children }: HeaderProps): JSX.Element => {
   }
 
   const { scrollY } = useViewportScroll();
-  React.useEffect(() => {
+
+  useEffect(() => {
     return scrollY.onChange(() => setY(scrollY.get()));
   }, [scrollY]);
+  
   const cl = useColorModeValue("gray.800", "white");
+
   const mobileNav = useDisclosure();
 
   const Section = (props) => {
@@ -216,9 +200,9 @@ const Header = ({ children }: HeaderProps): JSX.Element => {
           {props.icon}
         </chakra.svg>
         <Box pl={4}>
-          <chakra.div fontSize="sm" fontWeight="700" color={tcl}>
+          <Text size="sm" fontWeight="700" color={tcl}>
             {props.title}
-          </chakra.div>
+          </Text>
           <chakra.div mt={1} fontSize="sm" color={dcl}>
             {props.children}
           </chakra.div>
@@ -232,163 +216,186 @@ const Header = ({ children }: HeaderProps): JSX.Element => {
     const hbgh = useColorModeValue("gray.100", "brand.500");
     const tcl = useColorModeValue("gray.900", "gray.50");
     return (
-      <React.Fragment>
-        <SimpleGrid
-          columns={props.h ? { base: 1, md: 3, lg: 5 } : 1}
-          pos="relative"
-          gap={{ base: 6, sm: 8 }}
-          px={5}
-          py={6}
-          p={{ sm: 8 }}
-        >
-          <Link href="https://app.clarity.so/g2sbase/pages/adf6ba33-a3cf-411e-a89e-2b464b0c46b8" isExternal>
-          <Section
-            title="How It Works"
+        <>
+          <SimpleGrid
+            columns={props.h ? { base: 1, md: 3, lg: 5 } : 1}
+            pos="relative"
+            gap={{ base: 6, sm: 8 }}
+            px={5}
+            py={6}
+            p={{ sm: 8 }}
           >
-          </Section>
-          </Link>
-          <Section
-            title="CRTVO Token"
-            icon={
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"
-              />
-            }
-          >
-            <Text>
-              We think that the best way to align platform development with customers' interests is to empower the ones who actively interact with the protocol: creators, fans, and brands.
-            </Text>
-          </Section>
-
-          <Link href="https://community.creativeplatform.io" isExternal>
-          <Section
-            title="Discussion"
-            icon={
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5M7.188 2.239l.777 2.897M5.136 7.965l-2.898-.777M13.95 4.05l-2.122 2.122m-5.657 5.656l-2.12 2.122"
-              />
-            }
-          >
-            <Text>
-              The place to discuss all things related to the Creative platform.
-            </Text>
-          </Section>
-          </Link>
-            <Link href="https://app.daohaus.club/dao/0x89/0xc48996a569911fd6eba1b97b6419731eed32041e/proposals" isExternal>
-          <Section
-            title="DAO Proposals"
-            icon={
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
-              />
-            }
-          >
-          </Section>
-          </Link>
-
-          <Link href="https://creative.canny.io/" isExternal>
-          <Section
-            title="Feature Suggestions"
-            icon={
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"
-              />
-            }
-          >
-            <Text>
-              Suggest a feature to the Creative community for the good of the platform.
-            </Text>
-          </Section>
-          </Link>
-        </SimpleGrid>
-        <Box px={{ base: 5, sm: 8 }} py={5} bg={hbg} display={{ sm: "flex" }}>
-          <Stack direction={{ base: "row" }} spacing={{ base: 6, sm: 10 }}>
-            <Box display="flow-root">
-              <Link
-                m={-3}
-                p={3}
-                display="flex"
-                alignItems="center"
-                rounded="md"
-                fontSize="md"
-                color={tcl}
-                _hover={{ bg: hbgh }}
+            <LinkBox>
+              <NextLink href="https://app.clarity.so/g2sbase/pages/adf6ba33-a3cf-411e-a89e-2b464b0c46b8" passHref={true}>
+                <LinkOverlay>
+                  <Section
+                    title="How It Works"
+                  >
+                  </Section>
+                </LinkOverlay>
+              </NextLink>
+            </LinkBox>
+              <Section
+                title="CRTVO Token"
+                icon={
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"
+                  />
+                }
               >
-                <chakra.svg
-                  flexShrink={0}
-                  h={6}
-                  w={6}
-                  color="gray.200"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                  aria-hidden="true"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"
-                  />
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                  />
-                </chakra.svg>
-                <chakra.span ml={3}>Watch Demo</chakra.span>
-              </Link>
-            </Box>
+                <Text>
+                  We think that the best way to align platform development with customers' interests is to empower the ones who actively interact with the protocol: creators, fans, and brands.
+                </Text>
+              </Section>
+            <LinkBox>
+              <NextLink href="https://community.creativeplatform.io" passHref={true}>
+                <LinkOverlay>
+                  <Section
+                    title="Discussion"
+                    icon={
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5M7.188 2.239l.777 2.897M5.136 7.965l-2.898-.777M13.95 4.05l-2.122 2.122m-5.657 5.656l-2.12 2.122"
+                      />
+                    }
+                  >
+                    <Text>
+                      The place to discuss all things related to the Creative platform.
+                    </Text>
+                  </Section>
+                </LinkOverlay>
+              </NextLink>
+            </LinkBox>
+            <LinkBox>
+              <NextLink href="https://app.daohaus.club/dao/0x89/0xc48996a569911fd6eba1b97b6419731eed32041e/proposals" passHref={true}>
+                <LinkOverlay>
+                  <Section
+                    title="DAO Proposals"
+                    icon={
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
+                      />
+                    }
+                  >
+                  </Section>
+                </LinkOverlay>
+              </NextLink>
+            </LinkBox>
 
-            <Box display="flow-root">
-              <Link
-                m={-3}
-                p={3}
-                display="flex"
-                alignItems="center"
-                rounded="md"
-                fontSize="md"
-                color={tcl}
-                _hover={{ bg: hbgh }}
-              >
-                <chakra.svg
-                  flexShrink={0}
-                  h={6}
-                  w={6}
-                  color="gray.200"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                  aria-hidden="true"
+            <LinkBox>
+              <NextLink href="https://creative.canny.io/" passHref={true}>
+                <LinkOverlay>
+                  <Section
+                    title="Feature Suggestions"
+                    icon={
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"
+                      />
+                    }
+                  >
+                    <Text>
+                      Suggest a feature to the Creative community for the good of the platform.
+                    </Text>
+                  </Section>
+                </LinkOverlay>
+              </NextLink>
+            </LinkBox>
+          </SimpleGrid>
+          <Box px={{ base: 5, sm: 8 }} py={5} bg={hbg} display={{ sm: "flex" }}>
+            <Stack direction={{ base: "row" }} spacing={{ base: 6, sm: 10 }}>
+              <Box display="flow-root">
+                <LinkBox
+                  m={-3}
+                  p={3}
+                  display="flex"
+                  alignItems="center"
+                  rounded="md"
+                  fontSize="md"
+                  color={tcl}
+                  _hover={{ bg: hbgh }}
                 >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
-                  />
-                </chakra.svg>
-                <chakra.span ml={3}>Contact Sales</chakra.span>
-              </Link>
-            </Box>
-          </Stack>
-        </Box>
-      </React.Fragment>
+                  <NextLink href="#">
+                    <LinkOverlay>
+                      <chakra.svg
+                        flexShrink={0}
+                        h={6}
+                        w={6}
+                        color="gray.200"
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                        aria-hidden="true"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="2"
+                          d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"
+                        />
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="2"
+                          d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                        />
+                      </chakra.svg>
+                      <chakra.span ml={3}>Watch Demo</chakra.span>
+                    </LinkOverlay>
+                  </NextLink>
+                </LinkBox>
+              </Box>
+
+              <Box display="flow-root">
+                <LinkBox
+                  m={-3}
+                  p={3}
+                  display="flex"
+                  alignItems="center"
+                  rounded="md"
+                  fontSize="md"
+                  color={tcl}
+                  _hover={{ bg: hbgh }}
+                >
+                  <NextLink href="#">
+                    <LinkOverlay>
+                      <chakra.svg
+                        flexShrink={0}
+                        h={6}
+                        w={6}
+                        color="gray.200"
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                        aria-hidden="true"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="2"
+                          d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
+                        />
+                      </chakra.svg>
+                      <chakra.span ml={3}>Contact Sales</chakra.span>
+                    </LinkOverlay>
+                  </NextLink>
+                </LinkBox>
+              </Box>
+            </Stack>
+          </Box>
+        </>
     );
   };
   const MobileNavContent = (
@@ -415,7 +422,7 @@ const Header = ({ children }: HeaderProps): JSX.Element => {
     </VStack>
   );
   return (
-    <React.Fragment>
+    <>
       <chakra.header
         ref={ref}
         shadow={y > height ? "sm" : undefined}
@@ -766,7 +773,7 @@ const Header = ({ children }: HeaderProps): JSX.Element => {
           {MobileNavContent}
         </chakra.div>
       </chakra.header>
-    </React.Fragment>
+    </>
   );
 };
 export default Header;

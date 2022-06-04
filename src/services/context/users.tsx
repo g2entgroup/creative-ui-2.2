@@ -90,7 +90,7 @@ const UserProvider = ({ children }) => {
     );
 }
 
-const useUsersContext = () => {
+const useAuth = () => {
     const context = useContext(UsersContext);
     if (context === undefined) {
       throw new Error('useOnboard must be used within a OnboardProvider');
@@ -98,4 +98,4 @@ const useUsersContext = () => {
     return context;
 };
 
-export { UserProvider, useUsersContext };
+export { UserProvider, useAuth };
