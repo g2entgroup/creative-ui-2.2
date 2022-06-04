@@ -12,7 +12,7 @@ import {
 export default function Inbox() {
     return (
         <Box p={10}>
-            <Heading padding={2}>INBOX</Heading>
+        <Heading padding={2}>INBOX</Heading>
         <Accordion allowMultiple>
             <AccordionItem>
                 <AccordionButton>

@@ -7,7 +7,7 @@ const imgSrc = 'brands.jpg'
 const BrandHero = () => {
   const bg = useColorModeValue('white', 'gray.800')
   return (
-    <Box pos="relative" overflow="hidden" bg={bg} mt={10}>
+    <Box pos="relative" overflow="hidden" bg={bg} mt={7.5}>
       <Box maxW="7xl" mx="auto">
         <Box
           pos="relative"
