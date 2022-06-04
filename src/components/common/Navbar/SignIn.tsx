@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 // @ts-ignore
 import { PrivateKey } from '@textile/hub'
 import { BigNumber, providers, utils } from 'ethers'
@@ -31,7 +31,7 @@ import { TextileInstance } from "../../../services/textile/textile";
 import SignUp from './SignUp';
 import LogoModal from './LogoModal';
 import { useEthers } from "@usedapp/core";
-import { useAuth } from "../../../services/context/users";
+import { useAuth } from "../../../services/context/auth";
 import { UserModel } from "../../../services/textile/types";
 
 type WindowInstanceWithEthereum = Window & typeof globalThis & { ethereum?: providers.ExternalProvider };
@@ -46,7 +46,7 @@ const SignIn = (props) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [closeButtons , setCloseButtons] = useState(false)
   const [secret, setSecret] = useState<string>();
-
+  
   const toast = useToast()
 
   const { logIn } = useAuth();
@@ -151,6 +151,7 @@ const SignIn = (props) => {
   }
 
   const [show, setShow] = useState(false);
+
   const handleClick = () => setShow(!show);
 
   return (

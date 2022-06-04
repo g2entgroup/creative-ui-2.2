@@ -21,7 +21,7 @@ import { getDefaultProvider } from "ethers";
 
 import { ApolloProvider } from "@apollo/client";
 import { apolloClient } from "../services/apollo/apollo-client";
-import { UserProvider } from "../services/context/users";
+import { AuthProvider } from "../services/context/auth";
 
 const config: Config = {
   readOnlyChainId: Mumbai.chainId,
@@ -51,7 +51,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
       <ApolloProvider client={apolloClient()}>
         <ChakraProvider resetCSS theme={theme}>
           <StoreContainer.Provider>
-            <UserProvider>
+            <AuthProvider>
               <Box minH="100vh" minW="100vw" py={0}>
                 <Header children />
                 {library && library?.network.chainId === Mumbai.chainId && (
@@ -80,7 +80,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
                 <Component {...pageProps} />
                 <Footer />
               </Box>
-            </UserProvider>
+            </AuthProvider>
           </StoreContainer.Provider>
         </ChakraProvider>
       </ApolloProvider>

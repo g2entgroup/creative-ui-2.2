@@ -1,43 +1,50 @@
 import { createContext, ReactElement, useContext, useEffect, useState } from "react";
 import { TextileInstance } from "../textile/textile";
-import { UserModel, DecryptedMessage } from "../textile/types";
-import { JsonRpcProvider } from "@ethersproject/providers";
 import { useEthers } from "@usedapp/core";
 import { PrivateKey } from "@textile/hub";
+import { getIdentity } from '../../utils/fetchTextileIdentity';
+import { UserModel, DecryptedMessage } from "../textile/types";
+import { providers } from "ethers";
 
-// type UsersContextProps = {
+// type AuthContextProps = {
 //     children?: ReactElement,
 //     userModel: UserModel,
 //     inboxMessages: DecryptedMessage[]
 // }
 
-type UserContext = {
+type AuthContext = {
     isLoggedIn?: boolean,
     user?: UserModel,
     role?: string,
+    idenity?: PrivateKey,
     textileInstance?: TextileInstance,
     account?: string,
-    library?: JsonRpcProvider,
+    library?: providers.JsonRpcProvider | providers.Web3Provider,
     inbox?: DecryptedMessage[],
     signUp?: (newUser: UserModel) => Promise<void>,
     logIn?: () => Promise<void>,
     logOut?: () => Promise<void>
 };
   
-const UsersContext = createContext<UserContext | undefined>(undefined);
+const AuthContext = createContext<AuthContext | undefined>(undefined);
 
-const UserProvider = ({ children }) => {
+const AuthProvider = ({ children }) => {
     const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
     const [user, setUser] = useState<UserModel>();
     const [role, setRole] = useState<string>();
     const [inbox, setInbox] = useState<DecryptedMessage[]>();
+    const [identity, setIdentity] = useState<PrivateKey>(null);
 
     const { account, deactivate, library } = useEthers();
+
+    useEffect(() => {
+        async () => setIdentity(await getIdentity());
+    }, [isLoggedIn]);
 
     const signUp = async (newUser: UserModel) => {
         const instance = await TextileInstance.getInstance();
     
-        const user = await instance.uploadUserData(newUser);
+        const user: UserModel = await instance.uploadUserData(newUser);
 
         setUser(user);
         setRole(user?.role);
@@ -53,8 +60,6 @@ const UserProvider = ({ children }) => {
 
         const user: UserModel = await instance.setCurrentUser();
 
-        console.log({ user, msg: "logIn"})
-        
         setUser(user);
         setRole(user?.role);
 
@@ -72,7 +77,7 @@ const UserProvider = ({ children }) => {
     }
 
     return (
-        <UsersContext.Provider
+        <AuthContext.Provider
             value={{
                 isLoggedIn,
                 user,
@@ -86,16 +91,16 @@ const UserProvider = ({ children }) => {
             }}
         >
             {children}
-        </UsersContext.Provider>
+        </AuthContext.Provider>
     );
 }
 
 const useAuth = () => {
-    const context = useContext(UsersContext);
+    const context = useContext(AuthContext);
     if (context === undefined) {
       throw new Error('useOnboard must be used within a OnboardProvider');
     }
     return context;
 };
 
-export { UserProvider, useAuth };
+export { AuthProvider, useAuth };

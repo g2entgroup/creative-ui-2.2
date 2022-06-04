@@ -49,7 +49,7 @@ import SignUp from "./SignUp";
 import InviteUser from "./InviteUser";
 import Image from 'next/image';
 import { formatEther } from "ethers/lib/utils";
-import { useAuth } from "../../../services/context/users";
+import { useAuth } from "../../../services/context/auth";
 import { ReactNode, useEffect, useRef, useState } from 'react';
 
 /**
@@ -75,7 +75,6 @@ function truncateHash(hash: string, length = 38): string {
 }
 
 const Header = ({ children }: HeaderProps): JSX.Element => {
-  const [closeButtons, setCloseButtons] = useState(false);
 
   const router = useRouter();
 
@@ -91,10 +90,6 @@ const Header = ({ children }: HeaderProps): JSX.Element => {
   const ethersBalance = useEtherBalance(account);
 
   const { notifications } = useNotifications();
-
-  const check = () => {
-    return closeButtons ? closeButtons : !closeButtons;
-  }
 
   let chainName: string;
 
@@ -609,13 +604,13 @@ const Header = ({ children }: HeaderProps): JSX.Element => {
                     {!isLoggedIn && ( 
                       <MenuItem
                       color="pink.500">
-                        <SignIn closeButton={check()}/>
+                        <SignIn />
                       </MenuItem>
                     )}
                     {!isLoggedIn && (
                       <MenuItem 
                       color="blue.500">
-                        <SignUp closeButton={check()}/>
+                        <SignUp />
                       </MenuItem>
                     )}
                     {isLoggedIn && role === "brand" && (
