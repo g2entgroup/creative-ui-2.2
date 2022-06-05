@@ -116,10 +116,10 @@ export default function Home() {
           alignItems={['center','center','flex-start', 'flex-start']}
           justifyContent={['center','center','center', 'center']}
           flexWrap={['nowrap', 'nowrap', 'nowrap', 'wrap']}>
-          <BrandDiscovery imagelink= "https://picsum.photos/200/300.webp?random=1" name="NFT Name" description="awesome creative NFT" creator="@creator" />
-          <BrandDiscovery imagelink= "https://picsum.photos/200/300.webp?random=2" name="NFT Name" description="awesome creative NFT" creator="@creator" />
-          <BrandDiscovery imagelink= "https://picsum.photos/200/300.webp?random=3" name="NFT Name" description="awesome creative NFT" creator="@creator" />
-          <BrandDiscovery imagelink= "https://picsum.photos/200/300.webp?random=4" name="NFT Name" description="awesome creative NFT" creator="@creator" />
+          <BrandDiscovery imagelink= "https://picsum.photos/200/300.webp?random=1" />
+          <BrandDiscovery imagelink= "https://picsum.photos/200/300.webp?random=2" />
+          <BrandDiscovery imagelink= "https://picsum.photos/200/300.webp?random=3" />
+          <BrandDiscovery imagelink= "https://picsum.photos/200/300.webp?random=4" />
         </Box>
         <Box
           display='flex'
