@@ -14,7 +14,8 @@ export default function LiveCampaigns() {
     imageAlt: "Pepsi Campaign",
     crtv: 40,
     apr: 18.78,
-    title: "Pepsi - That's What I Like",
+    brand: "Pepsi",
+    product: "That's What I Like",
     formattedPrice: "$20,100.00",
     reviewCount: 2,
     rating: 4
@@ -74,7 +75,7 @@ export default function LiveCampaigns() {
           color={useColorModeValue("black", "white")}
           noOfLines={1}
         >
-          {property.title}
+          {property.brand} - {property.product}
         </Box>
 
         <Box color={useColorModeValue("black", "white")}>
