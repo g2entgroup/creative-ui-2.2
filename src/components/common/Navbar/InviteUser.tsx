@@ -35,14 +35,6 @@ class StrongType<Definition, Type> {
 }
 export class EthereumAddress extends StrongType<'ethereum_address', string> {}
 
-const check = () => {
-  if(localStorage.getItem('closeButtons') == 'true') {
-    return true
-  } else {
-    return false
-  }
-}
-
 const InviteUser = (props) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [closeButtons , setCloseButtons] = useState(false)

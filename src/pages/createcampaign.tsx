@@ -1,4 +1,4 @@
-import React, { CSSProperties, useEffect, useState } from "react";
+import React, { CSSProperties, Suspense, useEffect, useState } from "react";
 import {
     chakra,
     Box,
@@ -341,6 +341,7 @@ export default function Component() {
     }
 
     return (
+        <Suspense>
         <Box bg={useColorModeValue("gray.50", "inherit")} p={10}>
             <Text
                 as="h1"
@@ -530,7 +531,7 @@ export default function Component() {
                                     </FormControl>
                                 </SimpleGrid>
 
-                                <div>
+                                <SimpleGrid columns={3} spacing={6}>
                                     <FormControl id="email" mt={1}>
                                         <FormLabel
                                             fontSize="sm"
@@ -568,7 +569,7 @@ export default function Component() {
                                             requirements. URLs are hyperlinked.
                                         </FormHelperText>
                                     </FormControl>
-                                </div>
+                                </SimpleGrid>
 
                                 <SimpleGrid columns={3} spacing={6}>
                                     <FormControl as={GridItem} colSpan={[6, 4]}>
@@ -1323,7 +1324,7 @@ export default function Component() {
                                     >
                                         Photo / Logo
                                     </FormLabel>
-                                    <div
+                                    <SimpleGrid
                                         style={
                                             imgUploadContainer as CSSProperties
                                         }
@@ -1334,13 +1335,13 @@ export default function Component() {
                                             }
                                         >
                                             {files.map((f) => (
-                                                <>
+                                                <Box>
                                                     <Avatar
                                                         size="md"
                                                         ml={5}
                                                         src={f.preview}
                                                     />
-                                                    <p
+                                                    <Text
                                                         style={
                                                             thumbLabel as CSSProperties
                                                         }
@@ -1351,27 +1352,27 @@ export default function Component() {
                                                                 Math.log(1024)
                                                         )}
                                                         mb
-                                                    </p>
-                                                </>
+                                                    </Text>
+                                                </Box>
                                             ))}
                                         </aside>
 
-                                        <div style={dropzoneContainer}>
-                                            <div
+                                        <SimpleGrid style={dropzoneContainer}>
+                                            <Box
                                                 {...getRootProps({
                                                     className: "dropzone",
                                                 })}
                                                 style={dropzone}
                                             >
                                                 <input {...getInputProps()} />
-                                                <p>
+                                                <Text>
                                                     Drag 'n' drop some files
                                                     here, or click to select
                                                     files
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
+                                                </Text>
+                                            </Box>
+                                        </SimpleGrid>
+                                    </SimpleGrid>
                                 </FormControl>
 
                                 <FormControl>
@@ -2159,58 +2160,58 @@ export default function Component() {
                                         </Text>
                                     </Box>
                                     <Stack spacing={4}>
+                                        <input
+                                            type="radio"
+                                            name="push"
+                                            checked={
+                                                preferencesForm.values
+                                                    .push === "0"
+                                            }
+                                            onClick={() => {
+                                                preferencesForm.setFieldValue(
+                                                    "push",
+                                                    "0"
+                                                );
+                                            }}
+                                            value="0"
+                                        ></input>
                                         <label>
-                                            <input
-                                                type="radio"
-                                                name="push"
-                                                checked={
-                                                    preferencesForm.values
-                                                        .push === "0"
-                                                }
-                                                onClick={() => {
-                                                    preferencesForm.setFieldValue(
-                                                        "push",
-                                                        "0"
-                                                    );
-                                                }}
-                                                value="0"
-                                            ></input>
                                             Everything
                                         </label>
+                                        <input
+                                            type="radio"
+                                            name="push"
+                                            checked={
+                                                preferencesForm.values
+                                                    .push === "1"
+                                            }
+                                            onClick={() => {
+                                                preferencesForm.setFieldValue(
+                                                    "push",
+                                                    "1"
+                                                );
+                                            }}
+                                            value="1"
+                                        ></input>
                                         <label>
-                                            <input
-                                                type="radio"
-                                                name="push"
-                                                checked={
-                                                    preferencesForm.values
-                                                        .push === "1"
-                                                }
-                                                onClick={() => {
-                                                    preferencesForm.setFieldValue(
-                                                        "push",
-                                                        "1"
-                                                    );
-                                                }}
-                                                value="1"
-                                            ></input>
                                             Same as email
                                         </label>
+                                        <input
+                                            type="radio"
+                                            name="push"
+                                            checked={
+                                                preferencesForm.values
+                                                    .push === "2"
+                                            }
+                                            onClick={() => {
+                                                preferencesForm.setFieldValue(
+                                                    "push",
+                                                    "2"
+                                                );
+                                            }}
+                                            value="2"
+                                        ></input>
                                         <label>
-                                            <input
-                                                type="radio"
-                                                name="push"
-                                                checked={
-                                                    preferencesForm.values
-                                                        .push === "2"
-                                                }
-                                                onClick={() => {
-                                                    preferencesForm.setFieldValue(
-                                                        "push",
-                                                        "2"
-                                                    );
-                                                }}
-                                                value="2"
-                                            ></input>
                                             No push notifications
                                         </label>
                                     </Stack>
@@ -2242,6 +2243,8 @@ export default function Component() {
                     </GridItem>
                 </SimpleGrid>
             </Box>
+            
         </Box>
+        </Suspense>
     );
 }

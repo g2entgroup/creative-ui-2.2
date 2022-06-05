@@ -1,4 +1,5 @@
 import {PrivateKey} from '@textile/hub';
+import { useEffect } from 'react';
 
 export const getIdentity = async () => {
   /** Restore any cached user identity first */

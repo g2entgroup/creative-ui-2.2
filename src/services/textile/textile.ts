@@ -849,7 +849,7 @@ export class TextileInstance {
       throw new Error('No client')
     }
 
-    console.log('fetching campaign notification settings...')
+    // console.log('fetching campaign notification settings...')
 
     let preferences: CampaignSettings
 

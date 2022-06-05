@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { Suspense, useState } from "react";
 import {
   Modal,
   ModalOverlay,
@@ -29,15 +29,7 @@ import { PrivateKey } from "@textile/crypto";
 import bcryptjs from "bcryptjs";
 import { utils, BigNumber } from "ethers";
 import { TextileInstance } from "../../../services/textile/textile";
-import { useUsersContext } from "../../../services/context/users";
-
-const check = () => {
-  if (localStorage.getItem("closeButtons") == "true") {
-    return true;
-  } else {
-    return false;
-  }
-};
+import { useAuth } from "../../../services/context/auth";
 
 const SignUp = (props) => {
   const [show, setShow] = useState(false);
@@ -50,7 +42,7 @@ const SignUp = (props) => {
   const [submitted, setSubmitted] = useState(false);
 
   const { account, library } = useEthers();
-  const { signUp } = useUsersContext();
+  const { signUp } = useAuth();
 
   const toast = useToast()
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -174,148 +166,150 @@ const SignUp = (props) => {
 
   return (
     <>
-      <Button colorScheme="#FBC02D" variant="ghost" size="md" onClick={onOpen}>
-        Sign Up
-      </Button>
+      <Suspense>
+        <Button colorScheme="#FBC02D" variant="ghost" size="md" onClick={onOpen}>
+          Sign Up
+        </Button>
 
-      <Modal isOpen={isOpen} onClose={onClose} size="xl" isCentered>
-        <ModalOverlay />
-        <ModalContent borderRadius="10px" h="400px">
-          <ModalCloseButton />
-          <ModalBody
-            borderRadius="10px"
-            bgGradient="linear(to-r, rgb(40, 92, 163), rgb(229, 1, 105))"
-            h="800px"
-          >
-            <Flex alignItems="center" pt="2%" justifyContent="space-between">
-              <Stack spacing={1}>
-                <LogoModal />
-                <Heading
-                  fontSize="2rem"
-                  color={useColorModeValue("white", "white")}
-                >
-                  CREATIVE
-                </Heading>
-              </Stack>
-              <Container>
-                <Heading
-                  as="h6"
-                  size="md"
-                  color={useColorModeValue("white", "white")}
-                >
-                  Register / Sign Up
-                </Heading>
-                {/* name */}
-                <Stack spacing={2}>
-                  <FormControl id="name" isRequired>
-                    <FormLabel color={useColorModeValue("white", "white")}>
-                      Name
-                    </FormLabel>
-                    <InputGroup>
-                      <Input
-                        name="name"
-                        placeholder="Enter Your Name"
-                        color={"white"}
-                        onChange={(e) => {
-                          setName(e.target.value);
-                        }}
-                      />
-                    </InputGroup>
-                  </FormControl>
-                  <FormControl id="username" isRequired>
-                    <FormLabel color={useColorModeValue("white", "white")}>
-                      Username
-                    </FormLabel>
-                    <InputGroup>
-                      <Input
-                        name="username"
-                        placeholder="Username"
-                        color={"white"}
-                        onChange={(e) => {
-                          setUsername(e.target.value);
-                        }}
-                      />
-                    </InputGroup>
-                  </FormControl>
-                  <FormControl id="secret" isRequired>
-                    <FormLabel color={useColorModeValue("white", "white")}>
-                      Password
-                    </FormLabel>
-                    <InputGroup>
-                      <Input
-                        pr="4.5rem"
-                        name="secret"
-                        type={show ? "text" : "password"}
-                        placeholder="Enter password"
-                        color={"white"}
-                        onChange={(e) => {
-                          setSecret(e.target.value);
-                        }}
-                      />
-                      <InputRightElement width="4.5rem">
-                        <Button
-                          h="1.75rem"
-                          size="sm"
-                          onClick={handleClick}
-                          color={useColorModeValue("gray.900", "white")}
-                        >
-                          {show ? "Hide" : "Show"}
-                        </Button>
-                      </InputRightElement>
-                    </InputGroup>
-                  </FormControl>
-                  <FormControl id="email" isRequired>
-                    <FormLabel color={useColorModeValue("white", "white")}>
-                      Email
-                    </FormLabel>
-                    <InputGroup>
-                      <Input
-                        name="email"
-                        placeholder="Email"
-                        color={"white"}
-                        onChange={(e) => {
-                          setEmail(e.target.value);
-                        }}
-                      />
-                    </InputGroup>
-                    <FormHelperText color={"white"}>
-                      We'll never share your email.
-                    </FormHelperText>
-                  </FormControl>
-                  <FormControl>
-                    <FormLabel color={"white"}>Role</FormLabel>
-                    <Select
-                      color={"white"}
-                      placeholder="Select option"
-                      onChange={(e) => {
-                        setRole(e.target.value);
-                      }}
-                    >
-                      <option color={"white"} value="pro">
-                        Pro
-                      </option>
-                      <option color={"white"} value="brand">
-                        Brand
-                      </option>
-                    </Select>
-                  </FormControl>
-                  <Button
-                    type="submit"
-                    onClick={handleSubmit}
-                    color={useColorModeValue("gray.900", "white")}
+        <Modal isOpen={isOpen} onClose={onClose} size="xl" isCentered>
+          <ModalOverlay />
+          <ModalContent borderRadius="10px" h="400px">
+            <ModalCloseButton />
+            <ModalBody
+              borderRadius="10px"
+              bgGradient="linear(to-r, rgb(40, 92, 163), rgb(229, 1, 105))"
+              h="800px"
+            >
+              <Flex alignItems="center" pt="2%" justifyContent="space-between">
+                <Stack spacing={1}>
+                  <LogoModal />
+                  <Heading
+                    fontSize="2rem"
+                    color={useColorModeValue("white", "white")}
                   >
-                    Register Now
-                  </Button>
+                    CREATIVE
+                  </Heading>
                 </Stack>
-                <Box padding={2} color={"white"}>
-                  Already Have An Account?
-                  <SignIn onClose={onClose} />
-                </Box>
-              </Container>
-            </Flex>
-          </ModalBody>
-        </ModalContent>
-      </Modal>
+                <Container>
+                  <Heading
+                    as="h6"
+                    size="md"
+                    color={useColorModeValue("white", "white")}
+                  >
+                    Register / Sign Up
+                  </Heading>
+                  {/* name */}
+                  <Stack spacing={2}>
+                    <FormControl id="name" isRequired>
+                      <FormLabel color={useColorModeValue("white", "white")}>
+                        Name
+                      </FormLabel>
+                      <InputGroup>
+                        <Input
+                          name="name"
+                          placeholder="Enter Your Name"
+                          color={"white"}
+                          onChange={(e) => {
+                            setName(e.target.value);
+                          }}
+                        />
+                      </InputGroup>
+                    </FormControl>
+                    <FormControl id="username" isRequired>
+                      <FormLabel color={useColorModeValue("white", "white")}>
+                        Username
+                      </FormLabel>
+                      <InputGroup>
+                        <Input
+                          name="username"
+                          placeholder="Username"
+                          color={"white"}
+                          onChange={(e) => {
+                            setUsername(e.target.value);
+                          }}
+                        />
+                      </InputGroup>
+                    </FormControl>
+                    <FormControl id="secret" isRequired>
+                      <FormLabel color={useColorModeValue("white", "white")}>
+                        Password
+                      </FormLabel>
+                      <InputGroup>
+                        <Input
+                          pr="4.5rem"
+                          name="secret"
+                          type={show ? "text" : "password"}
+                          placeholder="Enter password"
+                          color={"white"}
+                          onChange={(e) => {
+                            setSecret(e.target.value);
+                          }}
+                        />
+                        <InputRightElement width="4.5rem">
+                          <Button
+                            h="1.75rem"
+                            size="sm"
+                            onClick={handleClick}
+                            color={useColorModeValue("gray.900", "white")}
+                          >
+                            {show ? "Hide" : "Show"}
+                          </Button>
+                        </InputRightElement>
+                      </InputGroup>
+                    </FormControl>
+                    <FormControl id="email" isRequired>
+                      <FormLabel color={useColorModeValue("white", "white")}>
+                        Email
+                      </FormLabel>
+                      <InputGroup>
+                        <Input
+                          name="email"
+                          placeholder="Email"
+                          color={"white"}
+                          onChange={(e) => {
+                            setEmail(e.target.value);
+                          }}
+                        />
+                      </InputGroup>
+                      <FormHelperText color={"white"}>
+                        We'll never share your email.
+                      </FormHelperText>
+                    </FormControl>
+                    <FormControl>
+                      <FormLabel color={"white"}>Role</FormLabel>
+                      <Select
+                        color={"white"}
+                        placeholder="Select option"
+                        onChange={(e) => {
+                          setRole(e.target.value);
+                        }}
+                      >
+                        <option color={"white"} value="pro">
+                          Pro
+                        </option>
+                        <option color={"white"} value="brand">
+                          Brand
+                        </option>
+                      </Select>
+                    </FormControl>
+                    <Button
+                      type="submit"
+                      onClick={handleSubmit}
+                      color={useColorModeValue("gray.900", "white")}
+                    >
+                      Register Now
+                    </Button>
+                  </Stack>
+                  <Box padding={2} color={"white"}>
+                    Already Have An Account?
+                    <SignIn onClose={onClose} />
+                  </Box>
+                </Container>
+              </Flex>
+            </ModalBody>
+          </ModalContent>
+        </Modal>
+      </Suspense>
     </>
   );
 };
