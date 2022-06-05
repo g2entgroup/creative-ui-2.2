@@ -11,7 +11,8 @@ export default function CreativeCard() {
     imageAlt: "Tesla Campaign",
     crtv: 40,
     apr: 18.78,
-    title: "Tesla - Model Y",
+    brand: "Tesla",
+    product: "Model Y",
     formattedPrice: "$79,900.00",
     reviewCount: 34,
     rating: 3
@@ -77,7 +78,7 @@ export default function CreativeCard() {
           color={useColorModeValue("black", "white")}
           noOfLines={1}
         >
-          {property.title}
+          {property.brand} - {property.product}
         </Box>
 
         <Box color={useColorModeValue("black", "white")}>
