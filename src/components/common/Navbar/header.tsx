@@ -168,11 +168,16 @@ const Header = ({ children }: HeaderProps): JSX.Element => {
 
   const Section = (props) => {
     const ic = useColorModeValue('brand.600', 'brand.200')
-    const hbg = useColorModeValue('gray.50', 'brand.400')
-    const tcl = useColorModeValue('gray.900', 'black')
-    const dcl = useColorModeValue('gray.500', 'gray.900')
+    const hbg = useColorModeValue('gray.100', 'brand.400')
+    const tcl = useColorModeValue('gray.900', 'brand.100')
+    const dcl = useColorModeValue('gray.500', 'gray.100')
     return (
-      <Box display="flex" alignItems="start" rounded="lg" _hover={{ bg: hbg }}>
+      <Box
+        display="flex"
+        alignItems="start"
+        rounded="lg"
+        _hover={{ bg: hbg, cursor: 'pointer' }}
+      >
         <chakra.svg
           flexShrink={0}
           h={6}
@@ -216,9 +221,8 @@ const Header = ({ children }: HeaderProps): JSX.Element => {
             <NextLink
               href="https://app.clarity.so/g2sbase/pages/adf6ba33-a3cf-411e-a89e-2b464b0c46b8"
               passHref={true}
-              
             >
-              <LinkOverlay >
+              <LinkOverlay>
                 <Section title="How It Works"></Section>
               </LinkOverlay>
             </NextLink>
@@ -258,7 +262,8 @@ const Header = ({ children }: HeaderProps): JSX.Element => {
                   }
                 >
                   <Text>
-                    The place to discuss all things related to the Creative platform.
+                    The place to discuss all things related to the Creative
+                    platform.
                   </Text>
                 </Section>
               </LinkOverlay>
@@ -281,8 +286,13 @@ const Header = ({ children }: HeaderProps): JSX.Element => {
                     />
                   }
                 >
-                   <Text>
-                    Looking for a way to help liven up our community? Introducing DAO Proposals! Our community is managed via a DAO and all that action happens here. From exciting new features to heated debates on the best way to run things, it’s all happening on DAO Proposals. So come join us and see what all the fuss is about!
+                  <Text>
+                    Looking for a way to help liven up our community?
+                    Introducing DAO Proposals! Our community is managed via a
+                    DAO and all that action happens here. From exciting new
+                    features to heated debates on the best way to run things,
+                    it’s all happening on DAO Proposals. So come join us and see
+                    what all the fuss is about!
                   </Text>
                 </Section>
               </LinkOverlay>
@@ -329,7 +339,7 @@ const Header = ({ children }: HeaderProps): JSX.Element => {
                   flexShrink={0}
                   h={6}
                   w={6}
-                  color="gray.200"
+                  color="inherit"
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
                   viewBox="0 0 24 24"
@@ -368,7 +378,7 @@ const Header = ({ children }: HeaderProps): JSX.Element => {
                   flexShrink={0}
                   h={6}
                   w={6}
-                  color="gray.200"
+                  color="inherit"
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
                   viewBox="0 0 24 24"
