@@ -74,7 +74,7 @@ const Footer = () => {
             Have a seat at the table and join our governance DAO, where our
             creative community helps decide the future of the Creative platform.
           </Text>
-          <chakra.a
+          <Link
             w="full"
             display="flex"
             alignItems="center"
@@ -91,7 +91,7 @@ const Footer = () => {
             href="https://app.daohaus.club/dao/0x89/0xc48996a569911fd6eba1b97b6419731eed32041e"
           >
             Creative Organization DAO
-          </chakra.a>
+          </Link>
         </Box>
         <Box width={['100%', '50%', '50%', '25%']} padding={5}>
           <Box as="h3" fontWeight="500" fontSize="xl" color="#e50168">

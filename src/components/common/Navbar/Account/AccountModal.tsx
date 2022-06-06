@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 // import styled from 'styled-components'
 import { chakra } from '@chakra-ui/system';
 import { useEthers, useEtherBalance, getExplorerAddressLink } from '@usedapp/core';
@@ -10,6 +10,7 @@ import { LinkIcon } from '@chakra-ui/icons';
 import { motion, isValidMotionProp } from 'framer-motion';
 import  Link from 'next/link';
 import { Box, Button } from '@chakra-ui/react';
+import { noSSR } from 'next/dynamic';
 
 const formatter = new Intl.NumberFormat('en-us', {
   minimumFractionDigits: 4,
@@ -24,8 +25,10 @@ export type AccountModalProps = {
 }
 
 export const AccountModal = ({ setShowModal }: AccountModalProps) => {
-  const { account, chainId } = useEthers()
-  const balance = useEtherBalance(account)
+  
+  const { account, chainId } = useEthers();
+  const balance = useEtherBalance(account);
+
   if (account && chainId) {
     return (
       <ModalBackground onClick={() => setShowModal(false)}>
@@ -42,18 +45,22 @@ export const AccountModal = ({ setShowModal }: AccountModalProps) => {
           </TitleRow>
           <AccountInfo>
             <AccountAddress>Address: {account}</AccountAddress>
-            <LinkWrapper>
-              <Link href={getExplorerAddressLink(account, chainId)}>
-                Show on etherscan
-                <LinkIconWrapper>
-                  <LinkIcon />
-                </LinkIconWrapper>
-              </Link>
-              {window.isSecureContext && (
-                <Button onClick={() => console.log(navigator.clipboard.writeText(account))}>Copy to clipboard</Button>
+            {typeof window !== 'undefined' && (
+              <>
+                <LinkWrapper>
+                  <Link href={getExplorerAddressLink(account, chainId)}>
+                    Show on etherscan
+                    <LinkIconWrapper>
+                      <LinkIcon />
+                    </LinkIconWrapper>
+                  </Link>
+                  {window.isSecureContext && (
+                    <Button onClick={() => console.log(navigator.clipboard.writeText(account))}>Copy to clipboard</Button>
+                  )}
+                </LinkWrapper>
+                <BalanceWrapper>ETH: {balance && formatBalance(balance)}</BalanceWrapper>
+                </>
               )}
-            </LinkWrapper>
-            <BalanceWrapper>ETH: {balance && formatBalance(balance)}</BalanceWrapper>
           </AccountInfo>
           <HistoryWrapper>
             <TransactionsList />
@@ -63,7 +70,7 @@ export const AccountModal = ({ setShowModal }: AccountModalProps) => {
     )
   } else {
     setShowModal(false)
-    return <div />
+    return null;
   }
 }
 

@@ -1,5 +1,5 @@
 import NextLink from "next/link";
-import { useState } from "react";
+import { Suspense, useState } from "react";
 import { useEthers } from "@usedapp/core";
 import { gql, useQuery } from "@apollo/client";
 import { MintProfile } from "./";
@@ -50,15 +50,17 @@ export const GetProfiles = () => {
   };
 
   return (
-    <Box m={4} p={4}>
-      <h1>Account's Profiles</h1>
-      <Flex>
-        {profiles.map((profile, index) => (
-          <ProfileCard key={index} profile={profile} />
-        ))}
-      </Flex>
-      <MintProfile refetch={handleRefetch} />
-    </Box>
+    <Suspense>
+      <Box m={4} p={4}>
+        <h1>Account's Profiles</h1>
+        <Flex>
+          {profiles.map((profile, index) => (
+            <ProfileCard key={index} profile={profile} />
+          ))}
+        </Flex>
+        <MintProfile refetch={handleRefetch} />
+      </Box>
+    </Suspense>
   );
 };
 

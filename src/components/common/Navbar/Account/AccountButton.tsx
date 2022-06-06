@@ -10,6 +10,7 @@ export const AccountButton = () => {
 
   const [activateError, setActivateError] = useState('')
   const { error } = useEthers()
+  
   useEffect(() => {
     if (error) {
       setActivateError(error.message)

@@ -18,7 +18,7 @@ export default function Transactor(provider, gasPrice, etherscan) {
         dappId: BLOCKNATIVE_DAPPID, // GET YOUR OWN KEY AT https://account.blocknative.com
         system: "ethereum",
         networkId: network.chainId,
-        // darkMode: Boolean, // (default: false)
+        darkMode: Boolean, // (default: false)
         transactionHandler: txInformation => {
           console.log("HANDLE TX", txInformation);
         },
@@ -58,25 +58,25 @@ export default function Transactor(provider, gasPrice, etherscan) {
           const { emitter } = notify.hash(result.hash);
           emitter.on("all", transaction => {
             return {
-              onclick: () => window.open((etherscan || etherscanTxUrl) + transaction.hash),
+              onclick: () => typeof window !== 'undefined' ? window.open((etherscan || etherscanTxUrl) + transaction.hash) : () => {},
             };
           });
         } else {
-          // toast.info({
-          //   message: "Local Transaction Sent",
-          //   description: result.hash,
-          //   placement: "bottomRight",
-          // });
+          toast.info({
+            message: "Local Transaction Sent",
+            description: result.hash,
+            placement: "bottomRight",
+          });
         }
 
         return result;
       } catch (e) {
         console.log(e);
         console.log("Transaction Error:", e.message);
-        // toast.error({
-        //   message: "Transaction Error",
-        //   description: e.message,
-        // });
+        toast.error({
+          message: "Transaction Error",
+          description: e.message,
+        });
       }
     };
   }
