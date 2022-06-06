@@ -164,7 +164,7 @@ const SignIn = (props) => {
 
   return (
     <>
-      <Button colorScheme={useColorModeValue("gray.900", "white")} variant="ghost" size="md" onClick={onOpen} >
+      <Button variant="ghost" size="md" onClick={onOpen} >
         Sign In
       </Button>
 

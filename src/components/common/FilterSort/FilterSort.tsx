@@ -3,15 +3,12 @@ import {
     Menu,
     MenuButton,
     MenuList,
-    MenuItem,
     MenuItemOption,
-    MenuGroup,
     MenuOptionGroup,
-    MenuIcon,
-    MenuCommand,
     MenuDivider,
     Button, 
-    Switch
+    Switch,
+    useColorModeValue
   } from "@chakra-ui/react";
 
   export default function FilterSort() {
@@ -20,7 +17,7 @@ import {
         <MenuButton as={Button} colorScheme="pink">
             Filter &amp; Sort
         </MenuButton>
-        <MenuList minWidth="240px">
+        <MenuList minWidth="240px" bgColor={useColorModeValue("gray.600", "white")}>
             <MenuOptionGroup defaultValue="asc" title="Sort by" type="radio">
             <MenuItemOption value="asc">Recently Added</MenuItemOption>
             <MenuItemOption value="desc">Cheapest</MenuItemOption>

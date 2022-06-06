@@ -19,7 +19,7 @@ export default function Home() {
           as="h2"
           margin={5} 
           size="lg" 
-          color={useColorModeValue("black", "white")}          
+          color={useColorModeValue("white", "black")}          
           mx={10}>🆕 Latest Brand Campaigns</Heading>
         <Box
            display='flex'
@@ -42,7 +42,7 @@ export default function Home() {
         <Heading 
           as="h2" 
           size="lg" 
-          color={useColorModeValue("black", "white")}          
+          color={useColorModeValue("white", "black")}          
           mx={10}>🏆 Top Creatives</Heading>
         <TopCreatives />
       </Main>
@@ -52,7 +52,7 @@ export default function Home() {
           as="h2" 
           size="lg" 
           margin={5}
-          color={useColorModeValue("black", "white")}          
+          color={useColorModeValue("white", "black")}          
           mx={10}>🎬 Live Brand Campaigns</Heading>
         <Box
            display='flex'
@@ -75,7 +75,7 @@ export default function Home() {
         <Heading
           as="h2" 
           size="lg" 
-          color={useColorModeValue("black", "white")} 
+          color={useColorModeValue("white", "black")} 
           mx={10}>📈 Trending Collections</Heading>
         <Box
           display='flex'
@@ -100,7 +100,7 @@ export default function Home() {
           as="h2" 
           margin={5}
           size="lg" 
-          color={useColorModeValue("black", "white")}
+          color={useColorModeValue("white", "black")}
           mx={10}>🔭 Discover</Heading>
         <FilterTab />
         <Box             

@@ -33,7 +33,7 @@ import {
   Center,
   Text,
 } from "@chakra-ui/react";
-import WertWidget from '@wert-io/widget-initializer';
+import transakSDK from '@transak/transak-sdk';
 import NextLink from 'next/link';
 import NotificationDrawer from "../Notification/NotificationDrawer";
 import { useViewportScroll } from "framer-motion";
@@ -103,8 +103,6 @@ const Header = ({ children }: HeaderProps): JSX.Element => {
 
   const { notifications } = useNotifications();
 
-  const ens = useLookupAddress();
-
   // const handleGetUser = async () => {
   //   try {
   //     const textileInstance = await TextileInstance.getInstance();
@@ -146,18 +144,38 @@ const Header = ({ children }: HeaderProps): JSX.Element => {
     ? ref.current.getBoundingClientRect()
     : { height: 0 };
 
-  const options = {
-    "containerId": "wert-widget",
-    "partner_id": process.env.NEXT_PUBLIC_WERT_PARTNER_ID,
-    "origin": "https://sandbox.wert.io",
-    "currency": "USD, EUR",
-    "autosize": true,
-    "commodities": "MAT",
-  }
+    function loadInit() {
+      const transak = new transakSDK({
+        apiKey: '07d4475a-4b8c-49d6-ba88-61075d649c6f',  // Your API Key
+        environment: 'STAGING', // STAGING/PRODUCTION
+        hostURL: window.location.href,
+        widgetHeight: '625px',
+        widgetWidth: '500px',
+        // Examples of some of the customization parameters you can pass
+        defaultCryptoCurrency: 'MATIC', // Example 'ETH'
+        walletAddress: account, // Your customer's wallet address
+        //themeColor: '[COLOR_HEX]', // App theme color
+        fiatCurrency: 'USD', // If you want to limit fiat selection eg 'USD'
+        //email: '', // Your customer's email address
+        redirectURL: 'localhost:3000'
+      });
   
-  const wertWidget = new WertWidget(options);
+      transak.init();
   
-  const redirectUrl = wertWidget.getRedirectUrl();
+      // To get all the events
+      transak.on(transak.ALL_EVENTS, (/*data*/) => {
+        // console.log(data)
+      });
+  
+      // This will trigger when the user marks payment is made.
+      transak.on(transak.EVENTS.TRANSAK_ORDER_SUCCESSFUL, (/*orderData*/) => {
+        // console.log(orderData);
+        transak.close();
+      });
+      return () => {
+        transak.cleanup();
+      }
+    }
 
   const myLoader = ({ src, width }) => {
     return `${src}?w=${width}&q=${75}`
@@ -529,10 +547,10 @@ const Header = ({ children }: HeaderProps): JSX.Element => {
               >
                 <Box 
                   display={['none', 'none', 'none', 'flex']}
-                  px="2">
-                  <chakra.h1 color="white" fontSize="sm">
+                  px="1.5">
+                  <chakra.h1 color="white" fontSize="xs">
                     <Text>Balance:</Text>
-                    {ethersBalance && <Text>{formatEther(ethersBalance).slice(0,6)} ETH </Text>}
+                    {ethersBalance && <Text>{formatEther(ethersBalance).slice(0,6)} ETH</Text>}
                   </chakra.h1>
                 </Box>
                 {chainId === 80001 ? (
@@ -541,7 +559,7 @@ const Header = ({ children }: HeaderProps): JSX.Element => {
                   px="3" 
                   bg="purple.300">
                   <chakra.h1 color="white" fontSize="md">
-                    <Text>{chainName}</Text>
+                    <Text size="sm">{chainName}</Text>
                     
                   </chakra.h1>
                 </Box>
@@ -551,7 +569,7 @@ const Header = ({ children }: HeaderProps): JSX.Element => {
                   px="3" 
                   bg="purple.600">
                 <chakra.h1 color="white" fontSize="md">
-                  <Text>{chainName}</Text>
+                  <Text size="sm">{chainName}</Text>
                   {/* 15.02&nbsp;ETH */}
                 </chakra.h1>
               </Box>
@@ -560,20 +578,19 @@ const Header = ({ children }: HeaderProps): JSX.Element => {
                   display={['none', 'none', 'none', 'flex']}
                   px="3">
                 <chakra.h1 color="white" fontSize="md">
-                  <Text>{chainName}</Text>
+                  <Text size="sm">{chainName}</Text>
                   {/* 15.02&nbsp;ETH */}
                 </chakra.h1>
               </Box>
-}
+              }
                 <Menu>
                   <MenuButton
-                    bg="gray.800"
+                    bg="transparent"
                     border="1px solid transparent"
                     _hover={{
                       border: "1px",
                       borderStyle: "solid",
-                      borderColor: "blue.400",
-                      backgroundColor: "gray.700",
+                      borderColor: "brand.900"
                     }}
                     borderRadius="xl"
                     m="1px"
@@ -584,7 +601,7 @@ const Header = ({ children }: HeaderProps): JSX.Element => {
                     <Box
                       display={['none', 'none', 'flex', 'flex']}>
                       <chakra.h2 color="white"  fontSize="md" fontWeight='medium'>
-                        { ens ?? shortenAddress(account)}
+                        {shortenAddress(account)}
                       </chakra.h2>
                     </Box>
                     <Box
@@ -595,86 +612,68 @@ const Header = ({ children }: HeaderProps): JSX.Element => {
                   <MenuList
                     zIndex='100'
                     maxH={'400px'}
+                    bg={useColorModeValue("gray.900", "white")}
                     overflowY={['scroll','scroll','hidden', 'hidden']}>
-                    <MenuItem>
-                      <IconButton
-                        display={["flex", "flex", "none", "none"]}
-                        size="md"
-                        fontSize="lg"
-                        aria-label={`Switch to ${text} mode`}
-                        variant="ghost"
-                        color="brand.700"
-                        ml={{ base: "0", md: "3" }}
-                        onClick={toggleMode}
-                        icon={<SwitchIcon />}
-                      />
-                    </MenuItem>
-                    { ens ?? (
-                      <MenuItem
-                        display={['flex', 'flex', 'none', 'none']}>
-                        <chakra.h2 color="white"  fontSize="md" fontWeight='medium'>
-                          {shortenAddress(account)}
-                        </chakra.h2>
-                      </MenuItem>
-                    )}
                     {!isLoggedIn && ( 
-                      <MenuItem>
+                      <MenuItem
+                      color="pink.500">
                         <SignIn closeButton={check()}/>
                       </MenuItem>
                     )}
                     {!isLoggedIn && (
-                      <MenuItem>
+                      <MenuItem 
+                      color="blue.500">
                         <SignUp closeButton={check()}/>
                       </MenuItem>
                     )}
                     {isLoggedIn && role === "brand" && (
-                      <MenuItem>
+                      <MenuItem
+                      color="yellow.500">
                         <InviteUser />
                       </MenuItem>
                     )}
-                    <NextLink href={redirectUrl}>
-                    <MenuItem as={Button} 
-                    color="black" 
-                    colorScheme= "pink"
-                    variant="solid"
-                    rightIcon={
-                      <Image
-                        loader={myLoader}
-                        height={40}
-                        width={40}
-                        src="/images/visa.svg"
-                        alt="Wert"
-                      />
-                    }>
-                      💰 Add Funds 
-                    </MenuItem>
-                    </NextLink>
+                      <MenuItem as={Button} 
+                      color="black" 
+                      colorScheme= "pink"
+                      variant="solid"
+                      onClick={loadInit}
+                      rightIcon={
+                        <Image
+                          loader={myLoader}
+                          height={40}
+                          width={40}
+                          src="/images/visa.svg"
+                          alt="Transak"
+                        />
+                      }>
+                        💰 Add Funds 
+                      </MenuItem>
                     <MenuItem 
                       display={['flex', 'flex', 'none', 'none']}
                       as={Link} 
                       onClick={() => router.push('/discover')} 
-                      color="white">
+                      color="orange.500">
                       Discover
                     </MenuItem>
                     <MenuItem 
                       display={['flex', 'flex', 'none', 'none']}
                       as={Link}  
                       onClick={() => router.push('/community')} 
-                      color="white">
+                      color="orange.500">
                       Activity
                     </MenuItem>
                     <MenuItem 
                       display={['flex', 'flex', 'none', 'none']}
                       as={Link} 
                       onClick={() => router.push('/vote')} 
-                      color="white">
+                      color="orange.500">
                       Vote
                     </MenuItem>
                     <MenuItem 
                       display={['flex', 'flex', 'none', 'none']}
                       as={Link} 
                       onClick={() => router.push('/community')} 
-                      color="white">
+                      color="orange.500">
                       Community
                     </MenuItem>
                     {isLoggedIn && role === "pro" && (
