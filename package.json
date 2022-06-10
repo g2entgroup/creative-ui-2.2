@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "pm2": "pm2 start yarn --name creative_ui --interpreter bash -- dev",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
@@ -22,7 +23,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "yarn run test && yarn run prettier-format && yarn run lint"
+      "pre-commit": "yarn run test &&  yarn run lint"
     }
   },
   "dependencies": {
