@@ -7,6 +7,8 @@ export interface UserModel {
   username?: string
   email?: string
   role?: string
+  identity: PrivateKey
+  lastSeen?: Date
 }
 
 export interface DecryptedMessage {

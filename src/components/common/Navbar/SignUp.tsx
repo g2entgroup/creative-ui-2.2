@@ -42,101 +42,18 @@ const SignUp = (props) => {
   const [submitted, setSubmitted] = useState(false);
 
   const { account, library } = useEthers();
-  const { signUp } = useAuth();
+  const { signup, createIdentity } = useAuth();
 
   const toast = useToast()
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const handleChange = (e: any) => setSecret(e.target.value);
 
-  const generateMessageForEntropy = (
-    ethereum_address: EthereumAddress,
-    application_name: string,
-    secret: string
-  ): string => {
-    return (
-      "******************************************************************************** \n" +
-      "READ THIS MESSAGE CAREFULLY. \n" +
-      "DO NOT SHARE THIS SIGNED MESSAGE WITH ANYONE OR THEY WILL HAVE READ AND WRITE \n" +
-      "ACCESS TO THIS APPLICATION. \n" +
-      "DO NOT SIGN THIS MESSAGE IF THE FOLLOWING IS NOT TRUE OR YOU DO NOT CONSENT \n" +
-      "TO THE CURRENT APPLICATION HAVING ACCESS TO THE FOLLOWING APPLICATION. \n" +
-      "******************************************************************************** \n" +
-      "The Ethereum address used by this application is: \n" +
-      "\n" +
-      ethereum_address.value +
-      "\n" +
-      "\n" +
-      "\n" +
-      "By signing this message, you authorize the current application to use the \n" +
-      "following app associated with the above address: \n" +
-      "\n" +
-      application_name +
-      "\n" +
-      "\n" +
-      "\n" +
-      "The hash of your non-recoverable, private, non-persisted password or secret \n" +
-      "phrase is: \n" +
-      "\n" +
-      secret +
-      "\n" +
-      "\n" +
-      "\n" +
-      "******************************************************************************** \n" +
-      "ONLY SIGN THIS MESSAGE IF YOU CONSENT TO THE CURRENT PAGE ACCESSING THE TEXTILE KEYS \n" +
-      "ASSOCIATED WITH THE ABOVE ADDRESS AND APPLICATION. \n" +
-      "NOTE THIS DOES NOT ALLOW ACCESS TO YOUR WALLET FOR BLOCKCHAIN TX. \n" +
-      "AGAIN, DO NOT SHARE THIS SIGNED MESSAGE WITH ANYONE OR THEY WILL HAVE READ AND \n" +
-      "WRITE ACCESS TO THIS APPLICATION. \n" +
-      "******************************************************************************** \n"
-    );
-  };
-
-  const generatePrivateKey = async (): Promise<PrivateKey> => {
-    const signer = library.getSigner();
-    const salt: string = "$2a$10$3vx4QH1vSj9.URynBqkbae";
-    // avoid sending the raw secret by hashing it first
-    const hashSecret = bcryptjs.hashSync(secret, salt);
-    const message = generateMessageForEntropy(
-      new EthereumAddress(account),
-      "Creative",
-      hashSecret
-    );
-    const signedText = await signer.signMessage(message);
-    const hash = utils.keccak256(signedText);
-    if (hash === null) {
-      throw new Error(
-        "No account is provided. Please provide an account to this application."
-      );
-    }
-    // The following line converts the hash in hex to an array of 32 integers.
-    // @ts-ignore
-    const array = hash
-      // @ts-ignore
-      .replace("0x", "")
-      // @ts-ignore
-      .match(/.{2}/g)
-      .map((hexNoPrefix) => BigNumber.from("0x" + hexNoPrefix).toNumber());
-
-    if (array.length !== 32) {
-      throw new Error(
-        "Hash of signature is not the correct size! Something went wrong!"
-      );
-    }
-    const identity = PrivateKey.fromRawEd25519Seed(Uint8Array.from(array));
-    console.log(`Your VIP Key: ${identity.toString()}`);
-
-    const identityString = identity.toString();
-    localStorage.setItem("user-private-identity", identityString);
-
-    return identity;
-  };
-
-  const createNotification = () => {
+  const createNotification = (identity?: string) => {
     toast({
       title: "Secret Key",
       status: "success",
-      description: `SUCCESS! ${username} (${account}) Your account has been created and you have been signed in!`,
+      description: `SUCCESS! ${username} (${identity}) Your account has been created and you have been signed in!`,
       duration: 9000,
       isClosable: true,
     });
@@ -145,23 +62,24 @@ const SignUp = (props) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const privateKey = await generatePrivateKey();
-
+    const identity = await createIdentity(secret);
+    
     let newUser = {
       name,
       username,
       email,
       role,
+      publicKey: identity.public.toString(),
+      identity: identity
     };
-    await TextileInstance.setPrivateKey(privateKey);
 
-    await TextileInstance.signUp(privateKey);
+    console.log("SIGN_UP: ", newUser)
 
-    await signUp(newUser);
+    await signup(newUser);
 
-    createNotification();
-
+    createNotification(identity.public.toString())
     onClose();
+    return;
   };
 
   return (

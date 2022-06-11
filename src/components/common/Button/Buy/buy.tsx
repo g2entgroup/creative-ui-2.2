@@ -2,7 +2,7 @@ import React from "react";
 import { Button, Input, Tooltip, HStack } from "@chakra-ui/react";
 import { createSellOrder} from "../../../../rarible/createOrders";
 import { RARIBLE_EXCHANGE_RINKEBY } from "../../../../constants";
-const { utils } = require("ethers");
+import { utils } from 'ethers';
 
 function handleMenuClick(e) {
   console.log("click", e);
