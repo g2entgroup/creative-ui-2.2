@@ -52,35 +52,13 @@ export class TextileInstance {
       key: process.env.NEXT_PUBLIC_TEXTILE_API_KEY,
     }
     this.client = await Client.withKeyInfo(this.keyInfo)
-    console.log("CLIENT:", this.client)
-    // await this.client.getToken(TextileInstance.identity)
     this.users = await Users.withKeyInfo(this.keyInfo)
-    console.log("USER_CLIENT:", this.users)
-    // await this.users.getToken(TextileInstance.identity)
-
-    // let buckets = await Buckets.withKeyInfo(this.keyInfo)
-    // console.log("BUCKETS:", buckets)
-    // await buckets.getToken(TextileInstance.identity)
-    // const buck = await buckets.getOrCreate('creativebucket')
-    // if (!buck) {
-    //   throw new Error('Failed to get or create bucket')
-    // }
-    // this.bucketInfo = {
-    //   bucket: buckets,
-    //   bucketKey: buck.root.key
-    // }
-    
-    // await this.initCollections()
   }
 
   private async initWithSig(newUser?: UserModel) {
-    // await this.initCollections(false)
-    
     const { payload, user } = await TextileInstance.loginWithChallenge(newUser)
 
     this.user = user;
-
-    console.log("CHALLENGE_RES: ", { payload, user })
 
     this.users = Users.withUserAuth(payload)
     const token = await this.users.getToken(TextileInstance.identity)
@@ -135,7 +113,6 @@ export class TextileInstance {
   }
 
   private static async loginWithChallenge(newUser?: UserModel) {
-      // return (): Promise<UserAuth> => {
           return new Promise<{ payload: UserAuth, user: UserModel }>((resolve, reject) => {
               const socketUrl = `ws://localhost:3001`;
               const socket = new WebSocket(socketUrl);
@@ -146,7 +123,6 @@ export class TextileInstance {
                   socket.send( 
                       JSON.stringify({
                           newUser ,
-                          // identity: TextileInstance.identity, //publicKey,
                           pubkey: publicKey,
                           type: "token",
                       })
@@ -214,8 +190,6 @@ export class TextileInstance {
     TextileInstance.setPrivateKey(newUser.identity)
     TextileInstance.singletonInstance = new TextileInstance()
     await TextileInstance.singletonInstance.initWithSig(newUser)
-    // const user = await TextileInstance.singletonInstance.client.create(TextileInstance.singletonInstance.threadID, TextileInstance.singletonInstance.names.u, [newUser])
-    // console.log("SIGNUP: ", user)
     return TextileInstance.singletonInstance
   }
 
@@ -244,20 +218,6 @@ export class TextileInstance {
   }
 
   public async getCurrentUser(identity?: PrivateKey): Promise<UserModel> {
-    // console.log("USER_BEGIN")
-    // if (!this.client) {
-    //   throw new Error('No client')
-    // }
-    // const query: Query = new Where('publicKey').eq(
-    //   identity.public.toString()
-    // )
-    // const users = await this.client.find<UserModel>(
-    //   this.threadID,
-    //   this.names.u,
-    //   {}
-    // )
-    // this.user = users[0]
-    // console.log("USER: ", users, this.user)
     return this.user
   }
 
