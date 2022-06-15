@@ -13,8 +13,7 @@ export default async function createPayment(
     allowedHeaders: ['Content-Type', 'Authorization'],
     exposedHeaders: ['application/json', `Bearer ${CIRCLE_API_KEY}`],
     optionsSuccessStatus: 200,
-  })
-
+  });
   try {
     res.json(createPayment)
   } catch (e) {
