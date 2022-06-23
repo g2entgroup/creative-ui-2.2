@@ -3,9 +3,10 @@ import { Box, Heading, Text, Button,Radio, RadioGroup, Stack } from "@chakra-ui/
 import { FaBeer } from 'react-icons/fa';
 import { useRouter } from "next/router";
 import { Card } from "src/components/voting";
+import { ApolloClient, InMemoryCache, gql } from '@apollo/client';
 
-
-export default function Vote() {
+export default function Vote ({ launches }) {
+  console.log(launches)  
   const route = useRouter();
   const [ selection, setSelection ] = React.useState([false, false, false]) 
   const [value, setValue] = React.useState('1')
@@ -34,6 +35,9 @@ export default function Vote() {
     },
 
   ])
+
+  const toggle = () => {
+  }
 
   return (
     <Box
@@ -155,4 +159,53 @@ export default function Vote() {
         </Box>
     </Box>
   );
+}
+
+
+export async function getStaticProps() {
+    const client = new ApolloClient({
+        uri: 'https://hub.snapshot.org/graphql',
+        cache: new InMemoryCache()
+    });
+
+    const { data } = await client.query({
+        query: gql`
+            query {
+                proposals (
+                    first: 20,
+                    skip: 0,
+                    where: {
+                        space_in: ["thecreative.eth"],
+                    },
+                    orderBy: "created",
+                    orderDirection: desc
+                ) 
+                {
+                    id
+                    title
+                    body
+                    choices
+                    start
+                    end
+                    snapshot
+                    state
+                    scores
+                    scores_by_strategy
+                    scores_total
+                    scores_updated
+                    author
+                    space {
+                        id
+                        name
+                    }
+                }
+            }
+        `
+    })
+
+    return {
+      props: {
+        launches: data
+      }
+    }
 }
