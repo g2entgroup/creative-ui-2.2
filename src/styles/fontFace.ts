@@ -6,3 +6,4 @@ export default `
         font-weight: normal;
         font-style: normal;
       }
+`
