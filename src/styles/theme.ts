@@ -3,7 +3,7 @@ import { createBreakpoints } from '@chakra-ui/theme-tools'
 
 const fonts = {
   body: 'system-ui, sans-serif',
-  heading: 'Arial, sans-serif',
+  heading: 'Conthrax, system-ui, sans-serif',
   mono: 'Menlo, monospace',
 }
 

@@ -20,6 +20,8 @@ import { getDefaultProvider } from 'ethers'
 import { ApolloProvider } from '@apollo/client'
 import { apolloClient } from '../services/apollo/apollo-client'
 import { AuthProvider } from '../services/context/auth'
+import fontFace from '../styles/fontFace'
+import { Global } from '@emotion/react'
 
 const config: Config = {
   readOnlyChainId: Mumbai.chainId,
@@ -48,6 +50,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
     <DAppProvider config={config}>
       <ApolloProvider client={apolloClient()}>
         <ChakraProvider resetCSS theme={theme}>
+        <Global styles={fontFace} />
           <StoreContainer.Provider>
             <AuthProvider>
               <Box minH="100vh" minW="100vw" py={0}>
