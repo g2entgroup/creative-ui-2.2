@@ -461,7 +461,7 @@ const Header = ({ children }: HeaderProps): JSX.Element => {
                   <Heading
                     color={useColorModeValue('gray.500', 'white')}
                     as="h1"
-                    size="lg"
+                    size="md"
                   >
                     {' '}
                     CREATIVE
