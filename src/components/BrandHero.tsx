@@ -1,5 +1,5 @@
 import React from 'react'
-import { chakra, Box, useColorModeValue, Icon } from '@chakra-ui/react'
+import { chakra, Box, useColorModeValue, Icon, Heading } from '@chakra-ui/react'
 import Hero from '../components/Hero'
 
 const imgSrc = 'brands.jpg'
@@ -48,7 +48,7 @@ const BrandHero = () => {
               alignItems="center"
             >
               <chakra.h1
-                fontSize={{ base: '4xl', sm: '5xl', md: '6xl' }}
+                fontSize={{ base: '5xl', sm: '5xl', md: '6xl' }}
                 letterSpacing="tight"
                 lineHeight="short"
                 fontWeight="extrabold"
@@ -57,12 +57,13 @@ const BrandHero = () => {
                 <chakra.span display={{ base: 'block', xl: 'inline' }}>
                   We've Set The Stage <br />
                 </chakra.span>
-                <chakra.span
+                <Heading as='h1'
                   display={{ base: 'block', xl: 'inline' }}
                   color={'brand.600'}
+                  fontSize={{base: '4xl', sm: '4xl', md: '5xl'}}
                 >
                   For You...
-                </chakra.span>
+                </Heading>
               </chakra.h1>
               <chakra.p
                 mt={{ base: 3, sm: 5, md: 5 }}
