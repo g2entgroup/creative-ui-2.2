@@ -1,15 +1,39 @@
 import { Box, Heading, Text } from "@chakra-ui/react";
 import { useRouter } from "next/router";
+import { FaArrowRight, FaBan } from 'react-icons/fa';
 
-export const Card = ({title}:{title: string}) => {
+export const Card = (
+    {
+        title, 
+        state, 
+        type,
+        body,
+        start,
+        end,
+    }
+    :
+    {
+        title: string, 
+        state: string, 
+        type?: string,
+        body?: string,
+        start?: string,
+        end?: string,
+    }
+) => {
     const router = useRouter();
 
     const goNext = (event) => {
         event.preventDefault()
         router.push({
-            pathname: '/voting/more',
-            query: { name: 'Someone' }
-        })
+            pathname: '/vote/more',
+            query: { 
+                title: title,
+                end: end,
+                start: start, 
+                body: body,
+            }
+        });
     };
 
     return (
@@ -23,22 +47,35 @@ export const Card = ({title}:{title: string}) => {
             alignItems='center'
             borderBottom={'1px solid black'}>
             <Box>
-                <Heading
-                    size='md'>
-                    {title}
-                </Heading>
-                <Heading
-                    size='sm'>
-                    {title}
-                </Heading>
-                <Box>
+                <Box
+                    marginBottom={5}>
+                    <Heading
+                        size='md'>
+                        {title}
+                    </Heading>
                 </Box>
                 <Box>
+                    <Box
+                        minW={'20'}
+                        maxW={'20'}
+                        display={'flex'}
+                        alignItems={'center'}
+                        justifyContent={'center'}
+                        borderRadius={'20'}
+                        background={'red.200'}>
+                        <FaBan
+                            color={'white'} />
+                        <Text
+                            marginLeft={1}
+                            color={'white'}>
+                                {state}
+                        </Text>
+                    </Box>
                 </Box>
             </Box>
             <Box
                 onClick={(event) => goNext(event)}>
-                <Text>{'>'}</Text>
+                <FaArrowRight />
             </Box>
         </Box>
     )

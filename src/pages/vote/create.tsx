@@ -1,8 +1,8 @@
 import React from "react";
-import { Box, Heading, Text, Button } from "@chakra-ui/react";
-import { FaBeer } from 'react-icons/fa';
+import { Box } from "@chakra-ui/react";
 
-export default function Vote() {
+
+export default function Create() {
   const [selection, setSelection] = React.useState([false, false, false])
 
   return (

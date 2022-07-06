@@ -1,42 +1,22 @@
 import React from "react";
 import { Box, Heading, Text, Button,Radio, RadioGroup, Stack } from "@chakra-ui/react";
-import { FaBeer } from 'react-icons/fa';
+import {  FaUsers, FaCertificate } from 'react-icons/fa';
 import { useRouter } from "next/router";
 import { Card } from "src/components/voting";
 import { ApolloClient, InMemoryCache, gql } from '@apollo/client';
 
-export default function Vote ({ launches }) {
-  console.log(launches)  
+export default function Vote ({ proposals }) {
+  console.log(proposals); 
   const route = useRouter();
   const [ selection, setSelection ] = React.useState([false, false, false]) 
   const [value, setValue] = React.useState('1')
-  const [snapshots] = React.useState([
-    {
-        title: 'Proposal to Boost the CHR-BUSD farm and a New Syrup Pool',
-        stage: 'voting',
-        startDate: '',
-        startTime:'',
-        endDate: '',
-        endTime: '',
-        date: '',
-        content: '',
-        type: 'community',
-    },
-    {
-        title: 'Proposal to Boost the CHR-BUSD farm and a New Syrup Pool',
-        stage: 'v',
-        startDate: '',
-        startTime: '',
-        endDate: '',
-        endTime: '',
-        date: '',
-        content: '',
-        type: 'core',
-    },
-
-  ])
+  const [type, setType] = React.useState('all')
+  const [snapshots] = React.useState(proposals)
 
   const toggle = () => {
+  }
+
+  const toggleType = () => {
   }
 
   return (
@@ -53,7 +33,7 @@ export default function Vote ({ launches }) {
         <Box
           marginTop={5}>
           <Button
-            onClick={() => route.push('/vote/preposal')}
+            onClick={() => route.push('/vote/create')}
             padding={5}
             backgroundColor={'brand.400'}>
             <Heading
@@ -83,7 +63,7 @@ export default function Vote ({ launches }) {
                     flexDir={'row'}
                     justifyContent={'center'}
                     alignItems={'center'}>
-                    <FaBeer 
+                    <FaCertificate
                         color={'white'}/>
                     <Text 
                         marginLeft={2}
@@ -96,7 +76,7 @@ export default function Vote ({ launches }) {
                     flexDir={'row'}
                     justifyContent={'center'}
                     alignItems={'center'}>
-                    <FaBeer
+                    <FaUsers
                         color={'white'} />
                     <Text
                         marginLeft={2}
@@ -146,15 +126,23 @@ export default function Vote ({ launches }) {
                         </Stack>
                     </RadioGroup>
                 </Box>
-                {
-                    snapshots.map((data) => {
-                        return(
-                            <Card
-                                title={data.title} />
-                        )
-                    })
-                }
-                
+                <Box
+                borderBottomRadius={10}>
+                    {
+                        snapshots.map((data) => {
+                            return(
+                                <Card
+                                    key={data.id}
+                                    title={data.title}
+                                    body={data.body}
+                                    state={data.state}
+                                    start={data.start}
+                                    end={data.end}
+                                    type={type} />
+                            )
+                        })
+                    }
+                </Box>
             </Box>  
         </Box>
     </Box>
@@ -194,6 +182,8 @@ export async function getStaticProps() {
                     scores_total
                     scores_updated
                     author
+                    type
+                    quorum
                     space {
                         id
                         name
@@ -205,7 +195,7 @@ export async function getStaticProps() {
 
     return {
       props: {
-        launches: data
+        proposals: data.proposals
       }
     }
 }
