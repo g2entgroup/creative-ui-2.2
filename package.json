@@ -39,7 +39,7 @@
     "@loomhq/loom-embed": "^1.2.7",
     "@loomhq/record-sdk": "^2.35.15",
     "@portis/web3": "^4.0.7",
-    "@snapshot-labs/snapshot.js": "^0.4.0",
+    "@snapshot-labs/snapshot.js": "^0.4.7",
     "@textile/eth-storage": "^1.0.0",
     "@textile/hub": "^6.1.2",
     "@transak/transak-sdk": "^1.0.31",

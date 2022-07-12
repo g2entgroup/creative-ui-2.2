@@ -1,24 +1,48 @@
   import React from "react";
-import { Box, Heading, Text } from "@chakra-ui/react";
+import { 
+  Box, 
+  Heading, 
+  Text,
+  Slider,
+  SliderTrack,
+  SliderFilledTrack,
+  SliderThumb,
+  SliderMark, 
+} from "@chakra-ui/react";
 import { useRouter } from 'next/router';
-import date  from 'date.js';
 
 export default function More() {
   const router = useRouter()
-  const {end, start, title, body} = router.query
+  const {
+    end, 
+    start, 
+    title, 
+    body, 
+    choices, 
+    snapshot, 
+    creator, 
+    identifier, 
+    scores
+  } = router.query
   const [selection, setSelection] = React.useState([false, false, false])
 
+  const Totalscore = () => {
+    console.log(scores)
+  }
+
   React.useEffect(() => {
-    console.log()
-  })
+    Totalscore()
+  },[])
 
   return (
     <Box
       display='flex'
       flexDirection='row'
-      flexWrap={'wrap'}>
+      flexWrap={'wrap'}
+      alignItems='center'
+      justifyContent='center'>
       <Box
-        flex={1}>
+        maxW={['100vw', '100vw', '100vw', '40vw']}>
           <Box
             padding={5}>
             <Box>
@@ -33,19 +57,132 @@ export default function More() {
               <Text>{body}</Text>
             </Box>
           </Box>
+          <Box
+            padding={5}
+            marginBottom={5}
+            minW={['100vw', '100vw', '400px', '400px']}>
+            <Box  
+              background='brand.400'
+              padding={2}
+              display='flex'
+              borderTopLeftRadius={10}
+              borderTopRightRadius={10}
+              flexDirection='row'>
+              <Heading
+                size={'md'}
+                color="white">Current results</Heading>
+            </Box>
+            <Box
+              border={'2px solid #ec407a'}
+              borderBottomRadius={10}
+              background={'#f0f0f0'}
+              padding={10}>
+              <Box  
+                display='flex'
+                flexDirection='row'>
+                
+              </Box>
+              <Box
+                display='flex'
+                flexDirection='row'>
+                
+              </Box>
+            </Box>
+        </Box>
       </Box>
       <Box>
         <Box
-          padding={5}>
+          padding={5}
+          marginBottom={5}
+          minW={['100vw', '100vw', '100vw', '400px']}>
           <Box  
+            background='brand.400'
+            padding={2}
             display='flex'
+            borderTopLeftRadius={10}
+            borderTopRightRadius={10}
             flexDirection='row'>
-            <Text>{`start date: ${date(`${start}`)}`}</Text>
+            <Heading
+              size={'md'}
+              color="white">Details</Heading>
           </Box>
           <Box
+            border={'2px solid #ec407a'}
+            borderBottomRadius={10}
+            background={'#f0f0f0'}
+            padding={10}>
+            <Box
+              padding={2}>
+              <Text
+                  color='black'>{`Creator:  ${creator}`}</Text>
+              <Text
+                color='black'>{`Snapshot:  ${snapshot}`}</Text>
+            </Box>
+            <Box
+              background={'black'}
+              padding={2}
+              borderRadius={10}>
+              <Box  
+                display='flex'
+                flexDirection='row'>
+                <Text
+                  color='white'>{`start date: ${start}`}</Text>
+              </Box>
+              <Box
+                display='flex'
+                flexDirection='row'>
+                <Text
+                  color='white'>{`end date: ${end}`}</Text>
+              </Box>
+            </Box>
+          </Box>
+        </Box>
+        <Box
+          padding={5}
+          marginBottom={5}
+          minW={['100vw', '100vw', '100vw', '400px']}>
+          <Box  
+            background='brand.400'
+            padding={2}
             display='flex'
+            borderTopLeftRadius={10}
+            borderTopRightRadius={10}
             flexDirection='row'>
-          <Text>{`end date: ${date(`${end}`)}`}</Text>
+            <Heading
+              size={'md'}
+              color="white">Current results</Heading>
+          </Box>
+          <Box
+            border={'2px solid #ec407a'}
+            borderBottomRadius={10}
+            background={'#f0f0f0'}
+            padding={10}>
+            {
+              choices.map((item: any) => {
+                const number = 0;
+                return (
+                  <Box
+                    display='flex'
+                    flexDirection='column'>
+                      {item}
+                      <Slider aria-label='slider-ex-6'>
+                        <SliderMark
+                          value={20}
+                          textAlign='center'
+                          bg='blue.500'
+                          color='white'
+                          mt='-10'
+                          ml='-5'
+                          w='12'>
+                        </SliderMark>
+                          <SliderTrack>
+                            <SliderFilledTrack />
+                          </SliderTrack>
+                      </Slider>
+                  </Box>
+                )
+              })
+            }
           </Box>
         </Box>
       </Box>

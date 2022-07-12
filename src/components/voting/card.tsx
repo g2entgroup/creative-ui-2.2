@@ -10,6 +10,12 @@ export const Card = (
         body,
         start,
         end,
+        choices,
+        creator,
+        votes,
+        identifier,
+        snapshot,
+        scores,
     }
     :
     {
@@ -19,6 +25,12 @@ export const Card = (
         body?: string,
         start?: string,
         end?: string,
+        choices?: any[],
+        creator?: any,
+        identifier?: any,
+        snapshot?: any,
+        scores?: any,
+        votes?: any,
     }
 ) => {
     const router = useRouter();
@@ -32,6 +44,12 @@ export const Card = (
                 end: end,
                 start: start, 
                 body: body,
+                choices: choices,
+                creator: creator,
+                identifier: identifier,
+                snapshot: snapshot,
+                scores: scores,
+                votes: votes
             }
         });
     };
@@ -44,8 +62,7 @@ export const Card = (
             display='flex'
             flexDirection='row'
             justifyContent='space-between'
-            alignItems='center'
-            borderBottom={'1px solid black'}>
+            alignItems='center'>
             <Box>
                 <Box
                     marginBottom={5}>

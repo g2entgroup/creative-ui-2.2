@@ -6,8 +6,8 @@ import { Card } from "src/components/voting";
 import { ApolloClient, InMemoryCache, gql } from '@apollo/client';
 
 export default function Vote ({ proposals }) {
-  console.log(proposals); 
-  const route = useRouter();
+  console.log(proposals)
+  const route = useRouter()
   const [ selection, setSelection ] = React.useState([false, false, false]) 
   const [value, setValue] = React.useState('1')
   const [type, setType] = React.useState('all')
@@ -96,7 +96,7 @@ export default function Vote ({ proposals }) {
                     flexDir={'row'}
                     minW={'70vw'}
                     padding={2}
-                    background={'brand.300'}>
+                    background={'#d32f2f'}>
                     <RadioGroup onChange={setValue} value={value}>
                         <Stack direction='row'>
                             <Radio 
@@ -127,7 +127,10 @@ export default function Vote ({ proposals }) {
                     </RadioGroup>
                 </Box>
                 <Box
-                borderBottomRadius={10}>
+                    background={'#f0f0f0'}
+                    border={'2px solid #ec407a'}
+                    padding={5}
+                    borderBottomRadius={25}>
                     {
                         snapshots.map((data) => {
                             return(
@@ -137,8 +140,13 @@ export default function Vote ({ proposals }) {
                                     body={data.body}
                                     state={data.state}
                                     start={data.start}
+                                    choices={data.choices}
                                     end={data.end}
-                                    type={type} />
+                                    type={type}
+                                    scores={data.scores}
+                                    creator={data.author}
+                                    identifier={data.snapshot}
+                                    snapshot={data.snapshot} />
                             )
                         })
                     }
@@ -163,7 +171,7 @@ export async function getStaticProps() {
                     first: 20,
                     skip: 0,
                     where: {
-                        space_in: ["thecreative.eth"],
+                        space_in: [ "devdao.eth"],
                     },
                     orderBy: "created",
                     orderDirection: desc
