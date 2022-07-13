@@ -1,6 +1,18 @@
 import React from "react";
-import { Box, Heading, Input, Textarea, Button } from "@chakra-ui/react";
+import { 
+  Box, 
+  Heading, 
+  Input, 
+  Textarea, 
+  Button, 
+  Stack,
+  InputGroup,
+  InputRightElement,
+  InputLeftElement 
+} from "@chakra-ui/react";
 import snapshot from '@snapshot-labs/snapshot.js';
+import {FaWindowClose} from 'react-icons/fa'
+import { useAuth } from './../../services/context/auth'
 const hub = 'https://hub.snapshot.org';
 const client = new snapshot.Client712(hub);
 
@@ -9,14 +21,27 @@ export default function Create() {
   const [ selection, setSelection] = React.useState([false, false, false]);
   const [ title, setTitle ] = React.useState<string>("");
   const [ content, setContent ] = React.useState<string>("");
-  const [ choices, setChoices ] = React.useState([]);
+  const [ choices, setChoices ] = React.useState([0,1]);
   const [ startDate, setStartDate ] = React.useState();
   const [ startTime, seStarttTime ] = React.useState();
   const [ endEnd, setEndDate ] = React.useState();
   const [ endTime, setEndTime ] = React.useState();
-
+  let [ inputs, setInputs ] = React.useState([]);
+  
   const submit = () => {
   }
+
+  const addInput = () => {
+    setChoices(choices => [...choices, (choices.length)])
+  }
+
+  const removeInput = (number: number) => {
+    setChoices(choices.filter((item) => item !== number));
+  }
+
+  React.useEffect(() => {
+    
+  })
 
   return (
     <Box
@@ -90,27 +115,44 @@ export default function Create() {
             padding={4}
             borderBottomRadius={20}
             border={'1px solid #d32f2f'}>      
-            <Input
-              className="choices"
-              background={'white'}/>
-            <Input
-              className="choices"
-              marginTop={4}
-              background={'white'}/>
-              {
-                choices.map(() => {
+            <Stack spacing={4}>
+            {
+                choices.map((item: any, index) => {
+                  console.log(item)
                   return(
-                    <Input 
-                      className="choices"
-                      marginTop={4}
-                      background={'white'}/>
+                    <InputGroup
+                      key={index}>
+                      <Input 
+                        className="choices"
+                        background={'white'}
+                        placeholder='Enter Choice'
+                        onChange={(e) => {
+                          setInputs(
+                            inputs.map((value, j) => {
+                              console.log(j, e.target.value)
+                              if (index === j) value = e.target.value;
+                              return value;
+                            })
+                          )
+                          }
+                        } />
+                      <InputRightElement 
+                        children={
+                        <Box
+                          onClick={() => removeInput(item)}>
+                          <FaWindowClose />
+                        </Box>} 
+                      />
+                    </InputGroup>  
                   )
                 }) 
-              }
+            }
+            </Stack>
+              
             <Button
               marginTop={4}
               background={'brand.400'}
-              onClick={() =>  submit()}>
+              onClick={() =>  addInput()}>
               <Heading
                 color='white'
                 size='sm'>

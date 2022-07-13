@@ -1,23 +1,16 @@
-import React from "react";
-import { Box, Heading, Text, Button,Radio, RadioGroup, Stack } from "@chakra-ui/react";
-import {  FaUsers, FaCertificate } from 'react-icons/fa';
-import { useRouter } from "next/router";
-import { Card } from "src/components/voting";
+import React from "react"
+import { Box, Heading, Text, Button,Radio, RadioGroup, Stack } from "@chakra-ui/react"
+import {  FaUsers, FaCertificate } from 'react-icons/fa'
+import { useRouter } from "next/router"
+import { Card } from "src/components/voting"
 import { ApolloClient, InMemoryCache, gql } from '@apollo/client';
 
 export default function Vote ({ proposals }) {
-  console.log(proposals)
   const route = useRouter()
   const [ selection, setSelection ] = React.useState([false, false, false]) 
   const [value, setValue] = React.useState('1')
   const [type, setType] = React.useState('all')
   const [snapshots] = React.useState(proposals)
-
-  const toggle = () => {
-  }
-
-  const toggleType = () => {
-  }
 
   return (
     <Box
@@ -143,6 +136,7 @@ export default function Vote ({ proposals }) {
                                     choices={data.choices}
                                     end={data.end}
                                     type={type}
+                                    score={data.scores_total}
                                     scores={data.scores}
                                     creator={data.author}
                                     identifier={data.snapshot}
@@ -171,7 +165,7 @@ export async function getStaticProps() {
                     first: 20,
                     skip: 0,
                     where: {
-                        space_in: [ "devdao.eth"],
+                        space_in: [ "thecreative.eth"],
                     },
                     orderBy: "created",
                     orderDirection: desc

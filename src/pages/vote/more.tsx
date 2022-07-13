@@ -6,10 +6,11 @@ import {
   Slider,
   SliderTrack,
   SliderFilledTrack,
-  SliderThumb,
   SliderMark, 
 } from "@chakra-ui/react";
 import { useRouter } from 'next/router';
+import { getValueTransition } from "framer-motion/types/animation/utils/transitions";
+import { Voting } from "src/components/voting";
 
 export default function More() {
   const router = useRouter()
@@ -20,26 +21,24 @@ export default function More() {
     body, 
     choices, 
     snapshot, 
-    creator, 
-    identifier, 
-    scores
+    creator,
+    score,
+    scores,
   } = router.query
   const [selection, setSelection] = React.useState([false, false, false])
 
-  const Totalscore = () => {
-    console.log(scores)
+  const convertDate = (date: any) => {
+    date = new Date(date * 1000);
+    return date.toUTCString();
   }
 
-  React.useEffect(() => {
-    Totalscore()
-  },[])
 
   return (
     <Box
       display='flex'
       flexDirection='row'
       flexWrap={'wrap'}
-      alignItems='center'
+      alignItems='flex-start'
       justifyContent='center'>
       <Box
         maxW={['100vw', '100vw', '100vw', '40vw']}>
@@ -57,51 +56,21 @@ export default function More() {
               <Text>{body}</Text>
             </Box>
           </Box>
-          <Box
-            padding={5}
-            marginBottom={5}
-            minW={['100vw', '100vw', '400px', '400px']}>
-            <Box  
-              background='brand.400'
-              padding={2}
-              display='flex'
-              borderTopLeftRadius={10}
-              borderTopRightRadius={10}
-              flexDirection='row'>
-              <Heading
-                size={'md'}
-                color="white">Current results</Heading>
-            </Box>
-            <Box
-              border={'2px solid #ec407a'}
-              borderBottomRadius={10}
-              background={'#f0f0f0'}
-              padding={10}>
-              <Box  
-                display='flex'
-                flexDirection='row'>
-                
-              </Box>
-              <Box
-                display='flex'
-                flexDirection='row'>
-                
-              </Box>
-            </Box>
-        </Box>
       </Box>
       <Box>
         <Box
           padding={5}
           marginBottom={5}
-          minW={['100vw', '100vw', '100vw', '400px']}>
+          minW={['100vw', '100vw', '100vw', '400px']}
+          cursor='pointer'>
           <Box  
             background='brand.400'
             padding={2}
             display='flex'
             borderTopLeftRadius={10}
             borderTopRightRadius={10}
-            flexDirection='row'>
+            flexDirection='row'
+            >
             <Heading
               size={'md'}
               color="white">Details</Heading>
@@ -126,13 +95,13 @@ export default function More() {
                 display='flex'
                 flexDirection='row'>
                 <Text
-                  color='white'>{`start date: ${start}`}</Text>
+                  color='white'>{`start date: ${convertDate(start)}`}</Text>
               </Box>
               <Box
                 display='flex'
                 flexDirection='row'>
                 <Text
-                  color='white'>{`end date: ${end}`}</Text>
+                  color='white'>{`end date: ${convertDate(end)}`}</Text>
               </Box>
             </Box>
           </Box>
@@ -140,7 +109,8 @@ export default function More() {
         <Box
           padding={5}
           marginBottom={5}
-          minW={['100vw', '100vw', '100vw', '400px']}>
+          cursor='pointer'
+          minW={['100vw', '100vw', '100vw', '20px']}>
           <Box  
             background='brand.400'
             padding={2}
@@ -157,32 +127,10 @@ export default function More() {
             borderBottomRadius={10}
             background={'#f0f0f0'}
             padding={10}>
-            {
-              choices.map((item: any) => {
-                const number = 0;
-                return (
-                  <Box
-                    display='flex'
-                    flexDirection='column'>
-                      {item}
-                      <Slider aria-label='slider-ex-6'>
-                        <SliderMark
-                          value={20}
-                          textAlign='center'
-                          bg='blue.500'
-                          color='white'
-                          mt='-10'
-                          ml='-5'
-                          w='12'>
-                        </SliderMark>
-                          <SliderTrack>
-                            <SliderFilledTrack />
-                          </SliderTrack>
-                      </Slider>
-                  </Box>
-                )
-              })
-            }
+            <Voting
+              choices={choices}
+              score={score}
+              scores={scores} />
           </Box>
         </Box>
       </Box>

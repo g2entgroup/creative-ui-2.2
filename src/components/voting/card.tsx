@@ -1,3 +1,4 @@
+import React from "react";
 import { Box, Heading, Text } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import { FaArrowRight, FaBan } from 'react-icons/fa';
@@ -12,9 +13,9 @@ export const Card = (
         end,
         choices,
         creator,
-        votes,
         identifier,
         snapshot,
+        score,
         scores,
     }
     :
@@ -29,8 +30,8 @@ export const Card = (
         creator?: any,
         identifier?: any,
         snapshot?: any,
+        score?: number,
         scores?: any,
-        votes?: any,
     }
 ) => {
     const router = useRouter();
@@ -49,7 +50,7 @@ export const Card = (
                 identifier: identifier,
                 snapshot: snapshot,
                 scores: scores,
-                votes: votes
+                score: score,
             }
         });
     };
