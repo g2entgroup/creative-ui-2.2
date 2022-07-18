@@ -11,38 +11,82 @@ import {
   InputLeftElement 
 } from "@chakra-ui/react";
 import snapshot from '@snapshot-labs/snapshot.js';
-import {FaWindowClose} from 'react-icons/fa'
-import { useAuth } from './../../services/context/auth'
-const hub = 'https://hub.snapshot.org';
+import {FaWindowClose} from 'react-icons/fa';
+import { uuid } from 'uuidv4';
+import { Web3Provider } from '@ethersproject/providers';
+import { useAuth } from './../../services/context/auth';
+import { useForm } from "react-hook-form";
+
+const hub = 'https://hub.snapshot.org'
 const client = new snapshot.Client712(hub);
 
 export default function Create() {
+  const [account, setAccount] = React.useState<any>("")
+  const web3 = new Web3Provider(window.ethereum);
   const [ snapshotClient] = React.useState<any>(client);
   const [ selection, setSelection] = React.useState([false, false, false]);
   const [ title, setTitle ] = React.useState<string>("");
   const [ content, setContent ] = React.useState<string>("");
-  const [ choices, setChoices ] = React.useState([0,1]);
-  const [ startDate, setStartDate ] = React.useState();
-  const [ startTime, seStarttTime ] = React.useState();
-  const [ endEnd, setEndDate ] = React.useState();
-  const [ endTime, setEndTime ] = React.useState();
-  let [ inputs, setInputs ] = React.useState([]);
+  const [ choices, setChoices ] = React.useState<string[]>(["yes", ""]);
+  const [ startDate, setStartDate ] = React.useState<any>(new Date());
+  const [ startTime, seStarttTime ] = React.useState<any>(new Date());
+  const [ endDate, setEndDate ] = React.useState<any>(new Date());
+  const [ endTime, setEndTime ] = React.useState<any>(new Date());
+  const { register, handleSubmit } = useForm({ shouldUseNativeValidation: true });
+  const onSubmit = async data => { console.log(data); };
+  let [ inputs, setInputs ] = React.useState([]); 
   
-  const submit = () => {
+  const submit = async() => {
+    try{
+        console.log(register)
+    }catch(error){
+      console.log(error)
+    }
   }
 
   const addInput = () => {
-    setChoices(choices => [...choices, (choices.length)])
   }
 
   const removeInput = (number: number) => {
-    setChoices(choices.filter((item) => item !== number));
+  }
+
+  const getAddress = async() => {
+    const [account] = await web3.listAccounts();
+    setAccount(account);
+  }
+
+  const changeInput = (event: any, type:string) => {
+    if(type==='title'){
+      setTitle(event.target.value);
+    }
+    
+    else if(type==='content'){
+      setContent(event.target.value);
+    }
+
+    else if(type === 'start date'){
+      setStartDate(new Date(event.target.value).getDate());
+    }
+
+    else if(type === 'start time'){
+      setEndTime(new Date(event.target.value).getTime());
+    }
+
+    else if(type === 'end time'){
+      setEndTime(new Date(event.target.value).getTime());
+    }
+
+    else if(type === 'end date'){
+      setEndDate(new Date(event.target.value).getDate());
+    }
   }
 
   React.useEffect(() => {
-    
+    getAddress();
   })
 
+
+  
   return (
     <Box
       display='flex'
@@ -73,7 +117,10 @@ export default function Create() {
             <Input 
               color='black'
               fontWeight={'bold'}
-              background={'white'}/>
+              background={'white'}
+              onChange={(event) => {
+                changeInput(event, 'title')
+              }}/>
           </Box>
         </Box>  
         <Box
@@ -96,7 +143,10 @@ export default function Create() {
                 color='black'
                 fontWeight={'bold'}
                 background={'white'} 
-                placeholder='Here is a sample placeholder' />
+                placeholder='Here is a sample placeholder'
+                onChange={(event) => {
+                  changeInput(event, 'content')
+                }} />
           </Box>
         </Box>
         <Box
@@ -116,9 +166,9 @@ export default function Create() {
             borderBottomRadius={20}
             border={'1px solid #d32f2f'}>      
             <Stack spacing={4}>
+            <form>
             {
                 choices.map((item: any, index) => {
-                  console.log(item)
                   return(
                     <InputGroup
                       key={index}>
@@ -126,16 +176,8 @@ export default function Create() {
                         className="choices"
                         background={'white'}
                         placeholder='Enter Choice'
-                        onChange={(e) => {
-                          setInputs(
-                            inputs.map((value, j) => {
-                              console.log(j, e.target.value)
-                              if (index === j) value = e.target.value;
-                              return value;
-                            })
-                          )
-                          }
-                        } />
+                        {...register(`choice-${index}`, { required: `Please enter choice` })}
+                         />
                       <InputRightElement 
                         children={
                         <Box
@@ -147,6 +189,7 @@ export default function Create() {
                   )
                 }) 
             }
+            </form>
             </Stack>
               
             <Button
@@ -186,7 +229,10 @@ export default function Create() {
             </Heading>
             <Input 
               type="date"
-              background={'white'}/>
+              background={'white'}
+              onChange={(event) => {
+                changeInput(event, 'start date')
+              }}/>
             <Heading
               marginTop={4}
               color='white'
@@ -195,7 +241,10 @@ export default function Create() {
             </Heading>
             <Input 
               type="time"
-              background={'white'}/>
+              background={'white'}
+              onChange={(event) => {
+                changeInput(event, 'start time')
+              }}/>
             <Heading
               marginTop={4}
               color='white'
@@ -204,7 +253,10 @@ export default function Create() {
             </Heading>
             <Input 
               type="date"
-              background={'white'}/>
+              background={'white'}
+              onChange={(event) => {
+                changeInput(event, 'end date')
+              }}/>
             <Heading
               marginTop={4}
               color='white'
@@ -213,7 +265,10 @@ export default function Create() {
             </Heading>
             <Input 
               type='time'
-              background={'white'}/>
+              background={'white'}
+              onChange={(event) => {
+                changeInput(event, 'end time')
+              }}/>
             <Button
               marginTop={4}
               background={'brand.400'}
