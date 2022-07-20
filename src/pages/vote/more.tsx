@@ -32,6 +32,11 @@ export default function More() {
     return date.toUTCString();
   }
 
+  const goTo = (id) => {
+    let url = `https://polygonscan.com/block/${id}`
+    window.open(url, '_blank');
+  }
+
 
   return (
     <Box
@@ -85,6 +90,7 @@ export default function More() {
               <Text
                   color='black'>{`Creator:  ${creator}`}</Text>
               <Text
+                onClick={() => goTo(snapshot)}
                 color='black'>{`Snapshot:  ${snapshot}`}</Text>
             </Box>
             <Box

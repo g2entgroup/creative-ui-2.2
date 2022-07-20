@@ -23,31 +23,56 @@ const client = new snapshot.Client712(hub);
 export default function Create() {
   const [account, setAccount] = React.useState<any>("")
   const web3 = new Web3Provider(window.ethereum);
-  const [ snapshotClient] = React.useState<any>(client);
-  const [ selection, setSelection] = React.useState([false, false, false]);
+  const [ snapshotClient ] = React.useState<any>(client);
   const [ title, setTitle ] = React.useState<string>("");
   const [ content, setContent ] = React.useState<string>("");
-  const [ choices, setChoices ] = React.useState<string[]>(["yes", ""]);
+  const [ snapshotDate, setSnapShotDate ] = React.useState<any>(new Date());
   const [ startDate, setStartDate ] = React.useState<any>(new Date());
-  const [ startTime, seStarttTime ] = React.useState<any>(new Date());
+  const [ startTime, setStartTime ] = React.useState<any>(new Date());
   const [ endDate, setEndDate ] = React.useState<any>(new Date());
   const [ endTime, setEndTime ] = React.useState<any>(new Date());
-  const { register, handleSubmit } = useForm({ shouldUseNativeValidation: true });
-  const onSubmit = async data => { console.log(data); };
-  let [ inputs, setInputs ] = React.useState([]); 
-  
+  const [input, setInput] = React.useState(["yes", "no"]);
+
+  const inputRef = React.useRef();
+
+  const inputIsValid =
+    input.length >= 1 && input.every((field) => field.trim() !== "");
+
+  function handleChange(i, event) {
+    const values = [...input];
+    values[i] = event.target.value;
+    setInput(values);
+  }
+
+  function handleAdd() {
+    const values = [...input];
+    values.push("");
+    setInput(values);
+  }
+
+  function handleRemove(i) {
+    const values = [...input];
+    values.splice(i, 1);
+    setInput(values);
+  }
+
   const submit = async() => {
     try{
-        console.log(register)
+      const receipt = await client.proposal(web3, account, {
+        space: 'thecreative.eth',
+        type: 'single-choice',
+        title: title,
+        body: content,
+        choices: input,
+        start: Date.parse(`${startDate} ${startTime}`),
+        end: Date.parse(`${endDate} ${endTime}`),
+        snapshot: Date.parse(`${startDate} ${startTime}`),
+        discussion: '',
+        plugins: JSON.stringify({}),
+      });
     }catch(error){
       console.log(error)
     }
-  }
-
-  const addInput = () => {
-  }
-
-  const removeInput = (number: number) => {
   }
 
   const getAddress = async() => {
@@ -65,28 +90,26 @@ export default function Create() {
     }
 
     else if(type === 'start date'){
-      setStartDate(new Date(event.target.value).getDate());
+      setStartDate(event.target.value);
     }
 
     else if(type === 'start time'){
-      setEndTime(new Date(event.target.value).getTime());
+      setStartTime(event.target.value)
     }
 
     else if(type === 'end time'){
-      setEndTime(new Date(event.target.value).getTime());
+      setEndTime(event.target.value)
     }
 
     else if(type === 'end date'){
-      setEndDate(new Date(event.target.value).getDate());
+      setEndDate(event.target.value)
     }
   }
 
   React.useEffect(() => {
     getAddress();
-  })
+  },[]);
 
-
-  
   return (
     <Box
       display='flex'
@@ -166,36 +189,39 @@ export default function Create() {
             borderBottomRadius={20}
             border={'1px solid #d32f2f'}>      
             <Stack spacing={4}>
-            <form>
-            {
-                choices.map((item: any, index) => {
-                  return(
-                    <InputGroup
-                      key={index}>
-                      <Input 
-                        className="choices"
-                        background={'white'}
-                        placeholder='Enter Choice'
-                        {...register(`choice-${index}`, { required: `Please enter choice` })}
-                         />
-                      <InputRightElement 
-                        children={
-                        <Box
-                          onClick={() => removeInput(item)}>
-                          <FaWindowClose />
-                        </Box>} 
-                      />
-                    </InputGroup>  
-                  )
-                }) 
-            }
-            </form>
+              <form>
+                {
+                    input.map((field, index) => {
+                      return(
+                        <InputGroup
+                          key={index}>
+                          <Input 
+                            marginBottom={5}
+                            className='choices'
+                            background='white'
+                            placeholder='Enter Choice'
+                            value={field || ""}
+                            ref={inputRef}
+                            onChange={(e) => handleChange(index, e)}
+                            />
+                          <InputRightElement 
+                            children={
+                            <Box
+                              onClick={() => handleRemove(index)}>
+                              <FaWindowClose />
+                            </Box>} 
+                          />
+                        </InputGroup>  
+                      )
+                    }) 
+                }
+              </form>
             </Stack>
               
             <Button
               marginTop={4}
               background={'brand.400'}
-              onClick={() =>  addInput()}>
+              onClick={() => handleAdd()}>
               <Heading
                 color='white'
                 size='sm'>
