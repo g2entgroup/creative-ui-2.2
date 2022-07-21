@@ -114,7 +114,7 @@ export class TextileInstance {
 
   private static async loginWithChallenge(newUser?: UserModel) {
           return new Promise<{ payload: UserAuth, user: UserModel }>((resolve, reject) => {
-              const socketUrl = `ws://localhost:3001`;
+              const socketUrl = `wss://little-frost-1633.fly.dev/`;
               const socket = new WebSocket(socketUrl);
               
               socket.onopen = () => {
