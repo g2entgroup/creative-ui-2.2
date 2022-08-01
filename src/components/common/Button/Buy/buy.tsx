@@ -10,23 +10,11 @@ function handleMenuClick(e) {
 
 export default function Buy(props) {
   const [sellState, setSellState] = React.useState({});
-  const [sellForEthValue, setSellForEthValue] = React.useState({});
+  const [sellForEthValue, setSellForEthValue] = React.useState();
   const [salt, setSalt] = React.useState({});
   
   const buttons = (
     <Tooltip placement="right" title="* 10 ** 18">
-      <div
-        style={{ cursor: "pointer" }}
-        onClick={async () => {
-          try {
-            setSellForEthValue(utils.parseEther(sellForEthValue));
-          } catch {
-            console.log("enter a value");
-          }
-        }}
-      >
-        ✴️
-      </div>
     </Tooltip>
   );
   return (
