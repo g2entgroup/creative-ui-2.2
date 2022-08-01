@@ -23,7 +23,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "yarn run test &&  yarn run lint"
+      "pre-commit": "yarn run test"
     }
   },
   "dependencies": {
