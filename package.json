@@ -3,28 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "pm2": "pm2 start yarn --name creative_ui --interpreter bash -- dev",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "export": "npm run build && next export",
-    "lint": "eslint . --ext .ts",
-    "prettier-format": "run-script-os",
-    "prettier-format:win32": "prettier --config .prettierrc \"./src/**/*.ts\" --write",
-    "prettier-format:darwin:linux": "prettier --config .prettierrc 'src/**/*.ts' --write",
-    "prettier-format:default": "prettier --config .prettierrc 'src/**/*.ts' --write",
-    "prettier-watch": "run-script-os",
-    "prettier-watch:win32": "onchange \"src/**/*.ts\" -- prettier --write {{changed}}",
-    "prettier-watch:darwin:linux": "onchange 'src/**/*.ts' -- prettier --write {{changed}}",
-    "prettier-watch:default": "onchange 'src/**/*.ts' -- prettier --write {{changed}}",
     "test": "jest --passWithNoTests",
-    "test:dev": "jest --watchAll",
-    "prepare": "husky install"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "yarn run test"
-    }
+    "test:dev": "jest --watchAll"
   },
   "dependencies": {
     "@apollo/client": "^3.6.2",
