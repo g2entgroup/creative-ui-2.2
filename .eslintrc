@@ -7,7 +7,7 @@
     "plugin:@next/next/recommended",
     "plugin:@typescript-eslint/eslint-recommended",
     "plugin:@typescript-eslint/recommended",
-    "prettier"
+    "prettier","next"
   ],
   "rules": {
     "no-empty-pattern": 0,
