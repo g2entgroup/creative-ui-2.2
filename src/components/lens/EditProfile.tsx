@@ -254,7 +254,7 @@ export const EditProfile = ({ profile, refetch }: EditProfileProps) => {
                       />
                     </InputGroup>
                   </FormControl>
-                  <FormControl isInvalid={errors.bio}>
+                  <FormControl isInvalid={!!errors.bio}>
                     <FormLabel>Bio</FormLabel>
                     <Textarea
                       name="bio"
