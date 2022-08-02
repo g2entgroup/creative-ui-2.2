@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { AppProps } from 'next/app'
-import { Mumbai,Kovan, Config, DAppProvider, useEthers } from '@usedapp/core'
+import { Mumbai, Config, DAppProvider, useEthers } from '@usedapp/core'
 import {
   ChakraProvider,
   Box,
@@ -24,12 +24,10 @@ import fontFace from '../styles/fontFace'
 import { Global } from '@emotion/react'
 
 const config: Config = {
-  readOnlyChainId: Kovan.chainId,
+  readOnlyChainId: Mumbai.chainId,
   readOnlyUrls: {
-    [Kovan.chainId]: getDefaultProvider('Kovan'),
-  },  
-  networks: [Kovan],
-  multicallVersion: 2 as const,
+    [Mumbai.chainId]: getDefaultProvider(`${process.env.NEXT_PUBLIC_MUMBAI}`),
+  },
   notifications: {
     checkInterval: 1500,
     expirationPeriod: 5000,
@@ -57,7 +55,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
             <AuthProvider>
               <Box minH="100vh" minW="100vw" py={0}>
                 <Header children />
-                {library && library?.network.chainId === Kovan.chainId ? (
+                {library && library?.network.chainId === Mumbai.chainId ? (
                   ''
                 ) : (
                   <Box as="section" pt="8" pb="12">
