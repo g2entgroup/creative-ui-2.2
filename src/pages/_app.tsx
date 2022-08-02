@@ -26,7 +26,7 @@ import { Global } from '@emotion/react'
 const config: Config = {
   readOnlyChainId: Mumbai.chainId,
   readOnlyUrls: {
-    [Mumbai.chainId]: getDefaultProvider(`${process.env.NEXT_PUBLIC_MUMBAI}`),
+    [Mumbai.chainId]: getDefaultProvider('maticmum'),
   },
   notifications: {
     checkInterval: 1500,
