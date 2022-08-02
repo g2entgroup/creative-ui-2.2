@@ -24,9 +24,9 @@ import fontFace from '../styles/fontFace'
 import { Global } from '@emotion/react'
 
 const config: Config = {
-  readOnlyChainId: mumbai.chainId,
+  readOnlyChainId: Mumbai.80001,
   readOnlyUrls: {
-    [mumbai.chainId]: getDefaultProvider(`${process.env.NEXT_PUBLIC_MUMBAI}`),
+    [Mumbai.80001]: getDefaultProvider(`${process.env.NEXT_PUBLIC_MUMBAI}`),
   },
   notifications: {
     checkInterval: 1500,
