@@ -285,7 +285,7 @@ export const EditProfile = ({ profile, refetch }: EditProfileProps) => {
                   )}
 
                   <FormErrorMessage>
-                    {errors.name && errors.name.message}
+                    {!!errors.name && !!errors.name.message}
                   </FormErrorMessage>
                 </form>
               </Box>
