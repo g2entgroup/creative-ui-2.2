@@ -204,7 +204,7 @@ export const EditProfile = ({ profile, refetch }: EditProfileProps) => {
             <ModalBody>
               <Box>
                 <form onSubmit={handleSubmit(onSubmit)}>
-                  <FormControl isInvalid={errors.name}>
+                  <FormControl isInvalid={!!errors.name}>
                     <FormLabel>Name</FormLabel>
                     <InputGroup>
                       {/* <InputLeftElement children={<BsPerson />} /> */}
