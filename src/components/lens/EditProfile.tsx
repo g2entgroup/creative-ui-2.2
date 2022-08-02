@@ -217,7 +217,7 @@ export const EditProfile = ({ profile, refetch }: EditProfileProps) => {
                       />
                     </InputGroup>
                   </FormControl>
-                  <FormControl isInvalid={errors.location}>
+                  <FormControl isInvalid={!!errors.location}>
                     <FormLabel>Location</FormLabel>
                     <InputGroup>
                       {/* <InputLeftElement children={<MdOutlineEmail />} /> */}
@@ -230,7 +230,7 @@ export const EditProfile = ({ profile, refetch }: EditProfileProps) => {
                       />
                     </InputGroup>
                   </FormControl>
-                  <FormControl isInvalid={errors.twitter}>
+                  <FormControl isInvalid={!!errors.twitter}>
                     <FormLabel>Twitter Handle</FormLabel>
                     <InputGroup>
                       {/* <InputLeftElement children={<MdOutlineEmail />} /> */}
@@ -242,7 +242,7 @@ export const EditProfile = ({ profile, refetch }: EditProfileProps) => {
                       />
                     </InputGroup>
                   </FormControl>
-                  <FormControl isInvalid={errors.website}>
+                  <FormControl isInvalid={!!errors.website}>
                     <FormLabel>Website</FormLabel>
                     <InputGroup>
                       {/* <InputLeftElement children={<MdOutlineEmail />} /> */}
