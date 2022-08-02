@@ -28,7 +28,8 @@ const config: Config = {
   readOnlyUrls: {
     [Mumbai.chainId]: getDefaultProvider('Mumbai'),
   },  
-
+  networks: [Mumbai],
+  multicallVersion: 2 as const,
   notifications: {
     checkInterval: 1500,
     expirationPeriod: 5000,
