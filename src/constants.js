@@ -106,8 +106,8 @@ export const NETWORKS = {
     faucet: "https://faucet.matic.network/",
     blockExplorer: "https://explorer-mainnet.maticvigil.com/",
   },
-  mumbai: {
-    name: "mumbai",
+  Mumbai: {
+    name: "Mumbai",
     color: "#92D9FA",
     chainId: 80001,
     price: 1,
