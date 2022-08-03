@@ -26,7 +26,7 @@ import { Global } from '@emotion/react'
 const config: Config = {
   readOnlyChainId: Mumbai.chainId,
   readOnlyUrls: {
-    [Mumbai.chainId]: getDefaultProvider('Mumbai'),
+    [Mumbai.chainId]: 'https://polygon-mainnet.g.alchemy.com/v2/NDsioMXTwci91lMdODnh3iBbcJoxCgy8',
   },
   notifications: {
     checkInterval: 1500,
