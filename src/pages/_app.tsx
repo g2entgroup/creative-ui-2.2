@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { AppProps } from 'next/app'
-import { Mumbai, Config, DAppProvider, useEthers } from '@usedapp/core'
+import { Mumbai,Rinkeby, Config, DAppProvider, useEthers } from '@usedapp/core'
 import {
   ChakraProvider,
   Box,
@@ -26,7 +26,7 @@ import { Global } from '@emotion/react'
 const config: Config = {
   readOnlyChainId: Mumbai.chainId,
   readOnlyUrls: {
-    [Mumbai.chainId]: getDefaultProvider(`${process.env.NEXT_PUBLIC_MUMBAI}`),
+    [Mumbai.chainId]: 'https://polygon-mainnet.g.alchemy.com/v2/NDsioMXTwci91lMdODnh3iBbcJoxCgy8',
   },
   notifications: {
     checkInterval: 1500,
