@@ -24,9 +24,9 @@ import fontFace from '../styles/fontFace'
 import { Global } from '@emotion/react'
 
 const config: Config = {
-  readOnlyChainId: Rinkeby.chainId,
+  readOnlyChainId: Mumbai.chainId,
   readOnlyUrls: {
-    [Rinkeby.chainId]: getDefaultProvider('rinkeby'),
+    [Mumbai.chainId]: getDefaultProvider('Mumbai'),
   },
   notifications: {
     checkInterval: 1500,
@@ -55,7 +55,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
             <AuthProvider>
               <Box minH="100vh" minW="100vw" py={0}>
                 <Header children />
-                {library && library?.network.chainId === Rinkeby.chainId ? (
+                {library && library?.network.chainId === Mumbai.chainId ? (
                   ''
                 ) : (
                   <Box as="section" pt="8" pb="12">
