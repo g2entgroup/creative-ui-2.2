@@ -1,0 +1,4 @@
+{
+  "contributors": ["gawainb"],
+  "message": "Thank you for your pull request and welcome to Creative Organization DAO, LLC! We require contributors to sign our [Contributor License Agreement](https://github.com/g2entgroup/creative-ui-2.2/master/CLA.txt), and we don't seem to have the users {{usersWithoutCLA}} on file. \nIn order for us to review and merge your code, please open _another_ pull request with a single modification: your github username added to the the file `.clabot`.\nThank you! "
+}
