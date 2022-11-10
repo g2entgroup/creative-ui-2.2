@@ -49,102 +49,28 @@ const SignIn = (props) => {
   
   const toast = useToast()
 
-  const { logIn } = useAuth();
-
-  const { account, library } = useEthers();
+  const { login, getIdentity } = useAuth();
 
   const handleChange = (e: any) => setSecret(e.target.value);
 
-  const generateMessageForEntropy = (ethereum_address: EthereumAddress, application_name: string, secret: string): string => {
-    return (
-      '******************************************************************************** \n' +
-      'READ THIS MESSAGE CAREFULLY. \n' +
-      'DO NOT SHARE THIS SIGNED MESSAGE WITH ANYONE OR THEY WILL HAVE READ AND WRITE \n' +
-      'ACCESS TO THIS APPLICATION. \n' +
-      'DO NOT SIGN THIS MESSAGE IF THE FOLLOWING IS NOT TRUE OR YOU DO NOT CONSENT \n' +
-      'TO THE CURRENT APPLICATION HAVING ACCESS TO THE FOLLOWING APPLICATION. \n' +
-      '******************************************************************************** \n' +
-      'The Ethereum address used by this application is: \n' +
-      '\n' +
-      ethereum_address.value +
-      '\n' +
-      '\n' +
-      '\n' +
-      'By signing this message, you authorize the current application to use the \n' +
-      'following app associated with the above address: \n' +
-      '\n' +
-      application_name +
-      '\n' +
-      '\n' +
-      '\n' +
-      'The hash of your non-recoverable, private, non-persisted password or secret \n' +
-      'phrase is: \n' +
-      '\n' +
-      secret +
-      '\n' +
-      '\n' +
-      '\n' +
-      '******************************************************************************** \n' +
-      'ONLY SIGN THIS MESSAGE IF YOU CONSENT TO THE CURRENT PAGE ACCESSING THE TEXTILE KEYS \n' +
-      'ASSOCIATED WITH THE ABOVE ADDRESS AND APPLICATION. \n' +
-      'NOTE THIS DOES NOT ALLOW ACCESS TO YOUR WALLET FOR BLOCKCHAIN TX. \n' +
-      'AGAIN, DO NOT SHARE THIS SIGNED MESSAGE WITH ANYONE OR THEY WILL HAVE READ AND \n' +
-      'WRITE ACCESS TO THIS APPLICATION. \n' +
-      '******************************************************************************** \n'
-    );
-  }
-
-  const generatePrivateKey = async (): Promise<PrivateKey> => {
-    const signer = library.getSigner();
-    const salt: string = "$2a$10$3vx4QH1vSj9.URynBqkbae";
-    // avoid sending the raw secret by hashing it first
-    const hashSecret = bcryptjs.hashSync(secret, salt);
-    const message = generateMessageForEntropy(new EthereumAddress(account), 'Creative', hashSecret)
-    const signedText = await signer.signMessage(message);
-    const hash = utils.keccak256(signedText);
-    if (hash === null) {
-      throw new Error('No account is provided. Please provide an account to this application.');
-    }
-    // The following line converts the hash in hex to an array of 32 integers.
-      // @ts-ignore
-    const array = hash
-      // @ts-ignore
-      .replace('0x', '')
-      // @ts-ignore
-      .match(/.{2}/g)
-      .map((hexNoPrefix) => BigNumber.from('0x' + hexNoPrefix).toNumber())
+  const handleLogin = async (): Promise<void> => {
+    const identity = await getIdentity(secret);
+    console.log("LOGIN: ", identity)
     
-    if (array.length !== 32) {
-      throw new Error('Hash of signature is not the correct size! Something went wrong!');
-    }
-    const identity = PrivateKey.fromRawEd25519Seed(Uint8Array.from(array))
-    console.log(`Your VIP Key: ${identity.toString()}`)
-    
-    const identityString = identity.toString()
-    localStorage.setItem("user-private-identity" , identityString)
+    await login(identity);
 
-    createNotification(identity);
+    createNotification(identity.public.toString())
     setCloseButtons(true)
-    onClose();
-    // Close the modal function and set local storage variable 
-    //handleSuccessSignin(); // set close buttons to true 
-    // Create a textile instance which will create or get the bucket assoicated with this user.
-    // Initialize the instance now itself which would create the bucket as well as the thread db collection
-    // to hold the content and its related metadata.
+    onClose()
 
-    await TextileInstance.setPrivateKey(identity);
-
-    await logIn();
-
-    // Your app can now use this identity for generating a user Mailbox, Threads, Buckets, etc
-    return identity
+    return;
   }
 
-  const createNotification = (identity: PrivateKey) => {
+  const createNotification = (identity?: string) => {
     toast({ 
       title: "Secret Key",
       status: "success",
-      description: ` SIGNED IN! Public Key: ${identity.public.toString()} Your app can now generate and reuse this users PrivateKey for creating user Mailboxes, Threads, and Buckets.`,
+      description: ` SIGNED IN! Public Key: ${identity} Your app can now generate and reuse this users PrivateKey for creating user Mailboxes, Threads, and Buckets.`,
       duration: 9000,
       isClosable: true,
     });
@@ -177,7 +103,6 @@ const SignIn = (props) => {
               <Container>
               <Stack spacing={6}>
                 <Heading as="h6" size="md" color={useColorModeValue("white", "white")}>Sign In</Heading>
-                {/* name */}
                   <FormControl id="login" isRequired>
                   <FormLabel color={useColorModeValue("white", "white")}>Password</FormLabel>
                     <InputGroup>
@@ -196,7 +121,7 @@ const SignIn = (props) => {
                     </InputRightElement>
                     </InputGroup>
                     <FormHelperText>enter account password</FormHelperText>
-                    <Button onClick={generatePrivateKey} padding={2} color={useColorModeValue("gray.900", "white")}>Login with Metamask</Button>
+                    <Button onClick={handleLogin} padding={2} color={useColorModeValue("gray.900", "white")}>Login with Metamask</Button>
                   </FormControl>
                 </Stack>
               </Container>

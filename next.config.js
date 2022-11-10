@@ -1,23 +1,21 @@
-module.exports = {
+module.exports = async (phase, { defaultConfig }) => {
+  /**
+   * @type {import('next').NextConfig}
+   */
+  const nextConfig = {
     reactStrictMode: false,
-    trailingSlash: true,
-    exportPathMap: function() {
-      return {
-        '/': { page: '/' },
-        '/all': { page: '/all' },
-        '/create-campaign': { page: '/createcampaign' },
-        '/discover': { page: '/discover'},
-        '/upload': { page: '/upload'},
-        '/profile': { page: '/profile'},
-        '/message': { page: '/message'},
-        '/inbox': { page: '/inbox'}
-      };
-    },
-    webpack5: true,
-    images: {
-      deviceSizes: [320, 420, 768, 1024, 1200],
-      loader: 'cloudinary',
-      path: "cloudinary://417721411368189:QiVZ8fJOoGbCEOeW1X8yukfrqs0@dyangxc7h",
-      domains: ['nftstorage.link' , 'dweb.link', 'ipfs.io'],
-    }
-};
+  trailingSlash: true,
+  images: {
+    deviceSizes: [320, 420, 768, 1024, 1200],
+    loader: 'cloudinary',
+    path: "cloudinary://417721411368189:QiVZ8fJOoGbCEOeW1X8yukfrqs0@dyangxc7h",
+    domains: ['nftstorage.link' , 'dweb.link', 'ipfs.io'],
+  },  
+   eslint: {
+    // Warning: This allows production builds to successfully complete even if
+    // your project has ESLint errors.
+    ignoreDuringBuilds: true,
+  }
+  }
+  return nextConfig
+}

@@ -7,6 +7,7 @@ import {
   useEtherBalance,
 } from '@usedapp/core'
 import ConnectWallet from '../Navbar/ConnectWallet'
+import { useToast } from '@chakra-ui/react'
 import {
   Alert,
   AlertIcon,
@@ -82,6 +83,7 @@ interface HeaderProps {
 
 const Header = ({ children }: HeaderProps): JSX.Element => {
   const router = useRouter()
+  const toast = useToast()
 
   const { isLoggedIn, account, role, logOut } = useAuth()
 
@@ -459,7 +461,7 @@ const Header = ({ children }: HeaderProps): JSX.Element => {
                   <Heading
                     color={useColorModeValue('gray.500', 'white')}
                     as="h1"
-                    size="lg"
+                    size="md"
                   >
                     {' '}
                     CREATIVE
@@ -713,6 +715,12 @@ const Header = ({ children }: HeaderProps): JSX.Element => {
                         variant="solid"
                         onClick={() => {
                           deactivate()
+                          toast({
+                            title: 'Wallet Disconnected',
+                            status: 'success',
+                            duration: 2000,
+                            isClosable: true,
+                          })
                         }}
                       >
                         Disconnect

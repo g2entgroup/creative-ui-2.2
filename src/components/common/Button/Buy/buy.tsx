@@ -2,7 +2,7 @@ import React from "react";
 import { Button, Input, Tooltip, HStack } from "@chakra-ui/react";
 import { createSellOrder} from "../../../../rarible/createOrders";
 import { RARIBLE_EXCHANGE_RINKEBY } from "../../../../constants";
-const { utils } = require("ethers");
+import { utils } from 'ethers';
 
 function handleMenuClick(e) {
   console.log("click", e);
@@ -10,23 +10,11 @@ function handleMenuClick(e) {
 
 export default function Buy(props) {
   const [sellState, setSellState] = React.useState({});
-  const [sellForEthValue, setSellForEthValue] = React.useState({});
+  const [sellForEthValue, setSellForEthValue] = React.useState();
   const [salt, setSalt] = React.useState({});
   
   const buttons = (
     <Tooltip placement="right" title="* 10 ** 18">
-      <div
-        style={{ cursor: "pointer" }}
-        onClick={async () => {
-          try {
-            setSellForEthValue(utils.parseEther(sellForEthValue));
-          } catch {
-            console.log("enter a value");
-          }
-        }}
-      >
-        ✴️
-      </div>
     </Tooltip>
   );
   return (

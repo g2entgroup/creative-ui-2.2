@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { AppProps } from 'next/app'
-import { Mumbai, Config, DAppProvider, useEthers } from '@usedapp/core'
+import { Mumbai,Rinkeby, Config, DAppProvider, useEthers } from '@usedapp/core'
 import {
   ChakraProvider,
   Box,
@@ -20,11 +20,13 @@ import { getDefaultProvider } from 'ethers'
 import { ApolloProvider } from '@apollo/client'
 import { apolloClient } from '../services/apollo/apollo-client'
 import { AuthProvider } from '../services/context/auth'
+import fontFace from '../styles/fontFace'
+import { Global } from '@emotion/react'
 
 const config: Config = {
   readOnlyChainId: Mumbai.chainId,
   readOnlyUrls: {
-    [Mumbai.chainId]: getDefaultProvider(`${process.env.NEXT_PUBLIC_MUMBAI}`),
+    [Mumbai.chainId]: 'https://polygon-mainnet.g.alchemy.com/v2/NDsioMXTwci91lMdODnh3iBbcJoxCgy8',
   },
   notifications: {
     checkInterval: 1500,
@@ -48,6 +50,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
     <DAppProvider config={config}>
       <ApolloProvider client={apolloClient()}>
         <ChakraProvider resetCSS theme={theme}>
+        <Global styles={fontFace} />
           <StoreContainer.Provider>
             <AuthProvider>
               <Box minH="100vh" minW="100vw" py={0}>

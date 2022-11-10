@@ -21,7 +21,10 @@ const myLoader = ({ src, width }) => {
 
 const Footer = () => {
   return (
-    <Box flexDir={['column', 'column', 'column', 'row']} bgColor="#161d2f">
+    <Box
+      paddingBottom={10}
+      flexDir={['column', 'column', 'column', 'row']} 
+      bgColor="#161d2f">
       {/* logo  */}
       <Box textAlign="center" mb="3rem" padding={10}>
         <Image
