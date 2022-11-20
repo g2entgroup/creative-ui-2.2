@@ -521,7 +521,7 @@ export default function Component() {
                   <SimpleGrid columns={3} spacing={6}>
                     <FormControl as={GridItem} colSpan={[6, 4]}>
                       <FormLabel
-                        htmlFor="email_address"
+                        htmlFor="email"
                         fontSize="sm"
                         fontWeight="md"
                         color={useColorModeValue('gray.700', 'gray.50')}
@@ -537,8 +537,8 @@ export default function Component() {
                         />
                         <Input
                           type="text"
-                          name="emailAddress"
-                          id="emailAddress"
+                          name="email"
+                          id="email"
                           value={campaignForm.values.email}
                           onChange={campaignForm.handleChange}
                           autoComplete="email"
