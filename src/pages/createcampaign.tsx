@@ -890,8 +890,8 @@ export default function Component() {
                     </FormLabel>
                     <SimpleGrid style={imgUploadContainer as CSSProperties}>
                       <aside style={thumbsContainer as CSSProperties}>
-                        {files.map((f) => (
-                          <Box>
+                        {files.map((f, i) => (
+                          <Box key={`${i}.${f.name}`}>
                             <Avatar size="md" ml={5} src={f.preview} />
                             <Text style={thumbLabel as CSSProperties}>
                               {f.name} -{' '}
@@ -1527,7 +1527,7 @@ export default function Component() {
                       <input
                         type="radio"
                         name="push"
-                        checked={preferencesForm.values.push === '0'}
+                        defaultChecked={preferencesForm.values.push === '0'}
                         onClick={() => {
                           preferencesForm.setFieldValue('push', '0')
                         }}
@@ -1537,7 +1537,7 @@ export default function Component() {
                       <input
                         type="radio"
                         name="push"
-                        checked={preferencesForm.values.push === '1'}
+                        defaultChecked={preferencesForm.values.push === '1'}
                         onClick={() => {
                           preferencesForm.setFieldValue('push', '1')
                         }}
@@ -1547,7 +1547,7 @@ export default function Component() {
                       <input
                         type="radio"
                         name="push"
-                        checked={preferencesForm.values.push === '2'}
+                        defaultChecked={preferencesForm.values.push === '2'}
                         onClick={() => {
                           preferencesForm.setFieldValue('push', '2')
                         }}
