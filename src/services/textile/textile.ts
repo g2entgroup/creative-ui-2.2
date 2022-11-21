@@ -550,6 +550,9 @@ export class TextileInstance {
         campaign,
       ])
     }
+
+    console.log('created campaign')
+    
     return campaignCid
   }
 
