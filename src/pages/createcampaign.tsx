@@ -33,7 +33,7 @@ import { CheckIcon, CloseIcon, EditIcon, EmailIcon } from '@chakra-ui/icons'
 import { useEthers } from '@usedapp/core'
 import { useDropzone } from 'react-dropzone'
 import { useFormik } from 'formik'
-import { ContractFactory, ethers } from 'ethers'
+import { ContractFactory, ethers, providers } from 'ethers'
 import {
   CampaignMetadata,
   CampaignSettings,
@@ -269,7 +269,7 @@ export default function Component() {
   }
 
   const handleDeploy = async () => {
-    const signer = await library.getSigner()
+    const signer = await (library as providers.Web3Provider).getSigner()
 
     const pool = {
       ...poolForm.values,
