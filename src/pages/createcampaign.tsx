@@ -89,8 +89,8 @@ const thumbLabel: CSSProperties = {
   justifyItems: 'center',
 }
 
-const API_KEY = process.env.NEXT_PUBLIC_LOOM
-const BUTTON_ID = 'loom-sdk-button'
+const PUBLIC_APP_ID = process.env.NEXT_PUBLIC_LOOM
+const BUTTON_ID = 'loom-record-sdk-button'
 
 export default function Component() {
   const [videoHTML, setVideoHTML] = useState('')
@@ -171,9 +171,17 @@ export default function Component() {
 
   const [files, setFiles] = useState([])
 
+  const root = document.getElementById("record");
+
+  if (!root) {
+    return;
+  }
+
+  root.innerHTML = `<button id="${BUTTON_ID}">Record</button>`;
+
   useEffect(() => {
     async function setupLoom() {
-      const { supported, error } = await isSupported()
+      const { supported, error } = await isSupported();
       if (!supported) {
         console.warn(`Error setting up Loom: ${error}`)
         return
@@ -183,14 +191,20 @@ export default function Component() {
         return
       }
       const { configureButton } = await setup({
-        publicAppId: API_KEY,
+        publicAppId: PUBLIC_APP_ID,
       })
-      const sdkButton = configureButton({ element: button })
-      sdkButton.on('insert-click', async (video) => {
-        const { html } = await oembed(video.sharedUrl, { width: 400 })
-        setVideoHTML(html)
-      })
+      function insertEmbedPlayer(html: string) {
+      const target = document.getElementById("target");
+      if (target) {
+        target.innerHTML = html;
+      }
     }
+    const sdkButton = configureButton({ element: Button });
+    sdkButton.on('insert-click', async (video) => {
+      const { html } = await oembed(video.sharedUrl, { width: 400 })
+      insertEmbedPlayer(html)
+    })
+  }
     setupLoom()
   }, [])
 
@@ -927,17 +941,7 @@ export default function Component() {
                     >
                       Record Campaign Video
                     </FormLabel>
-                    <Button
-                      id={BUTTON_ID}
-                      color={useColorModeValue('red.700', 'red.700')}
-                    >
-                      Record
-                    </Button>
-                    <div
-                      dangerouslySetInnerHTML={{
-                        __html: videoHTML,
-                      }}
-                    />
+                    <Box id='record'></Box>
                   </FormControl>
                 </Stack>
                 <Box
