@@ -173,16 +173,13 @@ export class TextileInstance {
   public static async getInstance(withSig: boolean = false): Promise<TextileInstance> {
     if (!TextileInstance.singletonInstance) {
       TextileInstance.singletonInstance = new TextileInstance()
-      if (withSig === false) {
-        await TextileInstance.singletonInstance.init()
-        const instance = TextileInstance.singletonInstance;
-        return instance;
-      } else {
+      if (withSig) {
         await TextileInstance.singletonInstance.initWithSig()
-        const instance = TextileInstance.singletonInstance;
-        return instance
+      } else {
+        await TextileInstance.singletonInstance.init()
       }
     }
+    return TextileInstance.singletonInstance;
   }
 
   public static async signUp(newUser?: UserModel) {
@@ -553,6 +550,9 @@ export class TextileInstance {
         campaign,
       ])
     }
+
+    console.log('created campaign')
+    
     return campaignCid
   }
 

@@ -72,7 +72,7 @@ const AuthProvider = ({ children }) => {
             window.history.replaceState({}, document.title, "/");
             throw new Error('Forced new identity')
           }
-          var storedIdent = localStorage.getItem("identity")
+          const storedIdent = localStorage.getItem("identity")
           if (storedIdent === null) {
             throw new Error('No identity')
           }
@@ -141,7 +141,7 @@ const AuthProvider = ({ children }) => {
     };
   
     const createIdentity = async (secret?: string): Promise<PrivateKey> => {
-      const signer = library.getSigner();
+      const signer = (library as providers.Web3Provider).getSigner();
       const salt: string = "$2a$10$3vx4QH1vSj9.URynBqkbae";
       // avoid sending the raw secret by hashing it first
       const hashSecret = bcryptjs.hashSync(secret, salt);
@@ -187,7 +187,7 @@ const AuthProvider = ({ children }) => {
                 role,
                 identity,
                 account,
-                library,
+                library: library as providers.Web3Provider,
                 inbox,
                 signup,
                 login,

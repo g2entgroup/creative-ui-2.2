@@ -33,7 +33,7 @@ import { CheckIcon, CloseIcon, EditIcon, EmailIcon } from '@chakra-ui/icons'
 import { useEthers } from '@usedapp/core'
 import { useDropzone } from 'react-dropzone'
 import { useFormik } from 'formik'
-import { ContractFactory, ethers } from 'ethers'
+import { ContractFactory, ethers, providers } from 'ethers'
 import {
   CampaignMetadata,
   CampaignSettings,
@@ -269,7 +269,7 @@ export default function Component() {
   }
 
   const handleDeploy = async () => {
-    const signer = await library.getSigner()
+    const signer = await (library as providers.Web3Provider).getSigner()
 
     const pool = {
       ...poolForm.values,
@@ -521,7 +521,7 @@ export default function Component() {
                   <SimpleGrid columns={3} spacing={6}>
                     <FormControl as={GridItem} colSpan={[6, 4]}>
                       <FormLabel
-                        htmlFor="email_address"
+                        htmlFor="email"
                         fontSize="sm"
                         fontWeight="md"
                         color={useColorModeValue('gray.700', 'gray.50')}
@@ -537,8 +537,8 @@ export default function Component() {
                         />
                         <Input
                           type="text"
-                          name="emailAddress"
-                          id="emailAddress"
+                          name="email"
+                          id="email"
                           value={campaignForm.values.email}
                           onChange={campaignForm.handleChange}
                           autoComplete="email"
@@ -890,8 +890,8 @@ export default function Component() {
                     </FormLabel>
                     <SimpleGrid style={imgUploadContainer as CSSProperties}>
                       <aside style={thumbsContainer as CSSProperties}>
-                        {files.map((f) => (
-                          <Box>
+                        {files.map((f, i) => (
+                          <Box key={`${i}.${f.name}`}>
                             <Avatar size="md" ml={5} src={f.preview} />
                             <Text style={thumbLabel as CSSProperties}>
                               {f.name} -{' '}
@@ -1527,7 +1527,7 @@ export default function Component() {
                       <input
                         type="radio"
                         name="push"
-                        checked={preferencesForm.values.push === '0'}
+                        defaultChecked={preferencesForm.values.push === '0'}
                         onClick={() => {
                           preferencesForm.setFieldValue('push', '0')
                         }}
@@ -1537,7 +1537,7 @@ export default function Component() {
                       <input
                         type="radio"
                         name="push"
-                        checked={preferencesForm.values.push === '1'}
+                        defaultChecked={preferencesForm.values.push === '1'}
                         onClick={() => {
                           preferencesForm.setFieldValue('push', '1')
                         }}
@@ -1547,7 +1547,7 @@ export default function Component() {
                       <input
                         type="radio"
                         name="push"
-                        checked={preferencesForm.values.push === '2'}
+                        defaultChecked={preferencesForm.values.push === '2'}
                         onClick={() => {
                           preferencesForm.setFieldValue('push', '2')
                         }}
