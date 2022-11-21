@@ -113,7 +113,8 @@ const BrandHero = () => {
                     color={'white'}
                     bg="brand.600"
                     _hover={{ bg: 'red.800' }}
-                    href="https://app.clarity.so/g2sbase/pages/adf6ba33-a3cf-411e-a89e-2b464b0c46b8"
+                    href="https://creativeplatform.xyz/docs/intro"
+                    target={"_blank"}
                   >
                     Learn More
                   </chakra.a>
