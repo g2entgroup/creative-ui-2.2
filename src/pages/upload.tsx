@@ -118,7 +118,7 @@ export default function Component() {
 
         console.log({ library, account })
         
-        const contract = new Contract(address, abi, library.getSigner());
+        const contract = new Contract(address, abi, (library as providers.Web3Provider).getSigner());
 
         console.log({contract})
 
@@ -145,7 +145,7 @@ export default function Component() {
         }
 
         const tokenId = await contract.mintItem(
-            library.getSigner().getAddress(),
+            (library as providers.Web3Provider).getSigner().getAddress(),
             `https://ipfs.io/ipfs/${nftMetadata.cid}`
         );
 
