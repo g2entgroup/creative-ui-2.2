@@ -1,31 +1,30 @@
-  import React from "react";
-import { 
-  Box, 
-  Heading, 
+import React from "react";
+import {
+  Box,
+  Heading,
   Text,
-  Slider,
-  SliderTrack,
-  SliderFilledTrack,
-  SliderMark, 
 } from "@chakra-ui/react";
 import { useRouter } from 'next/router';
-import { getValueTransition } from "framer-motion/types/animation/utils/transitions";
-import { Voting } from "src/components/voting";
+import { Voting } from "../../components/voting";
+import PoapPlugin from "../../components/poap-plugin"
+import { useAuth } from "../../services/context/auth";
 
 export default function More() {
   const router = useRouter()
+  const { isLoggedIn, account } = useAuth()
+
   const {
-    end, 
-    start, 
-    title, 
-    body, 
-    choices, 
-    snapshot, 
+    end,
+    start,
+    title,
+    body,
+    choices,
+    snapshot,
     creator,
     score,
     scores,
+    identifier,
   } = router.query
-  const [selection, setSelection] = React.useState([false, false, false])
 
   const convertDate = (date: any) => {
     date = new Date(date * 1000);
@@ -51,16 +50,16 @@ export default function More() {
             padding={5}>
             <Box>
             </Box>
-            <Box>
-              <Heading>{title}</Heading>
-            </Box>
+          <Box>
+            <Heading>{title}</Heading>
           </Box>
+        </Box>
           <Box
             padding={5}>
-            <Box>
-              <Text>{body}</Text>
-            </Box>
+          <Box>
+            <Text>{body}</Text>
           </Box>
+        </Box>
       </Box>
       <Box>
         <Box
@@ -68,14 +67,14 @@ export default function More() {
           marginBottom={5}
           minW={['100vw', '100vw', '100vw', '400px']}
           cursor='pointer'>
-          <Box  
+          <Box
             background='brand.400'
             padding={2}
             display='flex'
             borderTopLeftRadius={10}
             borderTopRightRadius={10}
             flexDirection='row'
-            >
+          >
             <Heading
               size={'md'}
               color="white">Details</Heading>
@@ -83,27 +82,23 @@ export default function More() {
           <Box
             border={'2px solid #ec407a'}
             borderBottomRadius={10}
-            background={'#f0f0f0'}
             padding={10}>
             <Box
               padding={2}>
-              <Text
-                  color='black'>{`Creator:  ${creator}`}</Text>
-              <Text
-                onClick={() => goTo(snapshot)}
-                color='black'>{`Snapshot:  ${snapshot}`}</Text>
-            </Box>
-            <Box
+              <Text>{`Creator:  ${creator}`}</Text>
+              <Text onClick={() => goTo(snapshot)}>{`Snapshot:  ${snapshot}`}</Text>
+        </Box>
+        <Box
               background={'black'}
-              padding={2}
+            padding={2}
               borderRadius={10}>
               <Box  
                 display='flex'
                 flexDirection='row'>
                 <Text
                   color='white'>{`start date: ${convertDate(start)}`}</Text>
-              </Box>
-              <Box
+          </Box>
+          <Box
                 display='flex'
                 flexDirection='row'>
                 <Text
@@ -117,7 +112,7 @@ export default function More() {
           marginBottom={5}
           cursor='pointer'
           minW={['100vw', '100vw', '100vw', '20px']}>
-          <Box  
+          <Box
             background='brand.400'
             padding={2}
             display='flex'
@@ -126,20 +121,50 @@ export default function More() {
             flexDirection='row'>
             <Heading
               size={'md'}
-              color="white">Current results</Heading>
+              color="white">I voted POAP</Heading>
           </Box>
           <Box
             border={'2px solid #ec407a'}
             borderBottomRadius={10}
-            background={'#f0f0f0'}
-            padding={10}>
+            padding={10}
+          >
             <Voting
               choices={choices}
               score={score}
               scores={scores} />
           </Box>
         </Box>
+        {isLoggedIn && (
+          <Box
+            padding={5}
+            marginBottom={5}
+            cursor='pointer'
+            minW={['100vw', '100vw', '100vw', '20px']}>
+            <Box
+              background='brand.400'
+              padding={2}
+              display='flex'
+              borderTopLeftRadius={10}
+              borderTopRightRadius={10}
+              flexDirection='row'>
+              <Heading
+                size={'md'}
+                color="white">Current results</Heading>
+            </Box>
+            <Box
+              border={'2px solid #ec407a'}
+              borderBottomRadius={10}
+              padding={10}
+            >
+              <PoapPlugin
+                address={account}
+                proposalId={identifier as string}
+                snapshot={snapshot as string}
+              />
+            </Box>
+          </Box>
+        )}
       </Box>
     </Box>
-  );
+  )
 }

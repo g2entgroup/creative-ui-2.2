@@ -239,7 +239,7 @@ export default function Vote ({ proposals }) {
                                         score={data.scores_total}
                                         scores={data.scores}
                                         creator={data.author}
-                                        identifier={data.snapshot}
+                                        identifier={data.id}
                                         snapshot={data.snapshot} />
                                 )
                             })
