@@ -10,7 +10,7 @@ import {
   UNCLAIMED,
 } from './constants'
 
-const PoapPlugin = (props: {
+const ClaimPoap = (props: {
   address: string
   proposalId: string
   snapshot: string
@@ -20,7 +20,7 @@ const PoapPlugin = (props: {
   const [loadButton, setLoadButton] = useState(false)
 
   useEffect(() => {
-    (async () => {
+    ;(async () => {
       const { image_url, currentState } = await getCurrentState(
         props.snapshot,
         props.address
@@ -78,7 +78,7 @@ const PoapPlugin = (props: {
   )
 }
 
-export default PoapPlugin
+export default ClaimPoap
 
 function openScanPage(address) {
   window.open(`${APP_BASE_URL}/scan/${address}`, '_blank')

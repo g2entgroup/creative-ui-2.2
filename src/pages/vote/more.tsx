@@ -6,7 +6,7 @@ import {
 } from "@chakra-ui/react";
 import { useRouter } from 'next/router';
 import { Voting } from "../../components/voting";
-import PoapPlugin from "../../components/poap-plugin"
+import ClaimPoap from "../../components/claim-poap"
 import { useAuth } from "../../services/context/auth";
 
 export default function More() {
@@ -95,9 +95,9 @@ export default function More() {
               <Box  
                 display='flex'
                 flexDirection='row'>
-                <Text
+              <Text
                   color='white'>{`start date: ${convertDate(start)}`}</Text>
-          </Box>
+            </Box>
           <Box
                 display='flex'
                 flexDirection='row'>
@@ -156,7 +156,7 @@ export default function More() {
               borderBottomRadius={10}
               padding={10}
             >
-              <PoapPlugin
+              <ClaimPoap
                 address={account}
                 proposalId={identifier as string}
                 snapshot={snapshot as string}
