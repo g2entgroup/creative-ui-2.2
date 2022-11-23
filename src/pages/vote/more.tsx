@@ -1,7 +1,7 @@
 import React from "react";
-import {
-  Box,
-  Heading,
+import { 
+  Box, 
+  Heading, 
   Text,
 } from "@chakra-ui/react";
 import { useRouter } from 'next/router';
@@ -14,12 +14,12 @@ export default function More() {
   const { isLoggedIn, account } = useAuth()
 
   const {
-    end,
-    start,
-    title,
-    body,
-    choices,
-    snapshot,
+    end, 
+    start, 
+    title, 
+    body, 
+    choices, 
+    snapshot, 
     creator,
     score,
     scores,
@@ -50,16 +50,16 @@ export default function More() {
             padding={5}>
             <Box>
             </Box>
-          <Box>
-            <Heading>{title}</Heading>
+            <Box>
+              <Heading>{title}</Heading>
+            </Box>
           </Box>
-        </Box>
           <Box
             padding={5}>
-          <Box>
-            <Text>{body}</Text>
+            <Box>
+              <Text>{body}</Text>
+            </Box>
           </Box>
-        </Box>
       </Box>
       <Box>
         <Box
@@ -67,14 +67,14 @@ export default function More() {
           marginBottom={5}
           minW={['100vw', '100vw', '100vw', '400px']}
           cursor='pointer'>
-          <Box
+          <Box  
             background='brand.400'
             padding={2}
             display='flex'
             borderTopLeftRadius={10}
             borderTopRightRadius={10}
             flexDirection='row'
-          >
+            >
             <Heading
               size={'md'}
               color="white">Details</Heading>
@@ -87,18 +87,18 @@ export default function More() {
               padding={2}>
               <Text>{`Creator:  ${creator}`}</Text>
               <Text onClick={() => goTo(snapshot)}>{`Snapshot:  ${snapshot}`}</Text>
-        </Box>
-        <Box
+            </Box>
+            <Box
               background={'black'}
-            padding={2}
+              padding={2}
               borderRadius={10}>
               <Box  
                 display='flex'
                 flexDirection='row'>
-              <Text
+                <Text
                   color='white'>{`start date: ${convertDate(start)}`}</Text>
-            </Box>
-          <Box
+              </Box>
+              <Box
                 display='flex'
                 flexDirection='row'>
                 <Text
@@ -112,7 +112,7 @@ export default function More() {
           marginBottom={5}
           cursor='pointer'
           minW={['100vw', '100vw', '100vw', '20px']}>
-          <Box
+          <Box  
             background='brand.400'
             padding={2}
             display='flex'
@@ -121,7 +121,7 @@ export default function More() {
             flexDirection='row'>
             <Heading
               size={'md'}
-              color="white">I voted POAP</Heading>
+              color="white">Current results</Heading>
           </Box>
           <Box
             border={'2px solid #ec407a'}
@@ -149,7 +149,7 @@ export default function More() {
               flexDirection='row'>
               <Heading
                 size={'md'}
-                color="white">Current results</Heading>
+                color="white">I voted POAP</Heading>
             </Box>
             <Box
               border={'2px solid #ec407a'}
