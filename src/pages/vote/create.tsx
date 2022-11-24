@@ -49,6 +49,7 @@ export default function Create() {
 
   const submit = async () => {
     try {
+      // get current block of Gnosis network
       const provider = await snapshot.utils.getProvider('100')
       const block = await snapshot.utils.getBlockNumber(provider)
 
