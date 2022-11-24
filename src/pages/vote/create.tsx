@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useRef } from 'react'
 import {
   Box,
   Heading,
@@ -17,20 +17,17 @@ const hub = 'https://hub.snapshot.org'
 const client = new snapshot.Client712(hub)
 
 export default function Create() {
-  const [account, setAccount] = React.useState<any>('')
+  const [account, setAccount] = useState('')
   const web3 = new Web3Provider(window.ethereum)
-  const [title, setTitle] = React.useState<string>('')
-  const [content, setContent] = React.useState<string>('')
-  const [startDate, setStartDate] = React.useState<any>(new Date())
-  const [startTime, setStartTime] = React.useState<any>(new Date())
-  const [endDate, setEndDate] = React.useState<any>(new Date())
-  const [endTime, setEndTime] = React.useState<any>(new Date())
-  const [choices, setChoices] = React.useState(['yes', 'no'])
+  const [title, setTitle] = useState('')
+  const [content, setContent] = useState('')
+  const [startDate, setStartDate] = useState(new Date())
+  const [startTime, setStartTime] = useState(new Date())
+  const [endDate, setEndDate] = useState(new Date())
+  const [endTime, setEndTime] = useState(new Date())
+  const [choices, setChoices] = useState(['yes', 'no'])
 
-  const inputRef = React.useRef()
-
-  const inputIsValid =
-    choices.length >= 1 && choices.every((field) => field.trim() !== '')
+  const inputRef = useRef()
 
   function handleChange(i, event) {
     const values = [...choices]
