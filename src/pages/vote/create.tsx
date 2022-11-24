@@ -124,113 +124,113 @@ export default function Create() {
         padding={5}
         width={['100%', '100%', '100%', '40%']}>
         <Box
-          margin={4}
+          marginBottom={4}
           cursor='pointer'>
           <Box
-            padding={4}
-            borderTopRadius={20}
-            background={'brand.400'}>
-            <Heading
-              size='md'
-              color='white'>Title</Heading>
-          </Box>
-          <Box
-            background={'brand.300'}
-            padding={4}
-            borderBottomRadius={20}
-            border={'1px solid #d32f2f'}>
-            <Input 
-              color='black'
-              fontWeight={'bold'}
-              background={'white'}
-              onChange={(event) => {
-                changeInput(event, 'title')
-              }}/>
-          </Box>
-        </Box>  
-        <Box
-          margin={4}
-          cursor='pointer'>
-          <Box
-            padding={4}
-            borderTopRadius={20}
-            background={'brand.400'}>
-            <Heading
-              color='white'
-              size='md'>Content</Heading>
-          </Box>
-          <Box
-            background={'brand.300'}
-            padding={4}
-            borderBottomRadius={20}
-            border={'1px solid #d32f2f'}>
-              <Textarea
-                color='black'
-                fontWeight={'bold'}
-                background={'white'} 
-                placeholder='Here is a sample placeholder'
-                onChange={(event) => {
-                  changeInput(event, 'content')
-                }} />
-          </Box>
+          padding={4}
+          borderTopRadius={20}
+          background={'brand.400'}>
+          <Heading
+            size='md'
+            color='white'>Title</Heading>
         </Box>
         <Box
-          margin={4}
+          background={'brand.300'}
+          padding={4}
+          borderBottomRadius={20}
+          border={'1px solid #d32f2f'}>
+          <Input 
+            color='black'
+            fontWeight={'bold'}
+            background={'white'}
+            onChange={(event) => {
+              changeInput(event, 'title')
+            }}/>
+        </Box>
+        </Box>  
+        <Box
+          marginBottom={4}
           cursor='pointer'>
-          <Box
-            padding={4}
-            borderTopRadius={20}
-            background={'brand.400'}>
-            <Heading
-              color={'white'}
-              size='md'>Choices</Heading>
-          </Box>
-          <Box
-            background={'brand.300'}
-            padding={4}
-            borderBottomRadius={20}
-            border={'1px solid #d32f2f'}>      
-            <Stack spacing={4}>
-              <form>
-              {
-                    choices.map((field, index) => {
-                    return(
-                      <InputGroup
-                        key={index}>
-                        <Input 
-                            marginBottom={5}
-                          className='choices'
-                            background='white'
-                          placeholder='Enter Choice'
-                          value={field || ""}
-                          ref={inputRef}
-                          onChange={(e) => handleChange(index, e)}
-                          />
-                        <InputRightElement 
-                          children={
-                          <Box
-                            onClick={() => handleRemove(index)}>
-                            <FaWindowClose />
-                          </Box>} 
+        <Box
+          padding={4}
+          borderTopRadius={20}
+          background={'brand.400'}>
+          <Heading
+            color='white'
+            size='md'>Content</Heading>
+        </Box>
+        <Box
+          background={'brand.300'}
+          padding={4}
+          borderBottomRadius={20}
+          border={'1px solid #d32f2f'}>
+            <Textarea
+              color='black'
+              fontWeight={'bold'}
+              background={'white'} 
+              placeholder='Here is a sample placeholder'
+              onChange={(event) => {
+                changeInput(event, 'content')
+              }} />
+        </Box>
+        </Box>
+        <Box
+          marginBottom={4}
+          cursor='pointer'>
+        <Box
+          padding={4}
+          borderTopRadius={20}
+          background={'brand.400'}>
+          <Heading
+            color={'white'}
+            size='md'>Choices</Heading>
+        </Box>
+        <Box
+          background={'brand.300'}
+          padding={4}
+          borderBottomRadius={20}
+          border={'1px solid #d32f2f'}>      
+          <Stack spacing={4}>
+            <form>
+            {
+                  choices.map((field, index) => {
+                  return(
+                    <InputGroup
+                      key={index}>
+                      <Input 
+                          marginBottom={5}
+                        className='choices'
+                          background='white'
+                        placeholder='Enter Choice'
+                        value={field || ""}
+                        ref={inputRef}
+                        onChange={(e) => handleChange(index, e)}
                         />
-                      </InputGroup>  
-                    )
-                  }) 
-              }
-              </form>
-            </Stack>
-              
-            <Button
-              marginTop={4}
-              background={'brand.400'}
-              onClick={() => handleAdd()}>
-              <Heading
-                color='white'
-                size='sm'>
-                  Add 
-              </Heading>
-            </Button>
-          </Box>
+                      <InputRightElement 
+                        children={
+                        <Box
+                          onClick={() => handleRemove(index)}>
+                          <FaWindowClose />
+                        </Box>} 
+                      />
+                    </InputGroup>  
+                  )
+                }) 
+            }
+            </form>
+          </Stack>
+            
+          <Button
+            marginTop={4}
+            background={'brand.400'}
+            onClick={() => handleAdd()}>
+            <Heading
+              color='white'
+              size='sm'>
+                Add 
+            </Heading>
+          </Button>
+        </Box>
         </Box>  
       </Box>
       <Box
