@@ -8,14 +8,10 @@ import {
   Stack,
   InputGroup,
   InputRightElement,
-  InputLeftElement 
 } from "@chakra-ui/react";
 import snapshot from '@snapshot-labs/snapshot.js';
 import {FaWindowClose} from 'react-icons/fa';
-import { uuid } from 'uuidv4';
 import { Web3Provider } from '@ethersproject/providers';
-import { useAuth } from './../../services/context/auth';
-import { useForm } from "react-hook-form";
 
 const hub = 'https://hub.snapshot.org'
 const client = new snapshot.Client712(hub);
@@ -23,54 +19,60 @@ const client = new snapshot.Client712(hub);
 export default function Create() {
   const [account, setAccount] = React.useState<any>("")
   const web3 = new Web3Provider(window.ethereum);
-  const [ snapshotClient ] = React.useState<any>(client);
   const [ title, setTitle ] = React.useState<string>("");
   const [ content, setContent ] = React.useState<string>("");
-  const [ snapshotDate, setSnapShotDate ] = React.useState<any>(new Date());
   const [ startDate, setStartDate ] = React.useState<any>(new Date());
   const [ startTime, setStartTime ] = React.useState<any>(new Date());
   const [ endDate, setEndDate ] = React.useState<any>(new Date());
   const [ endTime, setEndTime ] = React.useState<any>(new Date());
-  const [input, setInput] = React.useState(["yes", "no"]);
+  const [choices, setChoices] = React.useState(["yes", "no"]);
 
   const inputRef = React.useRef();
 
   const inputIsValid =
-    input.length >= 1 && input.every((field) => field.trim() !== "");
+    choices.length >= 1 && choices.every((field) => field.trim() !== "");
 
   function handleChange(i, event) {
-    const values = [...input];
+    const values = [...choices];
     values[i] = event.target.value;
-    setInput(values);
+    setChoices(values);
   }
 
   function handleAdd() {
-    const values = [...input];
+    const values = [...choices];
     values.push("");
-    setInput(values);
+    setChoices(values);
   }
 
   function handleRemove(i) {
-    const values = [...input];
+    const values = [...choices];
     values.splice(i, 1);
-    setInput(values);
+    setChoices(values);
   }
 
   const submit = async() => {
-    try{
-      const receipt = await client.proposal(web3, account, {
+    try {
+      const provider = await snapshot.utils.getProvider('100')
+      const block = await snapshot.utils.getBlockNumber(provider)
+
+      const receipt = (await client.proposal(web3, account, {
         space: 'thecreative.eth',
         type: 'single-choice',
         title: title,
         body: content,
-        choices: input,
-        start: Date.parse(`${startDate} ${startTime}`),
-        end: Date.parse(`${endDate} ${endTime}`),
-        snapshot: Date.parse(`${startDate} ${startTime}`),
+        choices: choices,
+        start: parseInt(
+          (Number(new Date(`${startDate} ${startTime}`)) / 1000).toFixed()
+        ),
+        end: parseInt(
+          (Number(new Date(`${endDate} ${endTime}`)) / 1000).toFixed()
+        ),
+        snapshot: block,
         discussion: '',
         plugins: JSON.stringify({}),
-      });
-    }catch(error){
+      })) as any
+      console.log(`created proposal ${receipt.id}`)
+    } catch (error) {
       console.log(error)
     }
   }
@@ -190,31 +192,31 @@ export default function Create() {
             border={'1px solid #d32f2f'}>      
             <Stack spacing={4}>
               <form>
-                {
-                    input.map((field, index) => {
-                      return(
-                        <InputGroup
-                          key={index}>
-                          <Input 
+              {
+                    choices.map((field, index) => {
+                    return(
+                      <InputGroup
+                        key={index}>
+                        <Input 
                             marginBottom={5}
-                            className='choices'
+                          className='choices'
                             background='white'
-                            placeholder='Enter Choice'
-                            value={field || ""}
-                            ref={inputRef}
-                            onChange={(e) => handleChange(index, e)}
-                            />
-                          <InputRightElement 
-                            children={
-                            <Box
-                              onClick={() => handleRemove(index)}>
-                              <FaWindowClose />
-                            </Box>} 
+                          placeholder='Enter Choice'
+                          value={field || ""}
+                          ref={inputRef}
+                          onChange={(e) => handleChange(index, e)}
                           />
-                        </InputGroup>  
-                      )
-                    }) 
-                }
+                        <InputRightElement 
+                          children={
+                          <Box
+                            onClick={() => handleRemove(index)}>
+                            <FaWindowClose />
+                          </Box>} 
+                        />
+                      </InputGroup>  
+                    )
+                  }) 
+              }
               </form>
             </Stack>
               
