@@ -11,7 +11,7 @@ import { useAuth } from "../../services/context/auth";
 
 export default function More() {
   const router = useRouter()
-  const { isLoggedIn, account } = useAuth()
+  const { account } = useAuth()
 
   const {
     end, 
@@ -134,7 +134,7 @@ export default function More() {
               scores={scores} />
           </Box>
         </Box>
-        {isLoggedIn && (
+        {account && (
           <Box
             padding={5}
             marginBottom={5}
