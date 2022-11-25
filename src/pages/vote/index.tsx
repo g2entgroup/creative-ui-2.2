@@ -220,7 +220,6 @@ export default function Vote ({ proposals }) {
                         </RadioGroup>
                     </Box>
                     <Box
-                        background={'#f0f0f0'}
                         border={'2px solid #ec407a'}
                         padding={5}
                         borderBottomRadius={25}>
@@ -239,7 +238,7 @@ export default function Vote ({ proposals }) {
                                         score={data.scores_total}
                                         scores={data.scores}
                                         creator={data.author}
-                                        identifier={data.snapshot}
+                                        identifier={data.id}
                                         snapshot={data.snapshot} />
                                 )
                             })

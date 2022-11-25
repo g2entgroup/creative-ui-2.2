@@ -11,10 +11,8 @@ export const Voting = (
         score?: any, 
         scores?: any
     }) => {
-    const [numberArray, setNumberArray] = React.useState(0);
-
     const getTotal = (index): number => {
-        if(scores[index] && scores[index] != 0 && score){
+        if(scores?.[index] && scores[index] != 0 && score){
             return (scores[index]/score)*100
         }
 
@@ -24,7 +22,7 @@ export const Voting = (
     return(
       <>
         {
-            choices.map((item: any, index) => {
+            choices?.map((item: any, index) => {
                 const number = getTotal(index)
                 return (  
                     <Box

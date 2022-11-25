@@ -1,19 +1,18 @@
-  import React from "react";
+import React from "react";
 import { 
   Box, 
   Heading, 
   Text,
-  Slider,
-  SliderTrack,
-  SliderFilledTrack,
-  SliderMark, 
 } from "@chakra-ui/react";
 import { useRouter } from 'next/router';
-import { getValueTransition } from "framer-motion/types/animation/utils/transitions";
-import { Voting } from "src/components/voting";
+import { Voting } from "../../components/voting";
+import ClaimPoap from "../../components/claim-poap"
+import { useAuth } from "../../services/context/auth";
 
 export default function More() {
   const router = useRouter()
+  const { account } = useAuth()
+
   const {
     end, 
     start, 
@@ -24,8 +23,8 @@ export default function More() {
     creator,
     score,
     scores,
+    identifier,
   } = router.query
-  const [selection, setSelection] = React.useState([false, false, false])
 
   const convertDate = (date: any) => {
     date = new Date(date * 1000);
@@ -83,15 +82,11 @@ export default function More() {
           <Box
             border={'2px solid #ec407a'}
             borderBottomRadius={10}
-            background={'#f0f0f0'}
             padding={10}>
             <Box
               padding={2}>
-              <Text
-                  color='black'>{`Creator:  ${creator}`}</Text>
-              <Text
-                onClick={() => goTo(snapshot)}
-                color='black'>{`Snapshot:  ${snapshot}`}</Text>
+              <Text>{`Creator:  ${creator}`}</Text>
+              <Text onClick={() => goTo(snapshot)}>{`Snapshot:  ${snapshot}`}</Text>
             </Box>
             <Box
               background={'black'}
@@ -131,15 +126,45 @@ export default function More() {
           <Box
             border={'2px solid #ec407a'}
             borderBottomRadius={10}
-            background={'#f0f0f0'}
-            padding={10}>
+            padding={10}
+          >
             <Voting
               choices={choices}
               score={score}
               scores={scores} />
           </Box>
         </Box>
+        {account && (
+          <Box
+            padding={5}
+            marginBottom={5}
+            cursor='pointer'
+            minW={['100vw', '100vw', '100vw', '20px']}>
+            <Box
+              background='brand.400'
+              padding={2}
+              display='flex'
+              borderTopLeftRadius={10}
+              borderTopRightRadius={10}
+              flexDirection='row'>
+              <Heading
+                size={'md'}
+                color="white">I voted POAP</Heading>
+            </Box>
+            <Box
+              border={'2px solid #ec407a'}
+              borderBottomRadius={10}
+              padding={10}
+            >
+              <ClaimPoap
+                address={account}
+                proposalId={identifier as string}
+                snapshot={snapshot as string}
+              />
+            </Box>
+          </Box>
+        )}
       </Box>
     </Box>
-  );
+  )
 }
