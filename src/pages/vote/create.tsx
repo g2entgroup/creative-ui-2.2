@@ -111,21 +111,21 @@ export default function Create() {
     >
       <Box padding={5} width={['100%', '100%', '100%', '40%']}>
         <Box marginBottom={4} cursor="pointer">
-          <Box padding={4} borderTopRadius={20} background={'brand.400'}>
+          <Box padding={4} borderTopRadius={20} bgGradient="linear(to-l, #FFCC80, #D32F2F, #EC407A)">
             <Heading size="md" color="white">
               Title
             </Heading>
           </Box>
           <Box
-            background={'brand.300'}
+            background={'brand.100'}
             padding={4}
             borderBottomRadius={20}
-            border={'1px solid #d32f2f'}
+            border={'1px solid #EC407A'}
           >
             <Input
-              color="black"
               fontWeight={'bold'}
-              background={'white'}
+              placeholder="[#BrandName] Campaign Voting"
+              background={'default'}
               onChange={(event) => {
                 changeInput(event, 'title')
               }}
@@ -133,21 +133,19 @@ export default function Create() {
           </Box>
         </Box>
         <Box marginBottom={4} cursor="pointer">
-          <Box padding={4} borderTopRadius={20} background={'brand.400'}>
+          <Box padding={4} borderTopRadius={20} bgGradient="linear(to-l, #FFCC80, #D32F2F, #EC407A)">
             <Heading color="white" size="md">
               Content
             </Heading>
           </Box>
           <Box
-            background={'brand.300'}
+            background={'brand.100'}
             padding={4}
             borderBottomRadius={20}
-            border={'1px solid #d32f2f'}
+            border={'1px solid #EC407A'}
           >
             <Textarea
-              color="black"
-              fontWeight={'bold'}
-              background={'white'}
+              background={'default'}
               placeholder="Here is a sample placeholder"
               onChange={(event) => {
                 changeInput(event, 'content')
@@ -156,16 +154,16 @@ export default function Create() {
           </Box>
         </Box>
         <Box marginBottom={4} cursor="pointer">
-          <Box padding={4} borderTopRadius={20} background={'brand.400'}>
+          <Box padding={4} borderTopRadius={20} bgGradient="linear(to-l, #FFCC80, #D32F2F, #EC407A)">
             <Heading color={'white'} size="md">
               Choices
             </Heading>
           </Box>
           <Box
-            background={'brand.300'}
+            background={'brand.100'}
             padding={4}
             borderBottomRadius={20}
-            border={'1px solid #d32f2f'}
+            border={'1px solid #EC407A'}
           >
             <Stack spacing={4}>
               <form>
@@ -175,7 +173,7 @@ export default function Create() {
                       <Input
                         marginBottom={5}
                         className="choices"
-                        background="white"
+                        background={"default"}
                         placeholder="Enter Choice"
                         value={field || ''}
                         ref={inputRef}
@@ -210,7 +208,7 @@ export default function Create() {
         <Box
           padding={4}
           borderTopRadius={20}
-          background={'brand.400'}
+          bgGradient="linear(to-l, #FFCC80, #D32F2F, #EC407A)"
           cursor="pointer"
         >
           <Heading color="white" size="md">
@@ -218,17 +216,17 @@ export default function Create() {
           </Heading>
         </Box>
         <Box
-          background={'brand.300'}
+          background={'brand.100'}
           padding={4}
           borderBottomRadius={20}
-          border={'1px solid #d32f2f'}
+          border={'1px solid #EC407A'}
         >
           <Heading color="white" size="sm">
             Start Date
           </Heading>
           <Input
             type="date"
-            background={'white'}
+            background={'default'}
             onChange={(event) => {
               changeInput(event, 'start date')
             }}
@@ -238,7 +236,7 @@ export default function Create() {
           </Heading>
           <Input
             type="time"
-            background={'white'}
+            background={'default'}
             onChange={(event) => {
               changeInput(event, 'start time')
             }}
@@ -248,7 +246,7 @@ export default function Create() {
           </Heading>
           <Input
             type="date"
-            background={'white'}
+            background={'default'}
             onChange={(event) => {
               changeInput(event, 'end date')
             }}
@@ -258,7 +256,7 @@ export default function Create() {
           </Heading>
           <Input
             type="time"
-            background={'white'}
+            background={'default'}
             onChange={(event) => {
               changeInput(event, 'end time')
             }}

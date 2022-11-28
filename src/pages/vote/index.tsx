@@ -10,15 +10,7 @@ export default function Vote ({ proposals }) {
     const route = useRouter()
     const [core] = React.useState(
         [
-            "0x1Fde40a4046Eda0cA0539Dd6c77ABF8933B94260", 
-            "0xdeb9e5915db81011c549799a9ea37ede4d72efba",
-            "0xa73784a4f12f26cf9f36b5186825ab730ca05773",
-            "0xa5e5860b34ac0c55884f2d0e9576d545e1c7dfd4",
-            "0xa35c7ba6d28095a8ba49498ac554a5e26843391f",
-            "0xe9caadf5ffa302774f0b99be7d8e40392c3edbae",
-            "0x9590dd5f9d52db75650166cbdb455d9167dda74e",
-            "0x73c318bc142ea515f00820c78ce88887c5bac0bf",
-            "0x73932cc65df8865b10F339D6Ef9dE5E4830C14Ff"
+            "0x1Fde40a4046Eda0cA0539Dd6c77ABF8933B94260"
         ]
     )
     const [ selectionType, setSelectionType ] = React.useState([false, false, true])  
@@ -131,7 +123,7 @@ export default function Vote ({ proposals }) {
                         marginTop={5}
                         padding={2}
                         borderTopRadius={10}
-                        background={'brand.400'}>
+                        bgGradient="linear(to-l, #FFCC80, #D32F2F, #EC407A)">
                         <Box
                         cursor={'pointer'}
                         margin={2}
