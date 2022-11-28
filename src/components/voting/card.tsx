@@ -69,7 +69,7 @@ export const Card = (
         <Box
             cursor={'pointer'}
             padding={5}
-            borderTop='1px solid white'
+            borderTop='1px solid #EC407A'
             display='flex'
             flexDirection='row'
             justifyContent='space-between'
