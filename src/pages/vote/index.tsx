@@ -181,7 +181,7 @@ export default function Vote ({ proposals }) {
                         flexDir={'row'}
                         minW={'70vw'}
                         padding={2}
-                        background={'#d32f2f'}>
+                        background={'#1A202C'}>
                         <RadioGroup onChange={setValue} value={value}>
                             <Stack direction='row'>
                                 <Radio 
