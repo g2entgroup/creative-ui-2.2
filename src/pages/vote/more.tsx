@@ -68,7 +68,7 @@ export default function More() {
           minW={['100vw', '100vw', '100vw', '400px']}
           cursor='pointer'>
           <Box  
-            background='brand.400'
+            bgGradient="linear(to-l, #FFCC80, #D32F2F, #EC407A)"
             padding={2}
             display='flex'
             borderTopLeftRadius={10}
@@ -113,7 +113,7 @@ export default function More() {
           cursor='pointer'
           minW={['100vw', '100vw', '100vw', '20px']}>
           <Box  
-            background='brand.400'
+            bgGradient="linear(to-l, #FFCC80, #D32F2F, #EC407A)"
             padding={2}
             display='flex'
             borderTopLeftRadius={10}
