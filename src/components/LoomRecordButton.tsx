@@ -2,10 +2,9 @@ import { setup, isSupported } from '@loomhq/record-sdk'
 import { oembed } from '@loomhq/loom-embed'
 import { useEffect, useState } from 'react'
 import { useColorModeValue } from '@chakra-ui/system'
-import { Box, Button, IconButton, Text } from '@chakra-ui/react'
-import { DeleteIcon } from '@chakra-ui/icons'
+import { Box, Button, Text } from '@chakra-ui/react'
 
-const PUBLIC_APP_ID = '15fad114-5456-481f-8047-223893e0fc4f' //process.env.NEXT_PUBLIC_LOOM
+const PUBLIC_APP_ID = process.env.NEXT_PUBLIC_LOOM
 const BUTTON_ID = 'loom-record-sdk-button'
 
 const LoomRecordButton = (props: {
@@ -35,7 +34,6 @@ const LoomRecordButton = (props: {
       const sdkButton = configureButton({ element: button })
 
       sdkButton.on('insert-click', async (video) => {
-        console.log(video)
         const { html } = await oembed(video.sharedUrl, { width: 400 })
         setVideoHTML(html)
         props.onVideoChange?.(video.sharedUrl)
@@ -63,19 +61,7 @@ const LoomRecordButton = (props: {
           </Text>
         )}
       </Box>
-      {videoHTML && (
-        <Box display="flex" gap={2} alignItems="center">
-          <div dangerouslySetInnerHTML={{ __html: videoHTML }}></div>
-          <IconButton
-            aria-label="close"
-            icon={<DeleteIcon />}
-            onClick={() => {
-              setVideoHTML('')
-              props.onVideoChange?.('')
-            }}
-          />
-        </Box>
-      )}
+      <div dangerouslySetInnerHTML={{ __html: videoHTML }}></div>
     </>
   )
 }
